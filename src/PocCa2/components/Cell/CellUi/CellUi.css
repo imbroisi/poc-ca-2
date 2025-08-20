@@ -1,0 +1,11 @@
+.cell-ui {
+  min-width: 32px;
+  min-height: 24px;
+  height: 100%;
+  width: 100%;
+  border-top: 1px solid;
+  border-left: 1px solid;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
