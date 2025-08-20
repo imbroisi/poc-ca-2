@@ -1,5 +1,7 @@
+import Body from '../components/Body';
 import Column from '../components/Column';
-import Row from '../components/Row';
+import Header from '../components/Header';
+import RowBody from '../components/RowBody';
 import Table from '../components/Table';
 import './MainTable.css';
 
@@ -11,15 +13,22 @@ export interface MainTableProps {
 const MainTable = ({ totalRows, totalColumns }: MainTableProps) => {
   return (
     <Table>
-      {Array.from({ length: totalRows }).map((_, rowIndex) => (
-        <Row key={`row-${rowIndex}`}>
-          {Array.from({ length: totalColumns }).map((_, columnIndex) => (
-            <Column key={`column-${columnIndex}`} coordinates={{ rowIndex, columnIndex }} />
-          ))}
-        </Row>
-      ))}
+      <Header>
+        TODO
+        {/* <RowGroup />
+        <RowSubGroup /> */}
+      </Header>
+      <Body>
+        {Array.from({ length: totalRows }).map((_, rowIndex) => (
+          <RowBody key={`row-${rowIndex}`}>
+            {Array.from({ length: totalColumns }).map((_, columnIndex) => (
+              <Column key={`column-${columnIndex}`} coordinates={{ rowIndex, columnIndex }} />
+            ))}
+          </RowBody>
+        ))}
+      </Body>
     </Table>
   );
-}
+};
 
 export default MainTable;
