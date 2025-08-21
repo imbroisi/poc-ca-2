@@ -1,21 +1,18 @@
 import { useMainTableContext } from '../../context/MainTableContext';
-import Columns from '../Columns';
 import './Rows.css';
 
 export interface RowsProps {
-  children: React.ComponentType<any>;
+  columns: React.ComponentType<any>;
 }
 
-const Rows = ({children: Component}: RowsProps) => {
-  const { props } = useMainTableContext();
+const Rows = ({columns: Columns}: RowsProps) => {
+  const { mainProps } = useMainTableContext();
 
   return (
     <>
-      {Array.from({ length: props.totalRows }).map((_, rowIndex) => (
+      {Array.from({ length: mainProps.totalRows }).map((_, rowIndex) => (
         <tr key={`row-${rowIndex}`} className="rows">
-          {/* <Columns rowIndex={rowIndex} /> */}
-          {/* {children({ rowIndex })} */}
-          <Component rowIndex={rowIndex} />
+          <Columns rowIndex={rowIndex} />
         </tr>
       ))}
     </>

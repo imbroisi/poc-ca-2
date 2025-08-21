@@ -4,7 +4,7 @@ const MainTableContext = createContext<any>(undefined)
 
 interface MainTableContextProviderProps {
   children: React.ReactNode;
-  props: {
+  mainProps: {
     totalRows: number;
     totalColumns: number;
     mode: 'year' | 'month';
@@ -13,11 +13,11 @@ interface MainTableContextProviderProps {
 
 export const MainTableContextProvider = ({ 
   children, 
-  props,
+  mainProps,
 }: MainTableContextProviderProps) => {
   return (
     <MainTableContext.Provider value={{
-      props,
+      mainProps,
     }}>
       {children}
     </MainTableContext.Provider>

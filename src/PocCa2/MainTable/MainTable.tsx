@@ -16,20 +16,17 @@ export interface MainTableProps {
 
 const MainTable = (props: MainTableProps) => {
   return (
-    <MainTableContextProvider props={props}>
+    <MainTableContextProvider mainProps={props}>
       <Table> 
         {/* <Header>
           <RowGroup mode={mode} />
         </Header> */}
         <Body>
-          <Rows children={
-            Columns
-          } />
+          <Rows columns={Columns} />
         </Body>
       </Table>
     </MainTableContextProvider>
   );
 };
-
 
 export default MainTable;
