@@ -1,10 +1,10 @@
 import Cell, { CellProps } from '../Cell/Cell';
 import './Column.css';
 
-const Column = ({ coordinates }: CellProps) => {
+const Column = ({ coordinatese }: any) => {
   return (
     <td className="column">
-      <Cell coordinates={coordinates} />
+      {/* <Cell coordinates={coordinates} mode={mode} /> */}
     </td>
   );
 }

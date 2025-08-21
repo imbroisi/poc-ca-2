@@ -1,34 +1,35 @@
 import Body from '../components/Body';
-import Column from '../components/Column';
+// import Column from '../components/Column';
+import Columns from '../components/Columns';
 import Header from '../components/Header';
 import RowBody from '../components/RowBody';
+import Rows from '../components/Rows';
 import Table from '../components/Table';
 import './MainTable.css';
-
+import { MainTableContextProvider } from '../context/MainTableContext';
 export interface MainTableProps {
   totalRows: number;
   totalColumns: number;
+  mode: 'year' | 'month';
 }
 
-const MainTable = ({ totalRows, totalColumns }: MainTableProps) => {
+
+const MainTable = (props: MainTableProps) => {
   return (
-    <Table>
-      <Header>
-        TODO
-        {/* <RowGroup />
-        <RowSubGroup /> */}
-      </Header>
-      <Body>
-        {Array.from({ length: totalRows }).map((_, rowIndex) => (
-          <RowBody key={`row-${rowIndex}`}>
-            {Array.from({ length: totalColumns }).map((_, columnIndex) => (
-              <Column key={`column-${columnIndex}`} coordinates={{ rowIndex, columnIndex }} />
-            ))}
-          </RowBody>
-        ))}
-      </Body>
-    </Table>
+    <MainTableContextProvider props={props}>
+      <Table> 
+        {/* <Header>
+          <RowGroup mode={mode} />
+        </Header> */}
+        <Body>
+          <Rows children={
+            Columns
+          } />
+        </Body>
+      </Table>
+    </MainTableContextProvider>
   );
 };
+
 
 export default MainTable;

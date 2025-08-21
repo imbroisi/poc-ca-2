@@ -59,6 +59,8 @@ const Cell = ({ coordinates }: CellProps) => {
     onClick(cellId, 'block');
   }
 
+  console.log('coordinates', coordinates);
+
   return (
     <div style={{ position: 'relative' }}>
       {blockPlacement && (
