@@ -1,4 +1,4 @@
-import { getBoxTopLineColor, stringToNumberCoordinate } from '../../utils';
+import { getBoxTopLineColor } from '../../utils';
 import './LinkBox.css';
 
 export interface LinkBoxProps {
@@ -11,8 +11,8 @@ export interface LinkBoxProps {
 const LinkBox = ({ startCellString, endCellString, cellWidthPx, onClick }: LinkBoxProps) => {
   if (!startCellString || !endCellString) return null;
 
-  const start = stringToNumberCoordinate(startCellString);
-  const end = stringToNumberCoordinate(endCellString);
+  const start = parseInt(startCellString.split('-')[1]);
+  const end = parseInt(endCellString.split('-')[1]);
   const widthPx = `${(end - start) * cellWidthPx}px`;
 
   const backgroundColor = getBoxTopLineColor();

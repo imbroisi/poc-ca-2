@@ -1,30 +1,26 @@
 import { useEffect, useMemo, useState } from 'react';
-import { numberToStringCoordinate } from '../../utils';
 import CellUi from './CellUi';
 import './Cell.css';
-import { useCellManager } from '../../context/CellManager';
+import { useCellManager } from '../../context/CellManagerContext';
 import LinkBox from '../LinkBox';
 
 export interface CellProps {
-  coordinates: {
-    rowIndex: number;
-    columnIndex: number;
-  }
+  rowIndex: number;
+  columnIndex: number;
 }
 
-const Cell = ({ coordinates }: CellProps) => {
+const Cell = ({ rowIndex, columnIndex }: CellProps) => {
   const { registerCallbacks, onClick } = useCellManager();
-  const [blockPlacement, setBlockPlacement] = useState<{ blockStart: string, blockEnd: string } | null>(null);
+  const [blockPlacement, setBlockPlacement] = useState<any>(null);
   const [rerenderParams, setRerenderParams] = useState({
     color: 'red',
     background: 'white',
+
     borderColor: '#ddd',
     borderVisible: true,
   });
 
-  const cellId = useMemo(() =>
-    `${numberToStringCoordinate(coordinates.rowIndex)}-${numberToStringCoordinate(coordinates.columnIndex)}`
-    , [coordinates.columnIndex, coordinates.rowIndex]);
+  const cellId = useMemo(() => `${rowIndex}-${columnIndex}`, [columnIndex, rowIndex]);
 
   const onFireCell = (obj: any) => {
     setRerenderParams({
@@ -59,7 +55,7 @@ const Cell = ({ coordinates }: CellProps) => {
     onClick(cellId, 'block');
   }
 
-  console.log('coordinates', coordinates);
+  console.log('blockPlacement', blockPlacement);
 
   return (
     <div style={{ position: 'relative' }}>

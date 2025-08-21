@@ -13,7 +13,7 @@ const Columns = ({rowIndex}: any) => {
     <>
       {Array.from({ length: mainProps.totalColumns }).map((_, columnIndex) => (
         <td key={`column-${columnIndex}`} className="columns">
-          <Cell coordinates={{ rowIndex, columnIndex }} />
+          <Cell rowIndex={rowIndex} columnIndex={columnIndex} />
         </td>
       ))}
     </>
