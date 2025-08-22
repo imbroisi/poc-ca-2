@@ -23,7 +23,7 @@ const CellUi = ({ content = '', color, background, borderColor, borderVisible, o
         color,
         background,
         borderColor: borderVisible ? borderColor : 'transparent',
-        minWidth: mainProps.model === 'month-day' ? '32px' : '60px',
+        minWidth: mainProps.model === 'month-day' ? '32px' : '70px',
       }}
     >
       {content}
