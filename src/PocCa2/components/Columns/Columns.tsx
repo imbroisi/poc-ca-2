@@ -6,7 +6,7 @@ export interface ColumnsProps {
 
 }
 
-const Columns = ({rowIndex}: any) => {
+const Columns = ({ rowIndex }: any) => {
   const { mainProps } = useMainTableContext();
 
   return (

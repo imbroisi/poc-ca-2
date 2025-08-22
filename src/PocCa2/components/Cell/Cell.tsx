@@ -5,15 +5,16 @@ import { useCellManager } from '../../context/CellManagerContext';
 import LinkBox from '../LinkBox';
 
 export interface CellProps {
-  rowIndex: number;
+  rowIndex: number | string;
   columnIndex: number;
+  content?: string;
 }
 
-const Cell = ({ rowIndex, columnIndex }: CellProps) => {
+const Cell = ({ content = '', rowIndex, columnIndex }: CellProps) => {
   const { registerCallbacks, onClick } = useCellManager();
   const [blockPlacement, setBlockPlacement] = useState<any>(null);
   const [rerenderParams, setRerenderParams] = useState({
-    color: 'red',
+    color: '#444444',
     background: 'white',
 
     borderColor: '#ddd',
@@ -21,6 +22,7 @@ const Cell = ({ rowIndex, columnIndex }: CellProps) => {
   });
 
   const cellId = useMemo(() => `${rowIndex}-${columnIndex}`, [columnIndex, rowIndex]);
+
 
   const onFireCell = (obj: any) => {
     setRerenderParams({
@@ -55,19 +57,20 @@ const Cell = ({ rowIndex, columnIndex }: CellProps) => {
     onClick(cellId, 'block');
   }
 
-  console.log('blockPlacement', blockPlacement);
+  // console.log('blockPlacement', blockPlacement);
+    console.log('callId', cellId)
+
 
   return (
     <div style={{ position: 'relative' }}>
       {blockPlacement && (
         <LinkBox
-          startCellString={blockPlacement.blockStart}
-          endCellString={blockPlacement.blockEnd}
-          cellWidthPx={32}
+          startCell={blockPlacement.blockStart}
+          endCell={blockPlacement.blockEnd}
           onClick={handleBlockClick}
         />
       )}
-      <CellUi onClick={handleCellClick} {...rerenderParams} />
+      <CellUi content={content} onClick={handleCellClick} {...rerenderParams} />
     </div>
   );
 }

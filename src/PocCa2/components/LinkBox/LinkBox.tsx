@@ -1,18 +1,22 @@
+import { useMainTableContext } from '../../context/MainTableContext';
 import { getBoxTopLineColor } from '../../utils';
 import './LinkBox.css';
 
 export interface LinkBoxProps {
-  startCellString?: string;
-  endCellString?: string;
-  cellWidthPx: number;
+  startCell?: string;
+  endCell?: string;
   onClick: () => void;
 }
 
-const LinkBox = ({ startCellString, endCellString, cellWidthPx, onClick }: LinkBoxProps) => {
-  if (!startCellString || !endCellString) return null;
+const LinkBox = ({ startCell, endCell, onClick }: LinkBoxProps) => {
+  const { mainProps } = useMainTableContext();
 
-  const start = parseInt(startCellString.split('-')[1]);
-  const end = parseInt(endCellString.split('-')[1]);
+  if (!startCell || !endCell) return null;
+
+  const cellWidthPx = mainProps.model === 'month-day' ? 32 : 100;
+
+  const start = +startCell.split('-')[1];
+  const end = +endCell.split('-')[1];
   const widthPx = `${(end - start) * cellWidthPx}px`;
 
   const backgroundColor = getBoxTopLineColor();

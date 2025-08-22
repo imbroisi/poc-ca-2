@@ -1,15 +1,16 @@
 import React, { createContext, useContext } from 'react'
 
-const MainTableContext = createContext<any>(undefined)
-
+export interface MainTableProps {
+  totalRows: number;
+  totalColumns: number;
+  model: 'year-month' | 'month-day';
+}
 interface MainTableContextProviderProps {
   children: React.ReactNode;
-  mainProps: {
-    totalRows: number;
-    totalColumns: number;
-    mode: 'year' | 'month';
-  }
+  mainProps: MainTableProps
 }
+
+const MainTableContext = createContext<any>(undefined)
 
 export const MainTableContextProvider = ({ 
   children, 

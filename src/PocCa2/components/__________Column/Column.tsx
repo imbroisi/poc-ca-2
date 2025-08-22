@@ -4,7 +4,7 @@ import './Column.css';
 const Column = ({ coordinatese }: any) => {
   return (
     <td className="column">
-      {/* <Cell coordinates={coordinates} mode={mode} /> */}
+      {/* <Cell coordinates={coordinates} model={model} /> */}
     </td>
   );
 }

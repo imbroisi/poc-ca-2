@@ -1,11 +1,11 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef } from 'react'
 import VirtualMainTable from '../virtual/virtualMainTable';
-import { MainTableProps } from '../components/MainTable/MainTable';
+import { MainTableProps } from './MainTableContext';
 
 interface CellManagerType {
   registerCallbacks: (cellId: string, callbacks: any) => void;
   onClick: (cellId: string, source: 'cell' | 'block') => void;
-  // initializeCellsMapping: (totalRows: number, totalCoumns: number) => void;
+  mainProps: MainTableProps;
 }
 
 interface CellCallbacks {
@@ -51,24 +51,16 @@ export const CellManagerProvider = ({ children, mainProps }: { children: React.R
     }
   }
 
-  // const initializeCellsMapping = (totalRows: number, totalCoumns: number) => {
-  //   for (let rowIndex = 0; rowIndex < totalRows; rowIndex++) {
-  //     for (let columnIndex = 0; columnIndex < totalCoumns; columnIndex++) {
-  //       cellsMapping.current[`${rowIndex}-${columnIndex}`] = null;
-  //     }
-  //   }
-  // }
-
   return (
     <CellManagerContext.Provider value={{
       registerCallbacks,
-      // initializeCellsMapping,
       onClick,
+      mainProps,
     }}>
       {children}
     </CellManagerContext.Provider>
   )
-};
+}; 
 
 export const useCellManager = () => {
   const context = useContext(CellManagerContext)

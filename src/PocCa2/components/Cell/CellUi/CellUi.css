@@ -1,5 +1,7 @@
 .cell-ui {
-  min-width: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   min-height: 24px;
   height: 100%;
   width: 100%;
@@ -7,5 +9,6 @@
   border-left: 1px solid;
   box-sizing: border-box;
   position: relative;
+  font-size: 14px;
   z-index: 1;
 }

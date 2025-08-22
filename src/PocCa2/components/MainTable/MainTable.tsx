@@ -1,36 +1,28 @@
 import Body from '../Body';
 import Columns from '../Columns';
-// import Header from '../Header';
-// import RowBody from '../RowBody';
 import Rows from '../Rows';
 import Table from '../Table';
 import './MainTable.css';
-import { MainTableContextProvider } from '../../context/MainTableContext';
-import { useEffect } from 'react';
-import VirtualMainTable from '../../virtual/virtualMainTable';
+import { MainTableContextProvider, MainTableProps } from '../../context/MainTableContext';
 import { CellManagerProvider } from '../../context/CellManagerContext';
-export interface MainTableProps {
-  totalRows: number;
-  totalColumns: number;
-  mode: 'year' | 'month';
-}
-
+import Header from '../Header';
+import RowYear from '../RowYear';
+import RowMonth from '../RowMonth';
+import RowDay from '../RowDay';
 
 const MainTable = (props: MainTableProps) => {
 
-  useEffect(() => {
-    const virtualMainTable = new VirtualMainTable(props.totalRows, props.totalColumns);
-
-    console.log('virtualMainTable', virtualMainTable);
-  }, [props.totalRows, props.totalColumns]);
+  console.log('props', props)
 
   return (
     <CellManagerProvider mainProps={props}>
       <MainTableContextProvider mainProps={props}>
         <Table>
-          {/* <Header>
-          <RowGroup mode={mode} />
-        </Header> */}
+          <Header>
+            {props.model === 'year-month' && <RowYear />}
+            <RowMonth />  
+            {props.model === 'month-day' && <RowDay />}
+          </Header>
           <Body>
             <Rows columns={Columns} />
           </Body>

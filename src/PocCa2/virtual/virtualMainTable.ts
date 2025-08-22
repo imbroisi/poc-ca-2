@@ -36,12 +36,8 @@ class VirtualMainTable {
   public deleteLink(startCoordinate: string) {
     const [row, column] = startCoordinate.split('-');
 
-    let content = null;
-
-    // is there a link previous column?
-    if (this.store[row][+column - 1]) {
-      content = this.store[row][+column - 1];
-    }
+    // is there a link in the previous column?
+    const content = this.store[row][+column - 1] || null;
 
     let lastColumn = null;
     for (let c = +column; c < this.totalColumns; c += 1) {
@@ -52,9 +48,9 @@ class VirtualMainTable {
       this.store[row][c] = content;
     }
 
-    // is there a link in previous column?
+    // is there a link in the previous column?
     if (content) {
-      return [this.store[row][+column - 1], `${row}-${lastColumn}`];
+      return [content, `${row}-${lastColumn}`];
     }
 
     return null;
