@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useContext, useEffect, useRef } from 'react'
-import VirtualMainTable from '../virtual/virtualMainTable';
+import virtualMainTable from '../virtual/virtualMainTable';
 import { MainTableProps } from './MainTableContext';
 
 interface CellManagerType {
@@ -18,12 +18,9 @@ const CellManagerContext = createContext<CellManagerType | undefined>(undefined)
 export const CellManagerProvider = ({ children, mainProps }: { children: React.ReactNode, mainProps: MainTableProps }) => {
   // const cellsMapping = useRef<any>({});
   const cellCallbacks = useRef<Record<string, CellCallbacks>>({});
-  const virtualMainTable = useRef<VirtualMainTable | null>(null);
 
   useEffect(() => {
-    virtualMainTable.current = new VirtualMainTable(mainProps.totalRows, mainProps.totalColumns);
-    // virtualMainTable.createLink('2-3', '2-10');
-    // console.log('virtualMainTable', virtualMainTable);
+    virtualMainTable.initialize(mainProps.totalRows, mainProps.totalColumns);
   }, [mainProps.totalColumns, mainProps.totalRows]);
 
   const registerCallbacks = useCallback((cellId: string, callbacks: CellCallbacks) => {
@@ -32,9 +29,12 @@ export const CellManagerProvider = ({ children, mainProps }: { children: React.R
 
   const onClick = (cellId: string, source: 'cell' | 'block') => {
     if (source === 'cell') {
-      const data = virtualMainTable.current?.createLink(cellId);
+      const data = virtualMainTable.createLink(cellId);
 
-      console.log('data', data);
+      if (!data) {
+      // user clicked on a cell that is not a link (the <Header> cells)
+      return;
+      }
 
       cellCallbacks.current[cellId]?.onFireBlock?.(data?.[0], data?.[1]);
       return;
@@ -42,7 +42,7 @@ export const CellManagerProvider = ({ children, mainProps }: { children: React.R
 
     if (source === 'block') {
       // TODO: open options menu (info, delete, etc)
-      const resizeLink = virtualMainTable.current?.deleteLink(cellId);
+      const resizeLink = virtualMainTable.deleteLink(cellId);
       cellCallbacks.current[cellId]?.onFireBlock?.(null);
       console.log('resizeLink', resizeLink);
       if (resizeLink) {

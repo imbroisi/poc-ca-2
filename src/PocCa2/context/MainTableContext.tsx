@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 
 export interface MainTableProps {
   totalRows: number;
@@ -7,15 +7,16 @@ export interface MainTableProps {
 }
 interface MainTableContextProviderProps {
   children: React.ReactNode;
-  mainProps: MainTableProps
+  mainProps: MainTableProps;
 }
 
 const MainTableContext = createContext<any>(undefined)
 
-export const MainTableContextProvider = ({ 
-  children, 
+export const MainTableContextProvider = ({
+  children,
   mainProps,
 }: MainTableContextProviderProps) => {
+
   return (
     <MainTableContext.Provider value={{
       mainProps,

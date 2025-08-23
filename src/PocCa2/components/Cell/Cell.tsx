@@ -15,9 +15,6 @@ const Cell = ({ content = '', rowIndex, columnIndex }: CellProps) => {
   const [blockPlacement, setBlockPlacement] = useState<any>(null);
   const [rerenderParams, setRerenderParams] = useState({
     color: '#444444',
-    background: 'white',
-
-    borderColor: '#ddd',
     borderVisible: true,
   });
 
@@ -58,11 +55,11 @@ const Cell = ({ content = '', rowIndex, columnIndex }: CellProps) => {
   }
 
   // console.log('blockPlacement', blockPlacement);
-    console.log('callId', cellId)
+  // console.log('callId', cellId)
 
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div className="cell-container">
       {blockPlacement && (
         <LinkBox
           startCell={blockPlacement.blockStart}

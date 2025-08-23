@@ -1,19 +1,24 @@
+import { MAIN_TABLE } from '../../../config';
 import { useMainTableContext } from '../../../context/MainTableContext';
 import './CellUi.css';
 
 export interface CellUiProps {
   color: string;
-  background: string;
-  borderColor: string;
   borderVisible: boolean;
   onClick: () => void;
   content?: string;
 }
 
-const CellUi = ({ content = '', color, background, borderColor, borderVisible, onClick }: CellUiProps) => {
-  const { mainProps } = useMainTableContext();
+const {
+  CELL_MONTH_WIDTH_PX, 
+  CELL_DAY_WIDTH_PX, 
+  CELL_HEIGHT_PX, 
+  CELL_BORDER_COLOR, 
+  CELL_BACKGROUND_COLOR 
+} = MAIN_TABLE;
 
-  console.log('borderColor', borderColor)
+const CellUi = ({ content = '', color, borderVisible, onClick }: CellUiProps) => {
+  const { mainProps } = useMainTableContext();
 
   return (
     <div
@@ -21,9 +26,10 @@ const CellUi = ({ content = '', color, background, borderColor, borderVisible, o
       className="cell-ui"
       style={{
         color,
-        background,
-        borderColor: borderVisible ? borderColor : 'transparent',
-        minWidth: mainProps.model === 'month-day' ? '32px' : '70px',
+        background: CELL_BACKGROUND_COLOR,
+        borderColor: borderVisible ? CELL_BORDER_COLOR : 'transparent',
+        minWidth: mainProps.model === 'month-day' ? CELL_DAY_WIDTH_PX : CELL_MONTH_WIDTH_PX,
+        height: CELL_HEIGHT_PX,
       }}
     >
       {content}
