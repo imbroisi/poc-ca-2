@@ -12,7 +12,7 @@ function App() {
     <>
     <input type="checkbox" onChange={() => setModel(model === 'year-month' ? 'month-day' : 'year-month')} />
     <div style={{ paddingTop: '100px', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      <MainTable totalRows={10} totalColumns={model === 'month-day' ? 31 : 12} model={model} />
+      <MainTable model={model} />
     </div>
     </>
   );

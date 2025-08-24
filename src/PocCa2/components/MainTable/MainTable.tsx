@@ -11,12 +11,11 @@ import RowMonth from '../RowMonth';
 import RowDay from '../RowDay';
 
 interface MainTableProps {
-  totalRows: number;
-  totalColumns: number;
   model: 'year-month' | 'month-day';
 }
 
 const MainTable = (props: MainTableProps) => {
+  console.log('>> MainTable props', props);
   return (
     <MainTableContextProvider mainProps={props}>
       <CellManagerProvider mainProps={props}>

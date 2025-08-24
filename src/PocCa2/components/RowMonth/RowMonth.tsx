@@ -21,16 +21,16 @@ const MONTHS = [
 ]
 
 const RowMonth = () => {
-  const { mainProps } = useMainTableContext();
+  // const { mainProps } = useMainTableContext();
 
   // const lastMonth = (today.month + MAIN_TABLE.MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL) % 12;
 
-  const daysAfterToday = getNDaysAfterToday(4);
+  // const daysAfterToday = getNDaysAfterToday(4);
 
   // console.log("1) ===> today =", today.isoString);
   // console.log("2) ===> daysAfterToday.day =", daysAfterToday.day);
 
-  const firstDayToShow = getNDaysAfterToday(-30 * MAIN_TABLE.NUMBER_OF_MONTHS_IN_MONTH_DAY_MODEL);
+  // const firstDayToShow = getNDaysAfterToday(-30 * MAIN_TABLE.NUMBER_OF_MONTHS_IN_MONTH_DAY_MODEL);
 
   // console.log("2) ===> firstDayToShow.day =", firstDayToShow.day);
   // console.log("2) ===> firstDayToShow.month =", firstDayToShow.month);
@@ -38,7 +38,7 @@ const RowMonth = () => {
 
   // const lastDayToShow = getEpochDayToYMD(lastDayToShowEpoch);
 
-  const uniqueMonths: string[] = Array.from(new Set(daysArray.map((item: any) => item[1])));
+  // const uniqueMonths: string[] = Array.from(new Set(daysArray.map((item: any) => item[1])));
 
   const monthCounts: any = Array.from(new Set(daysArray.map((item: any) => item[1]))).map(month => ({
     month,
@@ -65,9 +65,9 @@ const RowMonth = () => {
       <tr key={`row-month`}>
         {Array.from({ length: monthCounts.length }).map((_, columnIndex) => {
 
-          console.log("\n20) --->>> daysArray =", daysArray);
-          console.log("21--->>> columnIndex =", columnIndex);
-          console.log("22--->>> monthCounts[columnIndex].month =", monthCounts[columnIndex].month);
+          // console.log("\n20) --->>> daysArray =", daysArray);
+          // console.log("21--->>> columnIndex =", columnIndex);
+          // console.log("22--->>> monthCounts[columnIndex].month =", monthCounts[columnIndex].month);
 
           return (
             <th key={`month-column-${columnIndex}`} className="columns" colSpan={monthCounts[columnIndex].count}>
@@ -80,7 +80,7 @@ const RowMonth = () => {
       {/* 
       {mainProps.model === 'year-month' && (
         <tr key={`row-day`} className="rows">
-          {Array.from({ length: mainProps.totalColumns }).map((_, columnIndex) => (
+          {Array.from({ length: TOTAL_CELLS_IN_MONTH_DAY_MODEL }).map((_, columnIndex) => (
             <th key={`day-column-${columnIndex}`} className="columns">
               <Cell content={MONTHS[columnIndex]} rowIndex="day" columnIndex={columnIndex} />
             </th>

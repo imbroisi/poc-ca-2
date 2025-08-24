@@ -1,6 +1,7 @@
-import React, { createContext, useCallback, useContext, useEffect, useRef } from 'react'
+import React, { createContext, useCallback, useContext, useRef } from 'react'
 import virtualMainTable from '../virtual/virtualMainTable';
 import { MainTableProps } from './MainTableContext';
+// import { getTodayColumnCoordinate } from '../utils';
 
 interface CellManagerType {
   registerCallbacks: (cellId: string, callbacks: any) => void;
@@ -19,9 +20,10 @@ export const CellManagerProvider = ({ children, mainProps }: { children: React.R
   // const cellsMapping = useRef<any>({});
   const cellCallbacks = useRef<Record<string, CellCallbacks>>({});
 
-  useEffect(() => {
-    virtualMainTable.initialize(mainProps.totalRows, mainProps.totalColumns);
-  }, [mainProps.totalColumns, mainProps.totalRows]);
+  // useEffect(() => {
+  //   console.log('>> mainProps.totalColumns', mainProps.totalColumns);
+  //   virtualMainTable.initialize(mainProps.totalRows, mainProps.totalColumns, getTodayColumnCoordinate(mainProps.totalColumns));
+  // }, [mainProps.totalColumns, mainProps.totalRows]);
 
   const registerCallbacks = useCallback((cellId: string, callbacks: CellCallbacks) => {
     cellCallbacks.current[cellId] = callbacks;

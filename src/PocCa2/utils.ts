@@ -68,6 +68,11 @@ const today = {
   dayEpoch: todayPrivate.getTime() / (1000 * 60 * 60 * 24),
 }
 
+const getTodayColumnCoordinate = (totalColumns: number) => {
+  console.log('>> totalColumns', totalColumns);
+  return `${totalColumns - MAIN_TABLE.DAYS_AFTER_TODAY_IN_MONTH_DAY_MODEL}`;
+}
+
 const getNDaysAfterToday = (nDays: number) => {
   const dayEpoch = today.dayEpoch + nDays;
   return {
@@ -79,7 +84,6 @@ const getNDaysAfterToday = (nDays: number) => {
     string: getEpochDayToYMD(dayEpoch).dateString,
   };
 }
-
 
 const daysArray: any = (() => {
   const finalDayArray: any = [];
@@ -138,7 +142,7 @@ const daysArray: any = (() => {
 //   return finalArray;
 // })();
 
-console.log("daysArray =", daysArray);
+// console.log("daysArray =", daysArray);
 // console.log("monthsArray =", monthsArray);
 // console.log("yearsArray =", yearsArray);
 
@@ -152,4 +156,5 @@ export {
   getMonthNameLong,
   getMonthNameShort,
   getBoxTopLineColor,
+  getTodayColumnCoordinate,
 };

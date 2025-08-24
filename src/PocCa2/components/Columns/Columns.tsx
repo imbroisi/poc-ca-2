@@ -1,4 +1,4 @@
-import { useMainTableContext } from '../../context/MainTableContext';
+// import { useMainTableContext } from '../../context/MainTableContext';
 import Cell from '../Cell';
 import { MAIN_TABLE } from '../../config';
 import './Columns.css';
@@ -8,8 +8,12 @@ export interface ColumnsProps {
 
 }
 
+const {
+  TOTAL_CELLS_IN_MONTH_DAY_MODEL,
+} = MAIN_TABLE;
+
 const Columns = ({ rowIndex, content }: any) => {
-  const { mainProps } = useMainTableContext();
+  // const { mainProps } = useMainTableContext();
 
   // const getMonthDaynumber = (columnIndex: number) => {
   //   return columnIndex % MAIN_TABLE.NUMBER_OF_MONTHS_IN_MONTH_DAY_MODEL;
@@ -17,11 +21,11 @@ const Columns = ({ rowIndex, content }: any) => {
 
 
 
-  console.log("daysArray =", daysArray);
+  // console.log("daysArray =", daysArray);
   
   return (
     <>
-      {Array.from({ length: mainProps.totalColumns * MAIN_TABLE.NUMBER_OF_MONTHS_IN_MONTH_DAY_MODEL }).map((_, columnIndex) => {
+      {Array.from({ length: TOTAL_CELLS_IN_MONTH_DAY_MODEL * MAIN_TABLE.NUMBER_OF_MONTHS_IN_MONTH_DAY_MODEL }).map((_, columnIndex) => {
         // console.log("2) --->>> daysArray.length =", daysArray.length);
         // console.log("2)--->>> columnIndex =", columnIndex);
 

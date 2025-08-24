@@ -1,8 +1,6 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext } from 'react'
 
 export interface MainTableProps {
-  totalRows: number;
-  totalColumns: number;
   model: 'year-month' | 'month-day';
 }
 interface MainTableContextProviderProps {
