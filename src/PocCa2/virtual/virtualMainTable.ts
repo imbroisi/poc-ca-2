@@ -30,11 +30,9 @@
 import { MAIN_TABLE } from "../config";
 
 const {
-  TOTAL_CELLS_IN_MONTH_DAY_MODEL,
-  DAYS_AFTER_TODAY_IN_MONTH_DAY_MODEL,
   TOTAL_CELLS_IN_YEAR_MONTH_MODEL,
-  MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL,
   CELL_MONTH_WIDTH_PX_SLICES,
+  TODAY_COLUMN,
 } = MAIN_TABLE;
 interface StoreData {
   [key: number]: {
@@ -50,12 +48,12 @@ const createLink = (startCoordinate: string) => {
   const row = +rowStr;
   const columnStart = +colStr;
   
-  // Calculate end column directly
-  const columnEnd = 
-    (TOTAL_CELLS_IN_YEAR_MONTH_MODEL + MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL) 
-    * CELL_MONTH_WIDTH_PX_SLICES - CELL_MONTH_WIDTH_PX_SLICES;
+  // // Calculate end column directly
+  // const TODAY_COLUMN = 
+  //   (TOTAL_CELLS_IN_YEAR_MONTH_MODEL + MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL) 
+  //   * CELL_MONTH_WIDTH_PX_SLICES - CELL_MONTH_WIDTH_PX_SLICES;
 
-  if (isNaN(row) || isNaN(columnStart) || isNaN(columnEnd)) {
+  if (isNaN(row) || isNaN(columnStart) || isNaN(TODAY_COLUMN)) {
     // Invalid coordinates
     return null;
   }
@@ -63,13 +61,13 @@ const createLink = (startCoordinate: string) => {
   const linkReference = startCoordinate;
 
   console.log("221) ===>> startCoordinate", startCoordinate);
-  console.log("222) ===>> columnEnd", columnEnd);
+  console.log("222) ===>> TODAY_COLUMN", TODAY_COLUMN);
 
   // console.log("228) ===>> startCoordinate", startCoordinate);
 
   // is there a Link already in place? (so using today's column)
   let endCoordinate = startCoordinate;
-  for (let column = columnStart; column < columnEnd; column += 1) {
+  for (let column = columnStart; column < TODAY_COLUMN; column += 1) {
     // Removed console.log for performance
     endCoordinate = `${row}-${column}`;
     if (store?.[row]?.[column]) {
@@ -116,7 +114,7 @@ const deleteLink = (startCoordinate: string) => {
   // Optimize the loop by avoiding repeated property access and type conversion
   for (let c = column; c < maxColumn; c += 1) {
     if (store[row]?.[c] !== startCoordinate) {
-      lastColumn = c - 1;
+      lastColumn = c < TODAY_COLUMN ? c : c - 1;
       break;
     }
     store[row][c] = cellContent;
