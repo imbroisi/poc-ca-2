@@ -3,7 +3,7 @@ import { daysArray, getMonthNameLong, getMonthNameShort, getNDaysAfterToday, tod
 
 import Cell from '../Cell';
 
-const { CELL_MONTH_WIDTH_PX, NUMBER_OF_YEARS_IN_YEAR_MONTH_MODEL } = MAIN_TABLE;
+const {   CELL_MONTH_WIDTH_PX_SLICES, CELL_MONTH_SPLITED_WIDTH_PX, NUMBER_OF_YEARS_IN_YEAR_MONTH_MODEL } = MAIN_TABLE;
 
 const RowMonthAsSubGroup = () => {
 
@@ -59,27 +59,21 @@ const RowMonthAsSubGroup = () => {
         {Array.from({ length: monthCounts.length * NUMBER_OF_YEARS_IN_YEAR_MONTH_MODEL + 1}).map((_, columnIndex) => {
 
           // console.log("\n20) --->>> daysArray =", daysArray);
-          // console.log("21--->>> columnIndex =", columnIndex);
-          console.log("22--->>> monthCounts[columnIndex % 12].month =", monthCounts[columnIndex % 12].month);
+          // console.log("21--->>> columnIndex =", columnIndex, monthCounts[columnIndex % 12].month);
+          // console.log("22--->>> monthCounts[columnIndex % 12].month =", monthCounts[columnIndex % 12].month);
+          
+          // return Array.from({ length: 1 }).map((_, index) => {
+            // console.log("21--->>> columnIndex =", columnIndex, monthCounts[columnIndex % 12].month);
 
-          return (
-            <th key={`month-column-${columnIndex}`} className="columns" style={{ width: CELL_MONTH_WIDTH_PX }}>
-              <Cell content={monthCounts[columnIndex % 12].month} rowIndex="month" columnIndex={columnIndex} />
-            </th>
-          )
+            return (
+              <th key={`month-column-${columnIndex}-${0}`} colSpan={CELL_MONTH_WIDTH_PX_SLICES} className="columns" style={{ width: CELL_MONTH_SPLITED_WIDTH_PX }}>
+                <Cell content={monthCounts[columnIndex % 12].month} rowIndex="month" columnIndex={columnIndex} colSpaned={CELL_MONTH_WIDTH_PX_SLICES} />
+              </th>
+            )
+
+          // })
         })}
       </tr>
-      {/* )} */}
-      {/* 
-      {mainProps.model === 'year-month' && (
-        <tr key={`row-day`} className="rows">
-          {Array.from({ length: TOTAL_CELLS_IN_MONTH_DAY_MODEL }).map((_, columnIndex) => (
-            <th key={`day-column-${columnIndex}`} className="columns">
-              <Cell content={MONTHS[columnIndex]} rowIndex="day" columnIndex={columnIndex} />
-            </th>
-          ))}
-        </tr>
-      )} */}
     </>
   );
 }

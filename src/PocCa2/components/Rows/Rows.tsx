@@ -11,7 +11,7 @@ export interface RowsProps {
 }
 
 const Rows = ({columns: Columns}: RowsProps) => {
-  console.log("33) ====== > TOTAL_CELLS_IN_MONTH_DAY_MODEL =", TOTAL_CELLS_IN_MONTH_DAY_MODEL);
+  // console.log("33) ====== > TOTAL_CELLS_IN_MONTH_DAY_MODEL =", TOTAL_CELLS_IN_MONTH_DAY_MODEL);
 
   return (
     <>

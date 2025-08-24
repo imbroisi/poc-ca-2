@@ -7,18 +7,21 @@ export interface CellUiProps {
   borderVisible: boolean;
   onClick: (e: any) => void;
   content?: string;
+  colSpaned?: number;
 }
 
 const {
-  CELL_MONTH_WIDTH_PX, 
+  CELL_MONTH_SPLITED_WIDTH_PX, 
   CELL_DAY_WIDTH_PX, 
   CELL_HEIGHT_PX, 
   CELL_BORDER_COLOR, 
   CELL_BACKGROUND_COLOR 
 } = MAIN_TABLE;
 
-const CellUi = ({ content = '', color, borderVisible, onClick }: CellUiProps) => {
+const CellUi = ({ content = '', color, borderVisible, onClick, colSpaned = 1 }: CellUiProps) => {
   const { model } = useMainTableContext();
+
+  console.log("34) ===>> colSpaned", colSpaned);
 
   return (
     <div
@@ -29,7 +32,7 @@ const CellUi = ({ content = '', color, borderVisible, onClick }: CellUiProps) =>
         color,
         background: CELL_BACKGROUND_COLOR,
         borderColor: borderVisible ? CELL_BORDER_COLOR : 'transparent',
-        minWidth: model === 'month-day' ? CELL_DAY_WIDTH_PX : CELL_MONTH_WIDTH_PX,
+        width: model === 'month-day' ? CELL_DAY_WIDTH_PX : CELL_MONTH_SPLITED_WIDTH_PX * colSpaned,
         height: CELL_HEIGHT_PX,
       }}
     >

@@ -34,6 +34,7 @@ const {
   DAYS_AFTER_TODAY_IN_MONTH_DAY_MODEL,
   TOTAL_CELLS_IN_YEAR_MONTH_MODEL,
   MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL,
+  CELL_MONTH_WIDTH_PX_SLICES,
 } = MAIN_TABLE;
 interface StoreData {
   [key: number]: {
@@ -50,7 +51,9 @@ const createLink = (startCoordinate: string) => {
   const columnStart = +colStr;
   
   // Calculate end column directly
-  const columnEnd = TOTAL_CELLS_IN_YEAR_MONTH_MODEL + MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL;
+  const columnEnd = 
+    (TOTAL_CELLS_IN_YEAR_MONTH_MODEL + MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL) 
+    * CELL_MONTH_WIDTH_PX_SLICES - CELL_MONTH_WIDTH_PX_SLICES;
 
   if (isNaN(row) || isNaN(columnStart) || isNaN(columnEnd)) {
     // Invalid coordinates
@@ -59,9 +62,10 @@ const createLink = (startCoordinate: string) => {
 
   const linkReference = startCoordinate;
 
-  console.log("222) ===>> startCoordinate", startCoordinate);
+  console.log("221) ===>> startCoordinate", startCoordinate);
+  console.log("222) ===>> columnEnd", columnEnd);
 
-  console.log("228) ===>> startCoordinate", startCoordinate);
+  // console.log("228) ===>> startCoordinate", startCoordinate);
 
   // is there a Link already in place? (so using today's column)
   let endCoordinate = startCoordinate;
@@ -102,21 +106,23 @@ const deleteLink = (startCoordinate: string) => {
   // Use pre-calculated limit
   // const maxColumn = TOTAL_CELLS_IN_MONTH_DAY_MODEL - DAYS_AFTER_TODAY_IN_MONTH_DAY_MODEL * 30;
 
-  const maxColumn = TOTAL_CELLS_IN_YEAR_MONTH_MODEL + MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL - 1;
+  const maxColumn = (TOTAL_CELLS_IN_YEAR_MONTH_MODEL + 1) * CELL_MONTH_WIDTH_PX_SLICES;
 
   // console.log("235) ===>> TOTAL_CELLS_IN_YEAR_MONTH_MODEL", TOTAL_CELLS_IN_YEAR_MONTH_MODEL);
   // console.log("236) ===>> MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL", MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL);
-  // console.log("237) ===>> maxColumn", maxColumn);
+  console.log("237) ===>> maxColumn", maxColumn);
 
   
   // Optimize the loop by avoiding repeated property access and type conversion
-  for (let c = column; c < TOTAL_CELLS_IN_MONTH_DAY_MODEL; c += 1) {
+  for (let c = column; c < maxColumn; c += 1) {
     if (store[row]?.[c] !== startCoordinate) {
       lastColumn = Math.min(c, maxColumn);
       break;
     }
     store[row][c] = cellContent;
   }
+
+  console.log("235) ===>> (TOTAL_CELLS_IN_YEAR_MONTH_MODEL + 1) * CELL_MONTH_WIDTH_PX_SLICES", (TOTAL_CELLS_IN_YEAR_MONTH_MODEL + 1) * CELL_MONTH_WIDTH_PX_SLICES);
 
   console.log("235) ===>> lastColumn", lastColumn);
 

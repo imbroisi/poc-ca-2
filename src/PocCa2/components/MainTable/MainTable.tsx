@@ -23,7 +23,7 @@ const MainTable = ({ model }: Model) => (
     <CellManagerProvider model={model}>
       <Table>
         <Header>
-          <RowHeaderGroup />
+          {/* <RowHeaderGroup /> */}
           <RowHeaderSubGroup />
         </Header>
         <Body>

@@ -10,6 +10,7 @@ export interface ColumnsProps {
 const {
   TOTAL_CELLS_IN_YEAR_MONTH_MODEL,
   MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL,
+  CELL_MONTH_WIDTH_PX_SLICES,
 } = MAIN_TABLE;
 
 const Columns = ({ rowIndex, content }: any) => {
@@ -24,7 +25,7 @@ const Columns = ({ rowIndex, content }: any) => {
 
   return (
     <>
-      {Array.from({ length: TOTAL_CELLS_IN_YEAR_MONTH_MODEL + MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL }).map((_, columnIndex) => {
+      {Array.from({ length: (TOTAL_CELLS_IN_YEAR_MONTH_MODEL + MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL) * CELL_MONTH_WIDTH_PX_SLICES }).map((_, columnIndex) => {
         // console.log("2) --->>> daysArray.length =", daysArray.length);
         // console.log("2)--->>> columnIndex =", columnIndex);
 

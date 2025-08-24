@@ -8,9 +8,10 @@ export interface CellProps {
   rowIndex: number | string;
   columnIndex: number;
   content?: string;
+  colSpaned?: number;
 }
 
-const Cell = ({ content = '', rowIndex, columnIndex }: CellProps) => {
+const Cell = ({ content = '', rowIndex, columnIndex, colSpaned }: CellProps) => {
   const { registerCallbacks, onClick } = useCellManager();
   const [blockPlacement, setBlockPlacement] = useState<any>(null);
   const [rerenderParams, setRerenderParams] = useState({
@@ -32,6 +33,7 @@ const Cell = ({ content = '', rowIndex, columnIndex }: CellProps) => {
       setBlockPlacement(null);
       return;
     }
+    console.log("33) ===>> end", end);
     setBlockPlacement({ blockStart: start, blockEnd: end || '' });
   }
 
@@ -69,7 +71,7 @@ const Cell = ({ content = '', rowIndex, columnIndex }: CellProps) => {
           onClick={handleBlockClick}
         />
       )}
-      <CellUi content={content} onClick={handleCellClick} {...rerenderParams} />
+      <CellUi content={content} onClick={handleCellClick} {...rerenderParams} colSpaned={colSpaned} />
     </div>
   );
 }

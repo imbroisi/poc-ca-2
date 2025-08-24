@@ -1,5 +1,5 @@
 import { useMainTableContext } from '../../context/MainTableContext';
-import { getBoxTopLineColor } from '../../utils';
+import { getBoxTopLineColor, today } from '../../utils';
 import './LinkBox.css';
 import { MAIN_TABLE } from '../../config';
 
@@ -12,6 +12,7 @@ export interface LinkBoxProps {
 const {
   CELL_MONTH_WIDTH_PX, 
   CELL_DAY_WIDTH_PX, 
+  CELL_MONTH_WIDTH_PX_SLICES
 } = MAIN_TABLE;
 
 const LinkBox = ({ startCell, endCell, onClick }: LinkBoxProps) => {
@@ -19,15 +20,26 @@ const LinkBox = ({ startCell, endCell, onClick }: LinkBoxProps) => {
 
   if (!startCell || !endCell) return null;
 
-  const cellWidthPx = model === 'month-day' ? CELL_DAY_WIDTH_PX : CELL_MONTH_WIDTH_PX;
+  // const columnToday = ;
+
+  // console.log("308) ===>> columnToday", columnToday);
+
+
+  const cellWidthPx = model === 'month-day' ? CELL_DAY_WIDTH_PX : CELL_MONTH_WIDTH_PX / 5;
 
   const start = +startCell.split('-')[1];
   const end = +endCell.split('-')[1];
 
   console.log("309) ===>> start", start);
+  console.log("319) ===>> end", end);
 
 
-  const widthPx = `${(end - start) * cellWidthPx / 1}px`;
+  const widthPx = `${(end - start) * cellWidthPx}px`;
+
+  console.log("320) ===>> widthPx", widthPx);
+
+
+
 
   const backgroundColor = getBoxTopLineColor();
 
