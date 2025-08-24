@@ -106,7 +106,7 @@ const deleteLink = (startCoordinate: string) => {
   // Use pre-calculated limit
   // const maxColumn = TOTAL_CELLS_IN_MONTH_DAY_MODEL - DAYS_AFTER_TODAY_IN_MONTH_DAY_MODEL * 30;
 
-  const maxColumn = (TOTAL_CELLS_IN_YEAR_MONTH_MODEL + 1) * CELL_MONTH_WIDTH_PX_SLICES;
+  const maxColumn = (TOTAL_CELLS_IN_YEAR_MONTH_MODEL + 1) * CELL_MONTH_WIDTH_PX_SLICES - 1;
 
   // console.log("235) ===>> TOTAL_CELLS_IN_YEAR_MONTH_MODEL", TOTAL_CELLS_IN_YEAR_MONTH_MODEL);
   // console.log("236) ===>> MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL", MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL);
@@ -116,13 +116,13 @@ const deleteLink = (startCoordinate: string) => {
   // Optimize the loop by avoiding repeated property access and type conversion
   for (let c = column; c < maxColumn; c += 1) {
     if (store[row]?.[c] !== startCoordinate) {
-      lastColumn = Math.min(c, maxColumn);
+      lastColumn = c - 1;
       break;
     }
     store[row][c] = cellContent;
   }
 
-  console.log("235) ===>> (TOTAL_CELLS_IN_YEAR_MONTH_MODEL + 1) * CELL_MONTH_WIDTH_PX_SLICES", (TOTAL_CELLS_IN_YEAR_MONTH_MODEL + 1) * CELL_MONTH_WIDTH_PX_SLICES);
+  // console.log("235) ===>> (TOTAL_CELLS_IN_YEAR_MONTH_MODEL + 1) * CELL_MONTH_WIDTH_PX_SLICES", (TOTAL_CELLS_IN_YEAR_MONTH_MODEL + 1) * CELL_MONTH_WIDTH_PX_SLICES);
 
   console.log("235) ===>> lastColumn", lastColumn);
 

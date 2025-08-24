@@ -1,8 +1,8 @@
 import { MAIN_TABLE } from '../../config';
-import { daysArray } from '../../utils';
+import { daysArray, getEpochDayToYMD } from '../../utils';
 import Cell from '../Cell';
 
-const { NUMBER_OF_YEARS_IN_YEAR_MONTH_MODEL } = MAIN_TABLE;
+const { CELL_BORDER_COLOR, CELL_MONTH_SPLITED_WIDTH_PX } = MAIN_TABLE;
 
 const RowYear = () => {
   // const yearCounts: any = Array.from(new Set(daysArray.map((item: any) => item[1]))).map(month => ({
@@ -30,10 +30,13 @@ const RowYear = () => {
 
   // console.log("2) --->>> daysArray =", daysArray);
 
-  console.log("21) --->>> yearCounts =", yearCounts);
+  // console.log("21) --->>> yearCounts =", yearCounts);
 
+  const firstMonth = daysArray[0][1];
+  console.log("21--->>> firstMonth =", firstMonth);
 
-  // return <div>RowYear</div>;
+  const firstColSpan = (12 - firstMonth + 1) * 6;
+  console.log("212-->>> firstColSpan =", firstColSpan);
 
   return (
     <>
@@ -44,8 +47,26 @@ const RowYear = () => {
           // console.log("21--->>> columnIndex =", columnIndex);
           // console.log("22--->>> monthCounts[columnIndex].month =", monthCounts[columnIndex].month);
 
+
+          /*
+             118 -> 24
+             366 -> 72
+             266 -> 52
+          */
+          // const months1 = Math.round(yearCounts[columnIndex].count);
+
+          // console.log("21--->>> months1 =", months1);
+
+
+          const colSpan = columnIndex === 0 ? firstColSpan : 12 * 6;
+          // console.log("21--->>> colSpan =", colSpan);
+
+
+
+
+
           return (
-            <th key={`year-column-${columnIndex}`} className="columns" colSpan={Math.round(yearCounts[columnIndex].count / 30)}>
+            <th key={`year-column-${columnIndex}`} colSpan={colSpan} style={{ borderRight: `1px solid ${CELL_BORDER_COLOR}` }}>
               <Cell content={yearCounts[columnIndex].year} rowIndex="year" columnIndex={columnIndex} />
             </th>
           )

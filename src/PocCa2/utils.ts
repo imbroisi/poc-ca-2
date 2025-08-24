@@ -92,10 +92,36 @@ const daysArray: any = (() => {
 
   // OK
   // const lastDayToShow = today.dayEpoch + (MAIN_TABLE.DAYS_AFTER_TODAY_IN_MONTH_DAY_MODEL);
-  const lastDayToShow = today.dayEpoch + (MAIN_TABLE.MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL * 30);
+  let lastDayToShow = today.dayEpoch + (MAIN_TABLE.MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL * 30);
+
+  const lastMonth = today.month + MAIN_TABLE.MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL + 1;
+
+  console.log("21222--->>> lastMonth =", lastMonth);
+
+  for (let i = 1; i < 31; i += 1) {
+    if (getEpochDayToYMD(lastDayToShow + 1).month > lastMonth) {
+      // last day of the last month
+      break;
+    }
+
+    lastDayToShow += 1;
+  }
+
+  // console.log("21222--->>> lastDayToShow =", lastDayToShow);
+
+
     // OK
-  const firstDayToShow = getNDaysAfterToday(-30 * (MAIN_TABLE.NUMBER_OF_MONTHS_IN_MONTH_DAY_MODEL));
-  
+  let firstDayToShow = getNDaysAfterToday(-30 * (MAIN_TABLE.NUMBER_OF_MONTHS_IN_MONTH_DAY_MODEL));
+
+  console.log("21222--->>> lastDayToShow =", lastDayToShow, today.month);
+
+  if (firstDayToShow.day > 1) {
+    firstDayToShow = getNDaysAfterToday(-30 * (MAIN_TABLE.NUMBER_OF_MONTHS_IN_MONTH_DAY_MODEL) - firstDayToShow.day + 1);
+  }
+
+  console.log("212224-->>> lastDayToShow =", getEpochDayToYMD(lastDayToShow));
+
+
   // console.log("1) firstDayToShow =", firstDayToShow);
   // // console.log("firstDayToShow =", firstDayToShow);
   // console.log("2) getEpochDayToYMD(lastDayToShow)) =", getEpochDayToYMD(lastDayToShow));

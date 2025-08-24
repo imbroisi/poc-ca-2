@@ -12,7 +12,8 @@ export interface LinkBoxProps {
 const {
   CELL_MONTH_WIDTH_PX, 
   CELL_DAY_WIDTH_PX, 
-  CELL_MONTH_WIDTH_PX_SLICES
+  CELL_MONTH_WIDTH_PX_SLICES,
+  CELL_MONTH_SPLITED_WIDTH_PX
 } = MAIN_TABLE;
 
 const LinkBox = ({ startCell, endCell, onClick }: LinkBoxProps) => {
@@ -25,7 +26,7 @@ const LinkBox = ({ startCell, endCell, onClick }: LinkBoxProps) => {
   // console.log("308) ===>> columnToday", columnToday);
 
 
-  const cellWidthPx = model === 'month-day' ? CELL_DAY_WIDTH_PX : CELL_MONTH_WIDTH_PX / 5;
+  const cellWidthPx = model === 'month-day' ? CELL_DAY_WIDTH_PX : CELL_MONTH_SPLITED_WIDTH_PX;
 
   const start = +startCell.split('-')[1];
   const end = +endCell.split('-')[1];

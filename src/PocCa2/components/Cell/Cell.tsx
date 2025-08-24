@@ -3,7 +3,9 @@ import CellUi from './CellUi';
 import './Cell.css';
 import { useCellManager } from '../../context/CellManagerContext';
 import LinkBox from '../LinkBox';
+import { MAIN_TABLE } from '../../config';
 
+const { CELL_MONTH_WIDTH_PX_SLICES } = MAIN_TABLE;
 export interface CellProps {
   rowIndex: number | string;
   columnIndex: number;
@@ -11,12 +13,12 @@ export interface CellProps {
   colSpaned?: number;
 }
 
-const Cell = ({ content = '', rowIndex, columnIndex, colSpaned }: CellProps) => {
+const Cell = ({ content = '', rowIndex, columnIndex, colSpaned = 1 }: CellProps) => {
   const { registerCallbacks, onClick } = useCellManager();
   const [blockPlacement, setBlockPlacement] = useState<any>(null);
   const [rerenderParams, setRerenderParams] = useState({
     color: '#444444',
-    borderVisible: true,
+    // borderVisible: true,
   });
 
   const cellId = useMemo(() => `${rowIndex}-${columnIndex}`, [columnIndex, rowIndex]);
@@ -48,7 +50,7 @@ const Cell = ({ content = '', rowIndex, columnIndex, colSpaned }: CellProps) => 
   }, []);
 
   const handleCellClick = () => {
-    
+
     onClick(cellId, 'cell');
   }
 
@@ -61,6 +63,7 @@ const Cell = ({ content = '', rowIndex, columnIndex, colSpaned }: CellProps) => 
   // console.log('callId', cellId)
 
   // return null
+  const borderVisible = colSpaned > 1 || columnIndex % CELL_MONTH_WIDTH_PX_SLICES === 0;
 
   return (
     <div className="cell-container">
@@ -71,7 +74,13 @@ const Cell = ({ content = '', rowIndex, columnIndex, colSpaned }: CellProps) => 
           onClick={handleBlockClick}
         />
       )}
-      <CellUi content={content} onClick={handleCellClick} {...rerenderParams} colSpaned={colSpaned} />
+      <CellUi
+        content={content}
+        onClick={handleCellClick}
+        colSpaned={colSpaned}
+        borderVisible={borderVisible}
+        {...rerenderParams}
+      />
     </div>
   );
 }

@@ -18,10 +18,9 @@ const {
   CELL_BACKGROUND_COLOR 
 } = MAIN_TABLE;
 
-const CellUi = ({ content = '', color, borderVisible, onClick, colSpaned = 1 }: CellUiProps) => {
+const CellUi = ({ content = '', color, onClick, borderVisible, colSpaned = 1 }: CellUiProps) => {
   const { model } = useMainTableContext();
 
-  console.log("34) ===>> colSpaned", colSpaned);
 
   return (
     <div
@@ -29,10 +28,15 @@ const CellUi = ({ content = '', color, borderVisible, onClick, colSpaned = 1 }: 
       onClick={onClick}
       className="cell-ui"
       style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         color,
         background: CELL_BACKGROUND_COLOR,
-        borderColor: borderVisible ? CELL_BORDER_COLOR : 'transparent',
-        width: model === 'month-day' ? CELL_DAY_WIDTH_PX : CELL_MONTH_SPLITED_WIDTH_PX * colSpaned,
+        borderColor: CELL_BORDER_COLOR,
+        borderLeftColor: borderVisible ? CELL_BORDER_COLOR : 'transparent',
+        minWidth: model === 'month-day' ? CELL_DAY_WIDTH_PX : CELL_MONTH_SPLITED_WIDTH_PX * colSpaned,
+        width: '100%',
         height: CELL_HEIGHT_PX,
       }}
     >

@@ -37,7 +37,7 @@ const Columns = ({ rowIndex, content }: any) => {
             <Cell
               rowIndex={rowIndex}
               columnIndex={columnIndex}
-              content={content ? `${daysArray?.[columnIndex]?.[0]}` : columnIndex.toString()} />
+              content={content ? `${daysArray?.[columnIndex]?.[0]}` : '' /*columnIndex.toString()*/} />
           </td>
         )
       })}
