@@ -1,12 +1,13 @@
 import React, { createContext, useCallback, useContext, useRef } from 'react'
 import virtualMainTable from '../virtual/virtualMainTable';
-import { MainTableProps } from './MainTableContext';
+// import { MainTableProps } from './MainTableContext';
 // import { getTodayColumnCoordinate } from '../utils';
 
 interface CellManagerType {
   registerCallbacks: (cellId: string, callbacks: any) => void;
   onClick: (cellId: string, source: 'cell' | 'block') => void;
-  mainProps: MainTableProps;
+  // mainProps: MainTableProps;
+  model: 'year-month' | 'month-day';
 }
 
 interface CellCallbacks {
@@ -16,14 +17,9 @@ interface CellCallbacks {
 
 const CellManagerContext = createContext<CellManagerType | undefined>(undefined)
 
-export const CellManagerProvider = ({ children, mainProps }: { children: React.ReactNode, mainProps: MainTableProps }) => {
+export const CellManagerProvider = ({ children, model }: { children: React.ReactNode, model: 'year-month' | 'month-day' }) => {
   // const cellsMapping = useRef<any>({});
   const cellCallbacks = useRef<Record<string, CellCallbacks>>({});
-
-  // useEffect(() => {
-  //   console.log('>> mainProps.totalColumns', mainProps.totalColumns);
-  //   virtualMainTable.initialize(mainProps.totalRows, mainProps.totalColumns, getTodayColumnCoordinate(mainProps.totalColumns));
-  // }, [mainProps.totalColumns, mainProps.totalRows]);
 
   const registerCallbacks = useCallback((cellId: string, callbacks: CellCallbacks) => {
     cellCallbacks.current[cellId] = callbacks;
@@ -34,9 +30,11 @@ export const CellManagerProvider = ({ children, mainProps }: { children: React.R
       const data = virtualMainTable.createLink(cellId);
 
       if (!data) {
-      // user clicked on a cell that is not a link (the <Header> cells)
-      return;
+        // user clicked on a cell that is not a link (the <Header> cells)
+        return;
       }
+
+      console.log("111) ===>> data", data);
 
       cellCallbacks.current[cellId]?.onFireBlock?.(data?.[0], data?.[1]);
       return;
@@ -45,24 +43,27 @@ export const CellManagerProvider = ({ children, mainProps }: { children: React.R
     if (source === 'block') {
       // TODO: open options menu (info, delete, etc)
       const resizeLink = virtualMainTable.deleteLink(cellId);
+      console.log("119) ===>> cellId", cellId);
+
       cellCallbacks.current[cellId]?.onFireBlock?.(null);
       console.log('resizeLink', resizeLink);
       if (resizeLink) {
         cellCallbacks.current[resizeLink[0]]?.onFireBlock?.(resizeLink[0], resizeLink[1]);
       }
     }
-  }
+  };
 
   return (
     <CellManagerContext.Provider value={{
       registerCallbacks,
       onClick,
-      mainProps,
+      model,
+      // mainProps,
     }}>
       {children}
     </CellManagerContext.Provider>
   )
-}; 
+};
 
 export const useCellManager = () => {
   const context = useContext(CellManagerContext)

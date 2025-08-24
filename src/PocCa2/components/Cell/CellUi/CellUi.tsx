@@ -5,7 +5,7 @@ import './CellUi.css';
 export interface CellUiProps {
   color: string;
   borderVisible: boolean;
-  onClick: () => void;
+  onClick: (e: any) => void;
   content?: string;
 }
 
@@ -18,17 +18,18 @@ const {
 } = MAIN_TABLE;
 
 const CellUi = ({ content = '', color, borderVisible, onClick }: CellUiProps) => {
-  const { mainProps } = useMainTableContext();
+  const { model } = useMainTableContext();
 
   return (
     <div
+      role="button"
       onClick={onClick}
       className="cell-ui"
       style={{
         color,
         background: CELL_BACKGROUND_COLOR,
         borderColor: borderVisible ? CELL_BORDER_COLOR : 'transparent',
-        minWidth: mainProps.model === 'month-day' ? CELL_DAY_WIDTH_PX : CELL_MONTH_WIDTH_PX,
+        minWidth: model === 'month-day' ? CELL_DAY_WIDTH_PX : CELL_MONTH_WIDTH_PX,
         height: CELL_HEIGHT_PX,
       }}
     >

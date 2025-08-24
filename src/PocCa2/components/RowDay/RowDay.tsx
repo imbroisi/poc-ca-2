@@ -1,10 +1,8 @@
-// import { useMainTableContext } from '../../context/MainTableContext';
 // import Cell from '../Cell';
 import { RowsProps } from '../Rows/Rows';
 import './RowDay.css';
 
 const RowDay = ({ columns: Columns }: RowsProps) => {
-  // const { mainProps } = useMainTableContext();
 
   return (
     // <tr key={`row-day`} className="rows">

@@ -1,27 +1,9 @@
 import { MAIN_TABLE } from '../../config';
-import { useMainTableContext } from '../../context/MainTableContext';
 import { daysArray, getMonthNameLong, getNDaysAfterToday, today } from '../../utils';
 
 import Cell from '../Cell';
-import './RowMonth.css';
 
-const MONTHS = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec',
-]
-
-const RowMonth = () => {
-  // const { mainProps } = useMainTableContext();
+const RowMonthAsGroup = () => {
 
   // const lastMonth = (today.month + MAIN_TABLE.MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL) % 12;
 
@@ -57,12 +39,11 @@ const RowMonth = () => {
    * }
    */
 
-  console.log("2) --->>> monthCounts =", monthCounts);
+  // console.log("2) --->>> monthCounts =", monthCounts);
 
   return (
     <>
-      {/* {mainProps.model === 'month-day' && ( */}
-      <tr key={`row-month`}>
+      <tr>
         {Array.from({ length: monthCounts.length }).map((_, columnIndex) => {
 
           // console.log("\n20) --->>> daysArray =", daysArray);
@@ -76,19 +57,8 @@ const RowMonth = () => {
           )
         })}
       </tr>
-      {/* )} */}
-      {/* 
-      {mainProps.model === 'year-month' && (
-        <tr key={`row-day`} className="rows">
-          {Array.from({ length: TOTAL_CELLS_IN_MONTH_DAY_MODEL }).map((_, columnIndex) => (
-            <th key={`day-column-${columnIndex}`} className="columns">
-              <Cell content={MONTHS[columnIndex]} rowIndex="day" columnIndex={columnIndex} />
-            </th>
-          ))}
-        </tr>
-      )} */}
     </>
   );
 }
 
-export default RowMonth;
+export default RowMonthAsGroup;

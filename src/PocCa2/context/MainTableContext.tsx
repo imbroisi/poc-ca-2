@@ -1,23 +1,20 @@
 import React, { createContext, useContext } from 'react'
 
-export interface MainTableProps {
-  model: 'year-month' | 'month-day';
-}
 interface MainTableContextProviderProps {
   children: React.ReactNode;
-  mainProps: MainTableProps;
+  model: 'year-month' | 'month-day';
 }
 
 const MainTableContext = createContext<any>(undefined)
 
 export const MainTableContextProvider = ({
   children,
-  mainProps,
+  model,
 }: MainTableContextProviderProps) => {
 
   return (
     <MainTableContext.Provider value={{
-      mainProps,
+      model,
     }}>
       {children}
     </MainTableContext.Provider>

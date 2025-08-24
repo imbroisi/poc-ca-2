@@ -87,21 +87,20 @@ const getNDaysAfterToday = (nDays: number) => {
 
 const daysArray: any = (() => {
   const finalDayArray: any = [];
-  const finalMonthArray = [];
-  let currentMonth = null;
+  // const finalMonthArray = [];
+  // let currentMonth = null;
 
   // OK
-  const lastDayToShow = today.dayEpoch + (MAIN_TABLE.DAYS_AFTER_TODAY_IN_MONTH_DAY_MODEL);
+  // const lastDayToShow = today.dayEpoch + (MAIN_TABLE.DAYS_AFTER_TODAY_IN_MONTH_DAY_MODEL);
+  const lastDayToShow = today.dayEpoch + (MAIN_TABLE.MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL * 30);
     // OK
   const firstDayToShow = getNDaysAfterToday(-30 * (MAIN_TABLE.NUMBER_OF_MONTHS_IN_MONTH_DAY_MODEL));
   
+  // console.log("1) firstDayToShow =", firstDayToShow);
+  // // console.log("firstDayToShow =", firstDayToShow);
+  // console.log("2) getEpochDayToYMD(lastDayToShow)) =", getEpochDayToYMD(lastDayToShow));
 
-
-  console.log("1) firstDayToShow =", firstDayToShow);
-  // console.log("firstDayToShow =", firstDayToShow);
-  console.log("2) getEpochDayToYMD(lastDayToShow)) =", getEpochDayToYMD(lastDayToShow));
-
-  console.log("3) difference =", lastDayToShow - firstDayToShow.dayEpoch);
+  // console.log("3) difference =", lastDayToShow - firstDayToShow.dayEpoch);
   
   Array.from({ length: lastDayToShow - (firstDayToShow.dayEpoch)}).forEach((_, i) => {
     const { day, month, year } = getEpochDayToYMD(i + firstDayToShow.dayEpoch + 2); 
@@ -111,10 +110,10 @@ const daysArray: any = (() => {
     // console.log("year =", year);
     // console.log("getMonthNameLong(month) =", getMonthNameLong(month));
 
-    finalDayArray.push([day, getMonthNameLong(month), year]); 
+    finalDayArray.push([day, month, year]); 
   });
 
-  console.log("finalDayArray =", finalDayArray);
+  // console.log("finalDayArray =", finalDayArray);
 
   return finalDayArray
 })();
@@ -125,7 +124,7 @@ const daysArray: any = (() => {
 //   const firstMonthToShow = firstDayToShow.month - MAIN_TABLE.NUMBER_OF_MONTHS_IN_MONTH_DAY_MODEL + 1;
 //   const lastMonthToShow = lastDayToShow.month;
 
-//   for (let i = firstMonthToShow; i <= lastMonthToShow; i++) {
+//   for (let i = firstMonthToShow; i <= lastMonthToShow; i += 1) {
 //     finalArray.push(getMonthNameLong(i));
 //   }
 //   return finalArray;
@@ -136,7 +135,7 @@ const daysArray: any = (() => {
 //   const firstYearToShow = today.year - MAIN_TABLE.NUMBER_OF_YEARS_IN_YEAR_MONTH_MODEL + 1;
 //   const lastYearToShow = today.year;
 
-//   for (let i = firstYearToShow; i <= lastYearToShow; i++) {
+//   for (let i = firstYearToShow; i <= lastYearToShow; i += 1) {
 //     finalArray.push(i);
 //   }
 //   return finalArray;

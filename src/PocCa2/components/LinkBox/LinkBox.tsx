@@ -15,14 +15,16 @@ const {
 } = MAIN_TABLE;
 
 const LinkBox = ({ startCell, endCell, onClick }: LinkBoxProps) => {
-  const { mainProps } = useMainTableContext();
+  const { model } = useMainTableContext();
 
   if (!startCell || !endCell) return null;
 
-  const cellWidthPx = mainProps.model === 'month-day' ? CELL_DAY_WIDTH_PX : CELL_MONTH_WIDTH_PX;
+  const cellWidthPx = model === 'month-day' ? CELL_DAY_WIDTH_PX : CELL_MONTH_WIDTH_PX;
 
   const start = +startCell.split('-')[1];
   const end = +endCell.split('-')[1];
+
+  console.log("309) ===>> start", start);
 
 
   const widthPx = `${(end - start) * cellWidthPx / 1}px`;

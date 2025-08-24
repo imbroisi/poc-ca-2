@@ -7,31 +7,32 @@ import { MainTableContextProvider } from '../../context/MainTableContext';
 import { CellManagerProvider } from '../../context/CellManagerContext';
 import Header from '../Header';
 import RowYear from '../RowYear';
-import RowMonth from '../RowMonth';
+import RowMonthAsSubGroup from '../RowMonthAsSubGroup';
 import RowDay from '../RowDay';
+import RowMonthAsGroup from '../RowMonthAsGroup';
+import RowHeaderGroup from '../RowHeaderGroup';
+import RowHeaderSubGroup from '../RowHeaderSubGroup';
 
-interface MainTableProps {
+interface Model {
   model: 'year-month' | 'month-day';
 }
 
-const MainTable = (props: MainTableProps) => {
-  console.log('>> MainTable props', props);
-  return (
-    <MainTableContextProvider mainProps={props}>
-      <CellManagerProvider mainProps={props}>
-        <Table>
-          <Header>
-            {props.model === 'year-month' && <RowYear />}
-            <RowMonth />
-            {props.model === 'month-day' && <RowDay columns={Columns} />}
-          </Header>
-          <Body>
-            <Rows columns={Columns} />
-          </Body>
-        </Table>
-      </CellManagerProvider>
-    </MainTableContextProvider>
-  );
-};
+const MainTable = ({ model }: Model) => (
+
+  <MainTableContextProvider model={model}>
+    <CellManagerProvider model={model}>
+      <Table>
+        <Header>
+          <RowHeaderGroup />
+          <RowHeaderSubGroup />
+        </Header>
+        <Body>
+          <Rows columns={Columns} />
+        </Body>
+      </Table>
+    </CellManagerProvider>
+  </MainTableContextProvider>
+
+);
 
 export default MainTable;

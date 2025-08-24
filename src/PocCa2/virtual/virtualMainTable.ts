@@ -1,15 +1,3 @@
-import { MAIN_TABLE } from "../config";
-
-const {
-  TOTAL_CELLS_IN_MONTH_DAY_MODEL,
-  DAYS_AFTER_TODAY_IN_MONTH_DAY_MODEL,
-} = MAIN_TABLE;
-interface StoreData {
-  [key: number]: {
-    [key: number]: string | null;
-  };
-}
-
 /** store format
  * 
  *     {
@@ -19,9 +7,9 @@ interface StoreData {
  *         '0-2': null,
  *         '0-3': null,
  *         '0-4': null,
- *         '0-5': [0-0, 0-5],
- *         '0-6': [0-0, 0-5],
- *         '0-7': [0-0, 0-5],
+ *         '0-5': [0-0, 0-5], // Link start coordinate, it is the reference to the Link (like an id)
+ *         '0-6': [0-0, 0-5], // All cells of a Link have the same reference
+ *         '0-7': [0-0, 0-5], // All cells of a Link have the same reference 
  *         '0-8': null,
  *         '0-9': null,
  *       },
@@ -39,207 +27,111 @@ interface StoreData {
  *     }
  * 
  */
+import { MAIN_TABLE } from "../config";
 
+const {
+  TOTAL_CELLS_IN_MONTH_DAY_MODEL,
+  DAYS_AFTER_TODAY_IN_MONTH_DAY_MODEL,
+  TOTAL_CELLS_IN_YEAR_MONTH_MODEL,
+  MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL,
+} = MAIN_TABLE;
+interface StoreData {
+  [key: number]: {
+    [key: number]: string | null;
+  };
+}
 
 const store = {} as StoreData;
 
-// const initialize = (totalRows: number, totalColumns: number, todayColumnCoordinate: string): void => {
-//   // console.log('>> initialize', totalRows, totalColumns, todayColumnCoordinate);
-//   // store.totalColumns = totalColumns;
-//   // store.totalRows = totalRows;
-//   // store.todayColumnCoordinate = todayColumnCoordinate;
-
-//   // Array.from({ length: totalRows }).forEach((_, rowIndex) => {
-//   //   store[rowIndex] = {};
-//   //   Array.from({ length: totalColumns }).forEach((_, columnIndex) => {
-//   //     store[rowIndex][columnIndex] = null;
-//   //   });
-//   // });
-// }
-
 const createLink = (startCoordinate: string) => {
-  const start = startCoordinate.split('-');
+  // Parse coordinates once and use the numeric values
+  const [rowStr, colStr] = startCoordinate.split('-');
+  const row = +rowStr;
+  const columnStart = +colStr;
+  
+  // Calculate end column directly
+  const columnEnd = TOTAL_CELLS_IN_YEAR_MONTH_MODEL + MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL;
 
-  // TODO: get the end coordinates to be used here, it is based on "today"
-  const end = [start[0], `${TOTAL_CELLS_IN_MONTH_DAY_MODEL - DAYS_AFTER_TODAY_IN_MONTH_DAY_MODEL}`];
-
-  // console.log('start', start);
-  console.log('end', end);
-
-  if (isNaN(+start[0]) || isNaN(+start[1]) || isNaN(+end[0]) || isNaN(+end[1])) {
-    // user clicked on a cell that is not a link (the <Header> cells)
+  if (isNaN(row) || isNaN(columnStart) || isNaN(columnEnd)) {
+    // Invalid coordinates
     return null;
   }
 
-  const row = +start[0];
-  const columnStart = +start[1];
-  const columnEnd = +end[1];
+  const linkReference = startCoordinate;
 
+  console.log("222) ===>> startCoordinate", startCoordinate);
+
+  console.log("228) ===>> startCoordinate", startCoordinate);
+
+  // is there a Link already in place? (so using today's column)
   let endCoordinate = startCoordinate;
-  for (let column = columnStart; column <= columnEnd; column++) {
+  for (let column = columnStart; column < columnEnd; column += 1) {
+    // Removed console.log for performance
     endCoordinate = `${row}-${column}`;
     if (store?.[row]?.[column]) {
+      // yes, there is a Link in place, so this cell is the end of the Link to be created
       break;
     }
     if (!store?.[row]) {
       store[row] = {};
     }
-    store[row][column] = startCoordinate;
+
+    // all cells of the Link have the same reference (see example at the top of the file)
+    store[row][column] = linkReference;
   }
+
+  console.log("223) ===>> endCoordinate", endCoordinate);
 
   return [startCoordinate, endCoordinate];
 }
 
 const deleteLink = (startCoordinate: string) => {
-  const [row, column] = startCoordinate.split('-');
+  // Parse coordinates once
+  const [rowStr, colStr] = startCoordinate.split('-');
+  const row = +rowStr;
+  const column = +colStr;
 
-  // is there a link in the previous column?
-  const content = store[+row]?.[+column - 1] || null;
+  if (isNaN(row) || isNaN(column)) {
+    return null;
+  }
 
+  // Get previous cell content
+  const cellContent = store[row]?.[column - 1] || null;
   let lastColumn = null;
   
-  for (let c = +column; c < TOTAL_CELLS_IN_MONTH_DAY_MODEL; c += 1) {
-    if (store[+row]?.[c] !== startCoordinate) {
-      lastColumn = c;
+  // Use pre-calculated limit
+  // const maxColumn = TOTAL_CELLS_IN_MONTH_DAY_MODEL - DAYS_AFTER_TODAY_IN_MONTH_DAY_MODEL * 30;
+
+  const maxColumn = TOTAL_CELLS_IN_YEAR_MONTH_MODEL + MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL - 1;
+
+  // console.log("235) ===>> TOTAL_CELLS_IN_YEAR_MONTH_MODEL", TOTAL_CELLS_IN_YEAR_MONTH_MODEL);
+  // console.log("236) ===>> MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL", MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL);
+  // console.log("237) ===>> maxColumn", maxColumn);
+
+  
+  // Optimize the loop by avoiding repeated property access and type conversion
+  for (let c = column; c < TOTAL_CELLS_IN_MONTH_DAY_MODEL; c += 1) {
+    if (store[row]?.[c] !== startCoordinate) {
+      lastColumn = Math.min(c, maxColumn);
       break;
     }
-    store[+row][c] = content;
+    store[row][c] = cellContent;
   }
 
-  if (lastColumn && lastColumn > TOTAL_CELLS_IN_MONTH_DAY_MODEL - DAYS_AFTER_TODAY_IN_MONTH_DAY_MODEL) {
-    lastColumn = TOTAL_CELLS_IN_MONTH_DAY_MODEL - DAYS_AFTER_TODAY_IN_MONTH_DAY_MODEL;
-  }
+  console.log("235) ===>> lastColumn", lastColumn);
 
-  // is there a link in the previous column?
-  if (content) {
-    return [content, `${row}-${lastColumn}`];
+  // is there a link in the previous cell?
+  if (cellContent) {
+    // yes
+    return [cellContent, `${row}-${lastColumn}`];
   }
 
   return null;
 }
 
 const virtualMainTable = {
-  // initialize,
   createLink,
   deleteLink,
 };
 
 export default virtualMainTable;
-
-
-// /** store format
-//  * 
-//  *     {
-//  *       '0-0': {
-//  *         '0-0': null,
-//  *         '0-1': null,
-//  *         '0-2': null,
-//  *         '0-3': null,
-//  *         '0-4': null,
-//  *         '0-5': [0-0, 0-5],
-//  *         '0-6': [0-0, 0-5],
-//  *         '0-7': [0-0, 0-5],
-//  *         '0-8': null,
-//  *         '0-9': null,
-//  *       },
-//  *       '0-1': {
-//  *         '0-1': null,
-//  *         '0-2': null,
-//  *         '0-3': null,
-//  *         '0-4': null,
-//  *         '0-5': null,
-//  *         '0-6': null,
-//  *         '0-7': null,
-//  *         '0-8': null,
-//  *         '0-9': null,
-//  *       },
-//  *     }
-//  * 
-//  */
-// interface Store {
-//   [key: number]: {
-//     [key: number]: string | null;
-//   };
-// }
-
-// class VirtualMainTable {
-//   private static instance: VirtualMainTable | null = null;
-//   private store: Store = {};
-//   private totalColumns: number = 0;
-
-//   private constructor() {
-//     // private constructor to prevent direct instantiation
-//   }
-
-//   public static getInstance(): VirtualMainTable {
-//     if (!VirtualMainTable.instance) {
-//       VirtualMainTable.instance = new VirtualMainTable();
-//     }
-//     return VirtualMainTable.instance;
-//   }
-
-//   public initialize(totalRows: number, totalColumns: number): void {
-//     if (totalRows <= 0 || totalColumns <= 0) {
-//       throw new Error('Total rows and columns must be positive numbers');
-//     }
-//     this.totalColumns = totalColumns;
-//     Array.from({ length: totalRows }).forEach((_, rowIndex) => {
-//       this.store[rowIndex] = {};
-//       Array.from({ length: totalColumns }).forEach((_, columnIndex) => {
-//         this.store[rowIndex][columnIndex] = null;
-//       });
-//     });
-//   }
-
-//   public createLink(startCoordinate: string): [string, string] | null {
-//     const start = startCoordinate.split('-');
-
-//     // TODO: get the end coordinates to be used here, it is based on "today"
-//     const end = [start[0], '22'];
-
-//     if (isNaN(+start[0]) || isNaN(+start[1]) || isNaN(+end[0]) || isNaN(+end[1])) {
-//       // user clicked on a cell that is not a link (the <Header> cells)
-//       return null;
-//     }
-
-//     const row = +start[0];
-//     const columnStart = +start[1];
-//     const columnEnd = +end[1];
-
-//     let endCoordinate = startCoordinate;
-//     for (let column = columnStart; column <= columnEnd; column++) {
-//       endCoordinate = `${row}-${column}`;
-//       if (this.store[row][column]) {
-//         break;
-//       }
-//       this.store[row][column] = startCoordinate;
-//     }
-
-//     return [startCoordinate, endCoordinate];
-//   }
-
-//   public deleteLink(startCoordinate: string): [string, string] | null {
-//     const [row, column] = startCoordinate.split('-');
-
-//     // is there a link in the previous column?
-//     const content = this.store[+row]?.[+column - 1] || null;
-
-//     let lastColumn = null;
-//     for (let c = +column; c < this.totalColumns; c += 1) {
-//       if (this.store[+row]?.[c] !== startCoordinate) {
-//         lastColumn = c;
-//         break;
-//       }
-//       this.store[+row][c] = content;
-//     }
-
-//     // is there a link in the previous column?
-//     if (content) {
-//       return [content, `${row}-${lastColumn}`];
-//     }
-
-//     return null;
-//   }
-// }
-
-// export default VirtualMainTable.getInstance();

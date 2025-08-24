@@ -20,7 +20,6 @@ const Cell = ({ content = '', rowIndex, columnIndex }: CellProps) => {
 
   const cellId = useMemo(() => `${rowIndex}-${columnIndex}`, [columnIndex, rowIndex]);
 
-
   const onFireCell = (obj: any) => {
     setRerenderParams({
       ...rerenderParams,
@@ -47,16 +46,19 @@ const Cell = ({ content = '', rowIndex, columnIndex }: CellProps) => {
   }, []);
 
   const handleCellClick = () => {
+    
     onClick(cellId, 'cell');
   }
 
   const handleBlockClick = () => {
+
     onClick(cellId, 'block');
   }
 
   // console.log('blockPlacement', blockPlacement);
   // console.log('callId', cellId)
 
+  // return null
 
   return (
     <div className="cell-container">

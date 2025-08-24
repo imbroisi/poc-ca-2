@@ -1,4 +1,3 @@
-// import { useMainTableContext } from '../../context/MainTableContext';
 import Cell from '../Cell';
 import { MAIN_TABLE } from '../../config';
 import './Columns.css';
@@ -9,11 +8,11 @@ export interface ColumnsProps {
 }
 
 const {
-  TOTAL_CELLS_IN_MONTH_DAY_MODEL,
+  TOTAL_CELLS_IN_YEAR_MONTH_MODEL,
+  MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL,
 } = MAIN_TABLE;
 
 const Columns = ({ rowIndex, content }: any) => {
-  // const { mainProps } = useMainTableContext();
 
   // const getMonthDaynumber = (columnIndex: number) => {
   //   return columnIndex % MAIN_TABLE.NUMBER_OF_MONTHS_IN_MONTH_DAY_MODEL;
@@ -22,10 +21,10 @@ const Columns = ({ rowIndex, content }: any) => {
 
 
   // console.log("daysArray =", daysArray);
-  
+
   return (
     <>
-      {Array.from({ length: TOTAL_CELLS_IN_MONTH_DAY_MODEL * MAIN_TABLE.NUMBER_OF_MONTHS_IN_MONTH_DAY_MODEL }).map((_, columnIndex) => {
+      {Array.from({ length: TOTAL_CELLS_IN_YEAR_MONTH_MODEL + MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL }).map((_, columnIndex) => {
         // console.log("2) --->>> daysArray.length =", daysArray.length);
         // console.log("2)--->>> columnIndex =", columnIndex);
 
@@ -33,10 +32,14 @@ const Columns = ({ rowIndex, content }: any) => {
           return null;
         }
         return (
-        <td key={`column-${columnIndex}`} className="columns">
-          <Cell rowIndex={rowIndex} columnIndex={columnIndex} content={content ? `${daysArray?.[columnIndex]?.[0]}` : undefined} />
-        </td>
-      )})}
+          <td key={`column-${columnIndex}`} className="columns">
+            <Cell
+              rowIndex={rowIndex}
+              columnIndex={columnIndex}
+              content={content ? `${daysArray?.[columnIndex]?.[0]}` : columnIndex.toString()} />
+          </td>
+        )
+      })}
     </>
   );
 }
