@@ -1,9 +1,10 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import CellUi from './CellUi';
 import './Cell.css';
 import { useCellManager } from '../../context/CellManagerContext';
 import LinkBox from '../LinkBox';
 import { MAIN_TABLE } from '../../config';
+import { daysArray } from '../../utils';
 
 const { CELL_MONTH_WIDTH_PX_SLICES } = MAIN_TABLE;
 export interface CellProps {
@@ -11,15 +12,18 @@ export interface CellProps {
   columnIndex: number;
   content?: string;
   colSpaned?: number;
+  month?: number;
+  borderVisible?: boolean;
 }
 
-const Cell = ({ content = '', rowIndex, columnIndex, colSpaned = 1 }: CellProps) => {
+const Cell = ({ content = '', rowIndex, columnIndex, borderVisible = false, colSpaned = 1 }: CellProps) => {
   const { registerCallbacks, onClick } = useCellManager();
   const [blockPlacement, setBlockPlacement] = useState<any>(null);
   const [rerenderParams, setRerenderParams] = useState({
     color: '#444444',
     // borderVisible: true,
   });
+  // const lastMonth = useRef(-1);
 
   const cellId = useMemo(() => `${rowIndex}-${columnIndex}`, [columnIndex, rowIndex]);
 
@@ -62,8 +66,16 @@ const Cell = ({ content = '', rowIndex, columnIndex, colSpaned = 1 }: CellProps)
   // console.log('blockPlacement', blockPlacement);
   // console.log('callId', cellId)
 
-  // return null
-  const borderVisible = colSpaned > 1 || columnIndex % CELL_MONTH_WIDTH_PX_SLICES === 0;
+  // const month = daysArray[columnIndex][1];
+
+  // let borderVisible = colSpaned > 1;
+  // if (!borderVisible && month !== lastMonth.current) {
+  //   console.log("110) ===>> month lastMonth.current", month, lastMonth.current);
+  //   lastMonth.current = month;
+  //   borderVisible = true;
+  // }
+
+  // console.log("111) ===>> month", month);
 
   return (
     <div className="cell-container">

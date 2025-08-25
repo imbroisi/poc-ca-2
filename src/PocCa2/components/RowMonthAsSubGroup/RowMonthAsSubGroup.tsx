@@ -1,12 +1,13 @@
+import { useRef } from 'react';
 import { MAIN_TABLE } from '../../config';
-import { daysArray, getMonthNameLong, getMonthNameShort, getNDaysAfterToday, today } from '../../utils';
+import { daysArray, getMonthNameLong, getMonthNameShort, getNDaysAfterToday, getTotalColumns, today } from '../../utils';
 
 import Cell from '../Cell';
 
-const {   CELL_MONTH_WIDTH_PX_SLICES, CELL_MONTH_SPLITED_WIDTH_PX, NUMBER_OF_YEARS_IN_YEAR_MONTH_MODEL } = MAIN_TABLE;
+const { CELL_MONTH_WIDTH_PX_SLICES, CELL_MONTH_SPLITED_WIDTH_PX, NUMBER_OF_YEARS_IN_YEAR_MONTH_MODEL } = MAIN_TABLE;
 
 const RowMonthAsSubGroup = () => {
-
+  const lastMonth = useRef(-1);
   // const lastMonth = (today.month + MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL) % 12;
 
   // const daysAfterToday = getNDaysAfterToday(4);
@@ -33,13 +34,33 @@ const RowMonthAsSubGroup = () => {
 
   console.log("100) --->>> daysArray =", daysArray);
 
-  const monthCounts: any = Array.from(new Set(daysArray.map((item: any) => item[1]))).map(month => ({
-    month: getMonthNameShort((month as number) - 1),
-    count: daysArray.filter((item: any) => item[1] === month).length
-  }));
+  // const monthCounts: any = Array.from(new Set(daysArray.map((item: any) => item[1]))).map(month => ({
+  //   month: getMonthNameShort((month as number) - 1),
+  //   count: daysArray.filter((item: any) => item[1] === month).length
+  // }));
 
-  /**
-   *  monthCounts:
+  const monthCounts: any = [];
+  let currentMonth = daysArray[0][1];
+  console.log("0) ===>> currentMonth", currentMonth);
+
+
+  let currentCount = 1;
+
+  for (let i = 0; i < daysArray.length; i += 1) {
+    console.log("1) ===>> daysArray[i][1] currentMonth", daysArray[i][1], '----', currentMonth, '----', i);
+    if (daysArray[i][1] !== currentMonth) {
+      console.log("1.1 ===>> currentMonth", currentMonth);
+      monthCounts.push({ month: getMonthNameShort((currentMonth as number) - 1), count: currentCount });
+      currentMonth = daysArray[i][1];
+      currentCount = 1;
+    } else {
+      currentCount += 1;
+    }
+  }
+
+  console.log("12.5) ===>> monthCounts", monthCounts);
+
+  /**ß
    * {
    *  month: 'Jan',
    *  count: 11 // simulating that the stats for this month starts at day 20 (so 11 days left in this month)
@@ -50,26 +71,70 @@ const RowMonthAsSubGroup = () => {
    * }
    */
 
-  console.log("2) --->>> monthCounts =", monthCounts);
+  // console.log("2) ---------------->>> monthCounts.length * NUMBER_OF_YEARS_IN_YEAR_MONTH_MODEL + 1 =", monthCounts.length * NUMBER_OF_YEARS_IN_YEAR_MONTH_MODEL + 1);
+
+
+  const totalColumns = getTotalColumns();
+
 
   return (
     <>
       {/* {mainProps.model === 'month-day' && ( */}
       <tr key={`row-month`}>
-        {Array.from({ length: monthCounts.length * NUMBER_OF_YEARS_IN_YEAR_MONTH_MODEL + 1}).map((_, columnIndex) => {
+        {Array.from({ length: totalColumns }).map((_, columnIndex) => {
+
+          // console.log("\n12) ===>> columnIndex", columnIndex);
+
+          if(!monthCounts[(columnIndex)]) {
+            return null;
+          }
+
 
           // console.log("\n20) --->>> daysArray =", daysArray);
           // console.log("21--->>> columnIndex =", columnIndex, monthCounts[columnIndex % 12].month);
           // console.log("22--->>> monthCounts[columnIndex % 12].month =", monthCounts[columnIndex % 12].month);
-          
-          // return Array.from({ length: 1 }).map((_, index) => {
-            // console.log("21--->>> columnIndex =", columnIndex, monthCounts[columnIndex % 12].month);
 
-            return (
-              <th key={`month-column-${columnIndex}-${0}`} colSpan={CELL_MONTH_WIDTH_PX_SLICES} className="columns" style={{ width: CELL_MONTH_SPLITED_WIDTH_PX }}>
-                <Cell content={monthCounts[columnIndex % 12].month} rowIndex="month" columnIndex={columnIndex} colSpaned={CELL_MONTH_WIDTH_PX_SLICES} />
-              </th>
-            )
+          // return Array.from({ length: 1 }).map((_, index) => {
+          // console.log("21--->>> columnIndex =", columnIndex, monthCounts[columnIndex % 12].month);
+
+          let borderVisible = false;
+
+          const day = daysArray[columnIndex][0];
+          const month = daysArray[columnIndex][1];
+
+
+
+          // if (month !== lastMonth.current && day === 3) {
+          //   lastMonth.current = month;
+          //   borderVisible = true;
+          // }
+
+          const colSpan = (monthCounts[(columnIndex)].count);
+
+          console.log("13) ===>> monthCounts", monthCounts);
+          console.log("14) ===>> monthCounts[(columnIndex)]", monthCounts[(columnIndex)]);
+
+
+          // const colSpan = (monthCounts[(columnIndex) % 12].count);
+
+          console.log("15) ===>> month, colSpan", monthCounts[columnIndex].month, colSpan);
+
+
+          // console.log("13) ===>> monthCounts[columnIndex % 12].count", monthCounts[columnIndex % 12].count);
+
+          return (
+            <th key={`month-column-${columnIndex}-${0}`} colSpan={colSpan} className="columns">
+            {/* <th key={`month-column-${columnIndex}-${0}`} colSpan={monthCounts[columnIndex % 12].count + 1} className="columns" style={{ width: CELL_MONTH_SPLITED_WIDTH_PX }}> */}
+              <Cell
+                content={monthCounts[columnIndex % 12].month}
+                rowIndex="month"
+                columnIndex={columnIndex}
+                colSpaned={colSpan}//monthCounts[columnIndex % 12].count / 6}// / 12}//CELL_MONTH_WIDTH_PX_SLICES} 
+                borderVisible//={borderVisible}
+                // isHeader
+              />
+            </th>
+          )
 
           // })
         })}

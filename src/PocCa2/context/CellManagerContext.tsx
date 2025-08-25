@@ -1,5 +1,6 @@
 import React, { createContext, useCallback, useContext, useRef } from 'react'
 import virtualMainTable from '../virtual/virtualMainTable';
+import { getDateFromCoordinate, getDaysInMonth } from '../utils';
 // import { MainTableProps } from './MainTableContext';
 // import { getTodayColumnCoordinate } from '../utils';
 
@@ -34,7 +35,8 @@ export const CellManagerProvider = ({ children, model }: { children: React.React
         return;
       }
 
-      console.log("111) ===>> data", data);
+      // console.log("111) ===>> data[0]", data[0]);
+      // console.log("112) ===>> ", getDateFromCoordinate(data[0]));
 
       cellCallbacks.current[cellId]?.onFireBlock?.(data?.[0], data?.[1]);
       return;

@@ -1,5 +1,7 @@
 import { MAIN_TABLE } from "./config";
 
+let firstDayToShow: any = null;
+
 const todayPrivate = new Date();
 todayPrivate.setHours(0, 0, 0, 0);
 
@@ -96,22 +98,24 @@ const daysArray: any = (() => {
 
   const lastMonth = today.month + MAIN_TABLE.MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL + 1;
 
+  console.log("21221--->>> lastDayToShow =", getEpochDayToYMD(lastDayToShow));
   console.log("21222--->>> lastMonth =", lastMonth);
 
-  for (let i = 1; i < 31; i += 1) {
-    if (getEpochDayToYMD(lastDayToShow + 1).month > lastMonth) {
-      // last day of the last month
-      break;
-    }
+  // for (let i = 1; i < 31; i += 1) {
+  //   if (getEpochDayToYMD(lastDayToShow + 1).month > lastMonth) {
+  //     // last day of the last month
+  //     break;
+  //   }
 
-    lastDayToShow += 1;
-  }
+  //   lastDayToShow += 1;
+  // }
 
-  // console.log("21222--->>> lastDayToShow =", lastDayToShow);
+  console.log("21223--->>> lastDayToShow =", getEpochDayToYMD(lastDayToShow));
 
 
     // OK
-  let firstDayToShow = getNDaysAfterToday(-30 * (MAIN_TABLE.NUMBER_OF_MONTHS_IN_MONTH_DAY_MODEL));
+    // firstDayToShow = getNDaysAfterToday(-30 * (MAIN_TABLE.NUMBER_OF_MONTHS_IN_MONTH_DAY_MODEL));
+    firstDayToShow = getNDaysAfterToday(-30 * (MAIN_TABLE.NUMBER_OF_MONTHS_IN_MONTH_DAY_MODEL));
 
   console.log("21222--->>> lastDayToShow =", lastDayToShow, today.month);
 
@@ -119,10 +123,11 @@ const daysArray: any = (() => {
     firstDayToShow = getNDaysAfterToday(-30 * (MAIN_TABLE.NUMBER_OF_MONTHS_IN_MONTH_DAY_MODEL) - firstDayToShow.day + 1);
   }
 
-  console.log("212224-->>> lastDayToShow =", getEpochDayToYMD(lastDayToShow));
+  // console.log("113) firstDayToShow =", firstDayToShow);
+  console.log("223)-->>> lastDayToShow =", getEpochDayToYMD(lastDayToShow));
 
 
-  // console.log("1) firstDayToShow =", firstDayToShow);
+
   // // console.log("firstDayToShow =", firstDayToShow);
   // console.log("2) getEpochDayToYMD(lastDayToShow)) =", getEpochDayToYMD(lastDayToShow));
 
@@ -139,10 +144,20 @@ const daysArray: any = (() => {
     finalDayArray.push([day, month, year]); 
   });
 
-  // console.log("finalDayArray =", finalDayArray);
+  console.log("finalDayArray =", finalDayArray);
 
   return finalDayArray
 })();
+
+function getDaysInMonth(year: number, month: number) {
+  // month is 1-based (1-12)
+  // Setting day to 0 gets the last day of the previous month
+  return new Date(year, month, 0).getDate();
+}
+
+const getTotalColumns = () => {
+  return daysArray.length;
+}
 
 
 // const monthsArray = (() => {
@@ -171,10 +186,18 @@ const daysArray: any = (() => {
 // console.log("monthsArray =", monthsArray);
 // console.log("yearsArray =", yearsArray);
 
+const getFirstDayToShow = () => firstDayToShow;
+
+const getDateFromCoordinate = (coordinate: string) => {
+  const column = +(coordinate.split('-')[1]);
+
+  return getEpochDayToYMD(firstDayToShow.dayEpoch + column);
+}
+
 export {
   today,
   daysArray,
-  // monthsArray,
+  getTotalColumns,
   getNDaysAfterToday,
   getEpochDayToYMD,
   getDaysSinceEpoch,
@@ -182,4 +205,7 @@ export {
   getMonthNameShort,
   getBoxTopLineColor,
   getTodayColumnCoordinate,
+  getDaysInMonth,
+  getFirstDayToShow,
+  getDateFromCoordinate,
 };

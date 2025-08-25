@@ -8,6 +8,7 @@ export interface CellUiProps {
   onClick: (e: any) => void;
   content?: string;
   colSpaned?: number;
+  isHeader?: boolean;
 }
 
 const {
@@ -18,9 +19,14 @@ const {
   CELL_BACKGROUND_COLOR 
 } = MAIN_TABLE;
 
-const CellUi = ({ content = '', color, onClick, borderVisible, colSpaned = 1 }: CellUiProps) => {
+const CellUi = ({ content = '', color, onClick, borderVisible, colSpaned = 1, isHeader = false }: CellUiProps) => {
   const { model } = useMainTableContext();
 
+
+  // const minWidthIsHeader = isHeader ? CELL_MONTH_SPLITED_WIDTH_PX * colSpaned : '100%';
+  const minWidthIsHeader = (CELL_MONTH_SPLITED_WIDTH_PX) * colSpaned;
+
+  // console.log("1) ===>> colSpaned minWidthIsHeader", colSpaned, minWidthIsHeader);
 
   return (
     <div
@@ -32,10 +38,15 @@ const CellUi = ({ content = '', color, onClick, borderVisible, colSpaned = 1 }: 
         alignItems: 'center',
         justifyContent: 'center',
         color,
+        boxSizing: 'border-box',
         background: CELL_BACKGROUND_COLOR,
         borderColor: CELL_BORDER_COLOR,
-        borderLeftColor: borderVisible ? CELL_BORDER_COLOR : 'transparent',
-        minWidth: model === 'month-day' ? CELL_DAY_WIDTH_PX : CELL_MONTH_SPLITED_WIDTH_PX * colSpaned,
+        
+        // borderLeftColor: borderVisible ? CELL_BORDER_COLOR : 'transparent',
+        borderLeftColor: borderVisible ? 'orange' : CELL_BORDER_COLOR,
+
+        minWidth: model === 'month-day' ? CELL_DAY_WIDTH_PX : minWidthIsHeader,
+        // maxWidth: model === 'month-day' ? CELL_DAY_WIDTH_PX : minWidthIsHeader,
         width: '100%',
         height: CELL_HEIGHT_PX,
       }}

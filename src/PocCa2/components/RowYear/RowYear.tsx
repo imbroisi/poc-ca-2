@@ -33,10 +33,10 @@ const RowYear = () => {
   // console.log("21) --->>> yearCounts =", yearCounts);
 
   const firstMonth = daysArray[0][1];
-  console.log("21--->>> firstMonth =", firstMonth);
+  // console.log("21--->>> firstMonth =", firstMonth);
 
   const firstColSpan = (12 - firstMonth + 1) * 6;
-  console.log("212-->>> firstColSpan =", firstColSpan);
+  // console.log("212-->>> firstColSpan =", firstColSpan);
 
   return (
     <>
