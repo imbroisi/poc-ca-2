@@ -42,8 +42,8 @@ const CellUi = ({ content = '', color, onClick, borderVisible, colSpaned = 1, is
         background: CELL_BACKGROUND_COLOR,
         borderColor: CELL_BORDER_COLOR,
         
-        // borderLeftColor: borderVisible ? CELL_BORDER_COLOR : 'transparent',
-        borderLeftColor: borderVisible ? 'orange' : CELL_BORDER_COLOR,
+        borderLeftColor: borderVisible ? CELL_BORDER_COLOR : 'transparent',
+        // borderLeftColor: borderVisible ? 'orange' : CELL_BORDER_COLOR,
 
         minWidth: model === 'month-day' ? CELL_DAY_WIDTH_PX : minWidthIsHeader,
         // maxWidth: model === 'month-day' ? CELL_DAY_WIDTH_PX : minWidthIsHeader,

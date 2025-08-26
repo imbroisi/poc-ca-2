@@ -4,7 +4,7 @@ import { daysArray, getMonthNameLong, getMonthNameShort, getNDaysAfterToday, get
 
 import Cell from '../Cell';
 
-const { CELL_MONTH_WIDTH_PX_SLICES, CELL_MONTH_SPLITED_WIDTH_PX, NUMBER_OF_YEARS_IN_YEAR_MONTH_MODEL } = MAIN_TABLE;
+const { CELL_BORDER_COLOR, CELL_MONTH_WIDTH_PX_SLICES, CELL_MONTH_SPLITED_WIDTH_PX, NUMBER_OF_YEARS_IN_YEAR_MONTH_MODEL } = MAIN_TABLE;
 
 const RowMonthAsSubGroup = () => {
   const lastMonth = useRef(-1);
@@ -125,7 +125,7 @@ const RowMonthAsSubGroup = () => {
           // console.log("13) ===>> monthCounts[columnIndex % 12].count", monthCounts[columnIndex % 12].count);
 
           return (
-            <th key={`month-column-${columnIndex}-${0}`} colSpan={colSpan} className="columns">
+            <th key={`month-column-${columnIndex}-${0}`} colSpan={colSpan} className="columns" style={{ borderTop: `1px solid ${CELL_BORDER_COLOR}` }}>
             {/* <th key={`month-column-${columnIndex}-${0}`} colSpan={monthCounts[columnIndex % 12].count + 1} className="columns" style={{ width: CELL_MONTH_SPLITED_WIDTH_PX }}> */}
               <Cell
                 content={monthCounts[columnIndex % 12].month}

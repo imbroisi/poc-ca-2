@@ -38,14 +38,14 @@ const RowYear = () => {
     console.log("1) ===>> daysArray[i][2] currentMonth", daysArray[i][2], '----', currentYear, '----', i);
     if (daysArray[i][2] !== currentYear) {
       console.log("1.1 ===>> currentMonth", currentYear);
-      yearCounts.push({ month: getMonthNameShort((currentYear as number) - 1), count: currentCount });
+      yearCounts.push({ year: currentYear, count: currentCount });
       currentYear = daysArray[i][2];
       currentCount = 1;
     } else {
       currentCount += 1;
     }
   }
-  yearCounts.push({ year: getMonthNameShort((currentYear as number) - 1), count: currentCount });
+  yearCounts.push({ year: currentYear, count: currentCount });
 
   console.log("21) --->>> yearCounts =", yearCounts);
 
@@ -84,7 +84,7 @@ const RowYear = () => {
 
 
         return (
-          <th key={`year-column-${columnIndex}`} colSpan={colSpan}>
+          <th key={`year-column-${columnIndex}`} colSpan={colSpan} style={{ borderTop: `1px solid ${CELL_BORDER_COLOR}` }}>
             <Cell content={yearCounts[columnIndex].year} rowIndex="year" columnIndex={columnIndex} />
           </th>
         )
