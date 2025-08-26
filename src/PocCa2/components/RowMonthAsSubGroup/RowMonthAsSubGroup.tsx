@@ -27,12 +27,12 @@ const RowMonthAsSubGroup = () => {
 
   // const totalMonths = MAIN_TABLE.NUMBER_OF_YEARS_IN_YEAR_MONTH_MODEL * 12;
 
-  const yearCounts: any = Array.from(new Set(daysArray.map((item: any) => item[2]))).map(year => ({
-    year,
-    count: daysArray.filter((item: any) => item[2] === year).length
-  }));
+  // const yearCounts: any = Array.from(new Set(daysArray.map((item: any) => item[2]))).map(year => ({
+  //   year,
+  //   count: daysArray.filter((item: any) => item[2] === year).length
+  // }));
 
-  console.log("100) --->>> daysArray =", daysArray);
+  // console.log("100) --->>> yearCounts =", yearCounts);
 
   // const monthCounts: any = Array.from(new Set(daysArray.map((item: any) => item[1]))).map(month => ({
   //   month: getMonthNameShort((month as number) - 1),
@@ -58,10 +58,14 @@ const RowMonthAsSubGroup = () => {
     }
   }
 
+  monthCounts.push({ month: getMonthNameShort((currentMonth as number) - 1), count: currentCount });
+
   console.log("12.5) ===>> monthCounts", monthCounts);
 
+
   /**ß
-   * {
+   * {Boa
+   * 
    *  month: 'Jan',
    *  count: 11 // simulating that the stats for this month starts at day 20 (so 11 days left in this month)
    * },
@@ -78,8 +82,6 @@ const RowMonthAsSubGroup = () => {
 
 
   return (
-    <>
-      {/* {mainProps.model === 'month-day' && ( */}
       <tr key={`row-month`}>
         {Array.from({ length: totalColumns }).map((_, columnIndex) => {
 
@@ -97,10 +99,10 @@ const RowMonthAsSubGroup = () => {
           // return Array.from({ length: 1 }).map((_, index) => {
           // console.log("21--->>> columnIndex =", columnIndex, monthCounts[columnIndex % 12].month);
 
-          let borderVisible = false;
+          // let borderVisible = false;
 
-          const day = daysArray[columnIndex][0];
-          const month = daysArray[columnIndex][1];
+          // const day = daysArray[columnIndex][0];
+          // const month = daysArray[columnIndex][1];
 
 
 
@@ -109,7 +111,7 @@ const RowMonthAsSubGroup = () => {
           //   borderVisible = true;
           // }
 
-          const colSpan = (monthCounts[(columnIndex)].count);
+          const colSpan = (monthCounts[(columnIndex)].count) ;
 
           console.log("13) ===>> monthCounts", monthCounts);
           console.log("14) ===>> monthCounts[(columnIndex)]", monthCounts[(columnIndex)]);
@@ -139,7 +141,6 @@ const RowMonthAsSubGroup = () => {
           // })
         })}
       </tr>
-    </>
   );
 }
 
