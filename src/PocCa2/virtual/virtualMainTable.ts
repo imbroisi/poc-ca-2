@@ -28,7 +28,7 @@
  * 
  */
 import { MAIN_TABLE } from "../config";
-import { getTotalColumns } from "../date";
+import { convertDayMsToYMD, getNDaysAfterTodayMs, todayDayMs, todayMonthUnit } from "../date";
 
 const {
   TOTAL_MONTHS_IN_YEAR_MONTH_MODEL,
@@ -45,6 +45,72 @@ console.log("221) ===>> TOTAL_MONTHS_IN_YEAR_MONTH_MODEL", TOTAL_MONTHS_IN_YEAR_
 console.log("222) ===>> CELL_MONTH_WIDTH_PX_SLICES", CELL_MONTH_WIDTH_PX_SLICES);
 
 const store = {} as StoreData;
+
+const daysArray: any = (() => {
+  const finalDayArray: any = [];
+  // const finalMonthArray = [];
+  // let currentMonth = null;
+
+  // OK
+  // const lastDayToShow = today.dayMs + (MAIN_TABLE.DAYS_AFTER_TODAY_IN_MONTH_DAY_MODEL);
+  let lastDayToShow = todayDayMs + (MAIN_TABLE.MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL * 30);
+
+  const lastMonth = todayMonthUnit + MAIN_TABLE.MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL + 1;
+
+  console.log("21221--->>> lastDayToShow =", convertDayMsToYMD(lastDayToShow));
+  console.log("21222--->>> lastMonth =", lastMonth);
+
+  // for (let i = 1; i < 31; i += 1) {
+  //   if (convertDayMsToYMD(lastDayToShow + 1).month > lastMonth) {
+  //     // last day of the last month
+  //     break;
+  //   }
+
+  //   lastDayToShow += 1;
+  // }
+
+  console.log("21223--->>> lastDayToShow =", convertDayMsToYMD(lastDayToShow));
+
+
+    // OK
+    // firstDayToShow = getNDaysAfterToday(-30 * (MAIN_TABLE.NUMBER_OF_MONTHS_IN_MONTH_DAY_MODEL));
+let firstDayToShow = getNDaysAfterTodayMs(-30 * (MAIN_TABLE.NUMBER_OF_MONTHS_IN_MONTH_DAY_MODEL));
+
+  console.log("21222--->>> lastDayToShow =", lastDayToShow, todayMonthUnit);
+
+  if (firstDayToShow.day > 1) {
+    firstDayToShow = getNDaysAfterTodayMs(-30 * (MAIN_TABLE.NUMBER_OF_MONTHS_IN_MONTH_DAY_MODEL) - firstDayToShow.day + 1);
+  }
+
+  // console.log("113) firstDayToShow =", firstDayToShow);
+  console.log("223)-->>> lastDayToShow =", convertDayMsToYMD(lastDayToShow));
+
+
+
+  // // console.log("firstDayToShow =", firstDayToShow);
+  // console.log("2) convertDayMsToYMD(lastDayToShow)) =", convertDayMsToYMD(lastDayToShow));
+
+  // console.log("3) difference =", lastDayToShow - firstDayToShow.dayMs);
+  
+  Array.from({ length: lastDayToShow - (firstDayToShow.dayMs)}).forEach((_, i) => {
+    const { day, month, year } = convertDayMsToYMD(i + firstDayToShow.dayMs + 2); 
+
+    // console.log("day =", day);
+    // console.log("month =", month);
+    // console.log("year =", year);
+    // console.log("getMonthNameLong(month) =", getMonthNameLong(month));
+
+    finalDayArray.push([day, month, year]); 
+  });
+
+  console.log("finalDayArray =", finalDayArray);
+
+  return finalDayArray
+})();
+
+const getTotalColumns = () => daysArray.length;
+
+const getDaysArray = () => daysArray;
 
 const createLink = (startCoordinate: string) => {
   // Parse coordinates once and use the numeric values
@@ -143,6 +209,8 @@ const deleteLink = (startCoordinate: string) => {
 }
 
 const virtualMainTable = {
+  getDaysArray,
+  getTotalColumns,
   createLink,
   deleteLink,
 };

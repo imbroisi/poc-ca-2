@@ -1,8 +1,10 @@
 import Cell from '../Cell';
 import { MAIN_TABLE } from '../../config';
 import './Columns.css';
-import { daysArray } from '../../date';
+import virtualMainTable from '../../virtual/virtualMainTable';
 import { useRef } from 'react';
+
+const daysArray = virtualMainTable.getDaysArray();
 
 export interface ColumnsProps {
 

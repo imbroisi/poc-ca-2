@@ -1,7 +1,8 @@
 import { MAIN_TABLE } from '../../config';
-import { daysArray } from '../../date';
-
+import virtualMainTable from '../../virtual/virtualMainTable';
 import Cell from '../Cell';
+
+const daysArray = virtualMainTable.getDaysArray();
 
 const RowMonthAsGroup = () => {
 

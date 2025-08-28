@@ -1,6 +1,8 @@
 import { MAIN_TABLE } from '../../config';
-import { daysArray } from '../../date';
 import Cell from '../Cell';
+import virtualMainTable from '../../virtual/virtualMainTable';
+
+const daysArray = virtualMainTable.getDaysArray();
 
 const { CELL_BORDER_COLOR, CELL_MONTH_SPLITED_WIDTH_PX } = MAIN_TABLE;
 

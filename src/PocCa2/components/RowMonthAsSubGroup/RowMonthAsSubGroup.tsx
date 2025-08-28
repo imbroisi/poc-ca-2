@@ -1,13 +1,15 @@
-import { useRef } from 'react';
 import { MAIN_TABLE } from '../../config';
-import { daysArray, getMonthNameShort, getTotalColumns } from '../../date';
-
+import { getMonthNameShort } from '../../date';
+import virtualMainTable from '../../virtual/virtualMainTable';
 import Cell from '../Cell';
+
+const daysArray = virtualMainTable.getDaysArray();
+const getTotalColumns = virtualMainTable.getTotalColumns;
 
 const { CELL_BORDER_COLOR, CELL_MONTH_WIDTH_PX_SLICES, CELL_MONTH_SPLITED_WIDTH_PX, NUMBER_OF_YEARS_IN_YEAR_MONTH_MODEL } = MAIN_TABLE;
 
 const RowMonthAsSubGroup = () => {
-  const lastMonth = useRef(-1);
+  // const lastMonth = useRef(-1);
   // const lastMonth = (today.month + MONTHS_AFTER_TODAY_IN_YEAR_MONTH_MODEL) % 12;
 
   // const daysAfterToday = getNDaysAfterToday(4);
