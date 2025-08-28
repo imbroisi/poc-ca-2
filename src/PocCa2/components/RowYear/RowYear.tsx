@@ -1,5 +1,5 @@
 import { MAIN_TABLE } from '../../config';
-import { daysArray, getEpochDayToYMD, getMonthNameShort } from '../../utils';
+import { daysArray } from '../../date';
 import Cell from '../Cell';
 
 const { CELL_BORDER_COLOR, CELL_MONTH_SPLITED_WIDTH_PX } = MAIN_TABLE;
@@ -28,7 +28,7 @@ const RowYear = () => {
   //   count: daysArray.filter((item: any) => item[2] === year).length
   // }));
 
-  // console.log("2) --->>> daysArray =", daysArray);
+  console.log("2) --->>> daysArray =", daysArray);
 
   let yearCounts: any = [];
   let currentYear = daysArray[0][2];

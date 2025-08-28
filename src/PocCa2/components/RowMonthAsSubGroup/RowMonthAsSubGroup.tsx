@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { MAIN_TABLE } from '../../config';
-import { daysArray, getMonthNameLong, getMonthNameShort, getNDaysAfterToday, getTotalColumns, today } from '../../utils';
+import { daysArray, getMonthNameShort, getTotalColumns } from '../../date';
 
 import Cell from '../Cell';
 

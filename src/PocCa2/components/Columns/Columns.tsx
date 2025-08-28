@@ -1,7 +1,7 @@
 import Cell from '../Cell';
 import { MAIN_TABLE } from '../../config';
 import './Columns.css';
-import { daysArray } from '../../utils';
+import { daysArray } from '../../date';
 import { useRef } from 'react';
 
 export interface ColumnsProps {

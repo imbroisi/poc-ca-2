@@ -4,7 +4,7 @@ import './Cell.css';
 import { useCellManager } from '../../context/CellManagerContext';
 import LinkBox from '../LinkBox';
 import { MAIN_TABLE } from '../../config';
-import { daysArray } from '../../utils';
+import { daysArray } from '../../date';
 
 const { CELL_MONTH_WIDTH_PX_SLICES } = MAIN_TABLE;
 export interface CellProps {

@@ -1,5 +1,5 @@
 import { useMainTableContext } from '../../context/MainTableContext';
-import { getBoxTopLineColor, today } from '../../utils';
+import { getBoxTopLineColor } from '../../utils';
 import './LinkBox.css';
 import { MAIN_TABLE } from '../../config';
 

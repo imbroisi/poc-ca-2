@@ -28,7 +28,7 @@
  * 
  */
 import { MAIN_TABLE } from "../config";
-import { getTotalColumns } from "../utils";
+import { getTotalColumns } from "../date";
 
 const {
   TOTAL_MONTHS_IN_YEAR_MONTH_MODEL,

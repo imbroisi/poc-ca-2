@@ -1,5 +1,5 @@
 import { MAIN_TABLE } from '../../config';
-import { daysArray, getMonthNameLong, getNDaysAfterToday, today } from '../../utils';
+import { daysArray } from '../../date';
 
 import Cell from '../Cell';
 
