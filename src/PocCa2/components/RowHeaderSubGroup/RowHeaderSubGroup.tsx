@@ -8,8 +8,8 @@ const RowHeaderSubGroup = () => {
 
   return (
     <>
-      {model === 'year-month' && <RowMonthAsSubGroup />}
-      {model === 'month-day' && <RowDay columns={Columns} />}
+      {/* {model === 'year-month' && <RowMonthAsSubGroup />}
+      {model === 'month-day' && <RowDay columns={Columns} />} */}
     </>
   );
 }

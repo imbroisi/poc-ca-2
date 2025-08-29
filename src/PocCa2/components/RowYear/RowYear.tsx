@@ -30,16 +30,16 @@ const RowYear = () => {
   //   count: daysArray.filter((item: any) => item[2] === year).length
   // }));
 
-  console.log("2) --->>> daysArray =", daysArray);
+  // console.log("2) --->>> daysArray =", daysArray);
 
   let yearCounts: any = [];
   let currentYear = daysArray[0][2];
-  let currentCount = 1;
+  let currentCount = 0;
 
   for (let i = 0; i < daysArray.length; i += 1) {
-    console.log("1) ===>> daysArray[i][2] currentMonth", daysArray[i][2], '----', currentYear, '----', i);
+    // console.log("1) ===>> daysArray[i][2] currentMonth", daysArray[i][2], '----', currentYear, '----', i);
     if (daysArray[i][2] !== currentYear) {
-      console.log("1.1 ===>> currentMonth", currentYear);
+      // console.log("1.1 ===>> currentMonth", currentYear);
       yearCounts.push({ year: currentYear, count: currentCount });
       currentYear = daysArray[i][2];
       currentCount = 1;
@@ -49,7 +49,7 @@ const RowYear = () => {
   }
   yearCounts.push({ year: currentYear, count: currentCount });
 
-  console.log("21) --->>> yearCounts =", yearCounts);
+  // console.log("21) --->>> yearCounts =", yearCounts);
 
   // const firstMonth = daysArray[0][2];
   // // console.log("21--->>> firstMonth =", firstMonth);

@@ -40,7 +40,7 @@ const Columns = ({ rowIndex, content }: any) => {
         const day = daysArray[columnIndex][0];
         const month = daysArray[columnIndex][1];
 
-        if (month !== lastMonth.current && day === 2) {
+        if (month !== lastMonth.current && day === 1) {
           lastMonth.current = month;
           borderVisible = true;
         }

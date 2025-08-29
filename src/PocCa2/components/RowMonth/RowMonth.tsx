@@ -43,10 +43,11 @@ const RowMonthAsSubGroup = () => {
 
   const monthCounts: any = [];
   let currentMonth = daysArray[0][1];
+  // console.log("0) ===>> daysArray[0]", daysArray[0]);
   // console.log("0) ===>> currentMonth", currentMonth);
 
 
-  let currentCount = 1;
+  let currentCount = 0;
 
   for (let i = 0; i < daysArray.length; i += 1) {
     // console.log("1) ===>> daysArray[i][1] currentMonth", daysArray[i][1], '----', currentMonth, '----', i);
@@ -62,7 +63,7 @@ const RowMonthAsSubGroup = () => {
 
   monthCounts.push({ month: getMonthNameShort((currentMonth as number) - 1), count: currentCount });
 
-  // console.log("12.5) ===>> monthCounts", monthCounts);
+  console.log("12.5) ===>> monthCounts", monthCounts);
 
 
   /**ß
@@ -115,11 +116,11 @@ const RowMonthAsSubGroup = () => {
 
           const colSpan = (monthCounts[(columnIndex)].count) ;
 
-          // console.log("13) ===>> monthCounts", monthCounts);
+          console.log("13) ===>> monthCounts", monthCounts);
           // console.log("14) ===>> monthCounts[(columnIndex)]", monthCounts[(columnIndex)]);
 
 
-          // const colSpan = (monthCounts[(columnIndex) % 12].count);
+          // // const colSpan = (monthCounts[(columnIndex) % 12].count);
 
           // console.log("15) ===>> month, colSpan", monthCounts[columnIndex].month, colSpan);
 

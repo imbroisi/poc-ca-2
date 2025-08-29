@@ -12,6 +12,7 @@ import RowDay from '../RowDay';
 import RowMonthAsGroup from '../RowMonthAsGroup';
 import RowHeaderGroup from '../RowHeaderGroup';
 import RowHeaderSubGroup from '../RowHeaderSubGroup';
+import RowsHeader from '../RowsHeader';
 
 interface Model {
   model: 'year-month' | 'month-day';
@@ -23,8 +24,8 @@ const MainTable = ({ model }: Model) => (
     <CellManagerProvider model={model}>
       <Table>
         <Header>
-          <RowHeaderGroup />
-          <RowHeaderSubGroup />
+          <RowsHeader />
+          {/* <RowHeaderSubGroup /> */}
         </Header>
         <Body>
           <Rows columns={Columns} />
