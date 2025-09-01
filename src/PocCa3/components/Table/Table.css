@@ -1,0 +1,23 @@
+.table-container {
+  width: fit-content;
+  overflow-x: auto;
+  position: relative;
+  display: block;
+
+  * {
+    font-size: 12px;
+    font-weight: normal !important;
+  }
+}
+
+.table {
+  width: max-content;
+  min-width: 100%;
+  height: 100%;
+  border-collapse: collapse;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  padding: 0;
+  margin: 0;
+  display: table;
+}

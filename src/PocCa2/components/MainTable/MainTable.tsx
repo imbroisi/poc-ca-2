@@ -1,4 +1,3 @@
-import Body from '../Body';
 import Columns from '../Columns';
 import Rows from '../Rows';
 import Table from '../Table';
@@ -13,6 +12,7 @@ import RowMonthAsGroup from '../RowMonthAsGroup';
 import RowHeaderGroup from '../RowHeaderGroup';
 import RowHeaderSubGroup from '../RowHeaderSubGroup';
 import RowsHeader from '../RowsHeader';
+import Body from '../Body';
 
 interface Model {
   model: 'year-month' | 'month-day';
