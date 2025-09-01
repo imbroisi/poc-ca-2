@@ -3,7 +3,7 @@ import { useDateContext } from '../../context/DateContext';
 import './Body.css';
 
 const Body = () => {
-  const { numberOfYears, totalAttributes } = useDateContext();
+  const { numberOfYears, totalAttributes, todayPositionPx } = useDateContext();
 
   const rowsToRender = (totalAttributes + 1) * Math.ceil(ROWS_BY_PAGE / (totalAttributes + 1));
 
@@ -19,6 +19,14 @@ const Body = () => {
     console.log("Mouse position:", abs, indexColRow, indexCol);
   };
 
+  const verticalLine = {
+    posH: 30,//todayPositionPx,
+    startV: 50,
+    endV: 400,
+    color: 'red',
+    width: 2,
+  };
+
   return (
     <tbody className="body-container">
       {Array.from({ length: rowsToRender }).map((_, indexColRow) => (
@@ -31,7 +39,7 @@ const Body = () => {
                 : 'transparent',
           }}>
           {Array.from({ length: numberOfYears }).map((_, indexCol) => (
-            <th
+            <><th
               key={indexCol}
               onClick={(e) => handleCellClick(e, indexColRow, indexCol)}
               className="body-cell"
@@ -39,8 +47,24 @@ const Body = () => {
                 height: CELL_HEIGHT_PX,
                 borderLeft: `1px solid ${CELL_BORDER_COLOR}`,
                 borderRight: `1px solid ${CELL_BORDER_COLOR}`,
+                position: 'relative',
               }}
-            />
+            >
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 0,//`${verticalLine.startV}px`,
+                  left: `${verticalLine.posH}px`,
+                  width: `${verticalLine.width}px`,
+                  // height: `${verticalLine.endV - verticalLine.startV}px`,
+                  height: CELL_HEIGHT_PX + 1,
+                  backgroundColor: verticalLine.color,
+                  pointerEvents: 'none',
+                  zIndex: 1000,
+                }}
+              />
+            </th>
+            </>
           ))}
         </tr>
       ))}

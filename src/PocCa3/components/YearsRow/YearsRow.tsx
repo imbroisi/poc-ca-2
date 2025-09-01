@@ -60,7 +60,7 @@ const YearsRow = () => {
           {firstYear + index}
           {index === 0 && (
             <>
-              <div
+              {/* <div
                 style={{
                   position: 'absolute',
                   top: `${verticalLine.startV}px`,
@@ -71,7 +71,7 @@ const YearsRow = () => {
                   pointerEvents: 'none',
                   zIndex: 1000,
                 }}
-              />
+              /> */}
               {rectangles.map(renderRectangle)}
             </>
           )}
