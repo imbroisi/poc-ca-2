@@ -3,10 +3,12 @@
   overflow-x: auto;
   position: relative;
   display: block;
-
+  direction: rtl; /* This makes the scroll start from right */
+  
   * {
     font-size: 12px;
     font-weight: normal !important;
+    direction: ltr; /* Reset direction for content */
   }
 }
 

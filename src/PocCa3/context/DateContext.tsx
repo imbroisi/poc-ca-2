@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useContext, useRef } from 'react'
-import { TOTAL_DAYS_AFTER_TODAY } from '../config';
+import { TOTAL_DAYS_AFTER_TODAY, YEAR_CELL_WIDTH_PX } from '../config';
 // import { MainTableProps } from './MainTableContext';
 // import { getTodayColumnCoordinate } from '../utils';
 
@@ -30,31 +30,84 @@ export const DateProvider = ({
   const todayMs = todayDate.getTime();
   const todayEpochDayUnit = Math.round(todayMs / ONE_DAY_IN_MS);
 
-  const numberOfYearsUnit = numberOfYears;
+  const todaMonthUnit = todayDate.getMonth();
+  const todayYearUnit = todayDate.getFullYear();
+  const todayDayUnit = todayDate.getDate();
+
+  // const numberOfYearsUnit = numberOfYears;
   // no problem ignoring leap years
-  const totalDaysUnit = Math.floor(numberOfYearsUnit * 365.25);
+  const dayWidthPx = YEAR_CELL_WIDTH_PX / 365;
 
-  console.log("totalDaysUnit =", totalDaysUnit);
+  const totalDaysUnit = numberOfYears * 365;
+  const totalDaysPx = totalDaysUnit * dayWidthPx;
+
+  console.log("=== totalDaysUnit =", totalDaysUnit);
+  console.log("=== totalDaysPx =", totalDaysPx);
 
 
-  const getYearFromEpochDayUnit = (epochDayUnit: number) => {
-    const date = new Date(epochDayUnit * ONE_DAY_IN_MS);
-    console.log("date =", date);
-    return date.getUTCFullYear();
-  }
+  const lastEpochDayInTableDate = new Date(todayYearUnit, 11, 31, 0, 0, 0, 0);
+
+  console.log("====>>>> lastEpochDayInTableDate =", lastEpochDayInTableDate);
+
+  const lastYearInTableUnit = lastEpochDayInTableDate.getFullYear();
+
+  console.log("====>>>> lastYearInTableUnit =", lastYearInTableUnit);
+
   
-  const lastEpochDayInTableUnit = todayEpochDayUnit + TOTAL_DAYS_AFTER_TODAY;
+  const lastEpochDayInTableUnit = Math.round(lastEpochDayInTableDate.getTime() / ONE_DAY_IN_MS); //todayEpochDayUnit;
 
-  console.log("lastEpochDayInTableUnit =", getYearFromEpochDayUnit(lastEpochDayInTableUnit));
-
-  const firstEpochDayInTableUnit = lastEpochDayInTableUnit - totalDaysUnit + 365;
-
-  console.log("firstEpochDayInTableUnit =", getYearFromEpochDayUnit(firstEpochDayInTableUnit));
-  // const firstYearInTable = getYearFromEpochDayUnit(firstEpochDayInTableUnit);
+  console.log("====>>>> lastEpochDayInTableUnit =", lastEpochDayInTableUnit);
 
 
-  const firstYear = getYearFromEpochDayUnit(firstEpochDayInTableUnit);
+  const firstEpochDayInTableUnit = lastEpochDayInTableUnit - totalDaysUnit;
 
+  console.log("====>>>> firstEpochDayInTableUnit =", firstEpochDayInTableUnit);
+
+  const firstYearInTableUnit = lastYearInTableUnit - numberOfYears + 1;
+
+  console.log("====>>>> firstYearInTableUnit =", firstYearInTableUnit);
+  console.log("====>>>> lastYearInTableUnit =", lastYearInTableUnit);
+  
+
+  // const getYearFromEpochDayUnit = (epochDayUnit: number) => {
+  //   const date = new Date(epochDayUnit * ONE_DAY_IN_MS);
+  //   console.log("date =", date);
+  //   return date.getUTCFullYear();
+  // }
+
+  console.log("====>>>> todayEpochDayUnit =", (todayEpochDayUnit));
+
+  
+  // const lastEpochDayInTableUnit = todayEpochDayUnit + TOTAL_DAYS_AFTER_TODAY;
+
+  // console.log("====>>>> lastEpochDayInTableUnit =", lastEpochDayInTableUnit);
+
+  // const firstEpochDayInTableUnit = lastEpochDayInTableUnit - totalDaysUnit + 365;
+
+  // console.log("====>>>> firstEpochDayInTableUnit =", firstEpochDayInTableUnit);
+  // const firstYearInTableUnit = getYearFromEpochDayUnit(firstEpochDayInTableUnit);
+
+
+  // const firstYear = getYearFromEpochDayUnit(firstEpochDayInTableUnit);
+
+  // const dayWidthPx = YEAR_CELL_WIDTH_PX / 365;
+
+  // const totalDaysPx = totalDaysUnit * dayWidthPx;
+
+  // console.log("==== dayWidthPx =", dayWidthPx);
+  // console.log("==== totalDaysPx =", totalDaysPx);
+
+
+
+  // const todayPositionPx = totalDaysPx - dayWidthPx * TOTAL_DAYS_AFTER_TODAY;//  //(todayEpochDayUnit - firstEpochDayInTableUnit) * dayWidthPx + 360;
+  const todayPositionPx = dayWidthPx * (todayEpochDayUnit - firstEpochDayInTableUnit);
+
+  
+  console.log("dayWidthPx =", dayWidthPx);
+  console.log("todayPositionPx =", todayPositionPx);
+
+  console.log("dayWidthPx ===>>", dayWidthPx);
+  console.log("YEAR_CELL_WIDTH_PX ===>>", YEAR_CELL_WIDTH_PX);
 
   
   // const cellsMapping = useRef<any>({});
@@ -95,10 +148,11 @@ export const DateProvider = ({
 
   return (
     <DateContext.Provider value={{
-      firstYear,
+      firstYearInTableUnit,
+      lastYearInTableUnit,
       numberOfYears,
       totalAttributes,
-      
+      todayPositionPx,
       // registerCallbacks,
       // onClick,
       // model,
