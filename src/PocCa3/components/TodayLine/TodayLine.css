@@ -20,7 +20,7 @@
   
   .triangle-up {
     rotate: 180deg;
-    bottom: 2px;
+    bottom: 0;
     top: unset;
   }
 }

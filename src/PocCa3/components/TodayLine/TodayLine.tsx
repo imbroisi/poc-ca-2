@@ -7,7 +7,7 @@ export interface TodayLineProps {
 }
 
 const TodayLine = ({ left, rowsToRender }: TodayLineProps) => {
-  const height = CELL_HEIGHT_PX * (rowsToRender + 1) - 2;
+  const height = CELL_HEIGHT_PX * (rowsToRender + 1) - 4;
   return (
     <tr>
       <th>

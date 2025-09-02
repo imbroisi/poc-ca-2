@@ -6,3 +6,5 @@ export const TOTAL_DAYS_AFTER_TODAY = 30;
 export const ROWS_BY_PAGE = 20;
 
 export const TODAY_LINE_COLOR = '#45acc8';
+
+export const LINKS_COLORS = ['green', 'pink'];
