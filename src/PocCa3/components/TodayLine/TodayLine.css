@@ -1,3 +1,26 @@
-.container {
+.today-line {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  pointer-events: none;
+  z-index: 1000;
+  background-color: var(--today-line-color);
 
+  .triangle-down,
+  .triangle-up {
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: 0;
+    left: -6px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 11px solid var(--today-line-color);
+  }
+  
+  .triangle-up {
+    rotate: 180deg;
+    bottom: 2px;
+    top: unset;
+  }
 }

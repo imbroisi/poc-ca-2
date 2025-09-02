@@ -13,57 +13,38 @@ const Body = () => {
   const handleCellClick = (e: React.MouseEvent<HTMLTableCellElement>, indexColRow: number, indexCol: number) => {
     const cell = e.currentTarget;
     const rect = cell.getBoundingClientRect();
-    const x = e.clientX - rect.left; // get mouse X position relative to cell
-    // const percentage = Math.round((x / rect.width) * 100); // convert to percentage
-    const abs = x / rect.width; // convert to percentage
-    // console.log("Mouse position:", percentage + "%");
+    const x = e.clientX - rect.left;
+    const abs = x / rect.width;
     console.log("Mouse position:", abs, indexColRow, indexCol);
   };
 
-  const verticalLine = {
-    posH: 30,//todayPositionPx,
-    startV: 50,
-    endV: 400,
-    color: 'red',
-    width: 2,
-  };
-
   return (
-    <tbody className="body-container" style={{ position: 'relative' }}>
-      <tr>
-        <th colSpan={numberOfYears} style={{ backgroundColor: TODAY_LINE_COLOR }}>
-          <TodayLine left={700} height={CELL_HEIGHT_PX * (rowsToRender + 1) - 2} />
-        </th>
-      </tr>
+    <tbody className="body-container">
       {Array.from({ length: rowsToRender }).map((_, indexColRow) => (
         <tr
-          key={indexColRow} className="body-row" style={{
-            // position: 'relative',
-            // backgroundColor: '#f0f0f0',
-
-
-            borderColor:
-              indexColRow % (totalAttributes + 1) === 0
-                || indexColRow % (totalAttributes + 1) === 1
-                ? CELL_BORDER_COLOR
-                : 'transparent',
+          key={indexColRow}
+          className="body-row"
+          style={{
+            borderColor: indexColRow % (totalAttributes + 1) <= 1
+                ? CELL_BORDER_COLOR : 'transparent',
           }}>
           {Array.from({ length: numberOfYears }).map((_, indexCol) => (
             <th
               key={indexCol}
-              onClick={(e) => handleCellClick(e, indexColRow, indexCol)}
               className="body-cell"
+              onClick={(e) => handleCellClick(e, indexColRow, indexCol)}
               style={{
                 height: CELL_HEIGHT_PX,
-                borderLeft: `1px solid ${CELL_BORDER_COLOR}`,
-                borderRight: `1px solid ${CELL_BORDER_COLOR}`,
-                position: 'relative',
+                borderColor: CELL_BORDER_COLOR,
               }}
             >
             </th>
           ))}
         </tr>
       ))}
+
+      <TodayLine left={todayPositionPx} rowsToRender={rowsToRender} />
+      
     </tbody>
   );
 }

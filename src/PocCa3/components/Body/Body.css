@@ -1,9 +1,13 @@
+.body-container {
+  position: relative;
+}
+
 .body-row {
   border-top: 1px solid;
 }
 
-/* .body-cell {
-  border-left: 1px solid pink;
-  border-right: 1px solid pink;
-} */
+.body-cell {
+  border-left: 1px solid;
+  border-right: 1px solid;
+}
 
