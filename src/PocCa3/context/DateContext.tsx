@@ -67,6 +67,18 @@ export const DateProvider = ({
 
   console.log("====>>>> firstYearInTableUnit =", firstYearInTableUnit);
   console.log("====>>>> lastYearInTableUnit =", lastYearInTableUnit);
+
+  const convertDateToPositionPx = (date: string, daysToAdd: number = 0) => {
+    const dateMs = new Date(date).getTime();
+    const dateUnit = Math.round(dateMs / ONE_DAY_IN_MS + daysToAdd);
+    return (dateUnit - firstEpochDayInTableUnit) * dayWidthPx;
+  }
+
+  // const convertLastDateToPositionPx = (date: string) => {
+  //   const dateMs = new Date(date).getTime();
+  //   const dateUnit = Math.round(dateMs / ONE_DAY_IN_MS + 1);
+  //   return (dateUnit - firstEpochDayInTableUnit) * dayWidthPx;
+  // }
   
 
   // const getYearFromEpochDayUnit = (epochDayUnit: number) => {
@@ -153,6 +165,8 @@ export const DateProvider = ({
       numberOfYears,
       totalAttributes,
       todayPositionPx,
+      convertDateToPositionPx,
+      // convertLastDateToPositionPx,
       // registerCallbacks,
       // onClick,
       // model,
