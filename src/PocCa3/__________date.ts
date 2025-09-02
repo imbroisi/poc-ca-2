@@ -24,9 +24,11 @@ export const getYearFromEpochDayUnit = (epochDayUnit: number) => {
   return date.getFullYear();
 }
 
-export const getNumberOfYears = () => numberOfYearsUnit;
+// export const getNumberOfYears = () => numberOfYearsUnit;
 
-export const getFirstYearInTable = () => getYearFromEpochDayUnit(getFirstEpochDayInTableUnit());
+const getFirstYearInTable = () => getYearFromEpochDayUnit(getFirstEpochDayInTableUnit());
+
+// export const getFirstYearInTable = () => getYearFromEpochDayUnit(getFirstEpochDayInTableUnit());
 
 // const todayDateMs = todayDate().getTime();
 // const todayDateUnit = Math.round(todayDateMs / ONE_DAY_IN_MS);

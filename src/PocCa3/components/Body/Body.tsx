@@ -1,5 +1,6 @@
-import { CELL_BORDER_COLOR, CELL_HEIGHT_PX, ROWS_BY_PAGE } from '../../config';
+import { CELL_BORDER_COLOR, CELL_HEIGHT_PX, ROWS_BY_PAGE, TODAY_LINE_COLOR } from '../../config';
 import { useDateContext } from '../../context/DateContext';
+import TodayLine from '../TodayLine';
 import './Body.css';
 
 const Body = () => {
@@ -28,10 +29,19 @@ const Body = () => {
   };
 
   return (
-    <tbody className="body-container">
+    <tbody className="body-container" style={{ position: 'relative' }}>
+      <tr>
+        <th colSpan={numberOfYears} style={{ backgroundColor: TODAY_LINE_COLOR }}>
+          <TodayLine left={700} height={CELL_HEIGHT_PX * (rowsToRender + 1) - 2} />
+        </th>
+      </tr>
       {Array.from({ length: rowsToRender }).map((_, indexColRow) => (
         <tr
           key={indexColRow} className="body-row" style={{
+            // position: 'relative',
+            // backgroundColor: '#f0f0f0',
+
+
             borderColor:
               indexColRow % (totalAttributes + 1) === 0
                 || indexColRow % (totalAttributes + 1) === 1
@@ -39,7 +49,7 @@ const Body = () => {
                 : 'transparent',
           }}>
           {Array.from({ length: numberOfYears }).map((_, indexCol) => (
-            <><th
+            <th
               key={indexCol}
               onClick={(e) => handleCellClick(e, indexColRow, indexCol)}
               className="body-cell"
@@ -50,21 +60,7 @@ const Body = () => {
                 position: 'relative',
               }}
             >
-              <div
-                style={{
-                  position: 'absolute',
-                  top: 0,//`${verticalLine.startV}px`,
-                  left: `${verticalLine.posH}px`,
-                  width: `${verticalLine.width}px`,
-                  // height: `${verticalLine.endV - verticalLine.startV}px`,
-                  height: CELL_HEIGHT_PX + 1,
-                  backgroundColor: verticalLine.color,
-                  pointerEvents: 'none',
-                  zIndex: 1000,
-                }}
-              />
             </th>
-            </>
           ))}
         </tr>
       ))}
