@@ -60,8 +60,6 @@ const Links = () => {
       <th>
         {linksDataCopy.map((linkData) => {
           const style = {
-            // top: CELL_HEIGHT_PX + 2 + (CELL_HEIGHT_PX + 1) * ((1 + totalAttributes) * linkData.portfolioIndex + linkData.attributeIndex),
-
             top: cellTopPx(linkData.portfolioIndex, linkData.attributeIndex),
             left: convertDateToPositionPx(linkData.firstDayDate),
             width: convertDateToPositionPx(linkData.lastDayDate, 1) - convertDateToPositionPx(linkData.firstDayDate),
@@ -71,8 +69,7 @@ const Links = () => {
             borderRightColor: linkData.borderColor,
           };
           const key = `${(linkData).portfolioIndex}-${(linkData).attributeIndex}-${(linkData).firstDayDate}`;
-
-          console.log("cellTopPx(linkData.portfolioIndex, linkData.attributeIndex) =", cellTopPx(linkData.portfolioIndex, linkData.attributeIndex));
+          const label = `${linkData.firstDayDate} - ${linkData.noFinalDate ? '' : linkData.lastDayDate}`;
 
           return (
             <div
@@ -80,7 +77,7 @@ const Links = () => {
               className="links-rectangle"
               style={style}
             >
-              {linkData.firstDayDate} - {linkData.noFinalDate ? '' : linkData.lastDayDate}
+              {label}
             </div>
           )
         })} 

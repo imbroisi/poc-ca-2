@@ -1,18 +1,14 @@
-import { CELL_BORDER_COLOR, CELL_HEIGHT_PX, ROWS_BY_PAGE, TODAY_LINE_COLOR } from '../../config';
-import { useDateContext } from '../../context/DateContext';
+import { CELL_BORDER_COLOR, CELL_HEIGHT_PX } from '../../config';
+import { useLinksDataContext } from '../../context/LinksDataProvider';
 import TodayLine from '../TodayLine';
 import './Body.css';
 import Links from '../Links';
-import { useLinksDataContext } from '../../context/LinksDataProvider';
-import AddLinkButton from '../AddLinkButton';
+import { useDateContext } from '../../context/DateContext';
+import AddLinkButtons from '../AddLinkButtons';
 
 const Body = () => {
   const { numberOfYears, todayPositionPx } = useDateContext();
   const { totalAttributes, rowsToRender } = useLinksDataContext();
-
-  // const rowsToRender = (totalAttributes + 1) * Math.ceil(ROWS_BY_PAGE / (totalAttributes + 1));
-
-  // console.log("rowsToRender =", rowsToRender);
 
   const handleCellClick = (e: React.MouseEvent<HTMLTableCellElement>, indexColRow: number, indexCol: number) => {
     const cell = e.currentTarget;
@@ -52,9 +48,8 @@ const Body = () => {
       ))}
 
       <TodayLine left={todayPositionPx} rowsToRender={rowsToRender} />
-
       <Links />
-      <AddLinkButton />
+      <AddLinkButtons />
 
     </tbody>
   );

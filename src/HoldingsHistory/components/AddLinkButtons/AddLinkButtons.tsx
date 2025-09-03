@@ -1,13 +1,8 @@
 import { useLinksDataContext } from '../../context/LinksDataProvider';
-import './AddLinkButton.css';
+import './AddLinkButtons.css';
 import { useDateContext } from '../../context/DateContext';
-import { CELL_HEIGHT_PX } from '../../config';
 
-export interface AddLinkButtonProps {
-
-}
-
-const AddLinkButton = (props: AddLinkButtonProps) => {
+const AddLinkButtons = () => {
   const { totalAttributes, rowsToRender, cellTopPx } = useLinksDataContext();
   const { todayPositionPx, convertDateToPositionPx } = useDateContext();
   const { getLinksDataCopy } = useLinksDataContext();
@@ -19,7 +14,8 @@ const AddLinkButton = (props: AddLinkButtonProps) => {
   }
 
   return (
-    <>
+    <tr>
+      <th>
       {Array.from({ length: rowsToRender / (totalAttributes + 1) }).map((_, indexRow) => (
         Array.from({ length: totalAttributes }).map((_, indexColumn) => {
           let newer = todayPositionPx;
@@ -48,8 +44,9 @@ const AddLinkButton = (props: AddLinkButtonProps) => {
           )
         }
         )))}
-    </>
+      </th>
+    </tr>
   );
 }
 
-export default AddLinkButton;
+export default AddLinkButtons;
