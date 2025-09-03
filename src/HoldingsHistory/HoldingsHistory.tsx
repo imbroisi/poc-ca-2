@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import MainTable from '../components/MainTable';
-import { DateProvider } from '../context/DateContext';
-import { LinksDataProvider } from '../context/LinksDataProvider';
-import { apiGetLinksData } from '../apiMock';
-import { NUMBER_OF_YEARS } from '../config';
+import MainTable from './components/MainTable';
+import { DateProvider } from './context/DateContext';
+import { LinksDataProvider } from './context/LinksDataProvider';
+import { apiGetLinksData } from './apiMock';
+import { NUMBER_OF_YEARS } from './config';
 
 const HoldingsHistory = () => {
   const [linksFromApi, setLinksFromApi] = useState<any | null>(null);

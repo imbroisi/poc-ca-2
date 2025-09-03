@@ -1,9 +1,5 @@
 import './App.css';
-import { CellManagerProvider } from './PocCa2/context/CellManagerContext';
-import MainTable from './PocCa3/components/MainTable';
-import { useState } from 'react';
-import HistoryLink from './PocCa3/HoldingsHistory/HoldingsHistory';
-
+import HistoryLink from './HoldingsHistory/HoldingsHistory';
 
 function App() {
   return (
