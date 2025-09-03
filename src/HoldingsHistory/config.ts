@@ -10,4 +10,5 @@ export const ROWS_BY_PAGE = 20;
 
 export const TODAY_LINE_COLOR = '#45acc8';
 
-export const LINKS_COLORS = ['green', 'pink'];
+export const LINKS_COLORS = ['#a1cca2', '#b4c6da'];
+export const LINKS_BORDERS_COLORS = ['#62aa66', '#718fe3'];

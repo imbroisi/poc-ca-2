@@ -4,7 +4,7 @@ import { YEAR_CELL_WIDTH_PX } from '../config';
 
 const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 
-const DateContext = createContext<any>(undefined)
+const DateContext = createContext<any>(undefined);
 
 export const DateProvider = ({
   children, 
@@ -26,7 +26,7 @@ export const DateProvider = ({
 
   const lastYearInTableUnit = lastEpochDayInTableDate.getFullYear();
 
-  const lastEpochDayInTableUnit = Math.round(lastEpochDayInTableDate.getTime() / ONE_DAY_IN_MS); //todayEpochDayUnit;
+  const lastEpochDayInTableUnit = Math.round(lastEpochDayInTableDate.getTime() / ONE_DAY_IN_MS);
 
   const firstEpochDayInTableUnit = lastEpochDayInTableUnit - totalDaysUnit;
 
@@ -40,8 +40,16 @@ export const DateProvider = ({
 
   const todayPositionPx = dayWidthPx * (todayEpochDayUnit - firstEpochDayInTableUnit);
 
+  const todayMmDdYyyy = todayDate.toLocaleDateString('en-US', {
+    month: '2-digit',
+    day: '2-digit',
+    year: 'numeric'
+  });
+
   return (
     <DateContext.Provider value={{
+      todayDate,
+      todayMmDdYyyy,
       firstYearInTableUnit,
       lastYearInTableUnit,
       numberOfYears,

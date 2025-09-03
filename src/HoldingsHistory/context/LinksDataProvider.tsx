@@ -9,8 +9,9 @@ export interface LinksDataTypes {
 }
 
 interface LinksDataContextType {
-  linksData: LinksDataTypes[];
+  // linksData: LinksDataTypes[];
   totalAttributes: number;
+  getLinksDataCopy: () => LinksDataTypes[];
 }
 
 interface LinksDataProviderProps {
@@ -29,9 +30,18 @@ export const LinksDataProvider = ({
   const linksData = linksDataFromApi;
   // TODO: replace by the real total attributes (maybe from api response)
   const totalAttributes = 7;
-    
+
+  const getLinksDataCopy = () => (
+    // returns a safe copy of linksData
+    linksData.map((linkData) => ({ ...linkData }))
+  );
+
   return (
-    <LinksDataContext.Provider value={{ linksData, totalAttributes }}>
+    <LinksDataContext.Provider value={{
+      getLinksDataCopy,
+      // linksData, 
+      totalAttributes,
+    }}>
       {children}
     </LinksDataContext.Provider>
   )
