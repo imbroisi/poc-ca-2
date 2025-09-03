@@ -40,21 +40,6 @@ const YearsRow = () => {
           <span className="years-row-text">
             {firstYearInTableUnit + index}
           </span>
-
-          {/* {index === 0 && (
-            rectangles.map((rect: Rectangle) => (
-              <div
-                key={rect.id}
-                className="years-row-rectangle"
-                style={{
-                  top: `${rect.posV}px`,
-                  left: `${rect.posH}px`,
-                  width: `${rect.width || 50}px`,
-                  height: `${rect.height || 20}px`,
-                  backgroundColor: rect.color || 'blue',
-                }} />
-            ))
-          )} */}
         </th>
       ))}
     </>

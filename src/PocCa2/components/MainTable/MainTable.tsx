@@ -5,12 +5,6 @@ import './MainTable.css';
 import { MainTableContextProvider } from '../../context/MainTableContext';
 import { CellManagerProvider } from '../../context/CellManagerContext';
 import Header from '../Header';
-import RowYear from '../RowYear';
-import RowMonthAsSubGroup from '../RowMonthAsSubGroup';
-import RowDay from '../RowDay';
-import RowMonthAsGroup from '../RowMonthAsGroup';
-import RowHeaderGroup from '../RowHeaderGroup';
-import RowHeaderSubGroup from '../RowHeaderSubGroup';
 import RowsHeader from '../RowsHeader';
 import Body from '../Body';
 
@@ -25,7 +19,6 @@ const MainTable = ({ model }: Model) => (
       <Table>
         <Header>
           <RowsHeader />
-          {/* <RowHeaderSubGroup /> */}
         </Header>
         <Body>
           <Rows columns={Columns} />

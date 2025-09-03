@@ -10,7 +10,6 @@ export const DateProvider = ({
   children, 
   todayDate: todayDateInput, 
   numberOfYears, 
-  // totalAttributes, 
 }: any) => {
   
   const todayDate = new Date(todayDateInput);
@@ -46,7 +45,6 @@ export const DateProvider = ({
       firstYearInTableUnit,
       lastYearInTableUnit,
       numberOfYears,
-      // totalAttributes,
       todayPositionPx,
       convertDateToPositionPx,
     }}>

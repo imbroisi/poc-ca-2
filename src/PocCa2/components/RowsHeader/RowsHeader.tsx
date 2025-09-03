@@ -1,8 +1,6 @@
 import { useMainTableContext } from '../../context/MainTableContext';
 import RowDay from '../RowDay';
-import RowHeaderGroup from '../RowHeaderGroup';
 import RowMonth from '../RowMonth';
-import RowMonthAsSubGroup from '../RowMonthAsSubGroup';
 import RowYear from '../RowYear';
 
 const RowsHeader = () => {
