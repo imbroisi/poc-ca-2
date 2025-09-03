@@ -4,14 +4,15 @@ import TodayLine from '../TodayLine';
 import './Body.css';
 import Links from '../Links';
 import { useLinksDataContext } from '../../context/LinksDataProvider';
+import AddLinkButton from '../AddLinkButton';
 
 const Body = () => {
   const { numberOfYears, todayPositionPx } = useDateContext();
-  const { totalAttributes } = useLinksDataContext();
+  const { totalAttributes, rowsToRender } = useLinksDataContext();
 
-  const rowsToRender = (totalAttributes + 1) * Math.ceil(ROWS_BY_PAGE / (totalAttributes + 1));
+  // const rowsToRender = (totalAttributes + 1) * Math.ceil(ROWS_BY_PAGE / (totalAttributes + 1));
 
-  console.log("rowsToRender =", rowsToRender);
+  // console.log("rowsToRender =", rowsToRender);
 
   const handleCellClick = (e: React.MouseEvent<HTMLTableCellElement>, indexColRow: number, indexCol: number) => {
     const cell = e.currentTarget;
@@ -53,6 +54,7 @@ const Body = () => {
       <TodayLine left={todayPositionPx} rowsToRender={rowsToRender} />
 
       <Links />
+      <AddLinkButton />
 
     </tbody>
   );

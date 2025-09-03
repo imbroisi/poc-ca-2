@@ -12,7 +12,7 @@ interface LinksDataTypesWithColor extends LinksDataTypes {
 const Links = () => {
   const { getLinksDataCopy } = useLinksDataContext();
   const { convertDateToPositionPx, todayMmDdYyyy } = useDateContext();
-  const { totalAttributes } = useLinksDataContext();
+  const { totalAttributes, cellTopPx } = useLinksDataContext();
 
   const linksDataCopy = getLinksDataCopy() as LinksDataTypesWithColor[];
 
@@ -53,13 +53,16 @@ const Links = () => {
   replaceToday();
   includeColorsToLinks();
 
+  console.log("linksDataCopy =", linksDataCopy);
 
   return (
     <tr>
       <th>
         {linksDataCopy.map((linkData) => {
           const style = {
-            top: CELL_HEIGHT_PX + 2 + (CELL_HEIGHT_PX + 1) * ((1 + totalAttributes) * linkData.portfolioIndex + linkData.attributeIndex),
+            // top: CELL_HEIGHT_PX + 2 + (CELL_HEIGHT_PX + 1) * ((1 + totalAttributes) * linkData.portfolioIndex + linkData.attributeIndex),
+
+            top: cellTopPx(linkData.portfolioIndex, linkData.attributeIndex),
             left: convertDateToPositionPx(linkData.firstDayDate),
             width: convertDateToPositionPx(linkData.lastDayDate, 1) - convertDateToPositionPx(linkData.firstDayDate),
             height: CELL_HEIGHT_PX - 2,
@@ -69,7 +72,7 @@ const Links = () => {
           };
           const key = `${(linkData).portfolioIndex}-${(linkData).attributeIndex}-${(linkData).firstDayDate}`;
 
-          console.log("linkData.lastDayDate =", linkData.lastDayDate);
+          console.log("cellTopPx(linkData.portfolioIndex, linkData.attributeIndex) =", cellTopPx(linkData.portfolioIndex, linkData.attributeIndex));
 
           return (
             <div
@@ -80,7 +83,7 @@ const Links = () => {
               {linkData.firstDayDate} - {linkData.noFinalDate ? '' : linkData.lastDayDate}
             </div>
           )
-        })}
+        })} 
       </th>
     </tr>
   );

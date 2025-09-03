@@ -1,4 +1,5 @@
 import React, { createContext, useContext } from 'react'
+import { CELL_HEIGHT_PX, ROWS_BY_PAGE } from '../config';
 
 export interface LinksDataTypes {
   id: string;
@@ -12,6 +13,8 @@ interface LinksDataContextType {
   // linksData: LinksDataTypes[];
   totalAttributes: number;
   getLinksDataCopy: () => LinksDataTypes[];
+  rowsToRender: number;
+  cellTopPx: (portfolioIndex: number, attributeIndex: number) => number;
 }
 
 interface LinksDataProviderProps {
@@ -36,9 +39,15 @@ export const LinksDataProvider = ({
     linksData.map((linkData) => ({ ...linkData }))
   );
 
+  const rowsToRender = (totalAttributes + 1) * Math.ceil(ROWS_BY_PAGE / (totalAttributes + 1));
+
+  const cellTopPx = (portfolioIndex: number, attributeIndex: number): number => { return CELL_HEIGHT_PX + 2 + (CELL_HEIGHT_PX + 1) * ((1 + totalAttributes) * portfolioIndex + attributeIndex) };
+
   return (
     <LinksDataContext.Provider value={{
+      cellTopPx,
       getLinksDataCopy,
+      rowsToRender,
       // linksData, 
       totalAttributes,
     }}>

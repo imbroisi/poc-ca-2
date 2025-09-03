@@ -1,0 +1,6 @@
+.add-link-button {
+  position: absolute;
+  font-size: 24px;
+  margin-top: -3px;
+  cursor: pointer;
+}
