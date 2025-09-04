@@ -4,6 +4,7 @@ import { DateProvider } from './context/DateContext';
 import { LinksDataProvider } from './context/LinksDataProvider';
 import { apiGetLinksData } from './apiMock';
 import { NUMBER_OF_YEARS } from './config';
+import GlobalModal from './components/GlobalModal/GlobalModal';
 
 const HoldingsHistory = () => {
   const [linksFromApi, setLinksFromApi] = useState<any | null>(null);
@@ -22,6 +23,7 @@ const HoldingsHistory = () => {
       <DateProvider todayDate={linksFromApi.today} numberOfYears={NUMBER_OF_YEARS}>
         {/* <LeftTable /> */}
         <MainTable />
+        <GlobalModal />
       </DateProvider>
     </LinksDataProvider>
   );
