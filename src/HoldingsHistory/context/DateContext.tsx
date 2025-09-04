@@ -17,6 +17,8 @@ export const DateProvider = ({
   const todayEpochDayUnit = Math.round(todayMs / ONE_DAY_IN_MS);
 
   const todayYearUnit = todayDate.getFullYear();
+  const todayMonthUnit = todayDate.getMonth();
+  const todayDayUnit = todayDate.getDate();
 
   const dayWidthPx = YEAR_CELL_WIDTH_PX / 365;
 
@@ -40,21 +42,35 @@ export const DateProvider = ({
 
   const todayPositionPx = dayWidthPx * (todayEpochDayUnit - firstEpochDayInTableUnit);
 
-  const todayMmDdYyyy = todayDate.toLocaleDateString('en-US', {
-    month: '2-digit',
-    day: '2-digit',
-    year: 'numeric'
-  });
+  // const todayYyyyMmDd = `
+  //   ${todayYearUnit}-${String(todayMonthUnit + 1).padStart(2, '0')}-${String(todayDayUnit).padStart(2, '0')}`;
+
+  const todayMmDdYyyy = `${String(todayMonthUnit + 1).padStart(2, '0')}-${String(todayDayUnit).padStart(2, '0')}-${todayYearUnit}`;
+
+  const getMonthName = (month: number) => {
+    const names = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    return names[month];
+  }
+
+  const getNDaysBefore = (date: string, n: number) => {
+    const dateMs = new Date(date).getTime();
+    const dateUnit = Math.round(dateMs / ONE_DAY_IN_MS - n);
+    return new Date(dateUnit * ONE_DAY_IN_MS).toISOString().split('T')[0];
+  }
 
   return (
     <DateContext.Provider value={{
       todayDate,
       todayMmDdYyyy,
+      // todayYyyyMmDd,
+      getMonthName,
+      getNDaysBefore,
       firstYearInTableUnit,
       lastYearInTableUnit,
       numberOfYears,
       todayPositionPx,
       convertDateToPositionPx,
+      // convert,
     }}>
       {children}
     </DateContext.Provider>

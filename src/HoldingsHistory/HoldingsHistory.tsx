@@ -4,6 +4,7 @@ import { DateProvider } from './context/DateContext';
 import { LinksDataProvider } from './context/LinksDataProvider';
 import { apiGetLinksData } from './apiMock';
 import { NUMBER_OF_YEARS } from './config';
+import { ModalProvider } from './context/ModalContext';
 import GlobalModal from './components/GlobalModal/GlobalModal';
 
 const HoldingsHistory = () => {
@@ -19,13 +20,18 @@ const HoldingsHistory = () => {
   if (!linksFromApi) return null;
 
   return (
-    <LinksDataProvider linksDataFromApi={linksFromApi.data}>
-      <DateProvider todayDate={linksFromApi.today} numberOfYears={NUMBER_OF_YEARS}>
-        {/* <LeftTable /> */}
-        <MainTable />
-        <GlobalModal />
-      </DateProvider>
-    </LinksDataProvider>
+    <ModalProvider>
+      <LinksDataProvider linksDataFromApi={linksFromApi.data}>
+        <DateProvider todayDate={linksFromApi.today} numberOfYears={NUMBER_OF_YEARS}>
+          
+          {/* <LeftTable /> */}
+          <MainTable />
+          
+          <GlobalModal />
+
+        </DateProvider>
+      </LinksDataProvider>
+    </ModalProvider>
   );
 }
 

@@ -2,12 +2,14 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import './GlobalModal.css';
-import { useModal } from '../../PocCa/context/ModalContext';
+import { useModal } from '../../context/ModalContext';
 
 
 const GlobalModal = () => {
 
   const { isOpen, closeModal, content, title, icon } = useModal();
+
+  console.log("POS 6 isOpen", isOpen);
 
   if (!isOpen) return null;
 
