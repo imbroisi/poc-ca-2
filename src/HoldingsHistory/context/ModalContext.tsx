@@ -42,8 +42,6 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
     setIcon(icon);
   }
 
-  console.log("POS 5 isOpen", isOpen);
-
   return (
     <ModalContext.Provider value={{
         isOpen,

@@ -12,12 +12,12 @@ export const apiGetLinksData = async () => {
 
     // TODO: replace by the real api response
     data: [
-      { portfolioIndex: 0, attributeIndex: 1, firstDayDate: '08/03/2023', lastDayDate: '08/01/2024' },
-      { portfolioIndex: 0, attributeIndex: 1, firstDayDate: '08/02/2024', lastDayDate: '02/14/2025' },
-      { portfolioIndex: 0, attributeIndex: 1, firstDayDate: '02/15/2025', lastDayDate: 'today' },
-      { portfolioIndex: 0, attributeIndex: 0, firstDayDate: '10/16/2024', lastDayDate: 'today' },
-      { portfolioIndex: 1, attributeIndex: 1, firstDayDate: '02/01/2025', lastDayDate: 'today' },
-      { portfolioIndex: 2, attributeIndex: 2, firstDayDate: '12/15/2024', lastDayDate: 'today' },
+      { portfolioIndex: 0, attributeIndex: 1, firstDayDate: '2023-08-03', lastDayDate: '2024-08-01' },
+      { portfolioIndex: 0, attributeIndex: 1, firstDayDate: '2024-08-02', lastDayDate: '2025-02-14' },
+      { portfolioIndex: 0, attributeIndex: 1, firstDayDate: '2025-02-15', lastDayDate: 'today' },
+      { portfolioIndex: 0, attributeIndex: 0, firstDayDate: '2024-10-16', lastDayDate: 'today' },
+      { portfolioIndex: 1, attributeIndex: 1, firstDayDate: '2025-02-01', lastDayDate: 'today' },
+      { portfolioIndex: 2, attributeIndex: 2, firstDayDate: '2024-12-15', lastDayDate: 'today' },
     ],
   };
 };

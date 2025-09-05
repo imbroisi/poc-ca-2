@@ -1,0 +1,13 @@
+.context-menu-container {
+  cursor: context-menu;
+}
+
+
+.context-menu-item-icon {
+  margin-right: 6px;
+  font-size: 20px !important;
+}
+
+.context-menu-item-text {
+  font-size: 16px;
+}

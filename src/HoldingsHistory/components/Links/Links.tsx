@@ -1,7 +1,11 @@
 import { CELL_HEIGHT_PX, LINKS_BORDERS_COLORS, LINKS_COLORS } from '../../config';
 import { useDateContext } from '../../context/DateContext';
 import { LinksDataTypes, useLinksDataContext } from '../../context/LinksDataProvider';
+import FloatingMenu from '../FloatingMenu';
 import './Links.css';
+import { useMessageOverContext } from '../../context/MessageOverContext';
+import { useRef } from 'react';
+import MessageOverDelete from '../GlobalMessageOver/MessageOverDelete';
 
 interface LinksDataTypesWithColor extends LinksDataTypes {
   color: string;
@@ -9,16 +13,19 @@ interface LinksDataTypesWithColor extends LinksDataTypes {
   noFinalDate?: boolean;
 }
 
+
 const Links = () => {
   const { getLinksDataCopy } = useLinksDataContext();
-  const { convertDateToPositionPx, todayMmDdYyyy } = useDateContext();
-  const { totalAttributes, cellTopPx } = useLinksDataContext();
+  const { convertDateToPositionPx, todayMmDdYyyy, displayDate } = useDateContext();
+  const { totalAttributes, cellTopPx, deleteLink } = useLinksDataContext();
+  const messageOver = useMessageOverContext();
+  const linkToDelete = useRef<LinksDataTypesWithColor | null>(null);
 
   const linksDataCopy = getLinksDataCopy() as LinksDataTypesWithColor[];
 
   const replaceToday = () => {
     linksDataCopy.forEach((linkData) => {
-      console.log("linkData.lastDayDate =", linkData.lastDayDate);
+      // console.log("==>>>>>>> todayMmDdYyyy =", todayMmDdYyyy);
       if (linkData.lastDayDate === 'today') {
         linkData.lastDayDate = todayMmDdYyyy;
         linkData.noFinalDate = true;
@@ -53,7 +60,36 @@ const Links = () => {
   replaceToday();
   includeColorsToLinks();
 
-  console.log("linksDataCopy =", linksDataCopy);
+  // console.log("---->>>>>> linksDataCopy =", linksDataCopy);
+
+  const onDeleteClicked = (linkData: LinksDataTypesWithColor, mousePosition: [number, number]) => {
+    // console.log("--------- onDeleteClicked =>> linkData", linkData);
+    linkToDelete.current = linkData;
+    messageOver.setPosition([mousePosition[0] - 20, mousePosition[1] - 110]);
+    messageOver.setConfirmButtonText('Delete');
+    messageOver.open(
+      <MessageOverDelete linkData={linkData} />
+    );
+    messageOver.onConfirm(() => {
+      // console.log('=====>>> CALLBACK!');
+      if (linkToDelete.current) {
+        // onDeleteLink(linkToDelete.current);
+        deleteLink(linkToDelete.current);
+      }
+    });
+  }
+
+  const onInfoClicked = (linkData: LinksDataTypesWithColor, mousePosition: [number, number]) => {
+    console.log("onInfoClicked =>> linkData", linkData);
+  }
+
+  const onCompareClicked = (linkData: LinksDataTypesWithColor) => {
+    console.log("onCompareClicked =>> linkData", linkData);
+  }
+
+  const onEditStartDateClicked = (linkData: LinksDataTypesWithColor, mousePosition: [number, number]) => {
+    console.log("onEditStartDateClicked =>> linkData", linkData);
+  }
 
   return (
     <tr>
@@ -69,18 +105,26 @@ const Links = () => {
             borderRightColor: linkData.borderColor,
           };
           const key = `${(linkData).portfolioIndex}-${(linkData).attributeIndex}-${(linkData).firstDayDate}`;
-          const label = `${linkData.firstDayDate} - ${linkData.noFinalDate ? '' : linkData.lastDayDate}`;
+          const label = `${displayDate(linkData.firstDayDate)} - ${linkData.noFinalDate ? '' : displayDate(linkData.lastDayDate)}`;
 
           return (
-            <div
+            <FloatingMenu
               key={key}
-              className="links-rectangle"
-              style={style}
+              onDelete={(mousePosition: [number, number]) => onDeleteClicked(linkData, mousePosition)}
+              onInfo={(mousePosition: [number, number]) => onInfoClicked(linkData, mousePosition)}
+            // onCompare={(mousePosition: [number, number]) => onCompareClicked(linkData)}
+            // onEditStartDate={(mousePosition: [number, number]) => onEditStartDateClicked(linkData, mousePosition)}
             >
-              {label}
-            </div>
+              <div
+                // key={key}
+                className="links-rectangle"
+                style={style}
+              >
+                {label}
+              </div>
+            </FloatingMenu>
           )
-        })} 
+        })}
       </th>
     </tr>
   );
