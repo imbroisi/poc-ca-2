@@ -6,6 +6,8 @@ import { apiGetLinksData } from './apiMock';
 import { NUMBER_OF_YEARS } from './config';
 import { ModalProvider } from './context/ModalContext';
 import GlobalModal from './components/GlobalModal/GlobalModal';
+import { MessageOverProvider } from './context/MessageOverContext';
+import MessageOver from './components/GlobalMessageOver/MessageOver';
 
 const HoldingsHistory = () => {
   const [linksFromApi, setLinksFromApi] = useState<any | null>(null);
@@ -20,18 +22,21 @@ const HoldingsHistory = () => {
   if (!linksFromApi) return null;
 
   return (
-    <ModalProvider>
-      <LinksDataProvider linksDataFromApi={linksFromApi.data}>
-        <DateProvider todayDate={linksFromApi.today} numberOfYears={NUMBER_OF_YEARS}>
-          
-          {/* <LeftTable /> */}
-          <MainTable />
-          
-          <GlobalModal />
+    <DateProvider todayDate={linksFromApi.today} numberOfYears={NUMBER_OF_YEARS}>
+      <ModalProvider>
+        <MessageOverProvider>
+          <LinksDataProvider linksDataFromApi={linksFromApi.data}>
 
-        </DateProvider>
-      </LinksDataProvider>
-    </ModalProvider>
+            {/* <LeftTable /> */}
+            <MainTable />
+
+            <MessageOver />
+            <GlobalModal />
+
+          </LinksDataProvider>
+        </MessageOverProvider>
+      </ModalProvider>
+    </DateProvider>
   );
 }
 

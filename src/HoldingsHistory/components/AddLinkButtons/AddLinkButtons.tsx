@@ -19,30 +19,17 @@ const AddLinkButtons = ({ onDatePicked }: AddLinkButtonsProps) => {
   const linksDataCopy = getLinksDataCopy();
 
   const handleDatePicked = ({ pickedDate, cellIndex, cellRowIndex }: { pickedDate: string, cellIndex: number, cellRowIndex: number }) => {
-    // console.log("100) ===>>> handleDatePicked =",  pickedDate, cellIndex, cellRowIndex);
-    // console.log("102) ===>>> lastDayDate.current", lastDayDate.current);
-
     onDatePicked(lastDayDate.current, pickedDate, cellIndex, cellRowIndex);
     closeModal();
   }
 
-  // const handleAddLink = ({ 
-  //   event, 
-  //   day, 
-  //   month, 
-  //   cellIndex,
-  //   cellRow }: { event: any, day: number, month: string, cellIndex: number, cellRow: number }) => {
   const handleAddLink = ({ newerDate, indexRow, indexColumn }: { newerDate: string, indexRow: number, indexColumn: number }) => {
     if (!isEditMode) {
       return;
     }
 
-    // console.log("101) ===>>> newerDate", newerDate);
-
-
-    lastDayDate.current = getNDaysBefore(newerDate, 1);
+    lastDayDate.current = getNDaysBefore(newerDate, newerDate === todayMmDdYyyy ? 0 : 1);
     const [ year, month, day ] = lastDayDate.current.split('-');  
-
 
     openModal(
       <AddValueLinkModal
@@ -69,9 +56,6 @@ const AddLinkButtons = ({ onDatePicked }: AddLinkButtonsProps) => {
           linksDataCopy.forEach((linkData) => {
             if (linkData.portfolioIndex !== indexRow || linkData.attributeIndex !== indexColumn) return;
 
-            // console.log("linkData.firstDayDate", linkData.firstDayDate);
-
-
             const thisPositionPx = convertDateToPositionPx(linkData.firstDayDate);
             if (thisPositionPx < newer) {
               newer = thisPositionPx;
@@ -79,17 +63,12 @@ const AddLinkButtons = ({ onDatePicked }: AddLinkButtonsProps) => {
             }
           });
 
-          // // console.log("newer", newer);
-          // console.log("newerDate", newerDate);
-
           return (
             <div
               key={indexRow + indexColumn}
               className="add-link-button"
               role="button"
               onClick={() => handleAddLink({ newerDate, indexRow, indexColumn })}
-              // TODO: set values form DateContext
-              // onClick={() => handleAddLink({ event: null, day: 0, month: '', cellIndex: indexColumn, cellRow: indexRow })}
               style={{
                 top: cellTopPx(indexRow, indexColumn),
                 left: newer - 20,

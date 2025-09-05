@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { CELL_HEIGHT_PX, ROWS_BY_PAGE } from '../config';
+import { useDateContext } from './DateContext';
 
 export interface LinksDataTypes {
   id: string;
@@ -18,6 +19,7 @@ interface LinksDataContextType {
   rowsToRender: number;
   cellTopPx: (portfolioIndex: number, attributeIndex: number) => number;
   addLink: (lastDayStr: string, firstDayStr: string, cellIndex: number, cellRowIndex: number) => void;
+  deleteLink: (linkData: LinksDataTypes) => void;
 }
 
 interface LinksDataProviderProps {
@@ -33,6 +35,7 @@ export const LinksDataProvider = ({
 }: LinksDataProviderProps) => {
   const [isEditMode, setIsEditMode] = useState(true);
   const [linksData, setLinksData] = useState<any[]>([]);
+  const { getNDaysBefore } = useDateContext();
 
   useEffect(() => {
     // TODO: format links data from api response to LinksDataTypes
@@ -62,6 +65,32 @@ export const LinksDataProvider = ({
       }]);
   }
 
+  const deleteLink = (linkDataToDelete: LinksDataTypes) => {
+    const linksDataCopy = [...linksData];
+
+    // delete linkDataToDelete from linksData
+    const deleteIndex = linksDataCopy.findIndex(link => 
+      link.portfolioIndex === linkDataToDelete.portfolioIndex &&
+      link.attributeIndex === linkDataToDelete.attributeIndex &&
+      link.firstDayDate === linkDataToDelete.firstDayDate
+    );
+    if (deleteIndex === -1) return;
+    linksDataCopy.splice(deleteIndex, 1);
+
+    // adjust size of previous link
+    const lastDayDateBefore = getNDaysBefore(linkDataToDelete.firstDayDate, 1);
+    const previousLink = linksDataCopy.find(link => 
+      link.portfolioIndex === linkDataToDelete.portfolioIndex &&
+      link.attributeIndex === linkDataToDelete.attributeIndex &&
+      link.lastDayDate === lastDayDateBefore
+    );
+    if (previousLink) {
+      previousLink.lastDayDate = linkDataToDelete.lastDayDate;
+    }
+
+    setLinksData(linksDataCopy);
+  }
+
   const rowsToRender = (totalAttributes + 1) * Math.ceil(ROWS_BY_PAGE / (totalAttributes + 1));
 
   const cellTopPx = (portfolioIndex: number, attributeIndex: number): number => { return CELL_HEIGHT_PX + 2 + (CELL_HEIGHT_PX + 1) * ((1 + totalAttributes) * portfolioIndex + attributeIndex) };
@@ -71,11 +100,11 @@ export const LinksDataProvider = ({
       cellTopPx,
       getLinksDataCopy,
       rowsToRender,
-      // linksData, 
       totalAttributes,
       isEditMode,
       setIsEditMode,
       addLink,
+      deleteLink,
     }}>
       {children}
     </LinksDataContext.Provider>

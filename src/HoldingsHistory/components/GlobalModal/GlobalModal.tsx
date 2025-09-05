@@ -9,7 +9,7 @@ const GlobalModal = () => {
 
   const { isOpen, closeModal, content, title, icon } = useModal();
 
-  console.log("POS 6 isOpen", isOpen);
+  // console.log("POS 6 isOpen", isOpen);
 
   if (!isOpen) return null;
 

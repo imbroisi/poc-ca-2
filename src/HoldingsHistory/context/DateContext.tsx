@@ -45,7 +45,7 @@ export const DateProvider = ({
   // const todayYyyyMmDd = `
   //   ${todayYearUnit}-${String(todayMonthUnit + 1).padStart(2, '0')}-${String(todayDayUnit).padStart(2, '0')}`;
 
-  const todayMmDdYyyy = `${String(todayMonthUnit + 1).padStart(2, '0')}-${String(todayDayUnit).padStart(2, '0')}-${todayYearUnit}`;
+  const todayMmDdYyyy = `${String(todayMonthUnit + 1).padStart(2, '0')}/${String(todayDayUnit).padStart(2, '0')}/${todayYearUnit}`;
 
   const getMonthName = (month: number) => {
     const names = ['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -56,6 +56,14 @@ export const DateProvider = ({
     const dateMs = new Date(date).getTime();
     const dateUnit = Math.round(dateMs / ONE_DAY_IN_MS - n);
     return new Date(dateUnit * ONE_DAY_IN_MS).toISOString().split('T')[0];
+  }
+
+  const displayDate = (date: string) => {
+    const d = new Date(date);
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    const year = d.getFullYear();
+    return `${month}/${day}/${year}`;
   }
 
   return (
@@ -70,6 +78,7 @@ export const DateProvider = ({
       numberOfYears,
       todayPositionPx,
       convertDateToPositionPx,
+      displayDate,
       // convert,
     }}>
       {children}
