@@ -27,9 +27,11 @@ const CollapseCell = ({ node, depth, isExpanded, hasChildren = false, onToggle, 
             if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onToggle(); }
           }}
           className="expand-button"
-          // title={isExpanded ? "Recolher" : "Expandir"}
         >
-          <span aria-hidden>{<FontAwesomeIcon icon={isExpanded ? faChevronUp : faChevronDown} />}</span>
+          <span aria-hidden>{
+            <FontAwesomeIcon icon={isExpanded ? faChevronUp : faChevronDown} />
+          }
+          </span>
         </button>
       ) : (
         <span className="mr-2 inline-block w-6" />

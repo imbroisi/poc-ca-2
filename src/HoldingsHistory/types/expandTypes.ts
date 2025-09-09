@@ -12,8 +12,8 @@ export interface Attribute {
   id: AttributeId; // AttrValueId
   parentId: HoldingId;
   name: string;
-  inceptionDate: string; // ISO ou dd/MM/yyyy // MUDAR PRA START DATE
-  // isDisable?: // pra indicar qual é editável
+  inceptionDate: string; // ISO ou yyyy/mm/dd //
+  // isEditable?: // pra indicar qual é editável
 }
 
 export interface Holding {
