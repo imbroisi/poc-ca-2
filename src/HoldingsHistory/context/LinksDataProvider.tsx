@@ -49,7 +49,7 @@ export const LinksDataProvider = ({
 
   // const linksData = linksDataFromApi;
   // TODO: replace by the real total attributes (maybe from api response)
-  const totalAttributes = 7;
+  const totalAttributes = 9;
 
   const getLinksDataCopy = () => (
     // returns a safe copy of linksData

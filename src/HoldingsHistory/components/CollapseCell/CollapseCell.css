@@ -1,0 +1,16 @@
+.expand-button {
+  margin-right: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+  height: 12px;
+  width: 12px;
+  border: none;
+  padding: 2px;
+}
+
+.collapse-cell-container {
+  display: flex;
+  align-items: center;
+}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import MainTable from './components/MainTable';
 import { DateProvider } from './context/DateContext';
 import { LinksDataProvider } from './context/LinksDataProvider';
@@ -8,9 +8,16 @@ import { ModalProvider } from './context/ModalContext';
 import GlobalModal from './components/GlobalModal/GlobalModal';
 import { MessageOverProvider } from './context/MessageOverContext';
 import MessageOver from './components/GlobalMessageOver/MessageOver';
+import LeftTable from './components/LeftTable';
+import { ExpandedHoldingsProvider } from './context/ExpandContext';
+import { mockHoldings } from './mock/mockHoldings';
 
 const HoldingsHistory = () => {
   const [linksFromApi, setLinksFromApi] = useState<any | null>(null);
+
+  // Choose here how many and which holdings will initially be displayed fully open on the table. 
+  // TO DO: PAGINATION - Will probably handle pagination in a similar way as well
+  const initialExpandedIds = useMemo(() => mockHoldings.map(i => i.id), []);
 
   useEffect(() => {
     (async () => {
@@ -26,17 +33,19 @@ const HoldingsHistory = () => {
       <ModalProvider>
         <MessageOverProvider>
           <LinksDataProvider linksDataFromApi={linksFromApi.data}>
-
-            {/* <LeftTable /> */}
-            <MainTable />
-
+            <ExpandedHoldingsProvider initialExpandedIds={initialExpandedIds}>
+              <LeftTable holdings={mockHoldings} />
+              <MainTable />
+            </ExpandedHoldingsProvider>
             <MessageOver />
             <GlobalModal />
-
           </LinksDataProvider>
         </MessageOverProvider>
       </ModalProvider>
     </DateProvider>
+  
+   
+
   );
 }
 
