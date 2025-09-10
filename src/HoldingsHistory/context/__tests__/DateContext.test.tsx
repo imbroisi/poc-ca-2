@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, renderHook, screen } from '@testing-library/react';
 import React from 'react';
 import { DateProvider, useDateContext } from '../DateContext';
 
@@ -81,10 +81,8 @@ describe('DateContext', () => {
   });
 
   test('throws when used outside provider', () => {
-    const ProbeOutside = () => {
-      expect(() => useDateContext()).toThrow('useDateContext must be used within a DateProvider');
-      return null;
-    };
-    render(<ProbeOutside />);
+    expect(() => renderHook(() => useDateContext())).toThrow(
+      "useDateContext must be used within a DateProvider"
+    );
   });
 });

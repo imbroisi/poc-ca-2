@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import MainTable from './components/MainTable';
 import { DateProvider } from './context/DateContext';
 import { LinksDataProvider } from './context/LinksDataProvider';
-import { apiGetLinksData } from './apiMock';
+import { apiGetLinksData, getHoldingsAndAttributesListData } from './apiMock';
 import { NUMBER_OF_YEARS } from './config';
 import { ModalProvider } from './context/ModalContext';
 import GlobalModal from './components/GlobalModal/GlobalModal';
@@ -28,7 +28,14 @@ const HoldingsHistory = () => {
     })();
   }, []);
 
-  if (!linksFromApi) return null;
+  useEffect(() => {
+    (async () => {
+      const response = await getHoldingsAndAttributesListData();
+      setHoldings(response?.data);
+    })();
+  }, []);
+
+  if (!linksFromApi || !holdings?.length) return null;
 
   return (
     <DateProvider todayDate={linksFromApi.today} numberOfYears={NUMBER_OF_YEARS}>
@@ -36,7 +43,7 @@ const HoldingsHistory = () => {
         <MessageOverProvider>
           <LinksDataProvider linksDataFromApi={linksFromApi.data}>
             <ExpandedHoldingsProvider initialExpandedIds={initialExpandedIds}>
-              <LeftTable holdings={mockHoldings} />
+              <LeftTable holdings={holdings} />
               <MainTable />
             </ExpandedHoldingsProvider>
             <MessageOver />

@@ -4,7 +4,6 @@ import { useExpandedHoldings } from "../../../context/ExpandContext";
 import { flattenLeftRowsForHoldings } from "../../../utils/flattenLeftRowsForHoldings";
 import "../LeftTable.css";
 import { Holding, HoldingId, VisibleLeftRow } from "../../../types/expandTypes";
-import { HeaderLeft } from "../HeaderLeft";
 // If you share a constant height with the Body table, import and use it:
 import { CELL_HEIGHT_PX } from '../../../config';
 
@@ -77,8 +76,6 @@ const Body: React.FC<LeftTableProps> = ({
     return (
       <div className="tl-cell-pair tl-cell-pair--child">
         <span className="tl-cell-pair__primary tl-cell-indent">{row.primaryLabel}</span>
-        {/* If you ever want a secondary label here, uncomment: */}
-        {/* <span className="tl-cell-pair__secondary">{row.secondaryLabel}</span> */}
       </div>
     );
   };
@@ -89,40 +86,37 @@ const Body: React.FC<LeftTableProps> = ({
   };
 
   return (
-    <>
+    <tbody>
+      {flatRows.map((row: VisibleLeftRow) => {
+        const isHolding = row.kind === "holding";
+        // global index for attributes later:
+        // const globalRowIndex = isHolding ? null : attributeRowCounter + baseRowIndexOffset;
 
-      <tbody>
-        {flatRows.map((row: VisibleLeftRow) => {
-          const isHolding = row.kind === "holding";
-          // global index for attributes later:
-          // const globalRowIndex = isHolding ? null : attributeRowCounter + baseRowIndexOffset;
+        const key = isHolding ? `holding-${row.holdingId}` : `attr-${row.attributeId}`;
 
-          const key = isHolding ? `holding-${row.holdingId}` : `attr-${row.attributeId}`;
+        const tr = (
+          <tr key={key} className="tl-row" style={{ height: CELL_HEIGHT_PX }}>
+            <td className="tl-cell">
+              {/* <div className="tl-td__content"
+              // style={{ height: CELL_HEIGHT_PX }}
+              > */}
+                {renderNameCell(row)}
+              {/* </div> */}
+            </td>
+            <td className="tl-cell">
+              {/* <div className="tl-td__content" 
+              // style={{ height: CELL_HEIGHT_PX }}
+              > */}
+                {renderDateCell(row)}
+              {/* </div> */}
+            </td>
+          </tr>
+        );
 
-          const tr = (
-            <tr key={key} className="tl-row" style={{ height: CELL_HEIGHT_PX }}>
-              <td className="tl-cell">
-                {/* <div className="tl-td__content"
-                // style={{ height: CELL_HEIGHT_PX }}
-                > */}
-                  {renderNameCell(row)}
-                {/* </div> */}
-              </td>
-              <td className="tl-cell">
-                {/* <div className="tl-td__content" 
-                // style={{ height: CELL_HEIGHT_PX }}
-                > */}
-                  {renderDateCell(row)}
-                {/* </div> */}
-              </td>
-            </tr>
-          );
-
-          if (!isHolding) attributeRowCounter += 1;
-          return tr;
-        })}
-      </tbody>
-    </>
+        if (!isHolding) attributeRowCounter += 1;
+        return tr;
+      })}
+    </tbody>
   );
 };
 
