@@ -28,6 +28,6 @@ export const getHoldingsAndAttributesListData = async () => {
   // simulate network delay
   await delay(500);
   return {
-    data: mockHoldings,
+    data: mockHoldings || [],
   }
 }

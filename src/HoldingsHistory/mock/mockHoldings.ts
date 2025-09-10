@@ -16,7 +16,7 @@ export const mockHoldings: Holding[] = [
       {
         id: "attr-002",
         parentId: "holding-001",
-        name: "InvestingEntity",
+        name: "Investing Entity",
         inceptionDate: "2020-03-15"
       },
       {
@@ -73,55 +73,55 @@ export const mockHoldings: Holding[] = [
         id: "attr-010",
         parentId: "holding-002",
         name: "CRM Service",
-        inceptionDate: "2020-03-15"
+        inceptionDate: "2019-07-01"
       },
       {
         id: "attr-011",
         parentId: "holding-002",
         name: "InvestingEntity",
-        inceptionDate: "2020-03-15"
+        inceptionDate: "2019-07-01"
       },
       {
         id: "attr-012",
         parentId: "holding-002",
         name: "Holding Contract Type",
-        inceptionDate: "2020-03-15"
+        inceptionDate: "2019-07-01"
       },
       {
         id: "attr-013",
         parentId: "holding-002",
         name: "Tradable",
-        inceptionDate: "2020-03-15"
+        inceptionDate: "2019-07-01"
       },
       {
         id: "attr-014",
         parentId: "holding-002",
         name: "Holding Type",
-        inceptionDate: "2020-03-15"
+        inceptionDate: "2019-07-01"
       },
       {
         id: "attr-015",
         parentId: "holding-002",
         name: "Custody Location",
-        inceptionDate: "2023-03-15"
+        inceptionDate: "2019-07-01"
       },
       {
         id: "attr-016",
         parentId: "holding-002",
         name: "Cash Account",
-        inceptionDate: "2024-03-15"
+        inceptionDate: "2019-07-01"
       },
       {
         id: "attr-017",
         parentId: "holding-002",
         name: "Transfer Account",
-        inceptionDate: "2025-08-15"
+        inceptionDate: "2019-07-01"
       },
       {
         id: "attr-018",
         parentId: "holding-002",
         name: "Service Type",
-        inceptionDate: "2024-01-31"
+        inceptionDate: "2019-07-01"
       }
     ]
   },
@@ -134,55 +134,55 @@ export const mockHoldings: Holding[] = [
         id: "attr-019",
         parentId: "holding-003",
         name: "CRM Service",
-        inceptionDate: "2020-03-15"
+        inceptionDate: "2022-01-10"
       },
       {
         id: "attr-020",
         parentId: "holding-003",
         name: "InvestingEntity",
-        inceptionDate: "2020-03-15"
+        inceptionDate: "2022-01-10"
       },
       {
         id: "attr-021",
         parentId: "holding-003",
         name: "Holding Contract Type",
-        inceptionDate: "2020-03-15"
+        inceptionDate: "2022-01-10"
       },
       {
         id: "attr-022",
         parentId: "holding-003",
         name: "Tradable",
-        inceptionDate: "2020-03-15"
+        inceptionDate: "2022-01-10"
       },
       {
         id: "attr-023",
         parentId: "holding-003",
         name: "Holding Type",
-        inceptionDate: "2022-10-15"
+        inceptionDate: "2022-01-10"
       },
       {
         id: "attr-024",
         parentId: "holding-003",
         name: "Custody Location",
-        inceptionDate: "2024-03-15"
+        inceptionDate: "2022-01-10"
       },
       {
         id: "attr-025",
         parentId: "holding-003",
         name: "Cash Account",
-        inceptionDate: "2025-04-16"
+        inceptionDate: "2022-01-10"
       },
       {
         id: "attr-026",
         parentId: "holding-003",
         name: "Transfer Account",
-        inceptionDate: "2020-09-01"
+        inceptionDate: "2022-01-10"
       },
       {
         id: "attr-027",
         parentId: "holding-003",
         name: "Service Type",
-        inceptionDate: "2023-08-25"
+        inceptionDate: "2022-01-10"
       }
     ]
   }

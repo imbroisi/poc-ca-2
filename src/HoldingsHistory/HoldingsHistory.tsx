@@ -11,9 +11,11 @@ import MessageOver from './components/GlobalMessageOver/MessageOver';
 import LeftTable from './components/LeftTable';
 import { ExpandedHoldingsProvider } from './context/ExpandContext';
 import { mockHoldings } from './mock/mockHoldings';
+import { Holding } from './types/expandTypes';
 
 const HoldingsHistory = () => {
   const [linksFromApi, setLinksFromApi] = useState<any | null>(null);
+  const [holdings, setHoldings] = useState<Holding[]>([]);
 
   // Choose here how many and which holdings will initially be displayed fully open on the table. 
   // TO DO: PAGINATION - Will probably handle pagination in a similar way as well
