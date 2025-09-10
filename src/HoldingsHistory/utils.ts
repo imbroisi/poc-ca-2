@@ -78,8 +78,8 @@ export const enableAllScrolling = () => {
   const tableMainContainers = document.querySelectorAll('[style*="overflow"]');
   tableMainContainers.forEach((el) => {
     const element = el as HTMLElement;
-    const computedStyle = window.getComputedStyle(element);
-    if (computedStyle.overflow === 'hidden') {
+    const computedStyle = window.getComputedStyle ? window.getComputedStyle(element) : (undefined as any);
+    if (computedStyle && computedStyle.overflow === 'hidden') {
       // Force the element to re-evaluate its overflow style
       element.style.overflow = 'auto';
     }

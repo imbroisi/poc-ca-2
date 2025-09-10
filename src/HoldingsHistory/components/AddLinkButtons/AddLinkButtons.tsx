@@ -14,7 +14,7 @@ const AddLinkButtons = ({ onDatePicked }: AddLinkButtonsProps) => {
   const { todayPositionPx, convertDateToPositionPx, todayMmDdYyyy, getMonthName, getNDaysBefore } = useDateContext();
   const { getLinksDataCopy } = useLinksDataContext();
   const { openModal, closeModal } = useModal();
-  const lastDayDate = useRef<string>('');
+  const lastDayDate = useRef('');
 
   const linksDataCopy = getLinksDataCopy();
 
@@ -24,9 +24,7 @@ const AddLinkButtons = ({ onDatePicked }: AddLinkButtonsProps) => {
   }
 
   const handleAddLink = ({ newerDate, indexRow, indexColumn }: { newerDate: string, indexRow: number, indexColumn: number }) => {
-    if (!isEditMode) {
-      return;
-    }
+    if (!isEditMode) return;
 
     lastDayDate.current = getNDaysBefore(newerDate, newerDate === todayMmDdYyyy ? 0 : 1);
     const [ year, month, day ] = lastDayDate.current.split('-');  
@@ -38,7 +36,6 @@ const AddLinkButtons = ({ onDatePicked }: AddLinkButtonsProps) => {
         year={+year}
         cellIndex={indexColumn}
         showCalendar
-        // cellIndex={cellIndex}
         cellRowIndex={indexRow}
         onConfirm={handleDatePicked}
       />

@@ -12,13 +12,21 @@ export const DateProvider = ({
   numberOfYears, 
 }: any) => {
   
-  const todayDate = new Date(todayDateInput);
+  // Parse today date; if in YYYY-MM-DD, interpret as UTC midnight to avoid TZ shifts
+  let todayDate: Date;
+  if (typeof todayDateInput === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(todayDateInput)) {
+    const [y, m, d] = todayDateInput.split('-').map(Number);
+    todayDate = new Date(Date.UTC(y, m - 1, d, 0, 0, 0, 0));
+  } else {
+    todayDate = new Date(todayDateInput);
+  }
   const todayMs = todayDate.getTime();
   const todayEpochDayUnit = Math.round(todayMs / ONE_DAY_IN_MS);
 
-  const todayYearUnit = todayDate.getFullYear();
-  const todayMonthUnit = todayDate.getMonth();
-  const todayDayUnit = todayDate.getDate();
+  // Use UTC components to keep consistency irrespective of local TZ
+  const todayYearUnit = todayDate.getUTCFullYear();
+  const todayMonthUnit = todayDate.getUTCMonth();
+  const todayDayUnit = todayDate.getUTCDate();
 
   const dayWidthPx = YEAR_CELL_WIDTH_PX / 365;
 
@@ -47,10 +55,20 @@ export const DateProvider = ({
 
   const todayMmDdYyyy = `${String(todayMonthUnit + 1).padStart(2, '0')}/${String(todayDayUnit).padStart(2, '0')}/${todayYearUnit}`;
 
-  const getMonthName = (month: number) => {
-    const names = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    return names[month];
+  const getMonthsNames = () => {
+    return ['January','February','March','April','May','June','July','August','September','October','November','December'];
   }
+
+  const getMonthName = (month: number) => {
+    // const names = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    return getMonthsNames()[month];
+  }
+
+  const monthNameToIndex = (m: string) => {
+    // const names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const idx = getMonthsNames().findIndex(n => n.toLowerCase().startsWith(m.toLowerCase()));
+    return idx < 0 ? 0 : idx;
+  };
 
   const getNDaysBefore = (date: string, n: number) => {
     const dateMs = new Date(date).getTime();
@@ -59,10 +77,18 @@ export const DateProvider = ({
   }
 
   const displayDate = (date: string) => {
+    // console.log("1001) ===>>> displayDate =", date);
     const d = new Date(date);
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    const year = d.getFullYear();
+    // console.log("1001) ===>>> d =", d);
+
+    const month = String(d.getUTCMonth() + 1).padStart(2, '0');
+    const day = String(d.getUTCDate()).padStart(2, '0');
+    const year = d.getUTCFullYear();
+
+    // console.log("1002) ===>>> day =", day);
+    // console.log("1003) ===>>> year =", year);
+    // console.log("1004) ===>>> month =", month);
+
     return `${month}/${day}/${year}`;
   }
 
@@ -70,6 +96,7 @@ export const DateProvider = ({
     <DateContext.Provider value={{
       todayDate,
       todayMmDdYyyy,
+      monthNameToIndex,
       // todayYyyyMmDd,
       getMonthName,
       getNDaysBefore,
