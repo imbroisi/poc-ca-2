@@ -35,7 +35,12 @@ export const LinksDataProvider = ({
 }: LinksDataProviderProps) => {
   const [isEditMode, setIsEditMode] = useState(true);
   const [linksData, setLinksData] = useState<any[]>([]);
-  const { getNDaysBefore } = useDateContext();
+  const dateCtx = useDateContext();
+  const getNDaysBefore = dateCtx?.getNDaysBefore ?? ((date: string, n: number) => {
+    const d = new Date(date);
+    d.setUTCDate(d.getUTCDate() - n);
+    return d.toISOString().split('T')[0];
+  });
 
   useEffect(() => {
     // TODO: format links data from api response to LinksDataTypes
@@ -54,7 +59,7 @@ export const LinksDataProvider = ({
   // console.log("1009) ===>>> linksData =", linksData);
 
   const addLink = (lastDayDate: string, firstDayDate: string, attributeIndex: number, portfolioIndex: number) => {
-    // console.log("1008) ===>>> addLink =", lastDayStr, firstDayStr, cellIndex, cellRowIndex);
+    // console.log("1008) ===>>> addLink =", lastDayDate, firstDayDate, attributeIndex, portfolioIndex);
     setLinksData((prev) => [
       ...prev, 
       {
@@ -75,6 +80,8 @@ export const LinksDataProvider = ({
       link.firstDayDate === linkDataToDelete.firstDayDate
     );
     if (deleteIndex === -1) return;
+    // capture actual end date of the link being removed from current state
+    const removedEndDate = linksDataCopy[deleteIndex].lastDayDate;
     linksDataCopy.splice(deleteIndex, 1);
 
     // adjust size of previous link
@@ -85,7 +92,8 @@ export const LinksDataProvider = ({
       link.lastDayDate === lastDayDateBefore
     );
     if (previousLink) {
-      previousLink.lastDayDate = linkDataToDelete.lastDayDate;
+      // extend previous link to the removed link's actual end date
+      previousLink.lastDayDate = removedEndDate;
     }
 
     setLinksData(linksDataCopy);

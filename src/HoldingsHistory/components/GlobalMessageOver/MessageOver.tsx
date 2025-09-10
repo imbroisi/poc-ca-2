@@ -48,7 +48,6 @@ const MessageOver = (
 
   const onConfirmClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    // console.log("2) ====>>> Confirm button clicked");
     if (fireConfirmed) {
       fireConfirmed();
     }
@@ -66,7 +65,6 @@ const MessageOver = (
         top: position[1], 
         left: position[0],
         opacity: opacity,
-        // transition: 'opacity 0.3s ease-in-out'
       }}
       onMouseDown={(e) => {
         e.stopPropagation();

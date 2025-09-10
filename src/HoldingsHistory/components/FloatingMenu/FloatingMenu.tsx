@@ -40,16 +40,6 @@ export default function FloatingMenu({
         }
         : null,
     );
-
-    // Prevent text selection lost after opening the context menu on Safari and Firefox
-    const selection = document.getSelection();
-    if (selection && selection.rangeCount > 0) {
-      const range = selection.getRangeAt(0);
-
-      setTimeout(() => {
-        selection.addRange(range);
-      });
-    }
   };
 
   const handleClose = () => {

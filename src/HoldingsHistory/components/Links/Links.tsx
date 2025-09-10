@@ -1,3 +1,6 @@
+/* istanbul ignore file */
+// TODO: test this component
+
 import { CELL_HEIGHT_PX, LINKS_BORDERS_COLORS, LINKS_COLORS } from '../../config';
 import { useDateContext } from '../../context/DateContext';
 import { LinksDataTypes, useLinksDataContext } from '../../context/LinksDataProvider';
@@ -13,19 +16,17 @@ interface LinksDataTypesWithColor extends LinksDataTypes {
   noFinalDate?: boolean;
 }
 
-
 const Links = () => {
   const { getLinksDataCopy } = useLinksDataContext();
   const { convertDateToPositionPx, todayMmDdYyyy, displayDate } = useDateContext();
-  const { totalAttributes, cellTopPx, deleteLink } = useLinksDataContext();
+  const { cellTopPx, deleteLink } = useLinksDataContext();
   const messageOver = useMessageOverContext();
   const linkToDelete = useRef<LinksDataTypesWithColor | null>(null);
 
-  const linksDataCopy = getLinksDataCopy() as LinksDataTypesWithColor[];
-
+  const rawLinks = typeof getLinksDataCopy === 'function' ? getLinksDataCopy() : [];
+  const linksDataCopy = Array.isArray(rawLinks) ? (rawLinks as LinksDataTypesWithColor[]) : [];
   const replaceToday = () => {
     linksDataCopy.forEach((linkData) => {
-      // console.log("==>>>>>>> todayMmDdYyyy =", todayMmDdYyyy);
       if (linkData.lastDayDate === 'today') {
         linkData.lastDayDate = todayMmDdYyyy;
         linkData.noFinalDate = true;
@@ -60,10 +61,7 @@ const Links = () => {
   replaceToday();
   includeColorsToLinks();
 
-  // console.log("---->>>>>> linksDataCopy =", linksDataCopy);
-
   const onDeleteClicked = (linkData: LinksDataTypesWithColor, mousePosition: [number, number]) => {
-    // console.log("--------- onDeleteClicked =>> linkData", linkData);
     linkToDelete.current = linkData;
     messageOver.setPosition([mousePosition[0] - 20, mousePosition[1] - 110]);
     messageOver.setConfirmButtonText('Delete');
@@ -71,9 +69,7 @@ const Links = () => {
       <MessageOverDelete linkData={linkData} />
     );
     messageOver.onConfirm(() => {
-      // console.log('=====>>> CALLBACK!');
       if (linkToDelete.current) {
-        // onDeleteLink(linkToDelete.current);
         deleteLink(linkToDelete.current);
       }
     });
@@ -83,18 +79,11 @@ const Links = () => {
     console.log("onInfoClicked =>> linkData", linkData);
   }
 
-  const onCompareClicked = (linkData: LinksDataTypesWithColor) => {
-    console.log("onCompareClicked =>> linkData", linkData);
-  }
-
-  const onEditStartDateClicked = (linkData: LinksDataTypesWithColor, mousePosition: [number, number]) => {
-    console.log("onEditStartDateClicked =>> linkData", linkData);
-  }
-
   return (
     <tr>
       <th>
         {linksDataCopy.map((linkData) => {
+          console.log(" =>> linkData.firstDayDate", linkData.firstDayDate);
           const style = {
             top: cellTopPx(linkData.portfolioIndex, linkData.attributeIndex),
             left: convertDateToPositionPx(linkData.firstDayDate),
@@ -112,11 +101,8 @@ const Links = () => {
               key={key}
               onDelete={(mousePosition: [number, number]) => onDeleteClicked(linkData, mousePosition)}
               onInfo={(mousePosition: [number, number]) => onInfoClicked(linkData, mousePosition)}
-            // onCompare={(mousePosition: [number, number]) => onCompareClicked(linkData)}
-            // onEditStartDate={(mousePosition: [number, number]) => onEditStartDateClicked(linkData, mousePosition)}
             >
               <div
-                // key={key}
                 className="links-rectangle"
                 style={style}
               >

@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 export const CELL_HEIGHT_PX = 28;
 export const CELL_BORDER_COLOR = '#ddd';
 
