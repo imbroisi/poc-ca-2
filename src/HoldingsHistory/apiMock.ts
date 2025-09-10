@@ -1,4 +1,6 @@
 /* istanbul ignore file */
+import { mockHoldings } from "./mock/mockHoldings";
+
 export const delay = (ms: number): Promise<void> => {
   return new Promise(resolve => setTimeout(resolve, ms));
 };
@@ -21,3 +23,11 @@ export const apiGetLinksData = async () => {
     ],
   };
 };
+
+export const getHoldingsAndAttributesListData = async () => {
+  // simulate network delay
+  await delay(500);
+  return {
+    data: mockHoldings,
+  }
+}

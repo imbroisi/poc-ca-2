@@ -6,10 +6,10 @@ import './CollapseCell.css';
 
 export interface CollapseCellProps {
   node: TreeNodeBase;
-  depth: number;          // profundidade para indentação visual
-  isExpanded: boolean;    // derive de ctx.state.expanded.has(node.id)
-  hasChildren: boolean;   // Boolean(node.children?.length)
-  onToggle: () => void;   // normalmente: () => ctx.toggle(node.id)
+  depth: number;       
+  isExpanded: boolean; 
+  hasChildren: boolean; 
+  onToggle: () => void;
   renderLabel?: (node: TreeNodeBase) => React.ReactNode;
 }
 
@@ -36,7 +36,7 @@ const CollapseCell = ({ node, depth, isExpanded, hasChildren = false, onToggle, 
       ) : (
         <span className="mr-2 inline-block w-6" />
       )}
-      <span className="truncate" id={`row-${node.id}`}>
+      <span id={`row-${node.id}`}>
         {renderLabel ? renderLabel(node) : node.label}
       </span>
     </div>
