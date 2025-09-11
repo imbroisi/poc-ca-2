@@ -48,10 +48,10 @@ const HoldingsHistory = () => {
               <HoldingsProvider holdings={holdings ?? []}>
                 <LeftTable />
                 <MainTable />
+                <MessageOver />
+                <GlobalModal />
               </HoldingsProvider>
             </ExpandedHoldingsProvider>
-            <MessageOver />
-            <GlobalModal />
           </LinksDataProvider>
         </MessageOverProvider>
       </ModalProvider>

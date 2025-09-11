@@ -105,7 +105,7 @@ const Links = ({ visibleAttributes }: { visibleAttributes: string[]}) => {
         {linksDataCopy.map((linkData) => {
           console.log(" =>> linkData.firstDayDate", linkData.firstDayDate);
           const style = {
-            top: getVisibleRowTop(linkData.attributeId),
+            top: cellTopPx(linkData.portfolioIndex, linkData.attributeIndex),
             left: convertDateToPositionPx(linkData.firstDayDate),
             width: convertDateToPositionPx(linkData.lastDayDate, 1) - convertDateToPositionPx(linkData.firstDayDate),
             height: CELL_HEIGHT_PX - 2,
