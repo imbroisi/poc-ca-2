@@ -9,6 +9,11 @@ const Header = () => {
   return (
     <thead className="header">
       <tr>
+        <th colSpan={numberOfYears} className="history-label">
+          History
+        </th>
+      </tr> 
+      <tr>
         <YearsRow />
       </tr>
       <tr>

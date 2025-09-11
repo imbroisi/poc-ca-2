@@ -17,14 +17,13 @@ interface LinksDataTypesWithColor extends LinksDataTypes {
 }
 
 const Links = () => {
-  const { getLinksDataCopy } = useLinksDataContext();
+  const { getLinksDataCopy, cellTopPx, deleteLink } = useLinksDataContext();
   const { convertDateToPositionPx, todayMmDdYyyy, displayDate } = useDateContext();
-  const { cellTopPx, deleteLink } = useLinksDataContext();
   const messageOver = useMessageOverContext();
   const linkToDelete = useRef<LinksDataTypesWithColor | null>(null);
 
-  const rawLinks = typeof getLinksDataCopy === 'function' ? getLinksDataCopy() : [];
-  const linksDataCopy = Array.isArray(rawLinks) ? (rawLinks as LinksDataTypesWithColor[]) : [];
+  const linksDataCopy = getLinksDataCopy() as LinksDataTypesWithColor[];
+  
   const replaceToday = () => {
     linksDataCopy.forEach((linkData) => {
       if (linkData.lastDayDate === 'today') {
@@ -76,6 +75,7 @@ const Links = () => {
   }
 
   const onInfoClicked = (linkData: LinksDataTypesWithColor, mousePosition: [number, number]) => {
+    // TODO: implement this
     console.log("onInfoClicked =>> linkData", linkData);
   }
 
@@ -83,7 +83,6 @@ const Links = () => {
     <tr>
       <th>
         {linksDataCopy.map((linkData) => {
-          console.log(" =>> linkData.firstDayDate", linkData.firstDayDate);
           const style = {
             top: cellTopPx(linkData.portfolioIndex, linkData.attributeIndex),
             left: convertDateToPositionPx(linkData.firstDayDate),

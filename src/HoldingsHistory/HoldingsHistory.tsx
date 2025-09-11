@@ -22,21 +22,21 @@ const HoldingsHistory = () => {
   if (!linksFromApi) return null;
 
   return (
-    <DateProvider todayDate={linksFromApi.today} numberOfYears={NUMBER_OF_YEARS}>
-      <ModalProvider>
-        <MessageOverProvider>
-          <LinksDataProvider linksDataFromApi={linksFromApi.data}>
+      <DateProvider todayDate={linksFromApi.today} numberOfYears={NUMBER_OF_YEARS}>
+        <ModalProvider>
+          <MessageOverProvider>
+            <LinksDataProvider linksDataFromApi={linksFromApi.data}>
 
-            {/* <LeftTable /> */}
-            <MainTable />
+              {/* <LeftTable /> */}
+              <MainTable />
 
-            <MessageOver />
-            <GlobalModal />
+              <MessageOver />
+              <GlobalModal />
 
-          </LinksDataProvider>
-        </MessageOverProvider>
-      </ModalProvider>
-    </DateProvider>
+            </LinksDataProvider>
+          </MessageOverProvider>
+        </ModalProvider>
+      </DateProvider>
   );
 }
 
