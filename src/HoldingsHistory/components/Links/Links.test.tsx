@@ -8,7 +8,7 @@ import { useMessageOverContext } from '../../context/MessageOverContext';
 import Links from './Links';
 import { useHoldings } from '../../context/HoldingsContext';
 import { mockHoldings } from '../../mock/mockHoldings';
-import { useExpandedHoldingsActions, useExpandedHoldingsState } from '../../context/ExpandedHoldingsContext';
+import { useExpandedHoldingsState } from '../../context/ExpandedHoldingsContext';
 
 jest.mock('../../context/LinksDataProvider', () => ({
   useLinksDataContext: jest.fn(),
