@@ -1,13 +1,15 @@
 import { useMemo } from "react";
 import { Holding } from "../types/expandTypes";
-import { useExpandedHoldings } from "../context/ExpandContext";
+import { useExpandedHoldingsState } from "../context/ExpandedHoldingsContext";
 import { visibleAttributeIdSet } from "../utils/visibleAttributeIdSet";
 
 
 export function useVisibleAttributeIdSet(holdings: Holding[]) {
-  const { state } = useExpandedHoldings();
+  const { expanded } = useExpandedHoldingsState();
 
-  const visibleHoldings = useMemo(() => visibleAttributeIdSet(holdings, state.expanded), [holdings, state.expanded]);
+  const visibleHoldings = useMemo(() => visibleAttributeIdSet(holdings, expanded), [holdings, expanded]);
+
+  console.log("visibleHoldings", visibleHoldings);
 
   return visibleHoldings;
 }

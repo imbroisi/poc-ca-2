@@ -1,10 +1,6 @@
-import React, { useEffect, useMemo, useState, useCallback } from "react";
-import CollapseCell from "../CollapseCell";
-import { useExpandedHoldings } from "../../context/ExpandContext";
-import { flattenLeftRowsForHoldings } from "../../utils/flattenLeftRowsForHoldings";
+import React from "react";
 import "./LeftTable.css";
-import { Holding, HoldingId } from "../../types/expandTypes";
-import { useLinksDataContext } from "../../context/LinksDataProvider";
+import { Holding } from "../../types/expandTypes";
 import { HeaderLeft } from "./HeaderLeft";
 import Filters from "./Filters/Filters";
 import Body from "./Body/Body";
@@ -15,7 +11,6 @@ interface HoverState {
 }
 
 export interface LeftTableProps {
-  holdings?: Holding[];
   hoverState?: HoverState;
   onCheckboxChange?: (rowIndex: number, isChecked: boolean) => void; // mantém contrato legado
   rowsSelected?: boolean[];
@@ -25,7 +20,6 @@ export interface LeftTableProps {
 }
 
 const LeftTable: React.FC<LeftTableProps> = ({
-  holdings = [],
   hoverState,
   onCheckboxChange,
   rowsSelected,
@@ -38,10 +32,11 @@ const LeftTable: React.FC<LeftTableProps> = ({
   return (
     <table
       className="tl-table"
-      style={{ ['--compare-time' as any]: `${500}` }}>
+      // style={{ ['--compare-time' as any]: `${500}` }}
+      >
       <HeaderLeft />
       <Filters />
-      <Body holdings={holdings} />
+      <Body />
     </table>
   );
 }

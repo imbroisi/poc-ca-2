@@ -1,53 +1,74 @@
-// ExpandedHoldings.test.tsx
 import { renderHook, act } from "@testing-library/react";
-import { ExpandedHoldingsProvider, useExpandedHoldings } from "../ExpandContext";
+import {
+  ExpandedHoldingsProvider,
+  useExpandedHoldingsState,
+  useExpandedHoldingsActions,
+} from "../ExpandedHoldingsContext";
 
-describe("expandedHoldingsReducer", () => {
+describe("ExpandedHoldingsContext", () => {
+  const wrapper = ({ children }: { children: React.ReactNode }) => (
+    <ExpandedHoldingsProvider>{children}</ExpandedHoldingsProvider>
+  );
+
   it("toggles full display of attributes of a given holding (show/hide)", () => {
-    const { result } = renderHook(() => useExpandedHoldings(), {
-      wrapper: ({ children }) => (
-        <ExpandedHoldingsProvider>
-          {children}
-        </ExpandedHoldingsProvider>
-      ),
-    });
+    const { result } = renderHook(
+      () => ({
+        state: useExpandedHoldingsState(),
+        actions: useExpandedHoldingsActions(),
+      }),
+      { wrapper }
+    );
 
-    act(() => result.current.toggleHolding("A"));
+    act(() => result.current.actions.toggleHolding("A"));
     expect(result.current.state.expanded.has("A")).toBe(true);
 
-    act(() => result.current.toggleHolding("A"));
+    act(() => result.current.actions.toggleHolding("A"));
     expect(result.current.state.expanded.has("A")).toBe(false);
   });
 
   it("expands all holdings", () => {
-    const { result } = renderHook(() => useExpandedHoldings(), {
-      wrapper: ({ children }) => (
-        <ExpandedHoldingsProvider>
-          {children}
-        </ExpandedHoldingsProvider>
-      ),
-    });
+    const { result } = renderHook(
+      () => ({
+        state: useExpandedHoldingsState(),
+        actions: useExpandedHoldingsActions(),
+      }),
+      { wrapper }
+    );
 
-    act(() => result.current.expandAllHoldings(["A", "B", "C"]));
+    act(() => result.current.actions.expandAllHoldings(["A", "B", "C"]));
     expect(Array.from(result.current.state.expanded)).toEqual(["A", "B", "C"]);
   });
 
   it("collapses all holdings", () => {
-    const { result } = renderHook(() => useExpandedHoldings(), {
-      wrapper: ({ children }) => (
-        <ExpandedHoldingsProvider initialExpandedIds={["X", "Y"]}>
-          {children}
-        </ExpandedHoldingsProvider>
-      ),
-    });
+    const wrapperWithInitial = ({ children }: { children: React.ReactNode }) => (
+      <ExpandedHoldingsProvider initialExpandedIds={["X", "Y"]}>
+        {children}
+      </ExpandedHoldingsProvider>
+    );
 
-    act(() => result.current.collapseAllHoldings());
+    const { result } = renderHook(
+      () => ({
+        state: useExpandedHoldingsState(),
+        actions: useExpandedHoldingsActions(),
+      }),
+      { wrapper: wrapperWithInitial }
+    );
+
+    expect(result.current.state.expanded.size).toBe(2);
+
+    act(() => result.current.actions.collapseAllHoldings());
     expect(result.current.state.expanded.size).toBe(0);
   });
 
-  it("throws when hook is used outside provider", () => {
-    expect(() => renderHook(() => useExpandedHoldings())).toThrow(
-      "useExpandedHoldings must be used within <ExpandedHoldingsProvider>"
+  it("throws when state hook is used outside provider", () => {
+    expect(() => renderHook(() => useExpandedHoldingsState())).toThrow(
+      "useExpandedHoldingsState must be used within ExpandedHoldingsProvider"
+    );
+  });
+
+  it("throws when actions hook is used outside provider", () => {
+    expect(() => renderHook(() => useExpandedHoldingsActions())).toThrow(
+      "useExpandedHoldingsActions must be used within ExpandedHoldingsProvider"
     );
   });
 });

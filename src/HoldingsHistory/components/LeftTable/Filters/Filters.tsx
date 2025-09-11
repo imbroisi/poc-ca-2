@@ -1,11 +1,10 @@
 import React from 'react';
-import { CELL_HEIGHT_PX } from '../../../config';
 import './Filters.css';
 
 function Filters({ nameFilterSlot, dateFilterSlot }: any) {
 
   return (
-    <tr className="tl-filter-row" style={{ fontSize: 12 }}>
+    <tr className="tl-filter-row">
       <th className="tl-filter-cell">
         {nameFilterSlot ?? null}
         <td className='table-cell'>Filter</td>

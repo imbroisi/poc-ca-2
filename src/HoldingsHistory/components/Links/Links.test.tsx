@@ -1,11 +1,14 @@
 // TODO: test this component
-import { render, screen, within, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import React from 'react';
 
 import { useLinksDataContext } from '../../context/LinksDataProvider';
 import { useDateContext } from '../../context/DateContext';
 import { useMessageOverContext } from '../../context/MessageOverContext';
 import Links from './Links';
+import { useHoldings } from '../../context/HoldingsContext';
+import { mockHoldings } from '../../mock/mockHoldings';
+import { useExpandedHoldingsActions, useExpandedHoldingsState } from '../../context/ExpandedHoldingsContext';
 
 jest.mock('../../context/LinksDataProvider', () => ({
   useLinksDataContext: jest.fn(),
@@ -17,6 +20,15 @@ jest.mock('../../context/DateContext', () => ({
 
 jest.mock('../../context/MessageOverContext', () => ({
   useMessageOverContext: jest.fn(),
+}));
+
+jest.mock('../../context/ExpandedHoldingsContext', () => ({
+  // useExpandedHoldingsActions: jest.fn(),
+  useExpandedHoldingsState: jest.fn(),
+}))
+
+jest.mock('../../context/HoldingsContext', () => ({
+  useHoldings: jest.fn(),
 }));
 
 // Mock FloatingMenu to expose handlers via globalThis (avoid out-of-scope refs)
@@ -69,6 +81,8 @@ describe('Links', () => {
     deleteLink: jest.fn(),
   };
 
+  const visibleAttributes = ["attr-002", "attr-001", "attr-011", "attr-02"];
+
   const dateContext = {
     convertDateToPositionPx: jest.fn((date: string, pad = 0) => {
       if (date === '2024-03-01') return 50;
@@ -91,12 +105,14 @@ describe('Links', () => {
     (useLinksDataContext as jest.Mock).mockReturnValue(linksContext);
     (useDateContext as jest.Mock).mockReturnValue(dateContext);
     (useMessageOverContext as jest.Mock).mockReturnValue(messageOver);
+    (useExpandedHoldingsState as jest.Mock).mockReturnValue({ expanded: new Set(["holding-001", "holding-002", "holding-003"])});
+    (useHoldings as jest.Mock).mockReturnValue({ holdings: mockHoldings });
   });
 
   const renderWithTable = (ui: React.ReactElement) => render(<table><tbody>{ui}</tbody></table>);
 
   test('renders link using links data and computes positions', () => {
-    renderWithTable(<Links />);
+    renderWithTable(<Links visibleAttributes={visibleAttributes} />);
 
     // verifies data flow executed
     expect(linksContext.getLinksDataCopy).toHaveBeenCalled();
@@ -106,7 +122,7 @@ describe('Links', () => {
 
   // TODO: create this test
   test('delete flow opens messageOver and calls deleteLink on confirm', () => {
-    renderWithTable(<Links />);
+    renderWithTable(<Links visibleAttributes={visibleAttributes} />);
   
   });
 });

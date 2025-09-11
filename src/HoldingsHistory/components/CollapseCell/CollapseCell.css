@@ -1,4 +1,5 @@
 .expand-button {
+  margint-left: 8px;
   margin-right: 4px;
   display: flex;
   justify-content: center;
@@ -8,7 +9,7 @@
   width: 12px;
   border: none;
   background-color: inherit;
-  /* padding: 2px; */
+  padding: 2px;
 }
 
 .collapse-cell-container {
@@ -16,3 +17,10 @@
   align-items: center;
 }
 
+.cell-parent, .cell-child {
+  font-size: 12px;
+}
+
+.cell-parent {
+  font-weight: 700;
+}

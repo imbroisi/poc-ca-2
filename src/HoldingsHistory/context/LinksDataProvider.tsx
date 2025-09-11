@@ -8,6 +8,8 @@ export interface LinksDataTypes {
   attributeIndex: number;
   firstDayDate: string;
   lastDayDate: string;
+  attributeId: string;
+  holdingId: string;
 }
 
 interface LinksDataContextType {

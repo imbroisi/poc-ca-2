@@ -5,10 +5,17 @@ import './Body.css';
 import Links from '../Links';
 import { useDateContext } from '../../context/DateContext';
 import AddLinkButtons from '../AddLinkButtons';
+import { useVisibleAttributeIdSet } from '../../hooks/useVisibleAttributeIdSet';
+import { useHoldings } from '../../context/HoldingsContext';
+
 
 const Body = () => {
   const { numberOfYears, todayPositionPx } = useDateContext();
   const { totalAttributes, rowsToRender, addLink } = useLinksDataContext();
+  const { holdings } = useHoldings();
+  const visibleAttrSet = useVisibleAttributeIdSet(holdings);
+  const visibleAttributes = Array.from(visibleAttrSet);
+  const totalRows = holdings.length + visibleAttrSet.size;
 
   const handleDatePicked = (lastDayStr: string, firstDayStr: string, cellIndex: number, cellRowIndex: number) => {
     addLink(lastDayStr, firstDayStr, cellIndex, cellRowIndex);
@@ -18,7 +25,7 @@ const Body = () => {
     <tbody className="body-container">
 
       {/* rows */}
-      {Array.from({ length: rowsToRender }).map((_, indexColRow) => (
+      {Array.from({ length: totalRows }).map((_, indexColRow) => (
         <tr
           key={indexColRow}
           className="body-row"
@@ -42,8 +49,8 @@ const Body = () => {
         </tr>
       ))}
 
-      <TodayLine left={todayPositionPx} rowsToRender={rowsToRender} />
-      <Links />
+      <TodayLine left={todayPositionPx} rowsToRender={totalRows} />
+      <Links visibleAttributes={visibleAttributes} />
       <AddLinkButtons onDatePicked={handleDatePicked} />
 
     </tbody>

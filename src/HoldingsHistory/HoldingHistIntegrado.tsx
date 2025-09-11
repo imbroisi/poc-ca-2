@@ -6,7 +6,7 @@ import { apiGetLinksData } from './apiMock';
 import { NUMBER_OF_YEARS } from './config';
 import GlobalModal from './components/GlobalModal/GlobalModal';
 import LeftTable from './components/LeftTable';
-import { ExpandedHoldingsProvider } from './context/ExpandContext';
+import { ExpandedHoldingsProvider } from './context/ExpandedHoldingsContext';
 
 const HoldingsHistory = () => {
   const [linksFromApi, setLinksFromApi] = useState<any | null>(null);
