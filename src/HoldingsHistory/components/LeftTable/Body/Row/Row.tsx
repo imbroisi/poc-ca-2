@@ -13,7 +13,7 @@ const Row = ({ row, toggleHolding, expanded }: RowProps) => {
 
   if (isHolding) {
     return (
-      <tr className={`tl-row-holding ${!expanded.has(row.holdingId) ? 'collapsed' : ''}`}>
+      <tr className={`tl-row-holding ${!expanded.has(row.holdingId) ? 'collapsed' : ''}`} style={{ height: 0 }}>
         <CollapseCell
           row={row}
           depth={0}
@@ -37,7 +37,6 @@ const Row = ({ row, toggleHolding, expanded }: RowProps) => {
         </div>
       </td>
     </tr>
-
   );
 };
 

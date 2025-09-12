@@ -1,5 +1,5 @@
 .tl-row-holding {
-  height: 28px;
+  height: 27px;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   background-color: #fafafa;
@@ -14,7 +14,7 @@
 }
 
 .tl-row.collapsed {
-  height: 0;
+  height: 10px;
 }
 
 .tl-cell-pair__secondary {

@@ -109,7 +109,7 @@ const Links = ({ visibleAttributes }: { visibleAttributes: string[]}) => {
       <th>
         {linksDataCopy.map((linkData) => {
           const style = {
-            top: cellTopPx(linkData.portfolioIndex, linkData.attributeIndex),
+            top: cellTopPx(linkData.portfolioIndex, linkData.attributeIndex) + 1,
             left: convertDateToPositionPx(linkData.firstDayDate),
             width: convertDateToPositionPx(linkData.lastDayDate, 1) - convertDateToPositionPx(linkData.firstDayDate),
             height: LINK_HEIGHT_PX,

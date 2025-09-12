@@ -34,8 +34,6 @@ const Body = () => {
               ? CELL_BORDER_COLOR : 'transparent',
             backgroundColor: indexColRow % (totalAttributes + 1) === 0
               ? '#FAFAFA' : 'transparent',
-            height: indexColRow % (totalAttributes + 1) === 0
-              ? '28px' : '27px',
           }}>
 
           {/* columns */}
