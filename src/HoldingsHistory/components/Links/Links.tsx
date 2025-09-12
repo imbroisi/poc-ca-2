@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 // TODO: test this component
 
-import { CELL_HEIGHT_PX, LINKS_BORDERS_COLORS, LINKS_COLORS } from '../../config';
+import { CELL_HEIGHT_PX, LINK_HEIGHT_PX, LINKS_BORDERS_COLORS, LINKS_COLORS } from '../../config';
 import { useDateContext } from '../../context/DateContext';
 import { LinksDataTypes, useLinksDataContext } from '../../context/LinksDataProvider';
 import FloatingMenu from '../FloatingMenu';
@@ -112,7 +112,7 @@ const Links = ({ visibleAttributes }: { visibleAttributes: string[]}) => {
             top: cellTopPx(linkData.portfolioIndex, linkData.attributeIndex),
             left: convertDateToPositionPx(linkData.firstDayDate),
             width: convertDateToPositionPx(linkData.lastDayDate, 1) - convertDateToPositionPx(linkData.firstDayDate),
-            height: CELL_HEIGHT_PX - 2,
+            height: LINK_HEIGHT_PX,
             backgroundColor: linkData.color,
             borderLeftColor: linkData.borderColor,
             borderRightColor: linkData.borderColor,
