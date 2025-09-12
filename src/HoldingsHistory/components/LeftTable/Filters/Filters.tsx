@@ -9,16 +9,16 @@ interface FiltersProps {
 function Filters({ nameFilterSlot, dateFilterSlot }: FiltersProps) {
   return (
     <tbody>
-    <tr>
-      <td className="tl-filter-row">
-        <div className="tl-filter-cell table-cell">
-          {nameFilterSlot || <span aria-hidden="true">Filter</span>}
-        </div>
-      </td>
-      <td>
-        <div className="tl-filter-cell table-cell">
-          {dateFilterSlot || <span aria-hidden="true">Filter</span>}
-        </div>
+      <tr>
+        <td className="tl-filter-row">
+          <div className="tl-filter-cell table-cell">
+            {nameFilterSlot || <span aria-hidden="true">{`<Filter>`}</span>}
+          </div>
+        </td>
+        <td className="tl-filter-row">
+          <div className="tl-filter-cell table-cell">
+            {dateFilterSlot || <span aria-hidden="true">{`<Filter>`}</span>}
+          </div>
         </td>
       </tr>
     </tbody>

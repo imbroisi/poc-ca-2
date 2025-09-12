@@ -12,18 +12,17 @@ const Header = () => {
         <th colSpan={numberOfYears} className="history-label">
           History
         </th>
-      </tr> 
+      </tr>
       <tr>
         <YearsRow />
       </tr>
       <tr>
-        {Array.from({ length: numberOfYears }).map((_, index) => (
-          <th
-            key={index}
-            className="header-cell"
-            style={{ height: CELL_HEIGHT_PX, borderColor: CELL_BORDER_COLOR }}
-          />
-        ))}
+        {/* Empty row, same position as filters row */}
+        <th
+          colSpan={numberOfYears}
+          className="header-cell"
+          style={{ borderColor: CELL_BORDER_COLOR }}
+        />
       </tr>
     </thead>
   );

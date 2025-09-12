@@ -13,7 +13,7 @@ const Row = ({ row, toggleHolding, expanded }: RowProps) => {
 
   if (isHolding) {
     return (
-      <tr className={`tl-row ${!expanded.has(row.holdingId) ? 'collapsed' : ''}`}>
+      <tr className={`tl-row-holding ${!expanded.has(row.holdingId) ? 'collapsed' : ''}`}>
         <CollapseCell
           row={row}
           depth={0}
@@ -21,7 +21,7 @@ const Row = ({ row, toggleHolding, expanded }: RowProps) => {
           hasChildren={row.hasChildren}
           onToggle={() => toggleHolding(row.holdingId)}
         />
-        <td>
+        <td className="tl-cell-date">
           <span className="tl-cell-pair__secondary">{row.secondaryLabel}</span>
         </td>
       </tr>
