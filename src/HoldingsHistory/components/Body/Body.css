@@ -6,11 +6,6 @@
   border-top: 1px solid;
 }
 
-.body-cell {
-  border-left: 1px solid;
-  border-right: 1px solid;
-}
-
 .body-rectangle {
   position: absolute;
   pointer-events: none;

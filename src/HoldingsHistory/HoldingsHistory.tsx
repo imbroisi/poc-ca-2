@@ -10,7 +10,7 @@ import { MessageOverProvider } from './context/MessageOverContext';
 import MessageOver from './components/GlobalMessageOver/MessageOver';
 import LeftTable from './components/LeftTable';
 import { ExpandedHoldingsProvider } from './context/ExpandedHoldingsContext';
-
+import './HoldingsHistory.css';
 import { Holding } from './types/expandTypes';
 import { HoldingsProvider } from './context/HoldingsContext';
 
@@ -46,19 +46,21 @@ const HoldingsHistory = () => {
           <LinksDataProvider linksDataFromApi={linksFromApi.data}>
             <ExpandedHoldingsProvider initialExpandedIds={initialExpandedIds}>
               <HoldingsProvider holdings={holdings ?? []}>
-                <LeftTable />
-                <MainTable />
+
+                <div className="top-table-container">
+                  <LeftTable />
+                  <MainTable />
+                </div> 
+                
                 <MessageOver />
                 <GlobalModal />
+
               </HoldingsProvider>
             </ExpandedHoldingsProvider>
           </LinksDataProvider>
         </MessageOverProvider>
       </ModalProvider>
     </DateProvider>
-  
-   
-
   );
 }
 

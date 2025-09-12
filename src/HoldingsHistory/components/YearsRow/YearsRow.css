@@ -1,13 +1,13 @@
 .years-row {
-  border: 1px solid;
   text-align: left;
   position: relative;
-  height: 55px;
+  height: 40px;
   vertical-align: bottom;
+
+  border-left: none;
 
   .years-row-text {
     margin-left: 10px;
     padding-bottom: 6px;
-    font-size: 11px;
   }
 }

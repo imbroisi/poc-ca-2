@@ -4,9 +4,7 @@ import { HeaderLeft } from "./HeaderLeft";
 import Filters from "./Filters/Filters";
 import { LeftTableBody } from "./Body";
 
-
 const LeftTable: React.FC = () => {
-
   return (
     <div className="table-left-container">
       <table className="tl-table">

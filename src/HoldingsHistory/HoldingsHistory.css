@@ -1,0 +1,10 @@
+.top-table-container {
+  display: flex;
+  width: 100%;
+  font-size: 11px;
+}
+
+/* Remove bold from all table headers in HoldingsHistory */
+.top-table-container th {
+  font-weight: normal;
+}
