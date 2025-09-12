@@ -3,11 +3,15 @@
   position: relative;
   height: 40px;
   vertical-align: bottom;
+  border-left: 1px solid #ddd;
+}
 
+/* Remove left border from first cell */
+.years-row:first-child {
   border-left: none;
+}
 
-  .years-row-text {
-    margin-left: 10px;
-    padding-bottom: 6px;
-  }
+.years-row-text {
+  margin-left: 10px;
+  padding-bottom: 6px;
 }

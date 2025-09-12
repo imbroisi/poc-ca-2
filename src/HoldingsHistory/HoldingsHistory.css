@@ -2,9 +2,10 @@
   display: flex;
   width: 100%;
   font-size: 11px;
-}
+  border-right: 1px solid #e0e0e0;
 
-/* Remove bold from all table headers in HoldingsHistory */
-.top-table-container th {
-  font-weight: normal;
+  /* Remove bold from all table headers in HoldingsHistory */
+  th {
+    font-weight: normal;
+  }
 }

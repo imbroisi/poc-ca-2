@@ -1,6 +1,5 @@
 /* Table base */
 .tl-table {
-  /* border: 1px solid rgb(192, 192, 192); */
   height: 100%;
   min-width: 100%;
   display: table;
@@ -21,11 +20,11 @@
 }
 
 .body-container {
-
+  border-left: 1px solid #ddd;
 }
 
 .tl-filter {
-
+  border-right: 1px solid #ddd;
 }
 
 .tl-th__select-all {
@@ -51,12 +50,12 @@
   white-space: nowrap;
  }
 .tl-row--hover .tl-td { 
-
+  border-right: 1px solid #ddd;
  }
 
 /* Cell */
 .tl-td {
-
+  border-right: 1px solid #ddd;
 
 }
 
