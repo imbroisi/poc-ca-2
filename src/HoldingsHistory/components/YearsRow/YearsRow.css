@@ -2,8 +2,12 @@
   border: 1px solid;
   text-align: left;
   position: relative;
+  height: 55px;
+  vertical-align: bottom;
 
   .years-row-text {
     margin-left: 10px;
+    padding-bottom: 6px;
+    font-size: 11px;
   }
 }

@@ -1,3 +1,15 @@
 .header-cell {
   border: 1px solid;
 }
+
+.history-label {
+  text-align: left;
+  border-left: 1px solid #e0e0e0;
+  border-top: 1px solid #e0e0e0;
+  height: 32px;
+  text-transform: uppercase;
+  padding-left: 8px;
+  font-weight: 600 !important;
+  font-size: 11px;
+  background-color: #f3f3f3;
+}

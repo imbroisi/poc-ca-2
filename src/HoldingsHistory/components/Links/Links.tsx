@@ -32,13 +32,17 @@ const Links = ({ visibleAttributes }: { visibleAttributes: string[]}) => {
   const messageOver = useMessageOverContext();
   const linkToDelete = useRef<LinksDataTypesWithColor | null>(null);
 
-  const rawLinks = typeof getLinksDataCopy === 'function' ? getLinksDataCopy() : [];
-  // const filteredLinks = rawLinks.filter(i => )
-  const filteredLinks = rawLinks.filter((link) =>
-    visibleAttributes.includes(link.attributeId)
-  );
+  // const rawLinks = typeof getLinksDataCopy === 'function' ? getLinksDataCopy() : [];
+  // // const filteredLinks = rawLinks.filter(i => )
+  // const filteredLinks = rawLinks.filter((link) =>
+  //   visibleAttributes.includes(link.attributeId)
+  // );
 
-  const linksDataCopy = Array.isArray(filteredLinks) ? (filteredLinks as LinksDataTypesWithColor[]) : [];
+  // const linksDataCopy = Array.isArray(filteredLinks) ? (filteredLinks as LinksDataTypesWithColor[]) : [];
+
+  const linksDataCopy = getLinksDataCopy() as LinksDataTypesWithColor[];
+
+
   const replaceToday = () => {
     linksDataCopy.forEach((linkData) => {
       if (linkData.lastDayDate === 'today') {
@@ -90,6 +94,7 @@ const Links = ({ visibleAttributes }: { visibleAttributes: string[]}) => {
   }
 
   const onInfoClicked = (linkData: LinksDataTypesWithColor, mousePosition: [number, number]) => {
+    // TODO: implement this
     console.log("onInfoClicked =>> linkData", linkData);
   }
 
@@ -103,7 +108,6 @@ const Links = ({ visibleAttributes }: { visibleAttributes: string[]}) => {
     <tr>
       <th>
         {linksDataCopy.map((linkData) => {
-          console.log(" =>> linkData.firstDayDate", linkData.firstDayDate);
           const style = {
             top: cellTopPx(linkData.portfolioIndex, linkData.attributeIndex),
             left: convertDateToPositionPx(linkData.firstDayDate),
