@@ -7,7 +7,7 @@ export const NUMBER_OF_YEARS = 3;
 export const YEAR_CELL_WIDTH_PX = 400;
 
 // TODO: review this methode when definition on how the pagination will be implemented (because of collase/expand sections)
-export const ROWS_BY_PAGE = 20;
+export const ROWS_BY_PAGE = 30;
 
 export const TODAY_LINE_COLOR = '#45acc8';
 

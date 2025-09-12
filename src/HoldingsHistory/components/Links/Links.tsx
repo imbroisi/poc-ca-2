@@ -9,6 +9,8 @@ import './Links.css';
 import { useMessageOverContext } from '../../context/MessageOverContext';
 import { useRef } from 'react';
 import MessageOverDelete from '../GlobalMessageOver/MessageOverDelete';
+import { useHoldings } from '../../context/HoldingsContext';
+import { useVisibleHistoryFilter } from '../../hooks/useVisibleHistoryFilter';
 
 interface LinksDataTypesWithColor extends LinksDataTypes {
   color: string;
@@ -16,15 +18,27 @@ interface LinksDataTypesWithColor extends LinksDataTypes {
   noFinalDate?: boolean;
 }
 
-const Links = () => {
+const Links = ({ visibleAttributes }: { visibleAttributes: string[]}) => {
   const { getLinksDataCopy } = useLinksDataContext();
   const { convertDateToPositionPx, todayMmDdYyyy, displayDate } = useDateContext();
+  const { holdings } = useHoldings();
+
+    // 1. Filter: only keep links whose attribute is visible in the left table
+
+  const isVisible = useVisibleHistoryFilter(holdings);
+  // useVisibleAttributeIdSet
+
   const { cellTopPx, deleteLink } = useLinksDataContext();
   const messageOver = useMessageOverContext();
   const linkToDelete = useRef<LinksDataTypesWithColor | null>(null);
 
   const rawLinks = typeof getLinksDataCopy === 'function' ? getLinksDataCopy() : [];
-  const linksDataCopy = Array.isArray(rawLinks) ? (rawLinks as LinksDataTypesWithColor[]) : [];
+  // const filteredLinks = rawLinks.filter(i => )
+  const filteredLinks = rawLinks.filter((link) =>
+    visibleAttributes.includes(link.attributeId)
+  );
+
+  const linksDataCopy = Array.isArray(filteredLinks) ? (filteredLinks as LinksDataTypesWithColor[]) : [];
   const replaceToday = () => {
     linksDataCopy.forEach((linkData) => {
       if (linkData.lastDayDate === 'today') {
@@ -78,6 +92,12 @@ const Links = () => {
   const onInfoClicked = (linkData: LinksDataTypesWithColor, mousePosition: [number, number]) => {
     console.log("onInfoClicked =>> linkData", linkData);
   }
+
+    // 3. Compute visible row index (based on visible attributes array, not raw attributeIndex)
+    const getVisibleRowTop = (attributeId: string) => {
+      const idx = visibleAttributes.indexOf(attributeId);
+      return idx >= 0 ? idx * CELL_HEIGHT_PX : -9999;
+    };
 
   return (
     <tr>

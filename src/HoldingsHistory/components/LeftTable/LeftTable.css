@@ -1,0 +1,77 @@
+/* Table base */
+.tl-table {
+  /* border: 1px solid rgb(192, 192, 192); */
+  height: 100%;
+  min-width: 100%;
+  display: table;
+  border-collapse: collapse;
+  padding: 0;
+  margin: 0;
+  /* border-collapse: collapse; */
+}
+
+.table-left-container {
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  height: 100%;
+  /* border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd; */
+  position: relative;
+  direction: ltr;
+}
+
+.body-container {
+
+}
+
+.tl-filter {
+
+}
+
+.tl-th__select-all {
+  display: flex;
+  align-items: center;
+  /* padding: 8px; */
+}
+
+.tl-th__label { margin-left: 6px; }
+
+/* Row */
+.tl-row {
+  /* height: 28px; */
+  padding-left: 6px;
+  border-color: rgb(221, 221, 221);
+  text-align: left;
+  font-size: 12px;
+  /* border-top: 1px solid;
+  border-right: 1px solid; */
+  /* text-align: left; */
+  /* vertical-align: middle; */
+  /* padding: 0 10px; */
+  white-space: nowrap;
+ }
+.tl-row--hover .tl-td { 
+
+ }
+
+/* Cell */
+.tl-td {
+
+
+}
+
+.tl-td__content { 
+  display: flex;
+  align-items: center;
+}
+
+/* Checkbox */
+.tl-checkbox {
+  margin: 0 8px 0 0;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.tl-cell-indent {
+  padding-left: 22px;
+}
