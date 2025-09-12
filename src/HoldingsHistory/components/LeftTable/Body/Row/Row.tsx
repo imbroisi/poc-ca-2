@@ -13,7 +13,7 @@ const Row = ({ row, toggleHolding, expanded }: RowProps) => {
 
   if (isHolding) {
     return (
-      <tr className="tl-row">
+      <tr className={`tl-row ${!expanded.has(row.holdingId) ? 'collapsed' : ''}`}>
         <CollapseCell
           row={row}
           depth={0}

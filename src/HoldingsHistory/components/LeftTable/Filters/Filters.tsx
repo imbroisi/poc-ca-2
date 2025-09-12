@@ -1,23 +1,26 @@
-import React from 'react';
-import './Filters.css';
+import React from "react";
+import "./Filters.css";
 
-function Filters({ nameFilterSlot, dateFilterSlot }: any) {
-
-  return (
-    <tr className="tl-filter-row">
-      <th className="tl-filter-cell">
-        {nameFilterSlot ?? null}
-        <td className='table-cell'>Filter</td>
-      </th>
-      <th className="tl-filter-cell">
-        {dateFilterSlot ?? null}
-        <td className='table-cell'>
-          Filter
-        </td>
-      
-      </th>
-  </tr>
-  )
+interface FiltersProps {
+  nameFilterSlot?: React.ReactNode;
+  dateFilterSlot?: React.ReactNode;
 }
 
-export default Filters
+function Filters({ nameFilterSlot, dateFilterSlot }: FiltersProps) {
+  return (
+    <tr>
+      <td className="tl-filter-row">
+        <div className="tl-filter-cell table-cell">
+          {nameFilterSlot || <span aria-hidden="true">Filter</span>}
+        </div>
+      </td>
+      <td>
+        <div className="tl-filter-cell table-cell">
+          {dateFilterSlot || <span aria-hidden="true">Filter</span>}
+        </div>
+      </td>
+    </tr>
+  );
+}
+
+export default Filters;

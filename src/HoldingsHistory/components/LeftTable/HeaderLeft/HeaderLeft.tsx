@@ -6,7 +6,7 @@ const HeaderLeft = ({ nameFilterSlot, dateFilterSlot }: any) => {
 
   return (
     <thead>
-      <tr>
+      <tr className='th-row'>
         <th className="tl-header">FUND NAME</th>
         <th className="tl-header">INCEPTION DATE</th>
       </tr>
