@@ -13,10 +13,20 @@
   border-collapse: collapse;
   border: 1px solid #ddd;
   height: 100%;
+  overflow: auto;
   /* border-left: 1px solid #ddd;
   border-right: 1px solid #ddd; */
   position: relative;
   direction: ltr;
+  flex-shrink: 0;
+  
+  /* Hide scrollbar while keeping scroll functionality */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.table-left-container::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
 
 .body-container {

@@ -20,19 +20,3 @@ export const LINKS_BORDERS_COLORS = [
   '#62aa66', // TODO: primary/green-80
   '#718fe3', // TODO: primary/blue-gray-80
 ];
-
-export const ATTRIBUTES = {
-  'CRM Client': 'enabled',
-  'CRM Service': 'enabled',
-  'Investing Entity': 'enabled',
-  'Holding Contract Type': 'enabled',
-  'Tradable': 'enabled',
-  'Holding Type': 'enabled',
-  'Custody Location': 'disabled',
-  'Cash Account': 'disabled',
-  'Transfer Account': 'disabled',
-  'Service Type': 'disabled',
-};
-
-export const TOTAL_ATTRIBUTES = Object.keys(ATTRIBUTES).length;
-export const ATTRIBUTE_ITEM_HEIGHT = 27;

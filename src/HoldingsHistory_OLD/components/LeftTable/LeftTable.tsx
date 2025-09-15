@@ -1,12 +1,12 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import "./LeftTable.css";
 import { HeaderLeft } from "./HeaderLeft";
 import Filters from "./Filters/Filters";
 import { LeftTableBody } from "./Body";
 
-const LeftTable: React.FC = () => {
+const LeftTable = forwardRef<HTMLDivElement>((props, ref) => {
   return (
-    <div className="table-left-container">
+    <div ref={ref} className="table-left-container">
       <table className="tl-table">
         <HeaderLeft />
         <Filters />
@@ -15,7 +15,7 @@ const LeftTable: React.FC = () => {
     </div>
 
   );
-}
+});
 
 
 export default LeftTable;

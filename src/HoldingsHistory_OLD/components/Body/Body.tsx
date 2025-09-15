@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { CELL_BORDER_COLOR, CELL_HEIGHT_PX } from '../../config';
 import { useLinksDataContext } from '../../context/LinksDataProvider';
 import TodayLine from '../TodayLine';
@@ -7,15 +8,35 @@ import { useDateContext } from '../../context/DateContext';
 import AddLinkButtons from '../AddLinkButtons';
 import { useVisibleAttributeIdSet } from '../../hooks/useVisibleAttributeIdSet';
 import { useHoldings } from '../../context/HoldingsContext';
+import { useExpandedHoldingsState } from '../../context/ExpandedHoldingsContext';
 
 
 const Body = () => {
   const { numberOfYears, todayPositionPx } = useDateContext();
   const { totalAttributes, rowsToRender, addLink } = useLinksDataContext();
   const { holdings } = useHoldings();
+  const { expanded } = useExpandedHoldingsState();
   const visibleAttrSet = useVisibleAttributeIdSet(holdings);
   const visibleAttributes = Array.from(visibleAttrSet);
-  const totalRows = holdings.length + visibleAttrSet.size;
+  
+  // Create a flattened structure similar to LeftTable that respects expanded state
+  const visibleRows = useMemo(() => {
+    const rows: Array<{ type: 'holding' | 'attribute'; holdingId: string; attributeId?: string }> = [];
+    for (const holding of holdings) {
+      // Always add the holding row
+      rows.push({ type: 'holding', holdingId: holding.id });
+      
+      // Only add attribute rows if the holding is expanded
+      if (expanded.has(holding.id)) {
+        for (const attribute of holding.attributes) {
+          rows.push({ type: 'attribute', holdingId: holding.id, attributeId: attribute.id });
+        }
+      }
+    }
+    return rows;
+  }, [holdings, expanded]);
+  
+  const totalRows = visibleRows.length;
 
   const handleDatePicked = (lastDayStr: string, firstDayStr: string, cellIndex: number, cellRowIndex: number) => {
     addLink(lastDayStr, firstDayStr, cellIndex, cellRowIndex);
@@ -25,14 +46,14 @@ const Body = () => {
     <tbody className="body-container">
 
       {/* rows */}
-      {Array.from({ length: totalRows }).map((_, indexColRow) => (
+      {visibleRows.map((row, indexColRow) => (
         <tr
-          key={indexColRow}
+          key={`${row.type}-${row.holdingId}-${row.attributeId || ''}`}
           className="body-row"
           style={{
-            borderColor: indexColRow % (totalAttributes + 1) <= 1
+            borderColor: row.type === 'holding'
               ? CELL_BORDER_COLOR : 'transparent',
-            backgroundColor: indexColRow % (totalAttributes + 1) === 0
+            backgroundColor: row.type === 'holding'
               ? '#FAFAFA' : 'transparent',
           }}>
 

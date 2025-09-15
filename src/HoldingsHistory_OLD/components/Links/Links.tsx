@@ -11,6 +11,7 @@ import { useRef } from 'react';
 import MessageOverDelete from '../GlobalMessageOver/MessageOverDelete';
 import { useHoldings } from '../../context/HoldingsContext';
 import { useVisibleHistoryFilter } from '../../hooks/useVisibleHistoryFilter';
+import { useExpandedHoldingsState } from '../../context/ExpandedHoldingsContext';
 
 interface LinksDataTypesWithColor extends LinksDataTypes {
   color: string;
@@ -22,26 +23,63 @@ const Links = ({ visibleAttributes }: { visibleAttributes: string[]}) => {
   const { getLinksDataCopy } = useLinksDataContext();
   const { convertDateToPositionPx, todayMmDdYyyy, displayDate } = useDateContext();
   const { holdings } = useHoldings();
+  const { expanded } = useExpandedHoldingsState();
 
-    // 1. Filter: only keep links whose attribute is visible in the left table
-
+  // 1. Filter: only keep links whose attribute is visible in the left table
   const isVisible = useVisibleHistoryFilter(holdings);
-  // useVisibleAttributeIdSet
 
   const { cellTopPx, deleteLink } = useLinksDataContext();
   const messageOver = useMessageOverContext();
   const linkToDelete = useRef<LinksDataTypesWithColor | null>(null);
 
-  // const rawLinks = typeof getLinksDataCopy === 'function' ? getLinksDataCopy() : [];
-  // // const filteredLinks = rawLinks.filter(i => )
-  // const filteredLinks = rawLinks.filter((link) =>
-  //   visibleAttributes.includes(link.attributeId)
-  // );
+  // Filter links to only show those for expanded holdings and visible attributes
+  const rawLinks = getLinksDataCopy();
+  const filteredLinks = rawLinks.filter((link) => {
+    // Check if the holding for this link is expanded
+    const isHoldingExpanded = expanded.has(link.holdingId);
+    // Check if the attribute is visible (which already respects expanded state)
+    const isAttributeVisible = visibleAttributes.includes(link.attributeId);
+    
+    return isHoldingExpanded && isAttributeVisible;
+  });
 
-  // const linksDataCopy = Array.isArray(filteredLinks) ? (filteredLinks as LinksDataTypesWithColor[]) : [];
+  const linksDataCopy = filteredLinks as LinksDataTypesWithColor[];
 
-  const linksDataCopy = getLinksDataCopy() as LinksDataTypesWithColor[];
-
+  // Calculate correct row position based on visible rows structure
+  const getCorrectRowPosition = (holdingId: string, attributeId: string) => {
+    let rowIndex = 0;
+    
+    for (const holding of holdings) {
+      // Count the holding row
+      if (holding.id === holdingId) {
+        // If this is a holding row (no attributeId), return the holding row position
+        if (!attributeId) {
+          return rowIndex * CELL_HEIGHT_PX + CELL_HEIGHT_PX + 2;
+        }
+        // If looking for an attribute, increment past the holding row
+        rowIndex++;
+        
+        // Only count attribute rows if the holding is expanded
+        if (expanded.has(holding.id)) {
+          for (const attribute of holding.attributes) {
+            if (attribute.id === attributeId) {
+              return rowIndex * CELL_HEIGHT_PX + CELL_HEIGHT_PX + 2;
+            }
+            rowIndex++;
+          }
+        }
+        return -9999; // Attribute not found or holding collapsed
+      } else {
+        // Count this holding row
+        rowIndex++;
+        // Count its attributes if expanded
+        if (expanded.has(holding.id)) {
+          rowIndex += holding.attributes.length;
+        }
+      }
+    }
+    return -9999; // Not found
+  };
 
   const replaceToday = () => {
     linksDataCopy.forEach((linkData) => {
@@ -109,7 +147,7 @@ const Links = ({ visibleAttributes }: { visibleAttributes: string[]}) => {
       <th>
         {linksDataCopy.map((linkData) => {
           const style = {
-            top: cellTopPx(linkData.portfolioIndex, linkData.attributeIndex) + 1,
+            top: getCorrectRowPosition(linkData.holdingId, linkData.attributeId) + 1,
             left: convertDateToPositionPx(linkData.firstDayDate),
             width: convertDateToPositionPx(linkData.lastDayDate, 1) - convertDateToPositionPx(linkData.firstDayDate),
             height: LINK_HEIGHT_PX,

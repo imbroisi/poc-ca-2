@@ -42,42 +42,44 @@ const AddLinkButtons = ({ onDatePicked }: AddLinkButtonsProps) => {
     )
   }
 
-  return (
-    <tr>
-      <th>
-      {Array.from({ length: rowsToRender / (totalAttributes + 1) }).map((_, indexRow) => (
-        Array.from({ length: totalAttributes }).map((_, indexColumn) => {
-          let newer = todayPositionPx;
-          let newerDate = todayMmDdYyyy;
+  return null;
 
-          linksDataCopy.forEach((linkData) => {
-            if (linkData.portfolioIndex !== indexRow || linkData.attributeIndex !== indexColumn) return;
+  // return (
+  //   <tr>
+  //     <th>
+  //     {Array.from({ length: rowsToRender / (totalAttributes + 1) }).map((_, indexRow) => (
+  //       Array.from({ length: totalAttributes }).map((_, indexColumn) => {
+  //         let newer = todayPositionPx;
+  //         let newerDate = todayMmDdYyyy;
 
-            const thisPositionPx = convertDateToPositionPx(linkData.firstDayDate);
-            if (thisPositionPx < newer) {
-              newer = thisPositionPx;
-              newerDate = linkData.firstDayDate;  
-            }
-          });
+  //         linksDataCopy.forEach((linkData) => {
+  //           if (linkData.portfolioIndex !== indexRow || linkData.attributeIndex !== indexColumn) return;
 
-          return (
-            <div
-              key={indexRow + indexColumn}
-              className="add-link-button"
-              role="button"
-              onClick={() => handleAddLink({ newerDate, indexRow, indexColumn })}
-              style={{
-                top: cellTopPx(indexRow, indexColumn),
-                left: newer - 20,
-              }}>
-              +
-            </div>
-          )
-        }
-        )))}
-      </th>
-    </tr>
-  );
+  //           const thisPositionPx = convertDateToPositionPx(linkData.firstDayDate);
+  //           if (thisPositionPx < newer) {
+  //             newer = thisPositionPx;
+  //             newerDate = linkData.firstDayDate;  
+  //           }
+  //         });
+
+  //         return (
+  //           <div
+  //             key={indexRow + indexColumn}
+  //             className="add-link-button"
+  //             role="button"
+  //             onClick={() => handleAddLink({ newerDate, indexRow, indexColumn })}
+  //             style={{
+  //               top: cellTopPx(indexRow, indexColumn),
+  //               left: newer - 20,
+  //             }}>
+  //             +
+  //           </div>
+  //         )
+  //       }
+  //       )))}
+  //     </th>
+  //   </tr>
+  // );
 }
 
 export default AddLinkButtons;

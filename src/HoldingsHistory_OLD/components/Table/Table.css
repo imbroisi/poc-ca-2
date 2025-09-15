@@ -1,15 +1,26 @@
 .table-container {
   width: fit-content;
+  height: 100%;
   overflow-x: auto;
+  overflow-y: auto;
   position: relative;
   display: block;
-  direction: rtl; /* This makes the scroll start from right */
+  direction: ltr; /* Keep normal direction for vertical scrollbar on right */
   
   * {
     /* font-size: 12px; */
     /* font-weight: normal !important; */
     direction: ltr; /* Reset direction for content */
   }
+}
+
+/* Create a wrapper for horizontal RTL scrolling behavior */
+.table-container .table {
+  direction: rtl; /* This makes horizontal scroll start from right */
+}
+
+.table-container .table * {
+  direction: ltr; /* Reset direction for table content */
 }
 
 .table {
