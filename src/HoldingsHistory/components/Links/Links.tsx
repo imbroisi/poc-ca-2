@@ -75,10 +75,11 @@ const Links = ({ visibleAttributes, show }: LinksProps) => {
     const rowHeight = ATTRIBUTE_ITEM_HEIGHT;
     const headerOffset = ATTRIBUTE_ITEM_HEIGHT;
 
-    const holdingRow = linkData.portfolioIndex * (rowsPerPortfolio * rowHeight + 1);
+    // IMPORTANT: do not remove the -2, it is used to prevent the links from being misaligned
+    const holdingRow = linkData.portfolioIndex * (rowsPerPortfolio * rowHeight);
     const attributeRow = linkData.attributeIndex * rowHeight + 1;
 
-    const correctionPerPortfolio = linkData.portfolioIndex * (rowHeight * rowsPerPortfolio + 1);
+    const correctionPerPortfolio = linkData.portfolioIndex * (rowHeight * rowsPerPortfolio);
     console.log("-----------------------> correctionPerPortfolio", correctionPerPortfolio)
 
     return holdingRow + attributeRow - correctionPerPortfolio;
@@ -187,21 +188,29 @@ const Links = ({ visibleAttributes, show }: LinksProps) => {
   // console.log("==>> TOTAL_ATTRIBUTES + 1", (TOTAL_ATTRIBUTES + 1));
   // console.log("==>> ((ATTRIBUTE_ITEM_HEIGHT) * (TOTAL_ATTRIBUTES + 1))", ((ATTRIBUTE_ITEM_HEIGHT) * (TOTAL_ATTRIBUTES + 1)));
 
+  let cnt = 0;
+
   return (
     <div style={{ position: 'absolute' }}>
       {show?.map((showMe, index) => {
+        if (!showMe) cnt += 1;
         return (
           <div key={index} style={{
             position: 'relative',
+            top: `-${cnt}px`,
+            // top: 0,
             // marginBottom: `${ATTRIBUTE_ITEM_HEIGHT}px`,
             marginTop: `${ATTRIBUTE_ITEM_HEIGHT}px`,
             // top: `${ATTRIBUTE_ITEM_HEIGHT + index * ATTRIBUTE_ITEM_HEIGHT * TOTAL_ATTRIBUTES + 1}px`, 
             height: showMe ? ((ATTRIBUTE_ITEM_HEIGHT) * (TOTAL_ATTRIBUTES)) + 1 : 0,
             transition: 'height 0.2s ease-in-out',
-            // border: '1px solid red',
+
+            // IMPORTANT: do not remove this border and boxSizing, they are used to prevent the links from being misaligned
+            border: '1px solid blue',
+            boxSizing: 'border-box',
+
             // width: '100%',
             // backgroundColor: 'red',
-            boxSizing: 'border-box',
             zIndex: index * 2 + 2,
             // paddingTop: `${ATTRIBUTE_ITEM_HEIGHT}px`,
           }}>
@@ -241,7 +250,7 @@ const Links = ({ visibleAttributes, show }: LinksProps) => {
                   style={style}
                 >
                   {/* {style.top}  */}
-                  {linkData.portfolioIndex} {linkData.attributeIndex}
+                  {linkData.portfolioIndex} {linkData.attributeIndex} {style.top}
                 </div>
                 // </FloatingMenu>
               )

@@ -15,6 +15,7 @@ export const apiGetLinksData = async () => {
     // TODO: replace by the real api response
     data: [
       // { portfolioIndex: 0, attributeIndex: 0, firstDayDate: '2024-10-16', lastDayDate: 'today', holdingId: "holding-001", attributeId: "attr-001" },
+      { portfolioIndex: 0, attributeIndex: 0, firstDayDate: '2023-08-03', lastDayDate: 'today', holdingId: "holding-001", attributeId: "attr-002" },
       { portfolioIndex: 0, attributeIndex: 1, firstDayDate: '2023-08-03', lastDayDate: '2024-08-01', holdingId: "holding-001", attributeId: "attr-002" },
       { portfolioIndex: 0, attributeIndex: 1, firstDayDate: '2024-08-02', lastDayDate: '2025-02-14', holdingId: "holding-001", attributeId: "attr-002" },
       { portfolioIndex: 0, attributeIndex: 1, firstDayDate: '2025-02-15', lastDayDate: 'today', holdingId: "holding-001", attributeId: "attr-002"  },
@@ -32,6 +33,7 @@ export const apiGetLinksData = async () => {
       { portfolioIndex: 2, attributeIndex: 0, firstDayDate: '2024-12-15', lastDayDate: 'today', holdingId: "holding-003", attributeId: "attr-012" },
       { portfolioIndex: 2, attributeIndex: 2, firstDayDate: '2024-12-15', lastDayDate: 'today', holdingId: "holding-003", attributeId: "attr-012" },
       { portfolioIndex: 2, attributeIndex: 8, firstDayDate: '2024-12-15', lastDayDate: 'today', holdingId: "holding-003", attributeId: "attr-012" },
+      { portfolioIndex: 19, attributeIndex: 0, firstDayDate: '2023-08-03', lastDayDate: 'today', holdingId: "holding-001", attributeId: "attr-002" },
     ],
   };
 };
