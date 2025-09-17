@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { ATTRIBUTE_ITEM_HEIGHT, HOLDINGS_PER_PAGE, YEAR_CELL_WIDTH_PX } from '../../config';
 import { useHoldings } from '../../context/HoldingsContext';
 import { useVisibleAttributeIdSet } from '../../hooks/useVisibleAttributeIdSet';
@@ -16,11 +17,12 @@ const COLS = 3;
 
 const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show }: ContentProps) => {
   const { holdings } = useHoldings();
-  
+  // const tableContentRef = useRef<HTMLDivElement>(null);
+
   // Provide fallback for holdings to prevent "not iterable" error
   const safeHoldings = holdings && Array.isArray(holdings) ? holdings : [];
   const visibleAttrSet = useVisibleAttributeIdSet(safeHoldings);
-  const visibleAttributes = Array.from(visibleAttrSet);
+  const visibleAttributes = Array.from(visibleAttrSet) as string[];
 
   return (
     <>
@@ -36,7 +38,7 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show }: ContentProps
         }}>
         <div style={{ width: `${COLS * YEAR_CELL_WIDTH_PX}px` }}>
           {/* Header row */}
-          <div className="scrollable-header">
+          <div className="scrollable-header" style={{ zIndex: 1 }}>
             {Array.from({ length: COLS }).map((_, colIndex) => (
               <div
                 key={colIndex}
@@ -46,15 +48,17 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show }: ContentProps
                 {colIndex + 2023}
               </div>
             ))}
-            {/* <div style={{ position: 'absolute', bottom: '0', width: '100%' }}> */}
-                <TodayLine />
-                {/* <Links visibleAttributes={visibleAttributes} /> */}
-
-            {/* </div>   */}
+            
+            <TodayLine />
           </div>
 
           {/* Table content */}
-          <div className="table-content" style={{ width: `${COLS * YEAR_CELL_WIDTH_PX}px`, position: 'relative' }}>
+          <div 
+            className="table-content" 
+            style={{ width: `${COLS * YEAR_CELL_WIDTH_PX}px` }}
+          >
+            <Links visibleAttributes={visibleAttributes} />
+
             {Array.from({ length: HOLDINGS_PER_PAGE }).map((_, rowIndex) => (
               <div
                 key={rowIndex}
@@ -62,8 +66,6 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show }: ContentProps
                 style={{
                   height: `${ATTRIBUTE_ITEM_HEIGHT}px`,
                   maxHeight: `${ATTRIBUTE_ITEM_HEIGHT}px`,
-                  overflow: 'hidden',
-                  borderTop: '1px solid #ccc',
                 }}>
                 {Array.from({ length: COLS }).map((_, colIndex) => (
                   <Cell

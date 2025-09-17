@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 // TODO: test this component
 
-import { CELL_HEIGHT_PX, LINK_HEIGHT_PX, LINKS_BORDERS_COLORS, LINKS_COLORS } from '../../config';
+import { CELL_HEIGHT_PX, LINK_HEIGHT_PX, LINKS_BORDERS_COLORS, LINKS_COLORS, TOTAL_ATTRIBUTES } from '../../config';
 import { useDateContext } from '../../context/DateContext';
 import { LinksDataTypes, useLinksDataContext } from '../../context/LinksDataProvider';
 import FloatingMenu from '../FloatingMenu';
@@ -19,14 +19,21 @@ interface LinksDataTypesWithColor extends LinksDataTypes {
   noFinalDate?: boolean;
 }
 
-const Links = ({ visibleAttributes }: { visibleAttributes: string[]}) => {
+interface LinksProps {
+  visibleAttributes: string[];
+  // positionRef?: React.RefObject<HTMLDivElement>;
+}
+
+const Links = ({ visibleAttributes }: LinksProps) => {
   const { getLinksDataCopy } = useLinksDataContext();
   const { convertDateToPositionPx, todayMmDdYyyy, displayDate } = useDateContext();
   const { holdings } = useHoldings();
   const { expanded } = useExpandedHoldingsState();
 
   // 1. Filter: only keep links whose attribute is visible in the left table
-  const isVisible = useVisibleHistoryFilter(holdings);
+  // Provide fallback for holdings to prevent "not iterable" error
+  const safeHoldings = holdings && Array.isArray(holdings) ? holdings : [];
+  const isVisible = useVisibleHistoryFilter(safeHoldings);
 
   const { cellTopPx, deleteLink } = useLinksDataContext();
   const messageOver = useMessageOverContext();
@@ -34,52 +41,82 @@ const Links = ({ visibleAttributes }: { visibleAttributes: string[]}) => {
 
   // Filter links to only show those for expanded holdings and visible attributes
   const rawLinks = getLinksDataCopy();
-  const filteredLinks = rawLinks.filter((link) => {
-    // Check if the holding for this link is expanded
-    const isHoldingExpanded = expanded.has(link.holdingId);
-    // Check if the attribute is visible (which already respects expanded state)
-    const isAttributeVisible = visibleAttributes.includes(link.attributeId);
-    
-    return isHoldingExpanded && isAttributeVisible;
-  });
+  console.log("==>> rawLinks", rawLinks);
+
+  const filteredLinks = rawLinks;
+
+  // const filteredLinks = rawLinks.filter((link) => {
+  //   // Check if the holding for this link is expanded
+  //   const isHoldingExpanded = expanded.has(link.holdingId);
+  //   // Check if the attribute is visible (which already respects expanded state)
+  //   const isAttributeVisible = visibleAttributes.includes(link.attributeId);
+
+  //   return isHoldingExpanded && isAttributeVisible;
+  // });
+
+  // Get vertical position of positionRef element
+  // const verticalPosition = positionRef?.current ? positionRef.current.getBoundingClientRect() : null;
+  // console.log("==>> positionRef vertical position:", {
+  //   element: positionRef?.current,
+  //   top: verticalPosition?.top,
+  //   bottom: verticalPosition?.bottom,
+  //   y: verticalPosition?.y,
+  //   height: verticalPosition?.height
+  // });
+
+  // const verticalTop = verticalPosition?.top;
 
   const linksDataCopy = filteredLinks as LinksDataTypesWithColor[];
 
   // Calculate correct row position based on visible rows structure
-  const getCorrectRowPosition = (holdingId: string, attributeId: string) => {
-    let rowIndex = 0;
+  const getCorrectRowPosition = (linkData: LinksDataTypesWithColor) => {
+    const rowsPerPortfolio = TOTAL_ATTRIBUTES + 1;
+    const rowHeight = CELL_HEIGHT_PX + 1;
+    const headerOffset = CELL_HEIGHT_PX + 3;
     
-    for (const holding of holdings) {
-      // Count the holding row
-      if (holding.id === holdingId) {
-        // If this is a holding row (no attributeId), return the holding row position
-        if (!attributeId) {
-          return rowIndex * CELL_HEIGHT_PX + CELL_HEIGHT_PX + 2;
-        }
-        // If looking for an attribute, increment past the holding row
-        rowIndex++;
-        
-        // Only count attribute rows if the holding is expanded
-        if (expanded.has(holding.id)) {
-          for (const attribute of holding.attributes) {
-            if (attribute.id === attributeId) {
-              return rowIndex * CELL_HEIGHT_PX + CELL_HEIGHT_PX + 2;
-            }
-            rowIndex++;
-          }
-        }
-        return -9999; // Attribute not found or holding collapsed
-      } else {
-        // Count this holding row
-        rowIndex++;
-        // Count its attributes if expanded
-        if (expanded.has(holding.id)) {
-          rowIndex += holding.attributes.length;
-        }
-      }
-    }
-    return -9999; // Not found
+    const holdingRow = linkData.portfolioIndex * (rowsPerPortfolio * rowHeight +  1 ) + headerOffset;
+    const attributeRow = linkData.attributeIndex * rowHeight + 1;
+
+    return holdingRow + attributeRow;
   };
+
+  // const getCorrectRowPosition = (holdingId: string, attributeId: string) => {
+  //   let rowIndex = 0;
+
+  //   for (const holding of holdings) {
+  //     // Count the holding row
+  //     if (holding.id === holdingId) {
+  //       // If this is a holding row (no attributeId), return the holding row position
+  //       if (!attributeId) {
+  //         return rowIndex * CELL_HEIGHT_PX + CELL_HEIGHT_PX + 2;
+  //       }
+  //       // If looking for an attribute, increment past the holding row
+  //       rowIndex++;
+
+  //       // Only count attribute rows if the holding is expanded
+  //       if (expanded.has(holding.id)) {
+  //         for (const attribute of holding.attributes) {
+  //           if (attribute.id === attributeId) {
+  //             return rowIndex * CELL_HEIGHT_PX + CELL_HEIGHT_PX + 2;
+  //           }
+  //           rowIndex++;
+  //         }
+  //       }
+  //       console.log("1) ==>> rowIndex", rowIndex);
+  //       return -9999; // Attribute not found or holding collapsed
+  //     } else {
+  //       // Count this holding row
+  //       rowIndex++;
+  //       // Count its attributes if expanded
+  //       if (expanded.has(holding.id)) {
+  //         rowIndex += holding.attributes.length;
+  //       }
+  //     }
+  //   }
+  //   console.log("2) ==>> rowIndex", rowIndex);
+
+  //   return -9999; // Not found
+  // };
 
   const replaceToday = () => {
     linksDataCopy.forEach((linkData) => {
@@ -136,45 +173,49 @@ const Links = ({ visibleAttributes }: { visibleAttributes: string[]}) => {
     console.log("onInfoClicked =>> linkData", linkData);
   }
 
-    // 3. Compute visible row index (based on visible attributes array, not raw attributeIndex)
-    const getVisibleRowTop = (attributeId: string) => {
-      const idx = visibleAttributes.indexOf(attributeId);
-      return idx >= 0 ? idx * CELL_HEIGHT_PX : -9999;
-    };
+  // 3. Compute visible row index (based on visible attributes array, not raw attributeIndex)
+  const getVisibleRowTop = (attributeId: string) => {
+    const idx = visibleAttributes.indexOf(attributeId);
+    return idx >= 0 ? idx * CELL_HEIGHT_PX : -9999;
+  };
+
+  console.log("==>> linksDataCopy", linksDataCopy);
 
   return (
-    <tr>
-      <th>
-        {linksDataCopy.map((linkData) => {
-          const style = {
-            top: getCorrectRowPosition(linkData.holdingId, linkData.attributeId) + 1,
-            left: convertDateToPositionPx(linkData.firstDayDate),
-            width: convertDateToPositionPx(linkData.lastDayDate, 1) - convertDateToPositionPx(linkData.firstDayDate),
-            height: LINK_HEIGHT_PX,
-            backgroundColor: linkData.color,
-            borderLeftColor: linkData.borderColor,
-            borderRightColor: linkData.borderColor,
-          };
-          const key = `${(linkData).portfolioIndex}-${(linkData).attributeIndex}-${(linkData).firstDayDate}`;
-          const label = `${displayDate(linkData.firstDayDate)} - ${linkData.noFinalDate ? '' : displayDate(linkData.lastDayDate)}`;
+    <div style={{ position: 'relative', zIndex: 0 }}>
+      {linksDataCopy.map((linkData) => {
+        const style = {
+          top: getCorrectRowPosition(linkData),
+          left: convertDateToPositionPx(linkData.firstDayDate),
+          width: convertDateToPositionPx(linkData.lastDayDate, 1) - convertDateToPositionPx(linkData.firstDayDate),
+          height: LINK_HEIGHT_PX,
+          backgroundColor: linkData.color,
+          borderLeftColor: linkData.borderColor,
+          borderRightColor: linkData.borderColor,
+        };
+        const key = `${(linkData).portfolioIndex}-${(linkData).attributeIndex}-${(linkData).firstDayDate}`;
+        const label = `${displayDate(linkData.firstDayDate)} - ${linkData.noFinalDate ? '' : displayDate(linkData.lastDayDate)}`;
 
-          return (
-            <FloatingMenu
+        // console.log("==>> linkData", linkData);
+        // console.log("==>> style", style);
+
+        return (
+          <FloatingMenu
+            key={key}
+            onDelete={(mousePosition: [number, number]) => onDeleteClicked(linkData, mousePosition)}
+            onInfo={(mousePosition: [number, number]) => onInfoClicked(linkData, mousePosition)}
+          >
+            <div
               key={key}
-              onDelete={(mousePosition: [number, number]) => onDeleteClicked(linkData, mousePosition)}
-              onInfo={(mousePosition: [number, number]) => onInfoClicked(linkData, mousePosition)}
+              className="links-rectangle"
+              style={style}
             >
-              <div
-                className="links-rectangle"
-                style={style}
-              >
-                {label}
-              </div>
-            </FloatingMenu>
-          )
-        })}
-      </th>
-    </tr>
+              {label}
+            </div>
+          </FloatingMenu>
+        )
+      })}
+    </div>
   );
 }
 

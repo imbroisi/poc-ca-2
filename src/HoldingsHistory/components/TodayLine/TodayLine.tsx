@@ -10,7 +10,7 @@ export interface TodayLineProps {
 const TodayLine = (props: TodayLineProps) => {
   const { todayPositionPx } = useDateContext();
   const todayLineRef = useRef<HTMLDivElement>(null);
-  const [calculatedHeight, setCalculatedHeight] = useState('100px');
+  const [calculatedHeight, setCalculatedHeight] = useState<string | undefined>();
 
   useEffect(() => {
     const calculateDistance = () => {
@@ -19,15 +19,8 @@ const TodayLine = (props: TodayLineProps) => {
         const todayLineRect = todayLineRef.current.getBoundingClientRect();
         const todayLineTop = todayLineRect.top;
 
-        // Find the main HoldingsHistory component by looking for its container
-        // Try multiple selectors to find the root container
-        let holdingsHistoryElement = 
-          // Look for div with height: 100% style (the main container)
-          document.querySelector('div[style*="height: 100%"][style*="width: 100%"][style*="position: relative"]') as HTMLElement ||
-          // Fallback: look for the nearest parent with a significant height
-          todayLineRef.current.closest('div[style*="height"]') as HTMLElement ||
-          // Last resort: use viewport
-          document.documentElement;
+        // Find the main HoldingsHistory component by ID (clean and reliable)
+        const holdingsHistoryElement = document.getElementById('holdings-history-container');
         
         if (holdingsHistoryElement) {
           const holdingsHistoryRect = holdingsHistoryElement.getBoundingClientRect();
@@ -36,10 +29,12 @@ const TodayLine = (props: TodayLineProps) => {
           // Calculate the distance
           const distance = holdingsHistoryBottom - todayLineTop;
           
-          console.log('TodayLine top position:', todayLineTop);
-          console.log('HoldingsHistory bottom position:', holdingsHistoryBottom);
-          console.log('Target element:', holdingsHistoryElement);
-          console.log('Calculated distance:', distance);
+          // console.log('🆔 ID-Based Solution:');
+          // console.log('TodayLine top position:', todayLineTop);
+          // console.log('HoldingsHistory bottom position:', holdingsHistoryBottom);
+          // console.log('Target element ID:', holdingsHistoryElement.id);
+          // console.log('Calculated distance:', distance);
+          // console.log('✅ Using getElementById - clean and reliable!');
           
           // Set the calculated height (ensure minimum height)
           const finalHeight = Math.max(distance - 2, 100) + 1;
@@ -55,7 +50,7 @@ const TodayLine = (props: TodayLineProps) => {
     };
 
     // Add a small delay to ensure DOM is fully rendered
-    const timeoutId = setTimeout(calculateDistance, 100);
+    const timeoutId = setTimeout(calculateDistance, 10);
 
     // Recalculate on window resize
     window.addEventListener('resize', calculateDistance);
@@ -67,7 +62,13 @@ const TodayLine = (props: TodayLineProps) => {
   }, []);
 
   return (
-    <div ref={todayLineRef} style={{ position: 'absolute', bottom: '0', width: '100%' }}>
+    <div
+      ref={todayLineRef}
+      className="today-line-wrapper"
+      style={{
+        visibility: calculatedHeight ? 'visible' : 'hidden',
+      }}
+    >
       <div
         className="today-line-container"
         style={{
