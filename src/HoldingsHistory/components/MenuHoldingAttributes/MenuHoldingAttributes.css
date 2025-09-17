@@ -1,0 +1,15 @@
+.expandable-content {
+  overflow: hidden;
+  font-weight: normal;
+  line-height: 1.3;
+  padding-left: 22px;
+  box-sizing: border-box;
+  transition: height 0.2s ease-in-out;
+}
+
+.expandable-content-item {
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+  font-size: 12px;
+}

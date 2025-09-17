@@ -1,4 +1,6 @@
+import { ATTRIBUTE_ITEM_HEIGHT, HOLDINGS_PER_PAGE, YEAR_CELL_WIDTH_PX } from '../../config';
 import Cell from '../Cell';
+import TodayLine from '../TodayLine';
 import './HoldingsLinks.css';
 
 export interface ContentProps {
@@ -11,50 +13,60 @@ const COLS = 3;
 
 const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show }: ContentProps) => {
   return (
-    <div
-      ref={scrollableColumnRef}
-      onScroll={handleScroll}
-      className="scrollable-section"
-      style={{
-        // Do not move to CSS, as this will cause a delay in vertical scrolling synchronization.
-        overflow: 'auto'
-      }}>
-      <div className="scrollable-content" style={{ width: `${COLS * 300}px` }}>
-        {/* Header row */}
-        <div className="scrollable-header">
-          {Array.from({ length: COLS }).map((_, colIndex) => (
-            <div
-              key={colIndex}
-              className="header-cell"
-            >
-              {colIndex + 2023}
-            </div>
-          ))}
-        </div>
+    <>
+      <div
+        ref={scrollableColumnRef}
+        onScroll={handleScroll}
+        className="scrollable-section"
+        style={{
+          // Do not move to CSS, as this will cause a delay in vertical scrolling synchronization.
+          overflow: 'auto',
 
-        {/* Table content */}
-        <div className="table-content" style={{ width: `${COLS * 300}px` }}>
-          {Array.from({ length: 19 }).map((_, rowIndex) => (
-            <div
-              key={rowIndex}
-              className="table-row"
-              style={{
-                height: show[rowIndex] ? '120px' : '0',
-                maxHeight: show[rowIndex] ? '120px' : '0',
-                overflow: 'hidden'
-              }}>
-              {Array.from({ length: COLS }).map((_, colIndex) => (
-                <Cell
-                  key={colIndex}
-                  showMe={show[rowIndex]}
-                  label={`R${rowIndex + 2} C${colIndex + 2}`}
-                />
-              ))}
-            </div>
-          ))}
+          position: 'relative',
+        }}>
+        <div style={{ width: `${COLS * YEAR_CELL_WIDTH_PX}px` }}>
+          {/* Header row */}
+          <div className="scrollable-header">
+            {Array.from({ length: COLS }).map((_, colIndex) => (
+              <div
+                key={colIndex}
+                className="header-cell"
+                style={{ width: `${YEAR_CELL_WIDTH_PX}px` }}
+              >
+                {colIndex + 2023}
+              </div>
+            ))}
+            {/* <div style={{ position: 'absolute', bottom: '0', width: '100%' }}> */}
+                <TodayLine />
+            {/* </div>   */}
+          </div>
+
+          {/* Table content */}
+          <div className="table-content" style={{ width: `${COLS * YEAR_CELL_WIDTH_PX}px`, position: 'relative' }}>
+            {Array.from({ length: HOLDINGS_PER_PAGE }).map((_, rowIndex) => (
+              <div
+                key={rowIndex}
+                className="table-row"
+                style={{
+                  height: `${ATTRIBUTE_ITEM_HEIGHT}px`,
+                  maxHeight: `${ATTRIBUTE_ITEM_HEIGHT}px`,
+                  overflow: 'hidden',
+                  borderTop: '1px solid #ccc',
+                }}>
+                {Array.from({ length: COLS }).map((_, colIndex) => (
+                  <Cell
+                    key={colIndex}
+                    showMe={show[rowIndex]}
+                    label={`R${rowIndex + 2} C${colIndex + 2}`}
+                  />
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+
+    </>
   );
 }
 

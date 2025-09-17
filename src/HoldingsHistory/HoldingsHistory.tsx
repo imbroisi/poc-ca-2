@@ -39,25 +39,19 @@ const HoldingsHistory = (props: HoldingsHistoryProps) => {
   if (!linksFromApi) return null;
 
   return (
-    <div style={{ height: '100%', width: '100%' }}>
+    <div style={{ height: '100%', width: '100%', position: 'relative'}}>
       <DateProvider todayDate={linksFromApi.today} numberOfYears={NUMBER_OF_YEARS}>
         <ModalProvider>
           <MessageOverProvider>
             <LinksDataProvider linksDataFromApi={linksFromApi.data}>
-              {/* <ExpandedHoldingsProvider initialExpandedIds={initialExpandedIds}> */}
-                {/* <HoldingsProvider holdings={holdings ?? []}> */}
 
-                  <div className="top-table-container">
-                    {/* <LeftTable ref={leftTableRef} /> */}
-                    <MainTable />
 
-                  </div>
+                  <MainTable />
 
                   <MessageOver />
                   <GlobalModal />
 
-                {/* </HoldingsProvider> */}
-              {/* </ExpandedHoldingsProvider> */}
+
             </LinksDataProvider>
           </MessageOverProvider>
         </ModalProvider>
