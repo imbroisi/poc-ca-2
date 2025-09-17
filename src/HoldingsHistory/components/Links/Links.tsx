@@ -42,7 +42,7 @@ const Links = ({ visibleAttributes, show }: LinksProps) => {
 
   // Filter links to only show those for expanded holdings and visible attributes
   const rawLinks = getLinksDataCopy();
-  console.log("==>> rawLinks", rawLinks);
+  // console.log("==>> rawLinks", rawLinks);
 
   const filteredLinks = rawLinks;
 
@@ -75,10 +75,13 @@ const Links = ({ visibleAttributes, show }: LinksProps) => {
     const rowHeight = ATTRIBUTE_ITEM_HEIGHT;
     const headerOffset = ATTRIBUTE_ITEM_HEIGHT;
 
-    const holdingRow = linkData.portfolioIndex * (rowsPerPortfolio * rowHeight + 1) + headerOffset;
+    const holdingRow = linkData.portfolioIndex * (rowsPerPortfolio * rowHeight + 1);
     const attributeRow = linkData.attributeIndex * rowHeight + 1;
 
-    return holdingRow + attributeRow;
+    const correctionPerPortfolio = linkData.portfolioIndex * (rowHeight * rowsPerPortfolio + 1);
+    console.log("-----------------------> correctionPerPortfolio", correctionPerPortfolio)
+
+    return holdingRow + attributeRow - correctionPerPortfolio;
   };
 
   // const getCorrectRowPosition = (holdingId: string, attributeId: string) => {
@@ -171,7 +174,7 @@ const Links = ({ visibleAttributes, show }: LinksProps) => {
 
   const onInfoClicked = (linkData: LinksDataTypesWithColor, mousePosition: [number, number]) => {
     // TODO: implement this
-    console.log("onInfoClicked =>> linkData", linkData);
+    // console.log("onInfoClicked =>> linkData", linkData);
   }
 
   // 3. Compute visible row index (based on visible attributes array, not raw attributeIndex)
@@ -180,9 +183,9 @@ const Links = ({ visibleAttributes, show }: LinksProps) => {
     return idx >= 0 ? idx * ATTRIBUTE_ITEM_HEIGHT : -9999;
   };
 
-  console.log("==>> ATTRIBUTE_ITEM_HEIGHT", ((ATTRIBUTE_ITEM_HEIGHT)));
-  console.log("==>> TOTAL_ATTRIBUTES + 1", (TOTAL_ATTRIBUTES + 1));
-  console.log("==>> ((ATTRIBUTE_ITEM_HEIGHT) * (TOTAL_ATTRIBUTES + 1))", ((ATTRIBUTE_ITEM_HEIGHT) * (TOTAL_ATTRIBUTES + 1)));
+  // console.log("==>> ATTRIBUTE_ITEM_HEIGHT", ((ATTRIBUTE_ITEM_HEIGHT)));
+  // console.log("==>> TOTAL_ATTRIBUTES + 1", (TOTAL_ATTRIBUTES + 1));
+  // console.log("==>> ((ATTRIBUTE_ITEM_HEIGHT) * (TOTAL_ATTRIBUTES + 1))", ((ATTRIBUTE_ITEM_HEIGHT) * (TOTAL_ATTRIBUTES + 1)));
 
   return (
     <div style={{ position: 'absolute' }}>
@@ -195,15 +198,20 @@ const Links = ({ visibleAttributes, show }: LinksProps) => {
             // top: `${ATTRIBUTE_ITEM_HEIGHT + index * ATTRIBUTE_ITEM_HEIGHT * TOTAL_ATTRIBUTES + 1}px`, 
             height: showMe ? ((ATTRIBUTE_ITEM_HEIGHT) * (TOTAL_ATTRIBUTES)) + 1 : 0,
             transition: 'height 0.2s ease-in-out',
-            border: '1px solid red',
+            // border: '1px solid red',
             // width: '100%',
-            backgroundColor: 'white',
+            // backgroundColor: 'red',
             boxSizing: 'border-box',
-            zIndex: 10 + index,
+            zIndex: index * 2 + 2,
             // paddingTop: `${ATTRIBUTE_ITEM_HEIGHT}px`,
           }}>
 
             {linksDataCopy.map((linkData) => {
+              if (linkData.portfolioIndex !== index) return null;
+
+              // console.log("\n\n==>> index linkData", index , linkData);
+
+
               const style = {
                 top: getCorrectRowPosition(linkData),
                 left: convertDateToPositionPx(linkData.firstDayDate),
@@ -213,10 +221,12 @@ const Links = ({ visibleAttributes, show }: LinksProps) => {
                 borderLeftColor: linkData.borderColor,
                 borderRightColor: linkData.borderColor,
               };
+
+              // console.log("-----------------------> style.top", style.top)
+
               const key = `${(linkData).portfolioIndex}-${(linkData).attributeIndex}-${(linkData).firstDayDate}`;
               const label = `${displayDate(linkData.firstDayDate)} - ${linkData.noFinalDate ? '' : displayDate(linkData.lastDayDate)}`;
 
-              // console.log("==>> linkData", linkData);
               // console.log("==>> style", style);
 
               return (
@@ -230,7 +240,8 @@ const Links = ({ visibleAttributes, show }: LinksProps) => {
                   className="links-rectangle"
                   style={style}
                 >
-                  {label}
+                  {/* {style.top}  */}
+                  {linkData.portfolioIndex} {linkData.attributeIndex}
                 </div>
                 // </FloatingMenu>
               )

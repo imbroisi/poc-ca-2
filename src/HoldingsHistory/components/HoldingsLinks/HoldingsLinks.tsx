@@ -69,7 +69,8 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
                   height: `${ATTRIBUTE_ITEM_HEIGHT}px`,
                   maxHeight: `${ATTRIBUTE_ITEM_HEIGHT}px`,
                   position: 'relative',
-                  zIndex: 1000,
+                  backgroundColor: 'white',
+                  zIndex: 1 + (rowIndex * 2),
                 }}>
                 {Array.from({ length: COLS }).map((_, colIndex) => (
                   <Cell

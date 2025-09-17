@@ -38,8 +38,8 @@ const HoldingsHistory = (props: HoldingsHistoryProps) => {
     })();
   }, []);
 
-  console.log("34 ==>> linksFromApi", linksFromApi);
-  console.log("35 ==>> linksFromApi.data", linksFromApi?.data);
+  // console.log("34 ==>> linksFromApi", linksFromApi);
+  // console.log("35 ==>> linksFromApi.data", linksFromApi?.data);
 
   if (!linksFromApi) return null;
 

@@ -3,7 +3,6 @@
   top: 0;
   width: 2px;
   pointer-events: none;
-  z-index: 1000;
   background-color: var(--today-line-color);
 
   .triangle-down,
