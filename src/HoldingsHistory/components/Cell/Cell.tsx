@@ -25,6 +25,7 @@ const Cell = memo(({ showMe, label }: CellProps) => {
           height: `${ATTRIBUTE_ITEM_HEIGHT}px`,
           backgroundColor: '#fafafa',
           borderBottom: '1px solid #ccc',
+          // borderTop: '1px solid #ccc',
           // border: '1px solid #ccc',
           boxSizing: 'border-box',
           // borderTop: '1px solid #ccc',

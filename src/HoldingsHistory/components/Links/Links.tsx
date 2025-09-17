@@ -79,7 +79,7 @@ const Links = ({ visibleAttributes, show }: LinksProps) => {
     const holdingRow = linkData.portfolioIndex * (rowsPerPortfolio * rowHeight);
     const attributeRow = linkData.attributeIndex * rowHeight + 1;
 
-    const correctionPerPortfolio = linkData.portfolioIndex * (rowHeight * rowsPerPortfolio);
+    const correctionPerPortfolio = linkData.portfolioIndex * (rowHeight * rowsPerPortfolio) - 1;
     console.log("-----------------------> correctionPerPortfolio", correctionPerPortfolio)
 
     return holdingRow + attributeRow - correctionPerPortfolio;
@@ -203,10 +203,14 @@ const Links = ({ visibleAttributes, show }: LinksProps) => {
             marginTop: `${ATTRIBUTE_ITEM_HEIGHT}px`,
             // top: `${ATTRIBUTE_ITEM_HEIGHT + index * ATTRIBUTE_ITEM_HEIGHT * TOTAL_ATTRIBUTES + 1}px`, 
             height: showMe ? ((ATTRIBUTE_ITEM_HEIGHT) * (TOTAL_ATTRIBUTES)) + 1 : 0,
-            transition: 'height 0.2s ease-in-out',
+            transition: 'height 0.2s ease-in-out, opacity 0.2s ease-in-out',
+            // opacity: 1,
+            
+            // visibility: showMe ? 'visible' : 'hidden',
+            opacity: showMe ? 1 : 0,
 
             // IMPORTANT: do not remove this border and boxSizing, they are used to prevent the links from being misaligned
-            border: '1px solid blue',
+            border: '1px solid transparent',
             boxSizing: 'border-box',
 
             // width: '100%',
