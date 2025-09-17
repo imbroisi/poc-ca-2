@@ -19,8 +19,15 @@ const TodayLine = (props: TodayLineProps) => {
         const todayLineRect = todayLineRef.current.getBoundingClientRect();
         const todayLineTop = todayLineRect.top;
 
-        // Find the main HoldingsHistory component (look for the div with blue border)
-        const holdingsHistoryElement = document.querySelector('div[style*="border: 2px solid blue"]') as HTMLElement;
+        // Find the main HoldingsHistory component by looking for its container
+        // Try multiple selectors to find the root container
+        let holdingsHistoryElement = 
+          // Look for div with height: 100% style (the main container)
+          document.querySelector('div[style*="height: 100%"][style*="width: 100%"][style*="position: relative"]') as HTMLElement ||
+          // Fallback: look for the nearest parent with a significant height
+          todayLineRef.current.closest('div[style*="height"]') as HTMLElement ||
+          // Last resort: use viewport
+          document.documentElement;
         
         if (holdingsHistoryElement) {
           const holdingsHistoryRect = holdingsHistoryElement.getBoundingClientRect();
@@ -31,23 +38,30 @@ const TodayLine = (props: TodayLineProps) => {
           
           console.log('TodayLine top position:', todayLineTop);
           console.log('HoldingsHistory bottom position:', holdingsHistoryBottom);
+          console.log('Target element:', holdingsHistoryElement);
           console.log('Calculated distance:', distance);
           
-          // Set the calculated height
-          setCalculatedHeight(`${distance - 2}px`);
+          // Set the calculated height (ensure minimum height)
+          const finalHeight = Math.max(distance - 2, 100) + 1;
+          setCalculatedHeight(`${finalHeight}px`);
         } else {
-          console.warn('HoldingsHistory component not found');
+          console.warn('HoldingsHistory component not found, using viewport height');
+          // Fallback to viewport calculation
+          const viewportHeight = window.innerHeight;
+          const distance = viewportHeight - todayLineTop;
+          setCalculatedHeight(`${Math.max(distance - 50, 100)}px`);
         }
       }
     };
 
-    // Calculate on mount
-    calculateDistance();
+    // Add a small delay to ensure DOM is fully rendered
+    const timeoutId = setTimeout(calculateDistance, 100);
 
     // Recalculate on window resize
     window.addEventListener('resize', calculateDistance);
 
     return () => {
+      clearTimeout(timeoutId);
       window.removeEventListener('resize', calculateDistance);
     };
   }, []);

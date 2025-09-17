@@ -4,7 +4,7 @@
     "react-app/jest"
   ],
   "rules": {
-    "no-plusplus": ["error", { "allowForLoopAfterthoughts": false }]
+    // "no-plusplus": ["error", { "allowForLoopAfterthoughts": false }]
     // "no-unary": "off"
   }
 }

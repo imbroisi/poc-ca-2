@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import './MessageOver.css';
-import { disableAllScrolling, enableAllScrolling } from '../../utils';
+import { disableAllScrolling, enableAllScrolling } from '../../utils/utils';
 import { useMessageOverContext } from '../../context/MessageOverContext';
 
 const MessageOver = (

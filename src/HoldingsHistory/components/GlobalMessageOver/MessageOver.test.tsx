@@ -12,7 +12,7 @@ jest.mock('../../context/MessageOverContext', () => ({
   useMessageOverContext: jest.fn(),
 }));
 
-import { disableAllScrolling, enableAllScrolling } from '../../utils';
+import { disableAllScrolling, enableAllScrolling } from '../../utils/utils';
 import { useMessageOverContext } from '../../context/MessageOverContext';
 
 describe('MessageOver', () => {

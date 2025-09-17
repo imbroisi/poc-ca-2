@@ -11,6 +11,8 @@ import './HoldingsHistory.css';
 import { useEffect, useState } from 'react';
 import { apiGetLinksData } from './apiMock';
 import MainTable from './components/MainTable';
+import { ExpandedHoldingsProvider } from './context/ExpandedHoldingsContext';
+import { HoldingsProvider } from './context/HoldingsContext';
 
 export interface HoldingsHistoryProps {
 
@@ -20,7 +22,7 @@ const HoldingsHistory = (props: HoldingsHistoryProps) => {
 
   const [linksFromApi, setLinksFromApi] = useState<any | null>(null);
   // const [holdings, setHoldings] = useState<Holding[]>([]);
-  
+
   // // Refs for scroll synchronization
   // const leftTableRef = useRef<HTMLDivElement>(null);
   // const mainTableRef = useRef<HTMLDivElement>(null);
@@ -39,19 +41,21 @@ const HoldingsHistory = (props: HoldingsHistoryProps) => {
   if (!linksFromApi) return null;
 
   return (
-    <div style={{ height: '100%', width: '100%', position: 'relative'}}>
+    <div style={{ height: '100%', width: '100%', position: 'relative' }}>
       <DateProvider todayDate={linksFromApi.today} numberOfYears={NUMBER_OF_YEARS}>
         <ModalProvider>
           <MessageOverProvider>
             <LinksDataProvider linksDataFromApi={linksFromApi.data}>
-
+              <ExpandedHoldingsProvider>
+                <HoldingsProvider holdings={linksFromApi.data.holdings}>
 
                   <MainTable />
 
                   <MessageOver />
                   <GlobalModal />
 
-
+                </HoldingsProvider>
+              </ExpandedHoldingsProvider>
             </LinksDataProvider>
           </MessageOverProvider>
         </ModalProvider>
