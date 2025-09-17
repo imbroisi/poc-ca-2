@@ -8,7 +8,7 @@ jest.mock('../../context/DateContext', () => ({
 
 jest.mock('../../config', () => ({
   CELL_BORDER_COLOR: '#ddd',
-  CELL_HEIGHT_PX: 28,
+  ATTRIBUTE_ITEM_HEIGHT: 28,
   YEAR_CELL_WIDTH_PX: 120,
 }));
 

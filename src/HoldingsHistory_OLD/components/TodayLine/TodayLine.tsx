@@ -1,5 +1,5 @@
 import './TodayLine.css';
-import { CELL_HEIGHT_PX, TODAY_LINE_COLOR } from '../../config';
+import { ATTRIBUTE_ITEM_HEIGHT, TODAY_LINE_COLOR } from '../../config';
 
 export interface TodayLineProps {
   left: number;
@@ -7,7 +7,7 @@ export interface TodayLineProps {
 }
 
 const TodayLine = ({ left, rowsToRender }: TodayLineProps) => {
-  const height = CELL_HEIGHT_PX * (rowsToRender + 1) - 4;
+  const height = ATTRIBUTE_ITEM_HEIGHT * (rowsToRender + 1) - 4;
   return (
     <tr>
       <th>

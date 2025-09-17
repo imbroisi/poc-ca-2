@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 // TODO: test this component
 
-import { CELL_HEIGHT_PX, LINK_HEIGHT_PX, LINKS_BORDERS_COLORS, LINKS_COLORS } from '../../config';
+import { ATTRIBUTE_ITEM_HEIGHT, LINK_HEIGHT_PX, LINKS_BORDERS_COLORS, LINKS_COLORS } from '../../config';
 import { useDateContext } from '../../context/DateContext';
 import { LinksDataTypes, useLinksDataContext } from '../../context/LinksDataProvider';
 import FloatingMenu from '../FloatingMenu';
@@ -54,7 +54,7 @@ const Links = ({ visibleAttributes }: { visibleAttributes: string[]}) => {
       if (holding.id === holdingId) {
         // If this is a holding row (no attributeId), return the holding row position
         if (!attributeId) {
-          return rowIndex * CELL_HEIGHT_PX + CELL_HEIGHT_PX + 2;
+          return rowIndex * ATTRIBUTE_ITEM_HEIGHT + ATTRIBUTE_ITEM_HEIGHT + 2;
         }
         // If looking for an attribute, increment past the holding row
         rowIndex++;
@@ -63,7 +63,7 @@ const Links = ({ visibleAttributes }: { visibleAttributes: string[]}) => {
         if (expanded.has(holding.id)) {
           for (const attribute of holding.attributes) {
             if (attribute.id === attributeId) {
-              return rowIndex * CELL_HEIGHT_PX + CELL_HEIGHT_PX + 2;
+              return rowIndex * ATTRIBUTE_ITEM_HEIGHT + ATTRIBUTE_ITEM_HEIGHT + 2;
             }
             rowIndex++;
           }
@@ -139,7 +139,7 @@ const Links = ({ visibleAttributes }: { visibleAttributes: string[]}) => {
     // 3. Compute visible row index (based on visible attributes array, not raw attributeIndex)
     const getVisibleRowTop = (attributeId: string) => {
       const idx = visibleAttributes.indexOf(attributeId);
-      return idx >= 0 ? idx * CELL_HEIGHT_PX : -9999;
+      return idx >= 0 ? idx * ATTRIBUTE_ITEM_HEIGHT : -9999;
     };
 
   return (

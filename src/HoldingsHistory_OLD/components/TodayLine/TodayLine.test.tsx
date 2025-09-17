@@ -3,7 +3,7 @@ import React from 'react';
 import TodayLine from './TodayLine';
 
 jest.mock('../../config', () => ({
-  CELL_HEIGHT_PX: 28,
+  ATTRIBUTE_ITEM_HEIGHT: 28,
   TODAY_LINE_COLOR: '#ff0000',
 }));
 
@@ -26,7 +26,7 @@ describe('TodayLine', () => {
 
     // left set as number -> inline style reflects px
     expect(line).toHaveStyle({ left: '120px' });
-    // height = CELL_HEIGHT_PX * (rowsToRender + 1) - 4 = 28 * 7 - 4 = 192
+    // height = ATTRIBUTE_ITEM_HEIGHT * (rowsToRender + 1) - 4 = 28 * 7 - 4 = 192
     expect(line).toHaveStyle({ height: '192px' });
     // CSS variable application
     // JSDOM may not compute custom properties, but inline style contains them

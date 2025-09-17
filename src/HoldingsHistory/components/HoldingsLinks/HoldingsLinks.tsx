@@ -11,11 +11,12 @@ export interface ContentProps {
   scrollableColumnRef: React.RefObject<HTMLDivElement> | null;
   handleScroll: (event: React.UIEvent<HTMLDivElement>) => void;
   show: boolean[];
+  setScrollableRef?: (element: HTMLDivElement | null) => void;
 }
 
 const COLS = 3;
 
-const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show }: ContentProps) => {
+const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableRef }: ContentProps) => {
   const { holdings } = useHoldings();
   // const tableContentRef = useRef<HTMLDivElement>(null);
 
@@ -24,21 +25,22 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show }: ContentProps
   const visibleAttrSet = useVisibleAttributeIdSet(safeHoldings);
   const visibleAttributes = Array.from(visibleAttrSet) as string[];
 
+  console.log("==>> show", show);
+
   return (
     <>
       <div
-        ref={scrollableColumnRef}
+        ref={setScrollableRef || scrollableColumnRef}
         onScroll={handleScroll}
         className="scrollable-section"
         style={{
           // Do not move to CSS, as this will cause a delay in vertical scrolling synchronization.
           overflow: 'auto',
-
-          position: 'relative',
+          // position: 'relative',
         }}>
         <div style={{ width: `${COLS * YEAR_CELL_WIDTH_PX}px` }}>
           {/* Header row */}
-          <div className="scrollable-header" style={{ zIndex: 1 }}>
+          <div className="scrollable-header" style={{ zIndex: 100 }}>
             {Array.from({ length: COLS }).map((_, colIndex) => (
               <div
                 key={colIndex}
@@ -55,9 +57,9 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show }: ContentProps
           {/* Table content */}
           <div 
             className="table-content" 
-            style={{ width: `${COLS * YEAR_CELL_WIDTH_PX}px` }}
+            style={{ width: `${COLS * YEAR_CELL_WIDTH_PX}px`, position: 'relative' }}
           >
-            <Links visibleAttributes={visibleAttributes} />
+            <Links visibleAttributes={visibleAttributes} show={show} />
 
             {Array.from({ length: HOLDINGS_PER_PAGE }).map((_, rowIndex) => (
               <div
@@ -66,6 +68,8 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show }: ContentProps
                 style={{
                   height: `${ATTRIBUTE_ITEM_HEIGHT}px`,
                   maxHeight: `${ATTRIBUTE_ITEM_HEIGHT}px`,
+                  position: 'relative',
+                  zIndex: 1000,
                 }}>
                 {Array.from({ length: COLS }).map((_, colIndex) => (
                   <Cell

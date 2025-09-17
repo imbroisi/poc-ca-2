@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import HoldingsLinks from '../HoldingsLinks';
 
 import './MainTable.css';
@@ -14,6 +14,7 @@ const MainTable = () => {
   const scrollableColumnRef = useRef<HTMLDivElement>(null);
 
   const toggleArrow = (index: number) => {
+    console.log("==>> toggleArrow", index);
     const newRotatedArrows = [...rotatedArrows];
     newRotatedArrows[index] = !newRotatedArrows[index];
     setRotatedArrows(newRotatedArrows);
@@ -34,6 +35,19 @@ const MainTable = () => {
     }
   };
 
+  // Set scroll position immediately during render - no loading then scrolling
+  const setScrollableRef = useCallback((element: HTMLDivElement | null) => {
+    if (element) {
+      // Set the ref for component usage
+      (scrollableColumnRef as React.MutableRefObject<HTMLDivElement | null>).current = element;
+      
+      // Set scroll position immediately during element attachment - no delays
+      const maxScrollLeft = element.scrollWidth - element.clientWidth;
+      element.scrollLeft = maxScrollLeft;
+      console.log('MainTable: Scroll position set during render - no visual shifting');
+    }
+  }, []);
+
   return (
       <div className="table-container">
         <FixedContent
@@ -48,6 +62,7 @@ const MainTable = () => {
           scrollableColumnRef={scrollableColumnRef as React.RefObject<HTMLDivElement>}
           handleScroll={handleScroll}
           show={show}
+          setScrollableRef={setScrollableRef}
         />
       </div>
   );

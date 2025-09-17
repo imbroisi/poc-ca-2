@@ -1,4 +1,4 @@
-import { CELL_BORDER_COLOR, CELL_HEIGHT_PX } from '../../config';
+import { CELL_BORDER_COLOR, ATTRIBUTE_ITEM_HEIGHT } from '../../config';
 import { useDateContext } from '../../context/DateContext';
 import YearsRow from '../YearsRow';
 import './Header.css';

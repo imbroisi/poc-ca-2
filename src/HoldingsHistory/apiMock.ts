@@ -9,6 +9,8 @@ export const apiGetLinksData = async () => {
   // simulate network delay
   await delay(500);
 
+  console.log("POS 1 ===>>>> apiGetLinksData");
+
   return {
     today: new Date(),
 
@@ -24,7 +26,8 @@ export const apiGetLinksData = async () => {
       { portfolioIndex: 0, attributeIndex: 5, firstDayDate: '2024-10-16', lastDayDate: 'today', holdingId: "holding-001", attributeId: "attr-001" },
       { portfolioIndex: 0, attributeIndex: 6, firstDayDate: '2024-10-16', lastDayDate: 'today', holdingId: "holding-001", attributeId: "attr-001" },
       { portfolioIndex: 0, attributeIndex: 7, firstDayDate: '2024-10-16', lastDayDate: 'today', holdingId: "holding-001", attributeId: "attr-001" },
-      { portfolioIndex: 0, attributeIndex: 8, firstDayDate: '2024-10-16', lastDayDate: 'today', holdingId: "holding-001", attributeId: "attr-001" },
+      { portfolioIndex: 0, attributeIndex: 9, firstDayDate: '2024-10-16', lastDayDate: 'today', holdingId: "holding-001", attributeId: "attr-001" },
+      { portfolioIndex: 0, attributeIndex: 8, firstDayDate: '2024-05-16', lastDayDate: 'today', holdingId: "holding-001", attributeId: "attr-001" },
       { portfolioIndex: 1, attributeIndex: 0, firstDayDate: '2025-02-01', lastDayDate: 'today', holdingId: "holding-002", attributeId: "attr-011"},
       { portfolioIndex: 1, attributeIndex: 1, firstDayDate: '2025-02-01', lastDayDate: 'today', holdingId: "holding-002", attributeId: "attr-011"},
       { portfolioIndex: 1, attributeIndex: 8, firstDayDate: '2025-02-01', lastDayDate: 'today', holdingId: "holding-002", attributeId: "attr-011"},

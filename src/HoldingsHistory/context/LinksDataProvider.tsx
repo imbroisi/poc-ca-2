@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { CELL_HEIGHT_PX, ROWS_BY_PAGE } from '../config';
+import { ATTRIBUTE_ITEM_HEIGHT, ROWS_BY_PAGE } from '../config';
 import { useDateContext } from './DateContext';
 
 export interface LinksDataTypes {
@@ -103,7 +103,7 @@ export const LinksDataProvider = ({
 
   const rowsToRender = (totalAttributes + 1) * Math.ceil(ROWS_BY_PAGE / (totalAttributes + 1));
 
-  const cellTopPx = (portfolioIndex: number, attributeIndex: number): number => { return CELL_HEIGHT_PX + 2 + (CELL_HEIGHT_PX + 1) * ((1 + totalAttributes) * portfolioIndex + attributeIndex) };
+  const cellTopPx = (portfolioIndex: number, attributeIndex: number): number => { return ATTRIBUTE_ITEM_HEIGHT + 2 + (ATTRIBUTE_ITEM_HEIGHT + 1) * ((1 + totalAttributes) * portfolioIndex + attributeIndex) };
 
   return (
     <LinksDataContext.Provider value={{

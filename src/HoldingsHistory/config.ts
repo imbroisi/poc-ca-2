@@ -1,6 +1,6 @@
 /* istanbul ignore file */
-export const LINK_HEIGHT_PX = 23;
-export const CELL_HEIGHT_PX = LINK_HEIGHT_PX + 3;
+// export const LINK_HEIGHT_PX = 23;
+// export const ATTRIBUTE_ITEM_HEIGHT = LINK_HEIGHT_PX + 3;
 export const CELL_BORDER_COLOR = '#ddd';
 
 // TODO: maybe replace by selectable number of years (e.g. selected by the user)

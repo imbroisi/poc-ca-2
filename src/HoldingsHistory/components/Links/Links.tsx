@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 // TODO: test this component
 
-import { CELL_HEIGHT_PX, LINK_HEIGHT_PX, LINKS_BORDERS_COLORS, LINKS_COLORS, TOTAL_ATTRIBUTES } from '../../config';
+import { ATTRIBUTE_ITEM_HEIGHT, LINKS_BORDERS_COLORS, LINKS_COLORS, TOTAL_ATTRIBUTES } from '../../config';
 import { useDateContext } from '../../context/DateContext';
 import { LinksDataTypes, useLinksDataContext } from '../../context/LinksDataProvider';
 import FloatingMenu from '../FloatingMenu';
@@ -22,9 +22,10 @@ interface LinksDataTypesWithColor extends LinksDataTypes {
 interface LinksProps {
   visibleAttributes: string[];
   // positionRef?: React.RefObject<HTMLDivElement>;
+  show?: boolean[];
 }
 
-const Links = ({ visibleAttributes }: LinksProps) => {
+const Links = ({ visibleAttributes, show }: LinksProps) => {
   const { getLinksDataCopy } = useLinksDataContext();
   const { convertDateToPositionPx, todayMmDdYyyy, displayDate } = useDateContext();
   const { holdings } = useHoldings();
@@ -71,10 +72,10 @@ const Links = ({ visibleAttributes }: LinksProps) => {
   // Calculate correct row position based on visible rows structure
   const getCorrectRowPosition = (linkData: LinksDataTypesWithColor) => {
     const rowsPerPortfolio = TOTAL_ATTRIBUTES + 1;
-    const rowHeight = CELL_HEIGHT_PX + 1;
-    const headerOffset = CELL_HEIGHT_PX + 3;
-    
-    const holdingRow = linkData.portfolioIndex * (rowsPerPortfolio * rowHeight +  1 ) + headerOffset;
+    const rowHeight = ATTRIBUTE_ITEM_HEIGHT;
+    const headerOffset = ATTRIBUTE_ITEM_HEIGHT;
+
+    const holdingRow = linkData.portfolioIndex * (rowsPerPortfolio * rowHeight + 1) + headerOffset;
     const attributeRow = linkData.attributeIndex * rowHeight + 1;
 
     return holdingRow + attributeRow;
@@ -88,7 +89,7 @@ const Links = ({ visibleAttributes }: LinksProps) => {
   //     if (holding.id === holdingId) {
   //       // If this is a holding row (no attributeId), return the holding row position
   //       if (!attributeId) {
-  //         return rowIndex * CELL_HEIGHT_PX + CELL_HEIGHT_PX + 2;
+  //         return rowIndex * ATTRIBUTE_ITEM_HEIGHT + ATTRIBUTE_ITEM_HEIGHT + 2;
   //       }
   //       // If looking for an attribute, increment past the holding row
   //       rowIndex++;
@@ -97,7 +98,7 @@ const Links = ({ visibleAttributes }: LinksProps) => {
   //       if (expanded.has(holding.id)) {
   //         for (const attribute of holding.attributes) {
   //           if (attribute.id === attributeId) {
-  //             return rowIndex * CELL_HEIGHT_PX + CELL_HEIGHT_PX + 2;
+  //             return rowIndex * ATTRIBUTE_ITEM_HEIGHT + ATTRIBUTE_ITEM_HEIGHT + 2;
   //           }
   //           rowIndex++;
   //         }
@@ -176,47 +177,114 @@ const Links = ({ visibleAttributes }: LinksProps) => {
   // 3. Compute visible row index (based on visible attributes array, not raw attributeIndex)
   const getVisibleRowTop = (attributeId: string) => {
     const idx = visibleAttributes.indexOf(attributeId);
-    return idx >= 0 ? idx * CELL_HEIGHT_PX : -9999;
+    return idx >= 0 ? idx * ATTRIBUTE_ITEM_HEIGHT : -9999;
   };
 
-  console.log("==>> linksDataCopy", linksDataCopy);
+  console.log("==>> ATTRIBUTE_ITEM_HEIGHT", ((ATTRIBUTE_ITEM_HEIGHT)));
+  console.log("==>> TOTAL_ATTRIBUTES + 1", (TOTAL_ATTRIBUTES + 1));
+  console.log("==>> ((ATTRIBUTE_ITEM_HEIGHT) * (TOTAL_ATTRIBUTES + 1))", ((ATTRIBUTE_ITEM_HEIGHT) * (TOTAL_ATTRIBUTES + 1)));
 
   return (
-    <div style={{ position: 'relative', zIndex: 0 }}>
-      {linksDataCopy.map((linkData) => {
-        const style = {
-          top: getCorrectRowPosition(linkData),
-          left: convertDateToPositionPx(linkData.firstDayDate),
-          width: convertDateToPositionPx(linkData.lastDayDate, 1) - convertDateToPositionPx(linkData.firstDayDate),
-          height: LINK_HEIGHT_PX,
-          backgroundColor: linkData.color,
-          borderLeftColor: linkData.borderColor,
-          borderRightColor: linkData.borderColor,
-        };
-        const key = `${(linkData).portfolioIndex}-${(linkData).attributeIndex}-${(linkData).firstDayDate}`;
-        const label = `${displayDate(linkData.firstDayDate)} - ${linkData.noFinalDate ? '' : displayDate(linkData.lastDayDate)}`;
-
-        // console.log("==>> linkData", linkData);
-        // console.log("==>> style", style);
-
+    <div style={{ position: 'absolute' }}>
+      {show?.map((showMe, index) => {
         return (
-          <FloatingMenu
-            key={key}
-            onDelete={(mousePosition: [number, number]) => onDeleteClicked(linkData, mousePosition)}
-            onInfo={(mousePosition: [number, number]) => onInfoClicked(linkData, mousePosition)}
-          >
-            <div
-              key={key}
-              className="links-rectangle"
-              style={style}
-            >
-              {label}
-            </div>
-          </FloatingMenu>
-        )
+          <div key={index} style={{
+            position: 'relative',
+            // marginBottom: `${ATTRIBUTE_ITEM_HEIGHT}px`,
+            marginTop: `${ATTRIBUTE_ITEM_HEIGHT}px`,
+            // top: `${ATTRIBUTE_ITEM_HEIGHT + index * ATTRIBUTE_ITEM_HEIGHT * TOTAL_ATTRIBUTES + 1}px`, 
+            height: showMe ? ((ATTRIBUTE_ITEM_HEIGHT) * (TOTAL_ATTRIBUTES)) + 1 : 0,
+            transition: 'height 0.2s ease-in-out',
+            border: '1px solid red',
+            // width: '100%',
+            backgroundColor: 'white',
+            boxSizing: 'border-box',
+            zIndex: 10 + index,
+            // paddingTop: `${ATTRIBUTE_ITEM_HEIGHT}px`,
+          }}>
+
+            {linksDataCopy.map((linkData) => {
+              const style = {
+                top: getCorrectRowPosition(linkData),
+                left: convertDateToPositionPx(linkData.firstDayDate),
+                width: convertDateToPositionPx(linkData.lastDayDate, 1) - convertDateToPositionPx(linkData.firstDayDate),
+                height: ATTRIBUTE_ITEM_HEIGHT - 3,
+                backgroundColor: linkData.color,
+                borderLeftColor: linkData.borderColor,
+                borderRightColor: linkData.borderColor,
+              };
+              const key = `${(linkData).portfolioIndex}-${(linkData).attributeIndex}-${(linkData).firstDayDate}`;
+              const label = `${displayDate(linkData.firstDayDate)} - ${linkData.noFinalDate ? '' : displayDate(linkData.lastDayDate)}`;
+
+              // console.log("==>> linkData", linkData);
+              // console.log("==>> style", style);
+
+              return (
+                // <FloatingMenu
+                //   key={key}
+                //   onDelete={(mousePosition: [number, number]) => onDeleteClicked(linkData, mousePosition)}
+                //   onInfo={(mousePosition: [number, number]) => onInfoClicked(linkData, mousePosition)}
+                // >
+                <div
+                  key={key}
+                  className="links-rectangle"
+                  style={style}
+                >
+                  {label}
+                </div>
+                // </FloatingMenu>
+              )
+            })}
+
+
+
+
+
+
+
+          </div>
+        );
       })}
     </div>
+
   );
+
+  // return (
+  //   <div style={{ position: 'relative', zIndex: 0, height: '0 !important' }}>
+  //     {linksDataCopy.map((linkData) => {
+  //       const style = {
+  //         top: getCorrectRowPosition(linkData),
+  //         left: convertDateToPositionPx(linkData.firstDayDate),
+  //         width: convertDateToPositionPx(linkData.lastDayDate, 1) - convertDateToPositionPx(linkData.firstDayDate),
+  //         height: 0,//LINK_HEIGHT_PX,
+  //         backgroundColor: linkData.color,
+  //         borderLeftColor: linkData.borderColor,
+  //         borderRightColor: linkData.borderColor,
+  //       };
+  //       const key = `${(linkData).portfolioIndex}-${(linkData).attributeIndex}-${(linkData).firstDayDate}`;
+  //       const label = `${displayDate(linkData.firstDayDate)} - ${linkData.noFinalDate ? '' : displayDate(linkData.lastDayDate)}`;
+
+  //       // console.log("==>> linkData", linkData);
+  //       // console.log("==>> style", style);
+
+  //       return (
+  //         // <FloatingMenu
+  //         //   key={key}
+  //         //   onDelete={(mousePosition: [number, number]) => onDeleteClicked(linkData, mousePosition)}
+  //         //   onInfo={(mousePosition: [number, number]) => onInfoClicked(linkData, mousePosition)}
+  //         // >
+  //           <div
+  //             key={key}
+  //             className="links-rectangle"
+  //             style={style}
+  //           >
+  //             {/* {label} */}
+  //           </div>
+  //         // </FloatingMenu>
+  //       )
+  //     })}
+  //   </div>
+  // );
 }
 
 export default Links;

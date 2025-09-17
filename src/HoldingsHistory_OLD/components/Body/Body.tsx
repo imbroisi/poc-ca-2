@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { CELL_BORDER_COLOR, CELL_HEIGHT_PX } from '../../config';
+import { CELL_BORDER_COLOR, ATTRIBUTE_ITEM_HEIGHT } from '../../config';
 import { useLinksDataContext } from '../../context/LinksDataProvider';
 import TodayLine from '../TodayLine';
 import './Body.css';
@@ -63,7 +63,7 @@ const Body = () => {
               key={indexCol}
               className="body-cell"
               style={{
-                height: CELL_HEIGHT_PX,
+                height: ATTRIBUTE_ITEM_HEIGHT,
                 borderColor: CELL_BORDER_COLOR,
               }}
             >
