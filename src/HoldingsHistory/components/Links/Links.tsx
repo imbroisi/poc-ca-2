@@ -202,13 +202,10 @@ const Links = ({ visibleAttributes, show }: LinksProps) => {
             // marginBottom: `${ATTRIBUTE_ITEM_HEIGHT}px`,
             marginTop: `${ATTRIBUTE_ITEM_HEIGHT}px`,
             // top: `${ATTRIBUTE_ITEM_HEIGHT + index * ATTRIBUTE_ITEM_HEIGHT * TOTAL_ATTRIBUTES + 1}px`, 
-            height: showMe ? ((ATTRIBUTE_ITEM_HEIGHT) * (TOTAL_ATTRIBUTES)) + 1 : 0,
-            transition: 'height 0.2s ease-in-out, opacity 0.2s ease-in-out',
-            // opacity: 1,
-            
-            // visibility: showMe ? 'visible' : 'hidden',
+            height: showMe ? (ATTRIBUTE_ITEM_HEIGHT * TOTAL_ATTRIBUTES) + 1 : 0,
             opacity: showMe ? 1 : 0,
-
+            transition: 'height 0.2s ease-in-out, opacity 0.2s ease-in-out',
+            
             // IMPORTANT: do not remove this border and boxSizing, they are used to prevent the links from being misaligned
             border: '1px solid transparent',
             boxSizing: 'border-box',
@@ -229,7 +226,7 @@ const Links = ({ visibleAttributes, show }: LinksProps) => {
                 top: getCorrectRowPosition(linkData),
                 left: convertDateToPositionPx(linkData.firstDayDate),
                 width: convertDateToPositionPx(linkData.lastDayDate, 1) - convertDateToPositionPx(linkData.firstDayDate),
-                height: ATTRIBUTE_ITEM_HEIGHT - 3,
+                height: ATTRIBUTE_ITEM_HEIGHT - 4,
                 backgroundColor: linkData.color,
                 borderLeftColor: linkData.borderColor,
                 borderRightColor: linkData.borderColor,

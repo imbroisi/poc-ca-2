@@ -67,10 +67,11 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
                 className="table-row"
                 style={{
                   height: `${ATTRIBUTE_ITEM_HEIGHT}px`,
-                  maxHeight: `${ATTRIBUTE_ITEM_HEIGHT}px`,
+                  // maxHeight: `${ATTRIBUTE_ITEM_HEIGHT}px`,
                   position: 'relative',
                   backgroundColor: 'white',
                   zIndex: 1 + (rowIndex * 2),
+                  
                 }}>
                 {Array.from({ length: COLS }).map((_, colIndex) => (
                   <Cell
