@@ -1,11 +1,7 @@
 .table-cell {
   display: table-cell;
   width: 300px;
-  /* border-bottom: 1px solid orange;
-  border-right: 1px solid orange;
-  border-top: 0; */
-  /* padding: 8px; */
   border-right: 1px solid #ccc;
   box-sizing: border-box;
-  transition: height 2s ease-in-out;
+  transition: height 0.2s ease-in-out;
 }

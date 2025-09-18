@@ -204,7 +204,7 @@ const Links = ({ visibleAttributes, show }: LinksProps) => {
             // top: `${ATTRIBUTE_ITEM_HEIGHT + index * ATTRIBUTE_ITEM_HEIGHT * TOTAL_ATTRIBUTES + 1}px`, 
             height: showMe ? (ATTRIBUTE_ITEM_HEIGHT * TOTAL_ATTRIBUTES) + 1 : 0,
             opacity: showMe ? 1 : 0,
-            transition: 'height 2s ease-in-out, opacity 2s ease-in-out',
+            transition: 'height 0.2s ease-in-out, opacity 0.2s ease-in-out',
             
             // IMPORTANT: do not remove this border and boxSizing, they are used to prevent the links from being misaligned
             border: '1px solid transparent',
