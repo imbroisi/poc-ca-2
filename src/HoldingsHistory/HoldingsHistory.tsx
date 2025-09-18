@@ -4,7 +4,7 @@ import { MessageOverProvider } from './context/MessageOverContext';
 // import { ExpandedHoldingsProvider } from './context/ExpandedHoldingsContext';
 // import { HoldingsProvider } from './context/HoldingsContext';
 import { LinksDataProvider } from './context/LinksDataProvider';
-import { NUMBER_OF_YEARS } from './config';
+import { FOOTER_HEIGHT, NUMBER_OF_YEARS } from './config';
 import MessageOver from './components/GlobalMessageOver';
 import GlobalModal from './components/GlobalModal/GlobalModal';
 import './HoldingsHistory.css';
@@ -13,6 +13,7 @@ import { apiGetLinksData } from './apiMock';
 import MainTable from './components/MainTable';
 import { ExpandedHoldingsProvider } from './context/ExpandedHoldingsContext';
 import { HoldingsProvider } from './context/HoldingsContext';
+import Footer from './components/Footer';
 
 export interface HoldingsHistoryProps {
 
@@ -43,8 +44,13 @@ const HoldingsHistory = (props: HoldingsHistoryProps) => {
 
   if (!linksFromApi) return null;
 
+  // const FOOTER_HEIGHT = '40px';
+
   return (
-    <div id="holdings-history-container" style={{ height: '100%', width: '100%', position: 'relative' }}>
+    <div
+      id="holdings-history-container"
+      style={{ height: `calc(100% - ${FOOTER_HEIGHT})`, width: '100%', position: 'relative', border: '1px solid red' }}
+    >
       <DateProvider todayDate={linksFromApi.today} numberOfYears={NUMBER_OF_YEARS}>
         <ModalProvider>
           <MessageOverProvider>
@@ -53,6 +59,7 @@ const HoldingsHistory = (props: HoldingsHistoryProps) => {
                 <HoldingsProvider holdings={linksFromApi.data.holdings || []}>
 
                   <MainTable />
+                  <Footer />
 
                   <MessageOver />
                   <GlobalModal />
@@ -63,6 +70,8 @@ const HoldingsHistory = (props: HoldingsHistoryProps) => {
           </MessageOverProvider>
         </ModalProvider>
       </DateProvider>
+
+
     </div>
   );
 }

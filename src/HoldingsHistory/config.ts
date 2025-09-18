@@ -7,9 +7,6 @@ export const CELL_BORDER_COLOR = '#ddd';
 export const NUMBER_OF_YEARS = 3;
 export const YEAR_CELL_WIDTH_PX = 466;
 
-// TODO: review this methode when definition on how the pagination will be implemented (because of collase/expand sections)
-export const ROWS_BY_PAGE = 30;
-
 export const TODAY_LINE_COLOR = '#3cabc9'; // TODO: primary/aqua-80
 
 export const LINKS_COLORS = [
@@ -37,4 +34,6 @@ export const ATTRIBUTES = {
 
 export const TOTAL_ATTRIBUTES = Object.keys(ATTRIBUTES).length;
 export const ATTRIBUTE_ITEM_HEIGHT = 27;
-export const HOLDINGS_PER_PAGE = 20;
+export const HOLDINGS_PER_PAGE = 5;
+
+export const FOOTER_HEIGHT = '60px';

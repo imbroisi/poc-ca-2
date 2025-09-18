@@ -31,6 +31,7 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
   }, [processLinks]);
 
   return (
+    
     <div
       ref={setScrollableRef || scrollableColumnRef}
       onScroll={handleScroll}
