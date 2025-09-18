@@ -9,7 +9,7 @@ export function useVisibleAttributeIdSet(holdings: Holding[]) {
 
   const visibleHoldings = useMemo(() => visibleAttributeIdSet(holdings, expanded), [holdings, expanded]);
 
-  console.log("visibleHoldings", visibleHoldings);
+  // console.log("visibleHoldings", visibleHoldings);
 
   return visibleHoldings;
 }

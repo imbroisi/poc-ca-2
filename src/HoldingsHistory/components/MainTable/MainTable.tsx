@@ -44,7 +44,7 @@ const MainTable = () => {
       // Set scroll position immediately during element attachment - no delays
       const maxScrollLeft = element.scrollWidth - element.clientWidth;
       element.scrollLeft = maxScrollLeft;
-      console.log('MainTable: Scroll position set during render - no visual shifting');
+      // console.log('MainTable: Scroll position set during render - no visual shifting');
     }
   }, []);
 

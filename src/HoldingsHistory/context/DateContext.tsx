@@ -28,6 +28,11 @@ export const DateProvider = ({
   const todayMonthUnit = todayDate.getUTCMonth();
   const todayDayUnit = todayDate.getUTCDate();
 
+  const lastYearDayDate = new Date(todayYearUnit, 11, 31, 0, 0, 0, 0);
+  console.log("==>> lastYearDayDate", lastYearDayDate);
+  const lastYearDayUnit = Math.round(lastYearDayDate.getTime() / ONE_DAY_IN_MS);
+  console.log("==>> lastYearDayUnit", lastYearDayUnit);
+
   const dayWidthPx = YEAR_CELL_WIDTH_PX / 365;
 
   const totalDaysUnit = numberOfYears * 365;
@@ -45,13 +50,30 @@ export const DateProvider = ({
   const convertDateToPositionPx = (date: string, daysToAdd: number = 0) => {
     const dateMs = new Date(date).getTime();
     const dateUnit = Math.round(dateMs / ONE_DAY_IN_MS + daysToAdd);
-    return (dateUnit - firstEpochDayInTableUnit) * dayWidthPx;
+    // return (dateUnit - firstEpochDayInTableUnit) * dayWidthPx;
+
+    console.log("==>> date", date);
+    console.log("==>> dateUnit", dateUnit);
+
+    // console.log("==>> lastYearDayUnit", lastYearDayUnit);
+    // console.log("==>> firstEpochDayInTableUnit", firstEpochDayInTableUnit);
+
+    // console.log("==>> dateUnit", dateUnit);
+
+    const dif = lastYearDayUnit - dateUnit;
+
+    console.log("==>> dif", dif);
+    // console.log("==>> dateUnit", dateUnit);
+    return dif * dayWidthPx - 1;
+    // return 10;
+
+
   }
 
   const todayPositionPx = dayWidthPx * (todayEpochDayUnit - firstEpochDayInTableUnit);
+  // console.log("==>> todayPositionPx", dayWidthPx, todayEpochDayUnit, firstEpochDayInTableUnit);
 
-  // const todayYyyyMmDd = `
-  //   ${todayYearUnit}-${String(todayMonthUnit + 1).padStart(2, '0')}-${String(todayDayUnit).padStart(2, '0')}`;
+  const todayYyyyMmDd = `${todayYearUnit}-${String(todayMonthUnit + 1).padStart(2, '0')}-${String(todayDayUnit).padStart(2, '0')}`;
 
   const todayMmDdYyyy = `${String(todayMonthUnit + 1).padStart(2, '0')}/${String(todayDayUnit).padStart(2, '0')}/${todayYearUnit}`;
 
@@ -97,7 +119,7 @@ export const DateProvider = ({
       todayDate,
       todayMmDdYyyy,
       monthNameToIndex,
-      // todayYyyyMmDd,
+      todayYyyyMmDd,
       getMonthName,
       getNDaysBefore,
       firstYearInTableUnit,
