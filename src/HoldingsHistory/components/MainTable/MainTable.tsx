@@ -5,8 +5,6 @@ import './MainTable.css';
 import FixedContent from '../FixedContent';
 import { HOLDINGS_PER_PAGE } from '../../config';
 
-// const COLS = 5;
-
 const MainTable = () => {
   const [show, setShow] = useState<boolean[]>(new Array(HOLDINGS_PER_PAGE).fill(true));
   const [rotatedArrows, setRotatedArrows] = useState<boolean[]>(new Array(HOLDINGS_PER_PAGE).fill(true));
@@ -14,7 +12,7 @@ const MainTable = () => {
   const scrollableColumnRef = useRef<HTMLDivElement>(null);
 
   const toggleArrow = (index: number) => {
-    console.log("==>> toggleArrow", index);
+    // console.log("==>> toggleArrow", index);
     const newRotatedArrows = [...rotatedArrows];
     newRotatedArrows[index] = !newRotatedArrows[index];
     setRotatedArrows(newRotatedArrows);

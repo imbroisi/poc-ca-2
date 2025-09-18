@@ -27,8 +27,9 @@
 }
 
 .table-row {
+  position: relative;
   display: table-row;
-  transition: height 0.2s ease-in-out;
+  transition: height 0.0.3s ease-in-out;
   border-top: 1px solid #ccc;
-  overflow: 'hidden',
+  overflow: hidden;
 }

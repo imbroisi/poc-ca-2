@@ -3,5 +3,32 @@
   width: 300px;
   border-right: 1px solid #ccc;
   box-sizing: border-box;
-  transition: height 0.2s ease-in-out;
+  transition: height 0.3s ease-in-out;
+}
+
+.table-cell-link {
+  position: absolute;
+  top: 2px;
+  border-radius: 3px; 
+  font-size: 12px;  
+  font-weight: 400;
+  display: flex;
+  align-items: center; 
+  justify-content: flex-start; 
+}
+
+.table-cell-label {
+  padding-left: 6px;
+}
+
+.table-cell-attribute {
+  position: relative;
+  transition: height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  /* opacity: 1; */
+}
+
+.table-cell-attribute-container {
+  background-color: #fafafa;
+  border-bottom: 1px solid #ccc;
+  box-sizing: border-box;
 }

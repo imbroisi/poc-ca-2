@@ -27,17 +27,17 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
       className="table-cell"
       style={{
         height: showMe ? `${ATTRIBUTE_ITEM_HEIGHT * (TOTAL_ATTRIBUTES + 1) + 1}px` : '0',
-        boxSizing: 'border-box',
       }}>
-        
-      
+
+
+      {/* Vertical lines for Years separation in attributes area */}
       {Array.from({ length: NUMBER_OF_YEARS }).map((_, yearIndex) => {
         return (
           <div
-            key={yearIndex} 
-            style={{ 
-              position: 'absolute', 
-              left: `${yearIndex * YEAR_CELL_WIDTH_PX - 1}px` ,
+            key={yearIndex}
+            style={{
+              position: 'absolute',
+              left: `${yearIndex * YEAR_CELL_WIDTH_PX - 1}px`,
               borderLeft: '1px solid #bbb',
               height: `${ATTRIBUTE_ITEM_HEIGHT * (TOTAL_ATTRIBUTES + 1)}px`,
             }}>
@@ -45,51 +45,43 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
         );
       })}
 
-      <div style={{
-        height: `${ATTRIBUTE_ITEM_HEIGHT}px`,
-        backgroundColor: '#fafafa',
-        borderBottom: '1px solid #ccc',
-        boxSizing: 'border-box',
-      }} />
+      <div
+        className="table-cell-attribute-container"
+        style={{
+          height: `${ATTRIBUTE_ITEM_HEIGHT}px`,
+        }} />
+
       {Array.from({ length: TOTAL_ATTRIBUTES }).map((_, attributeIndex) => {
         setCellCoord?.(holdingIdex, attributeIndex, drawLinks);
         return (
-          <div key={attributeIndex} style={{
-            position: 'relative',
-            height: showMe ? `${ATTRIBUTE_ITEM_HEIGHT}px` : '0',
-            overflow: 'hidden',
-            transition: 'height 0.2s ease-in-out',
-            fontWeight: 'normal',
-          }}>
+          <div
+            key={attributeIndex}
+            className="table-cell-attribute"
+            style={{
+              height: showMe ? `${ATTRIBUTE_ITEM_HEIGHT}px` : 0,
+            }}>
 
-            {linkDataBulk.map((linkData) => (
-              <>
+            {linkDataBulk.map((linkData, index) => (
+              <div key={`${linkData?.portfolioIndex}-${linkData?.attributeIndex}-${linkData?.firstDayDate}-${index}`}>
                 {linkData?.portfolioIndex === holdingIdex && linkData?.attributeIndex === attributeIndex && (
-                  <div style={{
-                    position: 'absolute',
-                    top: 2,
-                    right: convertDateToPositionPx(linkData?.lastDayDate),
-                    height: ATTRIBUTE_ITEM_HEIGHT - 6,
-                    width: convertDateToPositionPx(linkData?.firstDayDate) - convertDateToPositionPx(linkData?.lastDayDate),
-                    backgroundColor: linkData?.color,
-                    border: `1px solid ${linkData?.borderColor}`,
-                    borderRadius: 3,
-                    fontSize: 12,
-                    fontWeight: 400,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'left',
-                    paddingLeft: '6px',
-                    boxSizing: 'border-box',
-                  }}>
-                    {linkData?.label || '<todo label>'}
+                  <div
+                    className="table-cell-link"
+                    style={{
+                      right: convertDateToPositionPx(linkData?.lastDayDate),
+                      height: ATTRIBUTE_ITEM_HEIGHT - 6 ,
+                      width: convertDateToPositionPx(linkData?.firstDayDate) - convertDateToPositionPx(linkData?.lastDayDate),
+                      backgroundColor: linkData?.color,
+                      border: `1px solid ${linkData?.borderColor}`,
+                    }}>
+                    <span className="table-cell-label">
+                      {linkData?.label || '<todo label>'}
+                    </span>
                   </div>
                 )}
-              </>
+              </div>
             ))}
           </div>
         )
-
       })}
 
     </div>

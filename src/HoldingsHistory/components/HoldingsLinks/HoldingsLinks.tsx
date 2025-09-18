@@ -1,9 +1,9 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { ATTRIBUTE_ITEM_HEIGHT, HOLDINGS_PER_PAGE, NUMBER_OF_YEARS, YEAR_CELL_WIDTH_PX } from '../../config';
 import HoldingYearCell from '../Cell';
 import TodayLine from '../TodayLine';
 import './HoldingsLinks.css';
-import Links from '../Links';
+import useLinks from '../../hooks/useLinks';
 
 export interface ContentProps {
   scrollableColumnRef: React.RefObject<HTMLDivElement> | null;
@@ -14,6 +14,7 @@ export interface ContentProps {
 
 const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableRef }: ContentProps) => {
   const cellsCoord = useRef<any>({});
+  const processLinks = useLinks({ show, cellsCoord });
 
   const setCellCoord = (holdingIndex: number, attributeIndex: number, drawLinks: any) => {
     if (!cellsCoord.current[holdingIndex]) {
@@ -24,6 +25,10 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
     }
     cellsCoord.current[holdingIndex][attributeIndex].drawLinks = drawLinks;
   }
+
+  useEffect(() => {
+    processLinks();
+  }, [processLinks]);
 
   return (
     <div
@@ -55,15 +60,12 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
           className="table-content"
           style={{ width: `${NUMBER_OF_YEARS * YEAR_CELL_WIDTH_PX}px`, position: 'relative' }}
         >
-          <Links show={show} cellsCoord={cellsCoord} />
-
           {Array.from({ length: HOLDINGS_PER_PAGE }).map((_, holdingIdex) => (
             <div
               key={holdingIdex}
               className="table-row"
               style={{
                 height: `${ATTRIBUTE_ITEM_HEIGHT}px`,
-                position: 'relative',
               }}>
               <HoldingYearCell
                 showMe={show[holdingIdex]}

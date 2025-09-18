@@ -64,7 +64,7 @@ const MessageOver = (
       style={{ 
         top: position[1], 
         left: position[0],
-        opacity: opacity,
+        opacity,
       }}
       onMouseDown={(e) => {
         e.stopPropagation();

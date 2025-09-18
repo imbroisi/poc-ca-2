@@ -9,6 +9,7 @@ const MenuHoldingAttributes = ({ show }: MenuHoldingAttributesProps) => {
   return (
     <div className="expandable-content" style={{
       height: show ? `${ATTRIBUTE_ITEM_HEIGHT * TOTAL_ATTRIBUTES}px` : '0',
+      opacity: show ? 1 : 0,
     }}>
       {Object.keys(ATTRIBUTES).map((attribute) => (
         <div
