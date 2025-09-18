@@ -1,6 +1,6 @@
 import { memo, useState } from 'react';
 import './Cell.css';
-import { ATTRIBUTE_ITEM_HEIGHT, TOTAL_ATTRIBUTES } from '../../config';
+import { ATTRIBUTE_ITEM_HEIGHT, NUMBER_OF_YEARS, TOTAL_ATTRIBUTES, YEAR_CELL_WIDTH_PX } from '../../config';
 import { useDateContext } from '../../context/DateContext';
 
 export interface CellProps {
@@ -29,6 +29,22 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
         height: showMe ? `${ATTRIBUTE_ITEM_HEIGHT * (TOTAL_ATTRIBUTES + 1) + 1}px` : '0',
         boxSizing: 'border-box',
       }}>
+        
+      
+      {Array.from({ length: NUMBER_OF_YEARS }).map((_, yearIndex) => {
+        return (
+          <div
+            key={yearIndex} 
+            style={{ 
+              position: 'absolute', 
+              left: `${yearIndex * YEAR_CELL_WIDTH_PX - 1}px` ,
+              borderLeft: '1px solid #bbb',
+              height: `${ATTRIBUTE_ITEM_HEIGHT * (TOTAL_ATTRIBUTES + 1)}px`,
+            }}>
+          </div>
+        );
+      })}
+
       <div style={{
         height: `${ATTRIBUTE_ITEM_HEIGHT}px`,
         backgroundColor: '#fafafa',
