@@ -74,8 +74,15 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
                     backgroundColor: linkData?.color,
                     border: `1px solid ${linkData?.borderColor}`,
                     borderRadius: 3,
+                    fontSize: 12,
+                    fontWeight: 400,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'left',
+                    paddingLeft: '6px',
+                    boxSizing: 'border-box',
                   }}>
-                    {label}
+                    {linkData?.label || '<todo label>'}
                   </div>
                 )}
               </>
