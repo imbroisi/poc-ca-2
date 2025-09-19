@@ -3,13 +3,13 @@ import HoldingsLinks from '../HoldingsLinks';
 
 import './MainTable.css';
 import FixedContent from '../FixedContent';
-import { HOLDINGS_PER_PAGE, MAIN_BORDER_COLOR, TOTAL_ATTRIBUTES } from '../../config';
+import { HOLDINGS_PER_PAGE_DEFAULT, MAIN_BORDER_COLOR, TOTAL_ATTRIBUTES } from '../../config';
 import { useLinksDataContext } from '../../context/LinksDataProvider';
 
 const MainTable = () => {
   const { totalHoldings, pageToShow } = useLinksDataContext();
   const [show, setShow] = useState<boolean[] | null>(null);
-  const [rotatedArrows, setRotatedArrows] = useState<boolean[]>(new Array(HOLDINGS_PER_PAGE).fill(true));
+  const [rotatedArrows, setRotatedArrows] = useState<boolean[]>(new Array(HOLDINGS_PER_PAGE_DEFAULT).fill(true));
   const fixedColumnRef = useRef<HTMLDivElement>(null);
   const scrollableColumnRef = useRef<HTMLDivElement>(null);
   const isScrollingToTop = useRef(false);

@@ -1,4 +1,4 @@
-import { HOLDINGS_PER_PAGE, MAIN_BORDER_COLOR } from '../../config';
+import { HOLDINGS_PER_PAGE_DEFAULT, MAIN_BORDER_COLOR } from '../../config';
 import './MenuHoldings.css';
 import MenuHoldingName from '../MenuHoldingName';
 import MenuHoldingAttributes from '../MenuHoldingAttributes';
@@ -14,8 +14,8 @@ const MenuHoldings = ({ show, toggleArrow, rotatedArrows }: MenuHoldingsProps) =
   const { getLinksDataCopy, pageToShow } = useLinksDataContext();
   const linksData = getLinksDataCopy();
 
-  const minRowIndex = (pageToShow - 1) * HOLDINGS_PER_PAGE;
-  const maxRowIndex = (pageToShow) * HOLDINGS_PER_PAGE - 1;
+  const minRowIndex = (pageToShow - 1) * HOLDINGS_PER_PAGE_DEFAULT;
+  const maxRowIndex = (pageToShow) * HOLDINGS_PER_PAGE_DEFAULT - 1;
 
   console.log("400 ==>> minRowIndex", minRowIndex);
   console.log("401 ==>> maxRowIndex", maxRowIndex);

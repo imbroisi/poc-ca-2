@@ -3,7 +3,7 @@ import { LinksDataProvider, useLinksDataContext } from '../LinksDataProvider';
 
 jest.mock('../../config', () => ({
   ATTRIBUTE_ITEM_HEIGHT: 28,
-  HOLDINGS_PER_PAGE: 20,
+  HOLDINGS_PER_PAGE_DEFAULT: 20,
 }));
 
 jest.mock('../DateContext', () => ({

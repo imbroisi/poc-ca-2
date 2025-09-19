@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { ATTRIBUTE_ITEM_HEIGHT, HOLDINGS_PER_PAGE, MAIN_BORDER_COLOR, NUMBER_OF_YEARS, YEAR_CELL_WIDTH_PX } from '../../config';
+import { ATTRIBUTE_ITEM_HEIGHT, HOLDINGS_PER_PAGE_DEFAULT, MAIN_BORDER_COLOR, NUMBER_OF_YEARS, YEAR_CELL_WIDTH_PX } from '../../config';
 import HoldingYearCell from '../Cell';
 import TodayLine from '../TodayLine';
 import './HoldingsLinks.css';
@@ -70,7 +70,7 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
           className="table-content"
           style={{ width: `${NUMBER_OF_YEARS * YEAR_CELL_WIDTH_PX}px`, position: 'relative' }}
         >
-          {Array.from({ length: HOLDINGS_PER_PAGE }).map((_, holdingIdex) => (
+          {Array.from({ length: HOLDINGS_PER_PAGE_DEFAULT }).map((_, holdingIdex) => (
             <div
               key={holdingIdex}
               className="table-row"

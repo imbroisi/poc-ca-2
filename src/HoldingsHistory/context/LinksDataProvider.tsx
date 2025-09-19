@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react'
-import { ATTRIBUTE_ITEM_HEIGHT, HOLDINGS_PER_PAGE, TOTAL_ATTRIBUTES } from '../config';
+import { ATTRIBUTE_ITEM_HEIGHT, HOLDINGS_PER_PAGE_DEFAULT, TOTAL_ATTRIBUTES } from '../config';
 import { useDateContext } from './DateContext';
 import { ValueLink } from '../types/expandTypes';
 
@@ -66,7 +66,7 @@ export const LinksDataProvider = ({
 
   const getLinksDataCopy = () => {
     // returns a safe copy of linksData
-    // const linksDataPaginated = linksData.slice((pageToShow - 1) * HOLDINGS_PER_PAGE, pageToShow * HOLDINGS_PER_PAGE);
+    // const linksDataPaginated = linksData.slice((pageToShow - 1) * HOLDINGS_PER_PAGE_DEFAULT, pageToShow * HOLDINGS_PER_PAGE_DEFAULT);
     // console.log("12 ==>> linksDataPaginated", linksDataPaginated);
     // return linksDataPaginated.map((linkData) => ({ ...linkData }));
 
@@ -123,7 +123,7 @@ export const LinksDataProvider = ({
   //   setPageToShow(page);
   // }
 
-  const rowsToRender = (TOTAL_ATTRIBUTES + 1) * Math.ceil(HOLDINGS_PER_PAGE / (TOTAL_ATTRIBUTES + 1));
+  const rowsToRender = (TOTAL_ATTRIBUTES + 1) * Math.ceil(HOLDINGS_PER_PAGE_DEFAULT / (TOTAL_ATTRIBUTES + 1));
 
   const cellTopPx = (portfolioIndex: number, attributeIndex: number): number => { return ATTRIBUTE_ITEM_HEIGHT + 2 + (ATTRIBUTE_ITEM_HEIGHT + 1) * ((1 + TOTAL_ATTRIBUTES) * portfolioIndex + attributeIndex) };
 
