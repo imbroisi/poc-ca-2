@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { ATTRIBUTE_ITEM_HEIGHT, HOLDINGS_PER_PAGE } from '../config';
+import { ATTRIBUTE_ITEM_HEIGHT, HOLDINGS_PER_PAGE, TOTAL_ATTRIBUTES } from '../config';
 import { useDateContext } from './DateContext';
 
 export interface LinksDataTypes {
@@ -13,8 +13,7 @@ export interface LinksDataTypes {
 }
 
 interface LinksDataContextType {
-  // linksData: LinksDataTypes[];
-  totalAttributes: number;
+  totalHoldings: number;
   isEditMode: boolean;
   setIsEditMode: (_: boolean) => void;
   getLinksDataCopy: () => LinksDataTypes[];
@@ -22,6 +21,7 @@ interface LinksDataContextType {
   cellTopPx: (portfolioIndex: number, attributeIndex: number) => number;
   addLink: (lastDayStr: string, firstDayStr: string, cellIndex: number, cellRowIndex: number) => void;
   deleteLink: (linkData: LinksDataTypes) => void;
+  setPageToShow: (page: number) => void;
 }
 
 interface LinksDataProviderProps {
@@ -37,6 +37,7 @@ export const LinksDataProvider = ({
 }: LinksDataProviderProps) => {
   const [isEditMode, setIsEditMode] = useState(true);
   const [linksData, setLinksData] = useState<any[]>([]);
+  const [pageToShow, setPageToShow] = useState(1);
   const dateCtx = useDateContext();
   const getNDaysBefore = dateCtx?.getNDaysBefore ?? ((date: string, n: number) => {
     const d = new Date(date);
@@ -51,12 +52,19 @@ export const LinksDataProvider = ({
 
   // const linksData = linksDataFromApi;
   // TODO: replace by the real total attributes (maybe from api response)
-  const totalAttributes = 9;
+  // const TOTAL_ATTRIBUTES = 9;
 
-  const getLinksDataCopy = () => (
+  const getLinksDataCopy = () => {
     // returns a safe copy of linksData
-    linksData.map((linkData) => ({ ...linkData }))
-  );
+    // const linksDataPaginated = linksData.slice((pageToShow - 1) * HOLDINGS_PER_PAGE, pageToShow * HOLDINGS_PER_PAGE);
+    // console.log("12 ==>> linksDataPaginated", linksDataPaginated);
+    // return linksDataPaginated.map((linkData) => ({ ...linkData }));
+    
+    return linksData.map((linkData) => ({ ...linkData }));
+
+    
+    
+  };
 
   // console.log("1009) ===>>> linksData =", linksData);
 
@@ -101,16 +109,22 @@ export const LinksDataProvider = ({
     setLinksData(linksDataCopy);
   }
 
-  const rowsToRender = (totalAttributes + 1) * Math.ceil(HOLDINGS_PER_PAGE / (totalAttributes + 1));
+  // const setPageToShow = (page: number) => {
+  //   setPageToShow(page);
+  // }
 
-  const cellTopPx = (portfolioIndex: number, attributeIndex: number): number => { return ATTRIBUTE_ITEM_HEIGHT + 2 + (ATTRIBUTE_ITEM_HEIGHT + 1) * ((1 + totalAttributes) * portfolioIndex + attributeIndex) };
+  const rowsToRender = (TOTAL_ATTRIBUTES + 1) * Math.ceil(HOLDINGS_PER_PAGE / (TOTAL_ATTRIBUTES + 1));
+
+  const cellTopPx = (portfolioIndex: number, attributeIndex: number): number => { return ATTRIBUTE_ITEM_HEIGHT + 2 + (ATTRIBUTE_ITEM_HEIGHT + 1) * ((1 + TOTAL_ATTRIBUTES) * portfolioIndex + attributeIndex) };
 
   return (
     <LinksDataContext.Provider value={{
       cellTopPx,
       getLinksDataCopy,
       rowsToRender,
-      totalAttributes,
+      totalHoldings: linksData.length,
+      // pageToShow,
+      setPageToShow,
       isEditMode,
       setIsEditMode,
       addLink,

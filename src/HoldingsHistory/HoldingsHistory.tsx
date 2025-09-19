@@ -51,10 +51,10 @@ const HoldingsHistory = (props: HoldingsHistoryProps) => {
       id="holdings-history-container"
       style={{ height: `calc(100% - ${FOOTER_HEIGHT})`, width: '100%', position: 'relative', border: `1px solid ${MAIN_BORDER_COLOR}` }}
     >
-      <DateProvider todayDate={linksFromApi.today} numberOfYears={NUMBER_OF_YEARS}>
+      <DateProvider todayDate={linksFromApi.data.today} numberOfYears={NUMBER_OF_YEARS}>
         <ModalProvider>
           <MessageOverProvider>
-            <LinksDataProvider linksDataFromApi={linksFromApi.data}>
+            <LinksDataProvider linksDataFromApi={linksFromApi.data.holdings}>
               <ExpandedHoldingsProvider>
                 <HoldingsProvider holdings={linksFromApi.data.holdings || []}>
 
