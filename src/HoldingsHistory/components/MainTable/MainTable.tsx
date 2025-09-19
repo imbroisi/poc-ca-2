@@ -45,18 +45,49 @@ const MainTable = () => {
     // Set flag to prevent scroll synchronization interference
     isScrollingToTop.current = true;
     
-    // Scroll both columns to top
-    if (fixedColumnRef.current) {
-      fixedColumnRef.current.scrollTop = 0;
-    }
-    if (scrollableColumnRef.current) {
-      scrollableColumnRef.current.scrollTop = 0;
-    }
+    // Custom synchronized smooth scroll
+    const animateScrollToTop = () => {
+      const duration = 300; // Animation duration in ms
+      const startTime = performance.now();
+      
+      // Get initial scroll positions
+      const fixedStartScroll = fixedColumnRef.current?.scrollTop || 0;
+      const scrollableStartScroll = scrollableColumnRef.current?.scrollTop || 0;
+      
+      const animate = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Easing function for smooth animation
+        const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+        
+        // Calculate current scroll positions
+        const fixedCurrentScroll = fixedStartScroll * (1 - easeOutCubic);
+        const scrollableCurrentScroll = scrollableStartScroll * (1 - easeOutCubic);
+        
+        // Apply synchronized scroll positions
+        if (fixedColumnRef.current) {
+          fixedColumnRef.current.scrollTop = fixedCurrentScroll;
+        }
+        if (scrollableColumnRef.current) {
+          scrollableColumnRef.current.scrollTop = scrollableCurrentScroll;
+        }
+        
+        // Continue animation if not complete
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        }
+      };
+      
+      requestAnimationFrame(animate);
+    };
     
-    // Reset flag after scroll events settle
+    animateScrollToTop();
+    
+    // Reset flag after animation completes
     setTimeout(() => {
       isScrollingToTop.current = false;
-    }, 50);
+    }, 350);
   }, [pageToShow]);
 
 
