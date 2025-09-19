@@ -36,9 +36,9 @@ const handlers: Handlers = {
       next.add(action.id);
     }
     // Prevent unnecessary re-renders
-    if (next.size === state.expanded.size && [...next].every(id => state.expanded.has(id))) {
-      return state;
-    }
+    // if (next.size === state.expanded.size && [...next].every(id => state.expanded.has(id))) {
+    //   return state;
+    // }
   
     return { expanded: next };
   },

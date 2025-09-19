@@ -13,6 +13,7 @@ const MenuHoldingName = ({ onClick, rotatedArrow, holdingName }: MenuHoldingName
   return (
     <div className="fixed-column-cell-content" style={{
       height: `${ATTRIBUTE_ITEM_HEIGHT}px`,
+      // borderBottom: '1px solid #ccc'
     }}>
       <span onClick={onClick} className="menu-holding-name" style={{
         transform: rotatedArrow ? 'rotate(90deg)' : 'none',

@@ -1,4 +1,4 @@
-import { HOLDINGS_PER_PAGE } from '../../config';
+import { HOLDINGS_PER_PAGE, ROW_EXPANDED_HEIGHT } from '../../config';
 import './MenuHoldings.css';
 import MenuHoldingName from '../MenuHoldingName';
 import MenuHoldingAttributes from '../MenuHoldingAttributes';

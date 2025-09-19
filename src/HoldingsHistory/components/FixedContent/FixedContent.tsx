@@ -1,5 +1,6 @@
-import { ATTRIBUTE_ITEM_HEIGHT, ATTRIBUTES, TOTAL_ATTRIBUTES } from '../../config';
+import { HOLDINGS_PER_PAGE, ATTRIBUTE_ITEM_HEIGHT, ATTRIBUTES, TOTAL_ATTRIBUTES } from '../../config';
 import MenuHoldings from '../MenuHoldings';
+import MenuHoldingInceptionDate from '../MenuInceptionDate/MenuInceptionDate';
 import './FixedContent.css';
 
 export interface FixedColumnsProps {
@@ -32,7 +33,17 @@ const FixedContent = ({ toggleArrow, fixedColumnRef, handleScroll, show, rotated
           scrollbarWidth: 'none',
           msOverflowStyle: 'none'
         }}>
-          <MenuHoldings show={show} toggleArrow={toggleArrow} rotatedArrows={rotatedArrows} />
+          <div style={{ display: 'flex', flexDirection: 'row' }}>
+            {/* Left fixed menu/attributes column */}
+            <div style={{ flex: '0 0 auto' }}>
+              <MenuHoldings show={show} toggleArrow={toggleArrow} rotatedArrows={rotatedArrows} />
+            </div>
+
+            {/* Right synchronized column with strings per row */}
+            <div style={{ flex: '1 1  auto' }}>
+                <MenuHoldingInceptionDate show={show} />
+            </div>
+          </div>
       </div>
     </div>
   );

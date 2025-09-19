@@ -35,9 +35,17 @@ const handlers: Handlers = {
     } else {
       next.add(action.id);
     }
-    // Prevent unnecessary re-renders
-    if (next.size === state.expanded.size && [...next].every(id => state.expanded.has(id))) {
-      return state;
+    // Prevent unnecessary re-renders (avoid spread/for-of for ES5 target)
+    if (next.size === state.expanded.size) {
+      let allSame = true;
+      next.forEach((id) => {
+        if (!state.expanded.has(id)) {
+          allSame = false;
+        }
+      });
+      if (allSame) {
+        return state;
+      }
     }
   
     return { expanded: next };

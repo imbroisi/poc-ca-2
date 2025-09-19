@@ -1,0 +1,17 @@
+.menu-holding-name {
+  cursor: pointer;
+  margin-right: 4px;
+  margin-left: 8px;
+  color: #aaaaaa;
+}
+
+.fixed-column-cell-content {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  border-bottom: 1px solid #ccc;
+  background-color: #fafafa;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
