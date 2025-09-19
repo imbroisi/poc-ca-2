@@ -7,11 +7,13 @@ import { HOLDINGS_PER_PAGE, MAIN_BORDER_COLOR, TOTAL_ATTRIBUTES } from '../../co
 import { useLinksDataContext } from '../../context/LinksDataProvider';
 
 const MainTable = () => {
-  const { totalHoldings } = useLinksDataContext();
+  const { totalHoldings, pageToShow } = useLinksDataContext();
   const [show, setShow] = useState<boolean[] | null>(null);
   const [rotatedArrows, setRotatedArrows] = useState<boolean[]>(new Array(HOLDINGS_PER_PAGE).fill(true));
   const fixedColumnRef = useRef<HTMLDivElement>(null);
   const scrollableColumnRef = useRef<HTMLDivElement>(null);
+  const isScrollingToTop = useRef(false);
+  const isInitialLoad = useRef(true);
 
   // Set scroll position immediately during render - no loading then scrolling
   const setScrollableRef = useCallback((element: HTMLDivElement | null) => {
@@ -32,6 +34,31 @@ const MainTable = () => {
     setShow(new Array(totalHoldings).fill(true));
   }, [totalHoldings]);
 
+  // Scroll to top when page changes
+  useEffect(() => {
+    // Skip only the very first load when component mounts
+    if (isInitialLoad.current) {
+      isInitialLoad.current = false;
+      return;
+    }
+    
+    // Set flag to prevent scroll synchronization interference
+    isScrollingToTop.current = true;
+    
+    // Scroll both columns to top
+    if (fixedColumnRef.current) {
+      fixedColumnRef.current.scrollTop = 0;
+    }
+    if (scrollableColumnRef.current) {
+      scrollableColumnRef.current.scrollTop = 0;
+    }
+    
+    // Reset flag after scroll events settle
+    setTimeout(() => {
+      isScrollingToTop.current = false;
+    }, 50);
+  }, [pageToShow]);
+
 
   const toggleArrow = (index: number) => {
     // console.log("==>> toggleArrow", index);
@@ -47,6 +74,9 @@ const MainTable = () => {
   };
 
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
+    // Skip synchronization during scroll-to-top operation
+    if (isScrollingToTop.current) return;
+    
     const scrollingElement = event.currentTarget;
     const isFixedColumn = scrollingElement === fixedColumnRef.current;
 
