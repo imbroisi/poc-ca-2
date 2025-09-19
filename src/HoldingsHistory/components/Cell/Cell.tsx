@@ -1,6 +1,6 @@
 import { memo, useState } from 'react';
 import './Cell.css';
-import { ATTRIBUTE_ITEM_HEIGHT, NUMBER_OF_YEARS, TOTAL_ATTRIBUTES, YEAR_CELL_WIDTH_PX } from '../../config';
+import { ATTRIBUTE_ITEM_HEIGHT, MAIN_BORDER_COLOR, NUMBER_OF_YEARS, TOTAL_ATTRIBUTES, YEAR_CELL_WIDTH_PX } from '../../config';
 import { useDateContext } from '../../context/DateContext';
 
 export interface CellProps {
@@ -38,7 +38,7 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
             style={{
               position: 'absolute',
               left: `${yearIndex * YEAR_CELL_WIDTH_PX - 1}px`,
-              borderLeft: '1px solid #bbb',
+              borderLeft: `1px solid ${MAIN_BORDER_COLOR}`,
               height: `${ATTRIBUTE_ITEM_HEIGHT * (TOTAL_ATTRIBUTES + 1)}px`,
             }}>
           </div>
@@ -49,6 +49,7 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
         className="table-cell-attribute-container"
         style={{
           height: `${ATTRIBUTE_ITEM_HEIGHT}px`,
+          borderColor: MAIN_BORDER_COLOR,
         }} />
 
       {Array.from({ length: TOTAL_ATTRIBUTES }).map((_, attributeIndex) => {

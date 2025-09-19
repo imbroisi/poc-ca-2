@@ -3,7 +3,7 @@
   width: 100%;
   height: 100%;
   font-size: 11px;
-  border-right: 1px solid #e0e0e0;
+  /* border-right: 10px solid #e0e0e0; */
   align-items: flex-start;
 
   /* Remove bold from all table headers in HoldingsHistory */

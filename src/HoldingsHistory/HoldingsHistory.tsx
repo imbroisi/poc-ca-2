@@ -4,7 +4,7 @@ import { MessageOverProvider } from './context/MessageOverContext';
 // import { ExpandedHoldingsProvider } from './context/ExpandedHoldingsContext';
 // import { HoldingsProvider } from './context/HoldingsContext';
 import { LinksDataProvider } from './context/LinksDataProvider';
-import { FOOTER_HEIGHT, NUMBER_OF_YEARS } from './config';
+import { FOOTER_HEIGHT, MAIN_BORDER_COLOR, NUMBER_OF_YEARS } from './config';
 import MessageOver from './components/GlobalMessageOver';
 import GlobalModal from './components/GlobalModal/GlobalModal';
 import './HoldingsHistory.css';
@@ -49,7 +49,7 @@ const HoldingsHistory = (props: HoldingsHistoryProps) => {
   return (
     <div
       id="holdings-history-container"
-      style={{ height: `calc(100% - ${FOOTER_HEIGHT})`, width: '100%', position: 'relative', border: '1px solid red' }}
+      style={{ height: `calc(100% - ${FOOTER_HEIGHT})`, width: '100%', position: 'relative', border: `1px solid ${MAIN_BORDER_COLOR}` }}
     >
       <DateProvider todayDate={linksFromApi.today} numberOfYears={NUMBER_OF_YEARS}>
         <ModalProvider>

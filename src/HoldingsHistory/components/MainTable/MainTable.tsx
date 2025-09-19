@@ -3,7 +3,7 @@ import HoldingsLinks from '../HoldingsLinks';
 
 import './MainTable.css';
 import FixedContent from '../FixedContent';
-import { HOLDINGS_PER_PAGE } from '../../config';
+import { HOLDINGS_PER_PAGE, MAIN_BORDER_COLOR } from '../../config';
 
 const MainTable = () => {
   const [show, setShow] = useState<boolean[]>(new Array(HOLDINGS_PER_PAGE).fill(true));
@@ -47,7 +47,16 @@ const MainTable = () => {
   }, []);
 
   return (
-      <div className="table-container">
+      <div 
+        className="table-container"
+        style={{
+          // Move critical layout styles inline for better scroll performance
+          height: '100%',
+          width: '100%',
+          display: 'flex',
+          overflow: 'hidden',
+          boxSizing: 'border-box',
+        }}>
         <FixedContent
           toggleArrow={toggleArrow}
           fixedColumnRef={fixedColumnRef as React.RefObject<HTMLDivElement>}

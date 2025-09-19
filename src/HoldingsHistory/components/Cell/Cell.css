@@ -1,7 +1,6 @@
 .table-cell {
   display: table-cell;
   width: 300px;
-  border-right: 1px solid #ccc;
   box-sizing: border-box;
   transition: height 0.3s ease-in-out;
 }
@@ -29,6 +28,6 @@
 
 .table-cell-attribute-container {
   background-color: #fafafa;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid;
   box-sizing: border-box;
 }

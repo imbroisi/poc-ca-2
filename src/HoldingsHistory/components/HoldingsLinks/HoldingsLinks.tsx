@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { ATTRIBUTE_ITEM_HEIGHT, HOLDINGS_PER_PAGE, NUMBER_OF_YEARS, YEAR_CELL_WIDTH_PX } from '../../config';
+import { ATTRIBUTE_ITEM_HEIGHT, HOLDINGS_PER_PAGE, MAIN_BORDER_COLOR, NUMBER_OF_YEARS, YEAR_CELL_WIDTH_PX } from '../../config';
 import HoldingYearCell from '../Cell';
 import TodayLine from '../TodayLine';
 import './HoldingsLinks.css';
@@ -39,6 +39,11 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
       style={{
         // Do not move to CSS, as this will cause a delay in vertical scrolling synchronization.
         overflow: 'auto',
+        // Critical layout styles moved inline for performance
+        flex: 1,
+        // Performance optimizations for smooth scrolling
+        willChange: 'scroll-position',
+        WebkitOverflowScrolling: 'touch',
       }}>
       <div style={{ width: `${NUMBER_OF_YEARS * YEAR_CELL_WIDTH_PX}px` }}>
         {/* Header row */}
@@ -47,7 +52,11 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
             <div
               key={colIndex}
               className="header-cell"
-              style={{ width: `${YEAR_CELL_WIDTH_PX}px` }}
+              style={{ 
+                width: `${YEAR_CELL_WIDTH_PX}px`, 
+                borderColor: MAIN_BORDER_COLOR,
+                borderRight: colIndex === NUMBER_OF_YEARS - 1 ? 'none' : `1px solid ${MAIN_BORDER_COLOR}`
+              }}
             >
               {colIndex + 2023}
             </div>
@@ -66,7 +75,17 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
               key={holdingIdex}
               className="table-row"
               style={{
+                borderColor: MAIN_BORDER_COLOR,
                 height: `${ATTRIBUTE_ITEM_HEIGHT}px`,
+                // Move critical layout styles inline for better performance
+                position: 'relative',
+                display: 'table-row',
+                // borderTop: '1px solid #ccc',
+                overflow: 'hidden',
+                // Performance optimizations
+                transition: 'height 0.3s ease-in-out',
+                willChange: 'height',
+                contain: 'layout style',
               }}>
               <HoldingYearCell
                 showMe={show[holdingIdex]}

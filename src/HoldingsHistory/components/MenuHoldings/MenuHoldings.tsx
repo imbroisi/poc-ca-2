@@ -1,4 +1,4 @@
-import { HOLDINGS_PER_PAGE } from '../../config';
+import { HOLDINGS_PER_PAGE, MAIN_BORDER_COLOR } from '../../config';
 import './MenuHoldings.css';
 import MenuHoldingName from '../MenuHoldingName';
 import MenuHoldingAttributes from '../MenuHoldingAttributes';
@@ -22,7 +22,7 @@ const MenuHoldings = ({ show, toggleArrow, rotatedArrows }: MenuHoldingsProps) =
             overflow: 'hidden'
           }}
         >
-          <div className="fixed-column-cell">
+          <div className="fixed-column-cell" style={{ borderColor: MAIN_BORDER_COLOR }}>
 
             <MenuHoldingName
               holdingName={`Holding ${rowIndex + 1}`}

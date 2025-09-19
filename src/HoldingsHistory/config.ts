@@ -19,6 +19,8 @@ export const LINKS_BORDERS_COLORS = [
   '#718fe3', // TODO: primary/blue-gray-80
 ];
 
+export const MAIN_BORDER_COLOR = '#c0c0c0';
+
 export const ATTRIBUTES = {
   'CRM Client': 'enabled',
   'CRM Service': 'enabled',
