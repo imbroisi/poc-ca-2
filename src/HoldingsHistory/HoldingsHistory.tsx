@@ -56,7 +56,7 @@ const HoldingsHistory = (props: HoldingsHistoryProps) => {
           <MessageOverProvider>
             <LinksDataProvider linksDataFromApi={linksFromApi.data.holdings}>
               <ExpandedHoldingsProvider>
-                <HoldingsProvider holdings={linksFromApi.data.holdings || []}>
+                <HoldingsProvider holdings={linksFromApi.data.holdings}>
 
                   <MainTable />
                   <Footer />

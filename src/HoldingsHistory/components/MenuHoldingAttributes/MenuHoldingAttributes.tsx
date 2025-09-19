@@ -2,14 +2,16 @@ import { ATTRIBUTE_ITEM_HEIGHT, ATTRIBUTES, TOTAL_ATTRIBUTES } from '../../confi
 import './MenuHoldingAttributes.css';
 
 export interface MenuHoldingAttributesProps {
-  show: boolean;
+  show: boolean | null;
 }
 
 const MenuHoldingAttributes = ({ show }: MenuHoldingAttributesProps) => {
+
+  console.log("30 ==>> show", show);
   return (
     <div className="expandable-content" style={{
-      height: show ? `${ATTRIBUTE_ITEM_HEIGHT * TOTAL_ATTRIBUTES}px` : '0',
-      opacity: show ? 1 : 0,
+      height: show === null || show ? `${ATTRIBUTE_ITEM_HEIGHT * TOTAL_ATTRIBUTES}px` : '0',
+      opacity: show === null || show ? 1 : 0,
     }}>
       {Object.keys(ATTRIBUTES).map((attribute) => (
         <div

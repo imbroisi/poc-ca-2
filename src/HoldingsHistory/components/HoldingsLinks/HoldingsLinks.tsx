@@ -8,7 +8,7 @@ import useLinks from '../../hooks/useLinks';
 export interface ContentProps {
   scrollableColumnRef: React.RefObject<HTMLDivElement> | null;
   handleScroll: (event: React.UIEvent<HTMLDivElement>) => void;
-  show: boolean[];
+  show: boolean[] | null;
   setScrollableRef?: (element: HTMLDivElement | null) => void;
 }
 
@@ -88,7 +88,7 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
                 contain: 'layout style',
               }}>
               <HoldingYearCell
-                showMe={show[holdingIdex]}
+                showMe={show === null || show[holdingIdex]}
                 label={`R${holdingIdex + 2}`}
                 holdingIdex={holdingIdex}
                 setCellCoord={setCellCoord}

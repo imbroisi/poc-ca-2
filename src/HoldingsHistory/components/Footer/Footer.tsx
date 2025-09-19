@@ -14,6 +14,7 @@ const Footer = () => {
 
   const handlePaginationChange = (event: React.ChangeEvent<unknown>, value: number) => {
     console.log("13 ==>> value", value);
+    setPageToShow(value);
   }
 
   return (

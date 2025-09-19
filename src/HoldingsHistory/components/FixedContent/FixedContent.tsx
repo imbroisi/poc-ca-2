@@ -6,19 +6,17 @@ export interface FixedColumnsProps {
   toggleArrow: (index: number) => void;
   fixedColumnRef: React.RefObject<HTMLDivElement>;
   handleScroll: (event: React.UIEvent<HTMLDivElement>) => void;
-  show: boolean[];
+  show: boolean[] | null;
   rotatedArrows: boolean[];
 }
 
 const FixedContent = ({ toggleArrow, fixedColumnRef, handleScroll, show, rotatedArrows }: FixedColumnsProps) => {
-
   return (
     <div 
       className="fixed-column"
       style={{
         // Move critical layout styles inline for better performance
         width: '300px',
-        // borderRight: '1px solid #666',
         display: 'flex',
         flexDirection: 'column',
         borderColor: MAIN_BORDER_COLOR,

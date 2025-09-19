@@ -11,7 +11,7 @@ interface LinksDataTypesWithColor extends LinksDataTypes {
   noFinalDate?: boolean;
 }
 
-const useLinks = ({ show, cellsCoord }: { show: boolean[], cellsCoord: any }) => {
+const useLinks = ({ show, cellsCoord }: { show: boolean[] | null, cellsCoord: any }) => {
   const { getLinksDataCopy } = useLinksDataContext();
   const { todayYyyyMmDd } = useDateContext();
   // const { deleteLink } = useLinksDataContext();

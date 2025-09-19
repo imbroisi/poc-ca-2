@@ -15,12 +15,24 @@ export interface Attribute {
   inceptionDate: string; // ISO ou yyyy/mm/dd //
   // isEditable?: // pra indicar qual é editável
 }
+export interface ValueLink {
+  attributeId: number;
+  valueLinkId: number;
+  attributeValueId: number;
+  label: string;
+  startEffectiveDate: string;
+  endEffectiveDate: string;
+}
 
 export interface Holding {
-  id: HoldingId;
+  holdingId: number;
+  marsHoldingId: number;
+  holdingName: string;
+  clientId: string;
   name: string;
   inceptionDate: string;
   attributes: Attribute[];
+  valueLinks: ValueLink[];
 }
 
 export type VisibleLeftRow =

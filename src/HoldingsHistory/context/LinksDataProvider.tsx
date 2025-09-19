@@ -1,6 +1,7 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react'
 import { ATTRIBUTE_ITEM_HEIGHT, HOLDINGS_PER_PAGE, TOTAL_ATTRIBUTES } from '../config';
 import { useDateContext } from './DateContext';
+import { ValueLink } from '../types/expandTypes';
 
 export interface LinksDataTypes {
   id: string;
@@ -10,6 +11,10 @@ export interface LinksDataTypes {
   lastDayDate: string;
   attributeId: string;
   holdingId: string;
+  holdingName: string;
+  clientId: string;
+  inceptionDate: string;
+  valueLinks: ValueLink[];
 }
 
 interface LinksDataContextType {
@@ -22,6 +27,7 @@ interface LinksDataContextType {
   addLink: (lastDayStr: string, firstDayStr: string, cellIndex: number, cellRowIndex: number) => void;
   deleteLink: (linkData: LinksDataTypes) => void;
   setPageToShow: (page: number) => void;
+  pageToShow: number;
 }
 
 interface LinksDataProviderProps {
@@ -39,15 +45,19 @@ export const LinksDataProvider = ({
   const [linksData, setLinksData] = useState<any[]>([]);
   const [pageToShow, setPageToShow] = useState(1);
   const dateCtx = useDateContext();
+  const totalHoldings = useRef(0);
   const getNDaysBefore = dateCtx?.getNDaysBefore ?? ((date: string, n: number) => {
     const d = new Date(date);
     d.setUTCDate(d.getUTCDate() - n);
     return d.toISOString().split('T')[0];
   });
 
+  console.log("9 ==>> linksDataFromApi", linksDataFromApi);
+
   useEffect(() => {
     // TODO: format links data from api response to LinksDataTypes
     setLinksData(linksDataFromApi);
+    totalHoldings.current = linksDataFromApi.length;
   }, [linksDataFromApi]);
 
   // const linksData = linksDataFromApi;
@@ -59,7 +69,7 @@ export const LinksDataProvider = ({
     // const linksDataPaginated = linksData.slice((pageToShow - 1) * HOLDINGS_PER_PAGE, pageToShow * HOLDINGS_PER_PAGE);
     // console.log("12 ==>> linksDataPaginated", linksDataPaginated);
     // return linksDataPaginated.map((linkData) => ({ ...linkData }));
-    
+
     return linksData.map((linkData) => ({ ...linkData }));
 
     
@@ -117,13 +127,15 @@ export const LinksDataProvider = ({
 
   const cellTopPx = (portfolioIndex: number, attributeIndex: number): number => { return ATTRIBUTE_ITEM_HEIGHT + 2 + (ATTRIBUTE_ITEM_HEIGHT + 1) * ((1 + TOTAL_ATTRIBUTES) * portfolioIndex + attributeIndex) };
 
+  // const totalHoldings = linksData.length;
+
   return (
     <LinksDataContext.Provider value={{
       cellTopPx,
       getLinksDataCopy,
       rowsToRender,
-      totalHoldings: linksData.length,
-      // pageToShow,
+      totalHoldings: totalHoldings.current,
+      pageToShow, 
       setPageToShow,
       isEditMode,
       setIsEditMode,
