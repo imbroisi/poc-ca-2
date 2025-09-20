@@ -49,7 +49,7 @@ const HoldingsHistory = (props: HoldingsHistoryProps) => {
   return (
     <div
       id="holdings-history-container"
-      style={{ height: `calc(100% - ${FOOTER_HEIGHT})`, width: '100%', position: 'relative', border: `1px solid ${MAIN_BORDER_COLOR}` }}
+      style={{ height: `calc(100% - ${FOOTER_HEIGHT})`, width: '100%', position: 'relative', border: 0 /*`1px solid ${MAIN_BORDER_COLOR}`*/ }}
     >
       <DateProvider todayDate={linksFromApi.data.today} numberOfYears={NUMBER_OF_YEARS}>
         <ModalProvider>

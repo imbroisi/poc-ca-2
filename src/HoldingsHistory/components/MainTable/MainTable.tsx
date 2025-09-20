@@ -130,6 +130,7 @@ const MainTable = () => {
         display: 'flex',
         overflow: 'hidden',
         boxSizing: 'border-box',
+        borderColor: MAIN_BORDER_COLOR,
       }}>
       <FixedContent
         toggleArrow={toggleArrow}
