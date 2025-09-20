@@ -19,23 +19,24 @@ const Footer = () => {
   };
 
   const showPagination = totalHoldings > 0;
-  console.log("98 ================>> holdingsPerPage", holdingsPerPage);
 
   return (
     <div className="holdings-history-footer" style={{ height: FOOTER_HEIGHT, borderColor: MAIN_BORDER_COLOR }}>
       <div>
-        {/* EDIT BUTTON */}
+        {/* TODO: EDIT BUTTON */}
       </div>
       <div className="holdings-history-footer-pagination" style={{ borderColor: MAIN_BORDER_COLOR, visibility: showPagination ? 'visible' : 'hidden' }}>
-        <div style={{ fontSize: '15px', marginBottom: '4px' }}>Total holdings: <span style={{ fontWeight: 'bold' }} >{totalHoldings}</span></div>
-        
-        
-        <div style={{ fontSize: '15px', marginBottom: '4px', marginLeft: '32px' }}>Holdings per page:</div>
-        <div style={{ position: 'relative', marginLeft: '8px' }}>
+        <div className="holdings-history-footer-total-holdings">Total holdings:
+          <span className="holdings-history-footer-total-holdings-span"> {totalHoldings}</span>
+        </div>
+        <div className='holdings-history-footer-holdings-per-page'>
+          Holdings per page:
+        </div>
+        <div>
           <Select
             displayEmpty
-            labelId="demo-simple-select-disabled-label"
-            id="demo-simple-select-disabled"
+            labelId="holdings-history-select-disabled-label"
+            id="holdings-history-demo-simple-select-disabled"
             value={holdingsPerPage.toString()}
             label="Holdings per page"
             onChange={handleChangeHoldingsPerPage}
@@ -46,17 +47,21 @@ const Footer = () => {
             {HOLDINGS_PER_PAGE_OPTIONS.map((option) => (
               <MenuItem key={option} sx={{ fontSize: '15px' }} value={option}>{option}</MenuItem>
             ))}
-            <MenuItem sx={{ fontSize: '15px' }} value={Infinity}>ALL</MenuItem>
+            {/* TODO: will we show this option? */}
+            {/* <MenuItem sx={{ fontSize: '15px' }} value={Infinity}>ALL</MenuItem> */}
           </Select>
 
         </div>
-        <div style={{ border: `1px solid ${MAIN_BORDER_COLOR}`, padding: '6px', borderRadius: '4px', marginLeft: '40px' }}>
-          <Pagination 
+        <div
+          className="holdings-history-footer-pagination-select"
+          style={{ borderColor: MAIN_BORDER_COLOR }}
+        >
+          <Pagination
             key={`pagination-${pageToShow}-${holdingsPerPage}`}
-            page={pageToShow} 
-            onChange={handlePaginationChange} 
-            count={Math.ceil(totalHoldings / holdingsPerPage)} 
-            size="small" 
+            page={pageToShow}
+            onChange={handlePaginationChange}
+            count={Math.ceil(totalHoldings / holdingsPerPage)}
+            size="small"
           />
         </div>
       </div>

@@ -82,8 +82,8 @@ export const LinksDataProvider = ({
 
     return linksData.map((linkData) => ({ ...linkData }));
 
-    
-    
+
+
   };
 
   // console.log("1009) ===>>> linksData =", linksData);
@@ -91,7 +91,7 @@ export const LinksDataProvider = ({
   const addLink = (lastDayDate: string, firstDayDate: string, attributeIndex: number, portfolioIndex: number) => {
     // console.log("1008) ===>>> addLink =", lastDayDate, firstDayDate, attributeIndex, portfolioIndex);
     setLinksData((prev) => [
-      ...prev, 
+      ...prev,
       {
         portfolioIndex,
         attributeIndex,
@@ -104,7 +104,7 @@ export const LinksDataProvider = ({
     const linksDataCopy = [...linksData];
 
     // delete linkDataToDelete from linksData
-    const deleteIndex = linksDataCopy.findIndex(link => 
+    const deleteIndex = linksDataCopy.findIndex(link =>
       link.portfolioIndex === linkDataToDelete.portfolioIndex &&
       link.attributeIndex === linkDataToDelete.attributeIndex &&
       link.firstDayDate === linkDataToDelete.firstDayDate
@@ -116,7 +116,7 @@ export const LinksDataProvider = ({
 
     // adjust size of previous link
     const lastDayDateBefore = getNDaysBefore(linkDataToDelete.firstDayDate, 1);
-    const previousLink = linksDataCopy.find(link => 
+    const previousLink = linksDataCopy.find(link =>
       link.portfolioIndex === linkDataToDelete.portfolioIndex &&
       link.attributeIndex === linkDataToDelete.attributeIndex &&
       link.lastDayDate === lastDayDateBefore
@@ -146,14 +146,14 @@ export const LinksDataProvider = ({
 
   const setHoldingsPerPageFn = (page: number) => {
     setHoldingsPerPage(page);
-    
-    localStorage.setItem(LOCAL_STORAGE_HOLDINGS_PAGE_KEY, 
+
+    localStorage.setItem(LOCAL_STORAGE_HOLDINGS_PAGE_KEY,
       (page === Infinity ? HOLDINGS_PER_PAGE_DEFAULT : page).toString());
 
     // Reset to first page when changing holdings per page
-    setPageToShow(1); 
+    setPageToShow(1);
   }
-  
+
 
   return (
     <LinksDataContext.Provider value={{
@@ -163,7 +163,7 @@ export const LinksDataProvider = ({
       holdingsPerPage,
       rowsToRender,
       totalHoldings: totalHoldings.current,
-      pageToShow, 
+      pageToShow,
       setPageToShow,
       setHoldingsPerPage: setHoldingsPerPageFn,
       isEditMode,

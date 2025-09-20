@@ -17,3 +17,24 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.holdings-history-footer-pagination-select {
+  border: 1px solid ;
+  padding: 6px;
+  border-radius: 4px;
+  margin-left: 40px;
+}
+
+.holdings-history-footer-total-holdings {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.holdings-history-footer-holdings-per-page {
+  font-size: 15px;
+  margin: 0 8px 4px 32px; 
+}
+
+.holdings-history-footer-total-holdings-span {
+  font-weight: bold;
+}
