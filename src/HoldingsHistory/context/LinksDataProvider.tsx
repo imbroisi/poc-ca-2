@@ -41,7 +41,7 @@ interface LinksDataProviderProps {
 const LOCAL_STORAGE_HOLDINGS_PAGE_KEY = 'holdings-history-holdings-per-page';
 const holdingsPerPageInitial = parseInt(localStorage.getItem(LOCAL_STORAGE_HOLDINGS_PAGE_KEY) || HOLDINGS_PER_PAGE_DEFAULT.toString());
 
-console.log("100 ==>> holdingsPerPageInitial", holdingsPerPageInitial);
+// console.log("100 ==>> holdingsPerPageInitial", holdingsPerPageInitial);
 
 const LinksDataContext = createContext<LinksDataContextType | undefined>(undefined)
 
@@ -61,7 +61,7 @@ export const LinksDataProvider = ({
     return d.toISOString().split('T')[0];
   });
 
-  console.log("9 ==>> linksDataFromApi", linksDataFromApi);
+  // console.log("9 ==>> linksDataFromApi", linksDataFromApi);
 
   useEffect(() => {
     // TODO: format links data from api response to LinksDataTypes
@@ -130,9 +130,10 @@ export const LinksDataProvider = ({
   }
 
   const getHoldingsFilteredByPage = () => {
-    console.log("100 ==>> pageToShow", pageToShow);
-    console.log("101 ==>> holdingsPerPage", holdingsPerPage);
-    return linksData.slice((pageToShow - 1) * holdingsPerPage, pageToShow * holdingsPerPage);
+    const holdingsPerPageToUse = holdingsPerPage === -1 ? totalHoldings.current : holdingsPerPage;
+    // console.log("100 ==>> pageToShow", pageToShow);
+    // console.log("101 ==>> holdingsPerPage", holdingsPerPage);
+    return linksData.slice((pageToShow - 1) * holdingsPerPageToUse, pageToShow * holdingsPerPageToUse);
   }
 
   // const setPageToShow = (page: number) => {
@@ -145,10 +146,14 @@ export const LinksDataProvider = ({
 
   const setHoldingsPerPageFn = (page: number) => {
     setHoldingsPerPage(page);
-    setPageToShow(1); // Reset to first page when changing holdings per page
-    localStorage.setItem(LOCAL_STORAGE_HOLDINGS_PAGE_KEY, page.toString());
+    
+    localStorage.setItem(LOCAL_STORAGE_HOLDINGS_PAGE_KEY, 
+      (page === Infinity ? HOLDINGS_PER_PAGE_DEFAULT : page).toString());
+
+    // Reset to first page when changing holdings per page
+    setPageToShow(1); 
   }
-  // const totalHoldings = linksData.length;
+  
 
   return (
     <LinksDataContext.Provider value={{

@@ -7,7 +7,6 @@ export interface MenuHoldingAttributesProps {
 
 const MenuHoldingAttributes = ({ show }: MenuHoldingAttributesProps) => {
 
-  console.log("30 ==>> show", show);
   return (
     <div className="expandable-content" style={{
       height: show === null || show ? `${ATTRIBUTE_ITEM_HEIGHT * TOTAL_ATTRIBUTES}px` : '0',

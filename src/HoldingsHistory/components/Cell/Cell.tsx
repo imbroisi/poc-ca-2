@@ -18,17 +18,17 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
   const { convertDateToPositionPx } = useDateContext();
 
   const drawLinks = (data: any) => {
-    console.log("2500 ++++++==>> drawLinks() data", data);
+    // console.log("2500 ++++++==>> drawLinks() data", data);
     setLinkData((prev: any) => [ ...prev, data ]);
   }
 
   useEffect(() => {
-    console.log("2501 ==>> pageToShow", pageToShow);
+    // console.log("2501 ==>> pageToShow", pageToShow);
     setLinkData([]);
   }, [pageToShow]);
 
-  console.log("3000 ==>> holdingIdex", holdingIdex);
-  console.log("3001 ==>> linkDataBulk", linkDataBulk);
+  // console.log("3000 ==>> holdingIdex", holdingIdex);
+  // console.log("3001 ==>> linkDataBulk", linkDataBulk);
 
 
   return (
@@ -82,9 +82,9 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
               // console.log("3006 ==>> linkData", linkData);
               // console.log("3007 ==>> linkData?.startEffectiveDate", linkData?.startEffectiveDate);
               
-              console.log("\n3008 ==>> linkData?.holdingRealIndex", linkData?.holdingRealIndex);
-              // console.log("3009 ==>> holdingIdex", holdingIdex);
-              console.log("3010 ==>> linkData?.attributeIndex", linkData?.label);
+              // console.log("\n3008 ==>> linkData?.holdingRealIndex", linkData?.holdingRealIndex);
+              // // console.log("3009 ==>> holdingIdex", holdingIdex);
+              // console.log("3010 ==>> linkData?.attributeIndex", linkData?.label);
               // console.log("3010 ==>> linkData?.attributeIndex", linkData?.attributeIndex);
               // console.log("3011 ==>> attributeIndex", attributeIndex);
               // console.log("2502 ==>> logic", linkData?.holdingRealIndex === holdingIdex && linkData?.attributeIndex === attributeIndex);

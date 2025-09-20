@@ -15,7 +15,7 @@ const MenuHoldings = ({ show, toggleArrow, rotatedArrows }: MenuHoldingsProps) =
   
   const holdingsFilteredByPage = getHoldingsFilteredByPage();
 
-  console.log("400 ==>> holdingsFilteredByPage", holdingsFilteredByPage);
+  // console.log("400 ==>> holdingsFilteredByPage", holdingsFilteredByPage);
   
   return (
     <div className="fixed-column-table">

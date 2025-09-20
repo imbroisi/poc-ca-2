@@ -1,5 +1,5 @@
 import { MenuItem, OutlinedInput, Pagination, Select, SelectChangeEvent } from '@mui/material';
-import { FOOTER_HEIGHT, HOLDINGS_PER_PAGE_DEFAULT, MAIN_BORDER_COLOR } from '../../config';
+import { FOOTER_HEIGHT, HOLDINGS_PER_PAGE_DEFAULT, HOLDINGS_PER_PAGE_OPTIONS, MAIN_BORDER_COLOR } from '../../config';
 import './Footer.css';
 import { useLinksDataContext } from '../../context/LinksDataProvider';
 
@@ -19,6 +19,7 @@ const Footer = () => {
   };
 
   const showPagination = totalHoldings > 0;
+  console.log("98 ================>> holdingsPerPage", holdingsPerPage);
 
   return (
     <div className="holdings-history-footer" style={{ height: FOOTER_HEIGHT, borderColor: MAIN_BORDER_COLOR }}>
@@ -42,10 +43,10 @@ const Footer = () => {
             input={<OutlinedInput />}
             sx={{ width: 80, fontSize: '15px' }}
           >
-            <MenuItem sx={{ fontSize: '15px' }} value="5">{' 5 '}</MenuItem>
-            <MenuItem sx={{ fontSize: '15px' }} value="10">10</MenuItem>
-            <MenuItem sx={{ fontSize: '15px' }} value="20">20</MenuItem>
-            <MenuItem sx={{ fontSize: '15px' }} value={totalHoldings}>ALL</MenuItem>
+            {HOLDINGS_PER_PAGE_OPTIONS.map((option) => (
+              <MenuItem key={option} sx={{ fontSize: '15px' }} value={option}>{option}</MenuItem>
+            ))}
+            <MenuItem sx={{ fontSize: '15px' }} value={Infinity}>ALL</MenuItem>
           </Select>
 
         </div>

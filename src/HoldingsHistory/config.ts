@@ -34,8 +34,10 @@ export const ATTRIBUTES = {
   'Service Type': 'disabled',
 };
 
+export const HOLDINGS_PER_PAGE_OPTIONS = [5, 10, 20, 50];
+export const HOLDINGS_PER_PAGE_DEFAULT = 10;
+
 export const TOTAL_ATTRIBUTES = Object.keys(ATTRIBUTES).length;
 export const ATTRIBUTE_ITEM_HEIGHT = 27;
-export const HOLDINGS_PER_PAGE_DEFAULT = 10;
 
 export const FOOTER_HEIGHT = '60px';

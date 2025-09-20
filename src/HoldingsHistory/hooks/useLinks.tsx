@@ -43,11 +43,11 @@ const useLinks = ({ show, cellsCoord }: { show: boolean[] | null, cellsCoord: an
     const filteredLinks = getHoldingsFilteredByPage();
 
 
-    console.log("1000 ==>> filteredLinks", filteredLinks);
+    // console.log("1000 ==>> filteredLinks", filteredLinks);
 
     const formatedLinks = formatLinks(filteredLinks);
 
-    console.log("1001 ==>> formatedLinks", formatedLinks);
+    // console.log("1001 ==>> formatedLinks", formatedLinks);
 
 
     const replaceToday = () => {
@@ -75,7 +75,7 @@ const useLinks = ({ show, cellsCoord }: { show: boolean[] | null, cellsCoord: an
         group.sort((a: any, b: any) => new Date(b.startEffectiveDate).getTime() - new Date((a).startEffectiveDate).getTime())
       ).flat();
 
-      console.log("1002 ==>> sortedGroups", sortedGroups);
+      // console.log("1002 ==>> sortedGroups", sortedGroups);
 
       sortedGroups.forEach((linkData: any, index: number) => {
         linkData.color = LINKS_COLORS[index % LINKS_COLORS.length];
@@ -86,7 +86,7 @@ const useLinks = ({ show, cellsCoord }: { show: boolean[] | null, cellsCoord: an
     replaceToday();
     includeColorsToLinks();
 
-    console.log("1003 ==>> formatedLinks", formatedLinks);
+    // console.log("1003 ==>> formatedLinks", formatedLinks);
 
     // const onDeleteClicked = (linkData: LinksDataTypesWithColor, mousePosition: [number, number]) => {
     //   linkToDelete.current = linkData;
@@ -110,7 +110,7 @@ const useLinks = ({ show, cellsCoord }: { show: boolean[] | null, cellsCoord: an
     show.forEach((_, index) => {
       formatedLinks.forEach((linkData: any) => {
         if (linkData.holdingPaginedIndex === index) {
-          console.log("2001 ==>> wrining linkData", linkData);
+          // console.log("2001 ==>> wrining linkData", linkData);
           cellsCoord.current[linkData.holdingPaginedIndex][linkData.attributeIndex].drawLinks(linkData);
         }
       })
