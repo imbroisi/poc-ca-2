@@ -6,38 +6,27 @@ export const mockHoldings: Holding[] = [
     "holdingId": 1,
     "marsHoldingId": 2,
     "holdingName": "Alpha Investing",
-    "clientId": "0240", // "0240" 
+    "clientId": "0240",
     "inceptionDate": "2025-07-29T03:00:00.000Z",
-    "name": "Alpha Investing", // Added missing 'name' property
-    "attributes": [], // Added missing 'attributes' property
+    "name": "Alpha Investing",
+    "attributes": [],
     "valueLinks": [
       {
         "attributeId": 1,
         "valueLinkId": 1,
         "attributeValueId": 1,
         "label": "[Some Attribute Value] Some Business Value",
-        "startEffectiveDate": "2025-07-29T03:00:00.000Z",
-        "endEffectiveDate": "2025-08-17T03:00:00.000Z",
+        "startEffectiveDate": "2024-10-17T03:00:00.000Z",
+        "endEffectiveDate": "today"
       },
-    ],
-  },
-  {
-    "holdingId": 2,
-    "marsHoldingId": 3,
-    "holdingName": "Beta Capital",
-    "name": "Beta Capital",
-    "attributes": [],
-    "clientId": "0240",
-    "inceptionDate": "2025-07-29T03:00:00.000Z", // Added missing 'inceptionDate' property
-    "valueLinks": [
       {
-        "attributeId": 2,
+        "attributeId": 1,
         "valueLinkId": 2,
-        "attributeValueId": 2,
+        "attributeValueId": 1,
         "label": "[Some Attribute Value 2] Some Business Value 2",
-        "startEffectiveDate": "2025-07-29T03:00:00.000Z",
-        "endEffectiveDate": "2025-08-17T03:00:00.000Z",
-      },
+        "startEffectiveDate": "2024-02-17T03:00:00.000Z",
+        "endEffectiveDate": "2024-10-16T03:00:00.000Z"
+      }
     ]
   },
   {
@@ -50,13 +39,13 @@ export const mockHoldings: Holding[] = [
     "inceptionDate": "2025-07-29T03:00:00.000Z",
     "valueLinks": [
       {
-        "attributeId": 3,
-        "valueLinkId": 3,
-        "attributeValueId": 3,
+        "attributeId": 1,
+        "valueLinkId": 1,
+        "attributeValueId": 1,
         "label": "[Some Attribute Value 3] Some Business Value 3",
-        "startEffectiveDate": "2025-07-29T03:00:00.000Z",
-        "endEffectiveDate": "2025-08-17T03:00:00.000Z",
-      },
+        "startEffectiveDate": "2024-04-17T03:00:00.000Z",
+        "endEffectiveDate": "today"
+      }
     ]
   },
   {
@@ -73,9 +62,9 @@ export const mockHoldings: Holding[] = [
         "valueLinkId": 4,
         "attributeValueId": 4,
         "label": "[Some Attribute Value 4] Some Business Value 4",
-        "startEffectiveDate": "2025-07-29T03:00:00.000Z",
-        "endEffectiveDate": "2025-08-17T03:00:00.000Z",
-      },
+        "startEffectiveDate": "2024-11-17T03:00:00.000Z",
+        "endEffectiveDate": "today"
+      }
     ]
   },
   {
@@ -92,9 +81,9 @@ export const mockHoldings: Holding[] = [
         "valueLinkId": 5,
         "attributeValueId": 5,
         "label": "[Technology Fund] Growth Investment Strategy",
-        "startEffectiveDate": "2025-08-01T03:00:00.000Z",
-        "endEffectiveDate": "2025-09-15T03:00:00.000Z",
-      },
+        "startEffectiveDate": "2025-02-15T03:00:00.000Z",
+        "endEffectiveDate": "today"
+      }
     ]
   },
   {
@@ -111,9 +100,9 @@ export const mockHoldings: Holding[] = [
         "valueLinkId": 6,
         "attributeValueId": 6,
         "label": "[Real Estate Portfolio] Property Investment Fund",
-        "startEffectiveDate": "2025-08-02T03:00:00.000Z",
-        "endEffectiveDate": "2025-09-20T03:00:00.000Z",
-      },
+        "startEffectiveDate": "2024-12-20T03:00:00.000Z",
+        "endEffectiveDate": "today"
+      }
     ]
   },
   {
@@ -130,9 +119,9 @@ export const mockHoldings: Holding[] = [
         "valueLinkId": 7,
         "attributeValueId": 7,
         "label": "[Healthcare Sector] Medical Innovation Fund",
-        "startEffectiveDate": "2025-08-03T03:00:00.000Z",
-        "endEffectiveDate": "2025-09-25T03:00:00.000Z",
-      },
+        "startEffectiveDate": "2024-06-25T03:00:00.000Z",
+        "endEffectiveDate": "today"
+      }
     ]
   },
   {
@@ -149,9 +138,9 @@ export const mockHoldings: Holding[] = [
         "valueLinkId": 8,
         "attributeValueId": 8,
         "label": "[Energy Sector] Renewable Energy Portfolio",
-        "startEffectiveDate": "2025-08-04T03:00:00.000Z",
-        "endEffectiveDate": "2025-10-01T03:00:00.000Z",
-      },
+        "startEffectiveDate": "2024-06-01T03:00:00.000Z",
+        "endEffectiveDate": "today"
+      }
     ]
   },
   {
@@ -168,9 +157,9 @@ export const mockHoldings: Holding[] = [
         "valueLinkId": 9,
         "attributeValueId": 9,
         "label": "[Banking Sector] Financial Services Fund",
-        "startEffectiveDate": "2025-08-05T03:00:00.000Z",
-        "endEffectiveDate": "2025-10-05T03:00:00.000Z",
-      },
+        "startEffectiveDate": "2025-02-05T03:00:00.000Z",
+        "endEffectiveDate": "today"
+      }
     ]
   },
   {
@@ -187,9 +176,9 @@ export const mockHoldings: Holding[] = [
         "valueLinkId": 10,
         "attributeValueId": 10,
         "label": "[Consumer Goods] Retail Investment Strategy",
-        "startEffectiveDate": "2025-08-06T03:00:00.000Z",
-        "endEffectiveDate": "2025-10-10T03:00:00.000Z",
-      },
+        "startEffectiveDate": "2025-04-10T03:00:00.000Z",
+        "endEffectiveDate": "today"
+      }
     ]
   },
   {
@@ -202,13 +191,21 @@ export const mockHoldings: Holding[] = [
     "inceptionDate": "2025-08-07T03:00:00.000Z",
     "valueLinks": [
       {
-        "attributeId": 11,
+        "attributeId": 2,
         "valueLinkId": 11,
-        "attributeValueId": 11,
-        "label": "[Startup Portfolio] Early Stage Investment Fund",
-        "startEffectiveDate": "2025-08-07T03:00:00.000Z",
-        "endEffectiveDate": "2025-10-15T03:00:00.000Z",
+        "attributeValueId": 2,
+        "label": "HERE 1[Startup Portfolio] Early Stage Investment Fund",
+        "startEffectiveDate": "2025-03-15T03:00:00.000Z",
+        "endEffectiveDate": "today"
       },
+      {
+        "attributeId": 2,
+        "valueLinkId": 11,
+        "attributeValueId": 2,
+        "label": "HERE 1[Startup Portfolio] Early Stage Investment Fund",
+        "startEffectiveDate": "2024-03-15T03:00:00.000Z",
+        "endEffectiveDate": "2025-03-14T03:00:00.000Z"
+      }
     ]
   },
   {
@@ -221,13 +218,13 @@ export const mockHoldings: Holding[] = [
     "inceptionDate": "2025-08-08T03:00:00.000Z",
     "valueLinks": [
       {
-        "attributeId": 12,
+        "attributeId": 3,
         "valueLinkId": 12,
-        "attributeValueId": 12,
+        "attributeValueId": 3,
         "label": "[Infrastructure] Transportation Investment Fund",
-        "startEffectiveDate": "2025-08-08T03:00:00.000Z",
-        "endEffectiveDate": "2025-10-20T03:00:00.000Z",
-      },
+        "startEffectiveDate": "2024-10-20T03:00:00.000Z",
+        "endEffectiveDate": "today"
+      }
     ]
   },
   {
@@ -240,13 +237,13 @@ export const mockHoldings: Holding[] = [
     "inceptionDate": "2025-08-09T03:00:00.000Z",
     "valueLinks": [
       {
-        "attributeId": 13,
+        "attributeId": 8,
         "valueLinkId": 13,
-        "attributeValueId": 13,
+        "attributeValueId": 8,
         "label": "[Manufacturing] Industrial Growth Fund",
-        "startEffectiveDate": "2025-08-09T03:00:00.000Z",
-        "endEffectiveDate": "2025-10-25T03:00:00.000Z",
-      },
+        "startEffectiveDate": "2025-03-25T03:00:00.000Z",
+        "endEffectiveDate": "today"
+      }
     ]
   },
   {
@@ -259,13 +256,13 @@ export const mockHoldings: Holding[] = [
     "inceptionDate": "2025-08-10T03:00:00.000Z",
     "valueLinks": [
       {
-        "attributeId": 14,
+        "attributeId": 1,
         "valueLinkId": 14,
-        "attributeValueId": 14,
+        "attributeValueId": 1,
         "label": "[Telecommunications] Digital Communications Fund",
-        "startEffectiveDate": "2025-08-10T03:00:00.000Z",
-        "endEffectiveDate": "2025-11-01T03:00:00.000Z",
-      },
+        "startEffectiveDate": "2024-10-01T03:00:00.000Z",
+        "endEffectiveDate": "today"
+      }
     ]
   },
   {
@@ -278,13 +275,13 @@ export const mockHoldings: Holding[] = [
     "inceptionDate": "2025-08-11T03:00:00.000Z",
     "valueLinks": [
       {
-        "attributeId": 15,
+        "attributeId": 9,
         "valueLinkId": 15,
-        "attributeValueId": 15,
+        "attributeValueId": 9,
         "label": "[Insurance Sector] Risk Management Portfolio",
-        "startEffectiveDate": "2025-08-11T03:00:00.000Z",
-        "endEffectiveDate": "2025-11-05T03:00:00.000Z",
-      },
+        "startEffectiveDate": "2025-05-05T03:00:00.000Z",
+        "endEffectiveDate": "today"
+      }
     ]
   },
   {
@@ -297,13 +294,13 @@ export const mockHoldings: Holding[] = [
     "inceptionDate": "2025-08-12T03:00:00.000Z",
     "valueLinks": [
       {
-        "attributeId": 16,
+        "attributeId": 2,
         "valueLinkId": 16,
-        "attributeValueId": 16,
+        "attributeValueId": 2,
         "label": "[Entertainment] Media & Content Investment",
-        "startEffectiveDate": "2025-08-12T03:00:00.000Z",
-        "endEffectiveDate": "2025-11-10T03:00:00.000Z",
-      },
+        "startEffectiveDate": "2025-05-10T03:00:00.000Z",
+        "endEffectiveDate": "today"
+      }
     ]
   },
   {
@@ -316,13 +313,13 @@ export const mockHoldings: Holding[] = [
     "inceptionDate": "2025-08-13T03:00:00.000Z",
     "valueLinks": [
       {
-        "attributeId": 17,
+        "attributeId": 2,
         "valueLinkId": 17,
-        "attributeValueId": 17,
+        "attributeValueId": 2,
         "label": "[Agriculture] Sustainable Farming Fund",
-        "startEffectiveDate": "2025-08-13T03:00:00.000Z",
-        "endEffectiveDate": "2025-11-15T03:00:00.000Z",
-      },
+        "startEffectiveDate": "2024-07-15T03:00:00.000Z",
+        "endEffectiveDate": "today"
+      }
     ]
   },
   {
@@ -335,13 +332,13 @@ export const mockHoldings: Holding[] = [
     "inceptionDate": "2025-08-14T03:00:00.000Z",
     "valueLinks": [
       {
-        "attributeId": 18,
+        "attributeId": 3,
         "valueLinkId": 18,
-        "attributeValueId": 18,
+        "attributeValueId": 3,
         "label": "[Aerospace] Aviation Technology Fund",
-        "startEffectiveDate": "2025-08-14T03:00:00.000Z",
-        "endEffectiveDate": "2025-11-20T03:00:00.000Z",
-      },
+        "startEffectiveDate": "2024-11-20T03:00:00.000Z",
+        "endEffectiveDate": "today"
+      }
     ]
   },
   {
@@ -354,13 +351,13 @@ export const mockHoldings: Holding[] = [
     "inceptionDate": "2025-08-15T03:00:00.000Z",
     "valueLinks": [
       {
-        "attributeId": 19,
+        "attributeId": 4,
         "valueLinkId": 19,
-        "attributeValueId": 19,
+        "attributeValueId": 4,
         "label": "[Biotechnology] Life Sciences Portfolio",
-        "startEffectiveDate": "2025-08-15T03:00:00.000Z",
-        "endEffectiveDate": "2025-11-25T03:00:00.000Z",
-      },
+        "startEffectiveDate": "2024-07-25T03:00:00.000Z",
+        "endEffectiveDate": "today"
+      }
     ]
   },
   {
@@ -373,13 +370,13 @@ export const mockHoldings: Holding[] = [
     "inceptionDate": "2025-08-16T03:00:00.000Z",
     "valueLinks": [
       {
-        "attributeId": 20,
+        "attributeId": 8,
         "valueLinkId": 20,
-        "attributeValueId": 20,
+        "attributeValueId": 8,
         "label": "[Automotive] Electric Vehicle Investment",
-        "startEffectiveDate": "2025-08-16T03:00:00.000Z",
-        "endEffectiveDate": "2025-12-01T03:00:00.000Z",
-      },
+        "startEffectiveDate": "2024-11-01T03:00:00.000Z",
+        "endEffectiveDate": "today"
+      }
     ]
   },
   {
@@ -392,13 +389,13 @@ export const mockHoldings: Holding[] = [
     "inceptionDate": "2025-08-17T03:00:00.000Z",
     "valueLinks": [
       {
-        "attributeId": 21,
+        "attributeId": 6,
         "valueLinkId": 21,
-        "attributeValueId": 21,
+        "attributeValueId": 6,
         "label": "[Logistics] Supply Chain Optimization Fund",
-        "startEffectiveDate": "2025-08-17T03:00:00.000Z",
-        "endEffectiveDate": "2025-12-05T03:00:00.000Z",
-      },
+        "startEffectiveDate": "2025-06-05T03:00:00.000Z",
+        "endEffectiveDate": "today"
+      }
     ]
   },
   {
@@ -411,13 +408,13 @@ export const mockHoldings: Holding[] = [
     "inceptionDate": "2025-08-18T03:00:00.000Z",
     "valueLinks": [
       {
-        "attributeId": 22,
+        "attributeId": 10,
         "valueLinkId": 22,
-        "attributeValueId": 22,
+        "attributeValueId": 10,
         "label": "[Cybersecurity] Digital Security Portfolio",
-        "startEffectiveDate": "2025-08-18T03:00:00.000Z",
-        "endEffectiveDate": "2025-12-10T03:00:00.000Z",
-      },
+        "startEffectiveDate": "2025-05-10T03:00:00.000Z",
+        "endEffectiveDate": "today"
+      }
     ]
   },
   {
@@ -430,13 +427,13 @@ export const mockHoldings: Holding[] = [
     "inceptionDate": "2025-08-19T03:00:00.000Z",
     "valueLinks": [
       {
-        "attributeId": 23,
+        "attributeId": 3,
         "valueLinkId": 23,
-        "attributeValueId": 23,
+        "attributeValueId": 3,
         "label": "[Education Technology] Learning Innovation Fund",
-        "startEffectiveDate": "2025-08-19T03:00:00.000Z",
-        "endEffectiveDate": "2025-12-15T03:00:00.000Z",
-      },
+        "startEffectiveDate": "2025-05-15T03:00:00.000Z",
+        "endEffectiveDate": "today"
+      }
     ]
   },
   {
@@ -449,14 +446,13 @@ export const mockHoldings: Holding[] = [
     "inceptionDate": "2025-08-20T03:00:00.000Z",
     "valueLinks": [
       {
-        "attributeId": 24,
+        "attributeId": 4,
         "valueLinkId": 24,
-        "attributeValueId": 24,
+        "attributeValueId": 4,
         "label": "[Clean Energy] Solar & Wind Investment Portfolio",
-        "startEffectiveDate": "2025-08-20T03:00:00.000Z",
-        "endEffectiveDate": "2025-12-20T03:00:00.000Z",
-      },
+        "startEffectiveDate": "2025-04-20T03:00:00.000Z",
+        "endEffectiveDate": "today"
+      }
     ]
-  },
-
+  }
 ];

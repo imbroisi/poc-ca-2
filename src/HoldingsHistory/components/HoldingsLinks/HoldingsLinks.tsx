@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { ATTRIBUTE_ITEM_HEIGHT, HOLDINGS_PER_PAGE_DEFAULT, MAIN_BORDER_COLOR, NUMBER_OF_YEARS, YEAR_CELL_WIDTH_PX } from '../../config';
+import { ATTRIBUTE_ITEM_HEIGHT, MAIN_BORDER_COLOR, NUMBER_OF_YEARS, YEAR_CELL_WIDTH_PX } from '../../config';
 import HoldingYearCell from '../Cell';
 import TodayLine from '../TodayLine';
 import './HoldingsLinks.css';
@@ -14,11 +14,16 @@ export interface ContentProps {
 }
 
 const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableRef }: ContentProps) => {
-  const { holdingsPerPage, totalHoldings } = useLinksDataContext();
+  const { holdingsPerPage, totalHoldings, pageToShow } = useLinksDataContext();
   const cellsCoord = useRef<any>({});
   const processLinks = useLinks({ show, cellsCoord });
 
   const setCellCoord = (holdingIndex: number, attributeIndex: number, drawLinks: any) => {
+
+    // console.log("\n3000 ++++++==>> setCellCoord() holdingIndex", holdingIndex);
+    // console.log("3001 ++++++==>> setCellCoord() attributeIndex", attributeIndex);
+    // console.log("3002 ++++++==>> setCellCoord() drawLinks", drawLinks);
+
     if (!cellsCoord.current[holdingIndex]) {
       cellsCoord.current[holdingIndex] = {};
     }
@@ -32,12 +37,11 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
     processLinks();
   }, [processLinks]);
 
-  const holdingsToRender = holdingsPerPage <= totalHoldings ? holdingsPerPage : totalHoldings;
+  const totalHoldingsToRender = holdingsPerPage * pageToShow <= totalHoldings 
+    ? holdingsPerPage 
+    : totalHoldings % holdingsPerPage;
 
-  console.log("100 ==>> holdingsPerPage", holdingsPerPage);
-
-  return (
-    
+  return (    
     <div
       ref={setScrollableRef || scrollableColumnRef}
       onScroll={handleScroll}
@@ -76,7 +80,7 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
           className="table-content"
           style={{ width: `${NUMBER_OF_YEARS * YEAR_CELL_WIDTH_PX}px`, position: 'relative' }}
         >
-          {Array.from({ length: holdingsToRender }).map((_, holdingIdex) => (
+          {Array.from({ length: totalHoldingsToRender }).map((_, holdingIdex) => (
             <div
               key={holdingIdex}
               className="table-row"

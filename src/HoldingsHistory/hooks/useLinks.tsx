@@ -12,31 +12,57 @@ interface LinksDataTypesWithColor extends LinksDataTypes {
 }
 
 const useLinks = ({ show, cellsCoord }: { show: boolean[] | null, cellsCoord: any }) => {
-  const { getLinksDataCopy } = useLinksDataContext();
+  const { getLinksDataCopy, getHoldingsFilteredByPage, pageToShow, holdingsPerPage } = useLinksDataContext();
   const { todayYyyyMmDd } = useDateContext();
   // const { deleteLink } = useLinksDataContext();
   // const messageOver = useMessageOverContext();
   // const linkToDelete = useRef<LinksDataTypesWithColor | null>(null);
+
+  const formatLinks = (links: LinksDataTypes[]) => {
+    const formatedLinks: any = [];
+    links.forEach((link, holdingPaginedIndex) => {
+      link.valueLinks.forEach((valueLink, attributeIndex) => {
+        formatedLinks.push({
+          ...link,
+          ...valueLink,
+          holdingPaginedIndex,
+          holdingRealIndex: holdingPaginedIndex + (pageToShow - 1) * holdingsPerPage,
+          attributeIndex: valueLink.attributeId - 1,
+        });
+      });
+    });
+
+    return formatedLinks;
+  }
+
   const processLinks = () => {
 
     if (!show) return;
 
-    const filteredLinks = getLinksDataCopy();
-    const linksDataCopy = filteredLinks as LinksDataTypesWithColor[];
+    // const filteredLinks = getLinksDataCopy();
+    const filteredLinks = getHoldingsFilteredByPage();
+
+
+    console.log("1000 ==>> filteredLinks", filteredLinks);
+
+    const formatedLinks = formatLinks(filteredLinks);
+
+    console.log("1001 ==>> formatedLinks", formatedLinks);
+
 
     const replaceToday = () => {
-      linksDataCopy.forEach((linkData) => {
-        if (linkData.lastDayDate === 'today') {
-          linkData.lastDayDate = todayYyyyMmDd;
+      formatedLinks.forEach((linkData: any) => {
+        if (linkData.endEffectiveDate === 'today') {
+          linkData.endEffectiveDate = todayYyyyMmDd;
           linkData.noFinalDate = true;
         }
       });
     }
 
     const includeColorsToLinks = () => {
-      const splitIntoGroups = (data: LinksDataTypes[]) => {
+      const splitIntoGroups = (data: any[]) => {
         const groups = data.reduce((acc, linkData) => {
-          const key = `${(linkData).portfolioIndex}-${(linkData).attributeIndex}`;
+          const key = `${linkData.holdingIndex}-${linkData.localAttributeIndex}`;
           if (!acc[key]) acc[key] = [];
           acc[key].push(linkData as LinksDataTypesWithColor);
           return acc;
@@ -45,20 +71,22 @@ const useLinks = ({ show, cellsCoord }: { show: boolean[] | null, cellsCoord: an
         return Object.values(groups);
       };
 
-      const sortedGroups = splitIntoGroups(linksDataCopy).map(group =>
-        group.sort((a, b) => new Date((b).firstDayDate).getTime() - new Date((a).firstDayDate).getTime())
-      );
+      const sortedGroups = splitIntoGroups(formatedLinks).map((group: any) =>
+        group.sort((a: any, b: any) => new Date(b.startEffectiveDate).getTime() - new Date((a).startEffectiveDate).getTime())
+      ).flat();
 
-      sortedGroups.forEach((group) => {
-        group.forEach((linkData, index) => {
-          (linkData).color = LINKS_COLORS[index % LINKS_COLORS.length];
-          (linkData).borderColor = LINKS_BORDERS_COLORS[index % LINKS_BORDERS_COLORS.length];
-        });
+      console.log("1002 ==>> sortedGroups", sortedGroups);
+
+      sortedGroups.forEach((linkData: any, index: number) => {
+        linkData.color = LINKS_COLORS[index % LINKS_COLORS.length];
+        linkData.borderColor = LINKS_BORDERS_COLORS[index % LINKS_BORDERS_COLORS.length];
       });
     };
 
     replaceToday();
     includeColorsToLinks();
+
+    console.log("1003 ==>> formatedLinks", formatedLinks);
 
     // const onDeleteClicked = (linkData: LinksDataTypesWithColor, mousePosition: [number, number]) => {
     //   linkToDelete.current = linkData;
@@ -80,13 +108,16 @@ const useLinks = ({ show, cellsCoord }: { show: boolean[] | null, cellsCoord: an
     // }
 
     show.forEach((_, index) => {
-      linksDataCopy.forEach((linkData) => {
-        if (linkData.portfolioIndex === index) {
-          cellsCoord.current[linkData.portfolioIndex][linkData.attributeIndex].drawLinks(linkData);
+      formatedLinks.forEach((linkData: any) => {
+        if (linkData.holdingPaginedIndex === index) {
+          console.log("2001 ==>> wrining linkData", linkData);
+          cellsCoord.current[linkData.holdingPaginedIndex][linkData.attributeIndex].drawLinks(linkData);
         }
       })
     })
   }
+
+  // console.log("20002==>> cellsCoord", cellsCoord.current);
 
   return processLinks;
 }

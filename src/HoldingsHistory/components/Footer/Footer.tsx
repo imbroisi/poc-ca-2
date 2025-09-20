@@ -26,7 +26,10 @@ const Footer = () => {
         {/* EDIT BUTTON */}
       </div>
       <div className="holdings-history-footer-pagination" style={{ borderColor: MAIN_BORDER_COLOR, visibility: showPagination ? 'visible' : 'hidden' }}>
-        <div style={{ fontSize: '15px', marginBottom: '4px' }}>Holdings per page:</div>
+        <div style={{ fontSize: '15px', marginBottom: '4px' }}>Total holdings: <span style={{ fontWeight: 'bold' }} >{totalHoldings}</span></div>
+        
+        
+        <div style={{ fontSize: '15px', marginBottom: '4px', marginLeft: '32px' }}>Holdings per page:</div>
         <div style={{ position: 'relative', marginLeft: '8px' }}>
           <Select
             displayEmpty
@@ -42,7 +45,7 @@ const Footer = () => {
             <MenuItem sx={{ fontSize: '15px' }} value="5">{' 5 '}</MenuItem>
             <MenuItem sx={{ fontSize: '15px' }} value="10">10</MenuItem>
             <MenuItem sx={{ fontSize: '15px' }} value="20">20</MenuItem>
-            <MenuItem sx={{ fontSize: '15px' }} value={200}>200</MenuItem>
+            <MenuItem sx={{ fontSize: '15px' }} value={totalHoldings}>ALL</MenuItem>
           </Select>
 
         </div>
