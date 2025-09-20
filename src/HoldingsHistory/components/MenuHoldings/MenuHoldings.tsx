@@ -11,26 +11,22 @@ export interface MenuHoldingsProps {
 }
 
 const MenuHoldings = ({ show, toggleArrow, rotatedArrows }: MenuHoldingsProps) => {
-  const { getLinksDataCopy, pageToShow } = useLinksDataContext();
-  const linksData = getLinksDataCopy();
+  const { getHoldingsFilteredByPage } = useLinksDataContext();
+  
+  const holdingsFilteredByPage = getHoldingsFilteredByPage();
 
-  const minRowIndex = (pageToShow - 1) * HOLDINGS_PER_PAGE_DEFAULT;
-  const maxRowIndex = (pageToShow) * HOLDINGS_PER_PAGE_DEFAULT - 1;
-
-  console.log("400 ==>> minRowIndex", minRowIndex);
-  console.log("401 ==>> maxRowIndex", maxRowIndex);
-
+  console.log("400 ==>> holdingsFilteredByPage", holdingsFilteredByPage);
+  
   return (
     <div className="fixed-column-table">
-      {linksData.map((link, rowIndex) => {
-        if (rowIndex < minRowIndex || rowIndex > maxRowIndex) return null;
-        return (
+      {holdingsFilteredByPage.map((link, rowIndex) => (
           <div
             key={rowIndex}
             className="fixed-column-row"
             style={{
               height: show === null || show[rowIndex] ? '120px' : '0',
               maxHeight: show === null || show[rowIndex] ? '120px' : '0',
+              // IMPORTANT: Do not move to CSS, it is needed as style for better scroll synchronization
               overflow: 'hidden'
             }}
           >
@@ -47,7 +43,7 @@ const MenuHoldings = ({ show, toggleArrow, rotatedArrows }: MenuHoldingsProps) =
             </div>
           </div>
         )
-      })}
+      )}
     </div>
   );
 }

@@ -26,14 +26,22 @@ interface LinksDataContextType {
   cellTopPx: (portfolioIndex: number, attributeIndex: number) => number;
   addLink: (lastDayStr: string, firstDayStr: string, cellIndex: number, cellRowIndex: number) => void;
   deleteLink: (linkData: LinksDataTypes) => void;
-  setPageToShow: (page: number) => void;
+  setHoldingsPerPage: (page: number) => void;
   pageToShow: number;
+  holdingsPerPage: number;
+  setPageToShow: (page: number) => void;
+  getHoldingsFilteredByPage: () => LinksDataTypes[];
 }
 
 interface LinksDataProviderProps {
   children: React.ReactNode;
   linksDataFromApi: any[];
 }
+
+const LOCAL_STORAGE_HOLDINGS_PAGE_KEY = 'holdings-history-holdings-per-page';
+const holdingsPerPageInitial = parseInt(localStorage.getItem(LOCAL_STORAGE_HOLDINGS_PAGE_KEY) || HOLDINGS_PER_PAGE_DEFAULT.toString());
+
+console.log("100 ==>> holdingsPerPageInitial", holdingsPerPageInitial);
 
 const LinksDataContext = createContext<LinksDataContextType | undefined>(undefined)
 
@@ -44,6 +52,7 @@ export const LinksDataProvider = ({
   const [isEditMode, setIsEditMode] = useState(true);
   const [linksData, setLinksData] = useState<any[]>([]);
   const [pageToShow, setPageToShow] = useState(1);
+  const [holdingsPerPage, setHoldingsPerPage] = useState(holdingsPerPageInitial);
   const dateCtx = useDateContext();
   const totalHoldings = useRef(0);
   const getNDaysBefore = dateCtx?.getNDaysBefore ?? ((date: string, n: number) => {
@@ -58,6 +67,7 @@ export const LinksDataProvider = ({
     // TODO: format links data from api response to LinksDataTypes
     setLinksData(linksDataFromApi);
     totalHoldings.current = linksDataFromApi.length;
+
   }, [linksDataFromApi]);
 
   // const linksData = linksDataFromApi;
@@ -119,6 +129,12 @@ export const LinksDataProvider = ({
     setLinksData(linksDataCopy);
   }
 
+  const getHoldingsFilteredByPage = () => {
+    console.log("100 ==>> pageToShow", pageToShow);
+    console.log("101 ==>> holdingsPerPage", holdingsPerPage);
+    return linksData.slice((pageToShow - 1) * holdingsPerPage, pageToShow * holdingsPerPage);
+  }
+
   // const setPageToShow = (page: number) => {
   //   setPageToShow(page);
   // }
@@ -127,16 +143,24 @@ export const LinksDataProvider = ({
 
   const cellTopPx = (portfolioIndex: number, attributeIndex: number): number => { return ATTRIBUTE_ITEM_HEIGHT + 2 + (ATTRIBUTE_ITEM_HEIGHT + 1) * ((1 + TOTAL_ATTRIBUTES) * portfolioIndex + attributeIndex) };
 
+  const setHoldingsPerPageFn = (page: number) => {
+    setHoldingsPerPage(page);
+    setPageToShow(1); // Reset to first page when changing holdings per page
+    localStorage.setItem(LOCAL_STORAGE_HOLDINGS_PAGE_KEY, page.toString());
+  }
   // const totalHoldings = linksData.length;
 
   return (
     <LinksDataContext.Provider value={{
       cellTopPx,
       getLinksDataCopy,
+      getHoldingsFilteredByPage,
+      holdingsPerPage,
       rowsToRender,
       totalHoldings: totalHoldings.current,
       pageToShow, 
       setPageToShow,
+      setHoldingsPerPage: setHoldingsPerPageFn,
       isEditMode,
       setIsEditMode,
       addLink,

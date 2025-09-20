@@ -4,6 +4,7 @@ import HoldingYearCell from '../Cell';
 import TodayLine from '../TodayLine';
 import './HoldingsLinks.css';
 import useLinks from '../../hooks/useLinks';
+import { useLinksDataContext } from '../../context/LinksDataProvider';
 
 export interface ContentProps {
   scrollableColumnRef: React.RefObject<HTMLDivElement> | null;
@@ -13,6 +14,7 @@ export interface ContentProps {
 }
 
 const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableRef }: ContentProps) => {
+  const { holdingsPerPage, totalHoldings } = useLinksDataContext();
   const cellsCoord = useRef<any>({});
   const processLinks = useLinks({ show, cellsCoord });
 
@@ -29,6 +31,10 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
   useEffect(() => {
     processLinks();
   }, [processLinks]);
+
+  const holdingsToRender = holdingsPerPage <= totalHoldings ? holdingsPerPage : totalHoldings;
+
+  console.log("100 ==>> holdingsPerPage", holdingsPerPage);
 
   return (
     
@@ -70,7 +76,7 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
           className="table-content"
           style={{ width: `${NUMBER_OF_YEARS * YEAR_CELL_WIDTH_PX}px`, position: 'relative' }}
         >
-          {Array.from({ length: HOLDINGS_PER_PAGE_DEFAULT }).map((_, holdingIdex) => (
+          {Array.from({ length: holdingsToRender }).map((_, holdingIdex) => (
             <div
               key={holdingIdex}
               className="table-row"
