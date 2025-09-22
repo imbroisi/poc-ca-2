@@ -14,6 +14,7 @@ const MainTable = () => {
   const scrollableColumnRef = useRef<HTMLDivElement>(null);
   const isScrollingToTop = useRef(false);
   const isInitialLoad = useRef(true);
+  const historyTextRef = useRef<HTMLDivElement>(null);
 
   // Set scroll position immediately during render - no loading then scrolling
   const setScrollableRef = useCallback((element: HTMLDivElement | null) => {
@@ -118,7 +119,12 @@ const MainTable = () => {
     }
   };
 
-
+  useEffect(() => {
+    if (historyTextRef.current && fixedColumnRef.current) {
+      console.log("fixedColumnRef.current.clientWidth", fixedColumnRef.current?.clientWidth);
+      historyTextRef.current.style.left = `${fixedColumnRef.current.clientWidth + 6}px`;
+    }
+  }, []);
 
   return (
     <div
@@ -132,6 +138,20 @@ const MainTable = () => {
         boxSizing: 'border-box',
         borderColor: MAIN_BORDER_COLOR,
       }}>
+      <div ref={historyTextRef} style={{ 
+        position: 'absolute', 
+        zIndex: 1000, 
+        top: '10px',
+        fontSize: '11px',
+        backgroundColor: 'white',
+        textTransform: 'uppercase',
+        fontWeight: 400,
+        // height: '30px',
+        // width: '100%',
+        // left: '100px',
+      }}>
+        History
+      </div>
       <FixedContent
         toggleArrow={toggleArrow}
         fixedColumnRef={fixedColumnRef as React.RefObject<HTMLDivElement>}

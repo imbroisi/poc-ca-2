@@ -21,9 +21,6 @@ const FixedContent = ({ toggleArrow, fixedColumnRef, handleScroll, show, rotated
         flexDirection: 'column',
         borderColor: MAIN_BORDER_COLOR,
       }}>
-      {/* Fixed column header */}
-      <div className="fixed-column-header" style={{ borderBottom: `1px solid ${MAIN_BORDER_COLOR}` }} />
-    
       {/* Fixed column scrollable content */}
       <div
         ref={fixedColumnRef}
@@ -43,6 +40,10 @@ const FixedContent = ({ toggleArrow, fixedColumnRef, handleScroll, show, rotated
 
           // borderBottom: `1px solid ${MAIN_BORDER_COLOR}`,
         }}>
+          <div style={{ height: '30px', backgroundColor: 'white', position: 'sticky', top: '0px', zIndex: 99, borderBottom: `1px solid ${MAIN_BORDER_COLOR}`, boxSizing: 'border-box' }} />
+          {/* Header row placeholder to align with date header */}
+          <div style={{ height: '40px', backgroundColor: '#f0f0f0', position: 'sticky', top: '30px', zIndex: 98, borderBottom: `1px solid ${MAIN_BORDER_COLOR}`, boxSizing: 'border-box' }} />
+          <div style={{ height: '30px', backgroundColor: 'white', position: 'sticky', top: '70px', zIndex: 97, borderBottom: `1px solid ${MAIN_BORDER_COLOR}`, boxSizing: 'border-box' }} />
           <MenuHoldings show={show} toggleArrow={toggleArrow} rotatedArrows={rotatedArrows} />
       </div>
     </div>
