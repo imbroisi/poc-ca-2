@@ -1,0 +1,40 @@
+.holdings-history-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px solid; */
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid;
+  border-top: 0;
+}
+
+.holdings-history-footer-pagination {
+  margin-right: 20px; 
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.holdings-history-footer-pagination-select {
+  border: 1px solid ;
+  padding: 6px;
+  border-radius: 4px;
+  margin-left: 40px;
+}
+
+.holdings-history-footer-total-holdings {
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.holdings-history-footer-holdings-per-page {
+  font-size: 15px;
+  margin: 0 8px 4px 32px; 
+}
+
+.holdings-history-footer-total-holdings-span {
+  font-weight: bold;
+}

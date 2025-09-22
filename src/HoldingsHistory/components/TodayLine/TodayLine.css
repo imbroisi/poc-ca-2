@@ -1,3 +1,9 @@
+.today-line-wrapper {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
 .today-line-container {
   position: absolute;
   top: 0;
@@ -6,6 +12,7 @@
   pointer-events: none;
   z-index: 1000;
   background-color: var(--today-line-color);
+  left: var(--today-line-left);
 
   .triangle-down,
   .triangle-up {

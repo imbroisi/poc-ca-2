@@ -1,11 +1,38 @@
 .table-cell {
   display: table-cell;
   width: 300px;
-  /* border-bottom: 1px solid orange;
-  border-right: 1px solid orange;
-  border-top: 0; */
-  /* padding: 8px; */
-  border-right: 1px solid #ccc;
   box-sizing: border-box;
-  transition: height 0.2s ease-in-out;
+  transition: height 0.3s ease-in-out;
+}
+
+.table-cell-link {
+  position: absolute;
+  top: 2px;
+  border-radius: 3px; 
+  font-size: 12px;  
+  font-weight: 400;
+  display: flex;
+  align-items: center; 
+  justify-content: flex-start; 
+}
+
+.table-cell-label {
+  padding-left: 6px;
+  padding-right: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.table-cell-attribute {
+  position: relative;
+  transition: height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  /* opacity: 1; */
+}
+
+.table-cell-attribute-container {
+  background-color: #fafafa;
+  border-bottom: 1px solid;
+  box-sizing: border-box;
 }

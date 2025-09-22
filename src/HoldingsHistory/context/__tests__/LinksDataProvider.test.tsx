@@ -2,8 +2,8 @@ import { render, screen, act } from '@testing-library/react';
 import { LinksDataProvider, useLinksDataContext } from '../LinksDataProvider';
 
 jest.mock('../../config', () => ({
-  CELL_HEIGHT_PX: 28,
-  ROWS_BY_PAGE: 20,
+  ATTRIBUTE_ITEM_HEIGHT: 28,
+  HOLDINGS_PER_PAGE_DEFAULT: 20,
 }));
 
 jest.mock('../DateContext', () => ({

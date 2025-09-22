@@ -4,7 +4,7 @@ import { MessageOverProvider } from './context/MessageOverContext';
 // import { ExpandedHoldingsProvider } from './context/ExpandedHoldingsContext';
 // import { HoldingsProvider } from './context/HoldingsContext';
 import { LinksDataProvider } from './context/LinksDataProvider';
-import { NUMBER_OF_YEARS } from './config';
+import { FOOTER_HEIGHT, MAIN_BORDER_COLOR, NUMBER_OF_YEARS } from './config';
 import MessageOver from './components/GlobalMessageOver';
 import GlobalModal from './components/GlobalModal/GlobalModal';
 import './HoldingsHistory.css';
@@ -13,6 +13,7 @@ import { apiGetLinksData } from './apiMock';
 import MainTable from './components/MainTable';
 import { ExpandedHoldingsProvider } from './context/ExpandedHoldingsContext';
 import { HoldingsProvider } from './context/HoldingsContext';
+import Footer from './components/Footer';
 
 export interface HoldingsHistoryProps {
 
@@ -38,18 +39,27 @@ const HoldingsHistory = (props: HoldingsHistoryProps) => {
     })();
   }, []);
 
+  // console.log("34 ==>> linksFromApi", linksFromApi);
+  // console.log("35 ==>> linksFromApi.data", linksFromApi?.data);
+
   if (!linksFromApi) return null;
 
+  // const FOOTER_HEIGHT = '40px';
+
   return (
-    <div style={{ height: '100%', width: '100%', position: 'relative' }}>
-      <DateProvider todayDate={linksFromApi.today} numberOfYears={NUMBER_OF_YEARS}>
+    <div
+      id="holdings-history-container"
+      style={{ height: `calc(100% - ${FOOTER_HEIGHT})`, width: '100%', position: 'relative', border: 0 /*`1px solid ${MAIN_BORDER_COLOR}`*/ }}
+    >
+      <DateProvider todayDate={linksFromApi.data.today} numberOfYears={NUMBER_OF_YEARS}>
         <ModalProvider>
           <MessageOverProvider>
-            <LinksDataProvider linksDataFromApi={linksFromApi.data}>
+            <LinksDataProvider linksDataFromApi={linksFromApi.data.holdings}>
               <ExpandedHoldingsProvider>
                 <HoldingsProvider holdings={linksFromApi.data.holdings}>
 
                   <MainTable />
+                  <Footer />
 
                   <MessageOver />
                   <GlobalModal />
@@ -60,6 +70,8 @@ const HoldingsHistory = (props: HoldingsHistoryProps) => {
           </MessageOverProvider>
         </ModalProvider>
       </DateProvider>
+
+
     </div>
   );
 }

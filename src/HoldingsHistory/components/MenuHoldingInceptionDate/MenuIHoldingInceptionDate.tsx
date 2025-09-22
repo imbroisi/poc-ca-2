@@ -7,7 +7,7 @@ export interface MenuHoldingInceptionDateProps {
   show: boolean[];
 }
 
-const MenuHoldingInceptionDate = ({ show }: MenuHoldingInceptionDateProps) => {
+const MenuHoldingInceptionDate = ({ show = [] }: MenuHoldingInceptionDateProps) => {
   return (
     <div className="fixed-column-table">
       {Array.from({ length: HOLDINGS_PER_PAGE }).map((_, rowIndex) => (

@@ -14,9 +14,9 @@ function App() {
       // position: 'relative'
       // backgroundColor: 'pink',
     }}>
-      {/* <div style={{ width: '100%', height: '100%' }}> */}
+      <div style={{ width: '100%', height: '800px' }}>
         <HistoryLink />
-      {/* </div> */}
+      </div>
     </div>
   );
 }
