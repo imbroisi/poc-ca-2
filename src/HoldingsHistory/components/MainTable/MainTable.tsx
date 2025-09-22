@@ -143,7 +143,7 @@ const MainTable = () => {
         zIndex: 1000, 
         top: '10px',
         fontSize: '11px',
-        backgroundColor: 'white',
+        backgroundColor: 'transparent',
         textTransform: 'uppercase',
         fontWeight: 400,
         // height: '30px',

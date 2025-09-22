@@ -56,7 +56,7 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
         WebkitOverflowScrolling: 'touch',
       }}>
       <div style={{ width: `${NUMBER_OF_YEARS * YEAR_CELL_WIDTH_PX}px` }}>
-        <div style={{ height: '30px', backgroundColor: 'white', position: 'sticky', top: '0px', zIndex: 99, borderBottom: `1px solid ${MAIN_BORDER_COLOR}`, boxSizing: 'border-box' }}>
+        <div style={{ height: '30px', backgroundColor: '#f3f3f3', position: 'sticky', top: '0px', zIndex: 99, borderBottom: `1px solid ${MAIN_BORDER_COLOR}`, boxSizing: 'border-box' }}>
           {/* <div>HISTORY</div> */}
         </div>
         {/* Header row */}
