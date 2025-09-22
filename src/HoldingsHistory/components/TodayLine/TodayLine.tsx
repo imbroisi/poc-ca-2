@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ATTRIBUTE_ITEM_HEIGHT, TODAY_LINE_COLOR, TOTAL_ATTRIBUTES } from '../../config';
+import { ATTRIBUTE_ITEM_HEIGHT, HEADER_HEIGHT, TODAY_LINE_COLOR, TOTAL_ATTRIBUTES } from '../../config';
 import { useDateContext } from '../../context/DateContext';
 import './TodayLine.css';
 
@@ -37,7 +37,8 @@ const TodayLine = (props: TodayLineProps) => {
           // console.log('✅ Using getElementById - clean and reliable!');
           
           // Set the calculated height (ensure minimum height)
-          const finalHeight = Math.max(distance - 2, 100) + 1;
+          // Add HEADER_HEIGHT to account for the "Holdings" header at the top
+          const finalHeight = Math.max(distance - 2 + HEADER_HEIGHT, 100) + 1;
           setCalculatedHeight(`${finalHeight}px`);
         } else {
           console.warn('HoldingsHistory component not found, using viewport height');

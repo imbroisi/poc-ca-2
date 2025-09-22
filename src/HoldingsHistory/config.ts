@@ -70,4 +70,5 @@ export const HOLDINGS_PER_PAGE_DEFAULT = 10;
 export const TOTAL_ATTRIBUTES = Object.keys(ATTRIBUTES).length;
 export const ATTRIBUTE_ITEM_HEIGHT = 27;
 
-export const FOOTER_HEIGHT = '60px';
+export const HEADER_HEIGHT = 43;
+export const FOOTER_HEIGHT = 60;

@@ -4,7 +4,7 @@ import { MessageOverProvider } from './context/MessageOverContext';
 // import { ExpandedHoldingsProvider } from './context/ExpandedHoldingsContext';
 // import { HoldingsProvider } from './context/HoldingsContext';
 import { LinksDataProvider } from './context/LinksDataProvider';
-import { FOOTER_HEIGHT, MAIN_BORDER_COLOR, NUMBER_OF_YEARS } from './config';
+import { FOOTER_HEIGHT, HEADER_HEIGHT, MAIN_BORDER_COLOR, NUMBER_OF_YEARS } from './config';
 import MessageOver from './components/GlobalMessageOver';
 import GlobalModal from './components/GlobalModal/GlobalModal';
 import './HoldingsHistory.css';
@@ -47,30 +47,37 @@ const HoldingsHistory = (props: HoldingsHistoryProps) => {
   // const FOOTER_HEIGHT = '40px';
 
   return (
-    <div
-      id="holdings-history-container"
-      style={{ height: `calc(100% - ${FOOTER_HEIGHT})`, width: '100%', position: 'relative', border: 0 /*`1px solid ${MAIN_BORDER_COLOR}`*/ }}
-    >
-      <DateProvider todayDate={linksFromApi.data.today} numberOfYears={NUMBER_OF_YEARS}>
-        <ModalProvider>
-          <MessageOverProvider>
-            <LinksDataProvider linksDataFromApi={linksFromApi.data.holdings}>
-              <ExpandedHoldingsProvider>
-                <HoldingsProvider holdings={linksFromApi.data.holdings}>
+    <div style={{ height: '100%', width: '100%' }}>
+      <div
+        id="holdings-history-container"
+        style={{ height: `calc(100% - ${FOOTER_HEIGHT + HEADER_HEIGHT}px)`, width: '100%', position: 'relative', border: 0 /*`1px solid ${MAIN_BORDER_COLOR}`*/ }}
+      >
+        <div style={{
+          fontSize: '11px', fontWeight: 400, display: 'flex', alignItems: 'center', justifyContent: 'left', paddingLeft: '6px',
+          width: '100%', height: `${HEADER_HEIGHT}px`, backgroundColor: 'white', position: 'sticky', top: '0px', zIndex: 1000, border: `1px solid ${MAIN_BORDER_COLOR}`, boxSizing: 'border-box', borderBottom: 0
+        }}>
+          Holdings
+        </div>
+        <DateProvider todayDate={linksFromApi.data.today} numberOfYears={NUMBER_OF_YEARS}>
+          <ModalProvider>
+            <MessageOverProvider>
+              <LinksDataProvider linksDataFromApi={linksFromApi.data.holdings}>
+                <ExpandedHoldingsProvider>
+                  <HoldingsProvider holdings={linksFromApi.data.holdings}>
 
-                  <MainTable />
-                  <Footer />
+                    <MainTable />
+                    <Footer />
 
-                  <MessageOver />
-                  <GlobalModal />
+                    <MessageOver />
+                    <GlobalModal />
 
-                </HoldingsProvider>
-              </ExpandedHoldingsProvider>
-            </LinksDataProvider>
-          </MessageOverProvider>
-        </ModalProvider>
-      </DateProvider>
-
+                  </HoldingsProvider>
+                </ExpandedHoldingsProvider>
+              </LinksDataProvider>
+            </MessageOverProvider>
+          </ModalProvider>
+        </DateProvider>
+      </div>
 
     </div>
   );
