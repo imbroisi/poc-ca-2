@@ -13,13 +13,13 @@ export interface CellProps {
 }
 
 const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellProps) => {
-  const { pageToShow,  holdingsPerPage } = useLinksDataContext();
+  const { pageToShow, holdingsPerPage } = useLinksDataContext();
   const [linkDataBulk, setLinkData] = useState<any[]>([]);
   const { convertDateToPositionPx } = useDateContext();
 
   const drawLinks = (data: any) => {
     // console.log("2500 ++++++==>> drawLinks() data", data);
-    setLinkData((prev: any) => [ ...prev, data ]);
+    setLinkData((prev: any) => [...prev, data]);
   }
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
   }, [pageToShow]);
 
   // console.log("3000 ==>> holdingIdex", holdingIdex);
-  // console.log("3001 ==>> linkDataBulk", linkDataBulk);
+  console.log("3001 ==>> linkDataBulk", linkDataBulk);
 
 
   return (
@@ -77,11 +77,12 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
               height: showMe ? `${ATTRIBUTE_ITEM_HEIGHT}px` : 0,
             }}>
 
-            {linkDataBulk.map((linkData, index) => { 
+            {linkDataBulk.map((linkData, index) => {
               // console.log("\n3005 ==>> logic", linkData?.holdingRealIndex === holdingIdex && linkData?.attributeIndex === attributeIndex);
-              // console.log("3006 ==>> linkData", linkData);
+              console.log("3006 ==>> linkData", linkData);
+              console.log("3006 ==>> linkData.color", linkData?.color);
               // console.log("3007 ==>> linkData?.startEffectiveDate", linkData?.startEffectiveDate);
-              
+
               // console.log("\n3008 ==>> linkData?.holdingRealIndex", linkData?.holdingRealIndex);
               // // console.log("3009 ==>> holdingIdex", holdingIdex);
               // console.log("3010 ==>> linkData?.attributeIndex", linkData?.label);
@@ -89,24 +90,25 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
               // console.log("3011 ==>> attributeIndex", attributeIndex);
               // console.log("2502 ==>> logic", linkData?.holdingRealIndex === holdingIdex && linkData?.attributeIndex === attributeIndex);
               return (
-              <div key={`${linkData?.holdingIndex}-${linkData?.attributeIndex}-${linkData?.startEffectiveDate}-${index}`}>
-                {linkData?.attributeIndex === attributeIndex && (
-                  <div
-                    className="table-cell-link"
-                    style={{
-                      right: convertDateToPositionPx(linkData?.endEffectiveDate),
-                      height: ATTRIBUTE_ITEM_HEIGHT - 6,
-                      width: convertDateToPositionPx(linkData?.startEffectiveDate) - convertDateToPositionPx(linkData?.endEffectiveDate),
-                      backgroundColor: linkData?.color,
-                      border: `1px solid ${linkData?.borderColor}`,
-                    }}>
-                    <span className="table-cell-label">
-                      {linkData?.label || '<todo label>'}
-                    </span>
-                  </div>
-                )}
-              </div>
-            )})}
+                <div key={`${linkData?.holdingIndex}-${linkData?.attributeIndex}-${linkData?.startEffectiveDate}-${index}`}>
+                  {linkData?.attributeIndex === attributeIndex && (
+                    <div
+                      className="table-cell-link"
+                      style={{
+                        right: convertDateToPositionPx(linkData?.endEffectiveDate) - 1,
+                        height: ATTRIBUTE_ITEM_HEIGHT - 6,
+                        width: convertDateToPositionPx(linkData?.startEffectiveDate) - convertDateToPositionPx(linkData?.endEffectiveDate),
+                        backgroundColor: linkData?.color,
+                        border: `1px solid ${linkData?.borderColor}`,
+                      }}>
+                      <span className="table-cell-label">
+                        {linkData?.label || ''}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              )
+            })}
           </div>
         )
       })}

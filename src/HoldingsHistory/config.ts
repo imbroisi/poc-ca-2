@@ -19,6 +19,16 @@ export const LINKS_BORDERS_COLORS = [
   '#718fe3', // TODO: primary/blue-gray-80
 ];
 
+export const LINKS_COLORS_DISABLED = [
+  '#f9f9f9', // TODO: shades/green/20
+  '#f9f9f9', // TODO: shades/blue-gray/20
+];
+
+export const LINKS_BORDERS_COLORS_DISABLED = [
+  '#dddddd', // TODO: primary/green-80
+  '#dddddd', // TODO: primary/blue-gray-80
+];
+
 export const MAIN_BORDER_COLOR = '#c0c0c0';
 
 export const ATTRIBUTES = {
@@ -33,6 +43,26 @@ export const ATTRIBUTES = {
   'Transfer Account': 'disabled',
   'Service Type': 'disabled',
 };
+
+// TODO: replace by AM values in iohibStaticAttributes
+export const ATTRIBUTES_IDS = {
+  'CRM Client': 1,
+  'CRM Service': 2,
+  'Investing Entity': 3,
+  'Holding Contract Type': 4,
+  'Tradable': 5,
+  'Holding Type': 6,
+  'Custody Location': 7,
+  'Cash Account': 8,
+  'Transfer Account': 9,
+  'Service Type': 10,
+};
+
+// TODO: check AM values in iohibStaticAttributes
+export const ATTRIBUTES_IDS_DISABLED: boolean[] = [];
+Array.from(Object.keys(ATTRIBUTES)).forEach((attribute, index) => {
+  ATTRIBUTES_IDS_DISABLED[index + 1] = ATTRIBUTES[attribute as keyof typeof ATTRIBUTES] === 'disabled';
+});
 
 export const HOLDINGS_PER_PAGE_OPTIONS = [5, 10, 20, 50];
 export const HOLDINGS_PER_PAGE_DEFAULT = 10;

@@ -15,18 +15,28 @@ export const mockHoldings: Holding[] = [
         "attributeId": 1,
         "valueLinkId": 1,
         "attributeValueId": 1,
-        "label": "[Some Attribute Value] Some Business Value",
+        "label": "[Some Attribute Value] Some Business Value 1", // if "" or null means "attribute value = null"
         "startEffectiveDate": "2024-10-17T03:00:00.000Z",
         "endEffectiveDate": "today"
       },
       {
         "attributeId": 1,
+        "valueLinkId": 3,
+        "attributeValueId": 2,
+        "label": "[Some Attribute Value 2] Some Business Value 3",
+        "startEffectiveDate": "2023-02-16T03:00:00.000Z",
+        "endEffectiveDate": "2024-02-16:00:00.000Z"
+      },      
+      {
+        "attributeId": 1,
         "valueLinkId": 2,
-        "attributeValueId": 1,
+        "attributeValueId": 2,
         "label": "[Some Attribute Value 2] Some Business Value 2",
         "startEffectiveDate": "2024-02-17T03:00:00.000Z",
         "endEffectiveDate": "2024-10-16T03:00:00.000Z"
-      }
+      },
+
+
     ]
   },
   {
@@ -41,11 +51,19 @@ export const mockHoldings: Holding[] = [
       {
         "attributeId": 1,
         "valueLinkId": 1,
+        "attributeValueId": null,
+        "label": "",
+        "startEffectiveDate": "2025-08-17T03:00:00.000Z",
+        "endEffectiveDate": "today"
+      },
+      {
+        "attributeId": 1,
+        "valueLinkId": 1,
         "attributeValueId": 1,
         "label": "[Some Attribute Value 3] Some Business Value 3",
         "startEffectiveDate": "2024-04-17T03:00:00.000Z",
-        "endEffectiveDate": "today"
-      }
+        "endEffectiveDate": "2025-08-16T03:00:00.000Z"
+      },
     ]
   },
   {

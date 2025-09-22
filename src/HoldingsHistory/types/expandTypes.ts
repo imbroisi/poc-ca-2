@@ -18,7 +18,7 @@ export interface Attribute {
 export interface ValueLink {
   attributeId: number;
   valueLinkId: number;
-  attributeValueId: number;
+  attributeValueId: number | null;
   label: string;
   startEffectiveDate: string;
   endEffectiveDate: string;

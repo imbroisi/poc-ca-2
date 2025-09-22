@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 // TODO: test this component
 
-import { LINKS_BORDERS_COLORS, LINKS_COLORS } from '../config';
+import { ATTRIBUTES, ATTRIBUTES_IDS, ATTRIBUTES_IDS_DISABLED, LINKS_BORDERS_COLORS, LINKS_BORDERS_COLORS_DISABLED, LINKS_COLORS, LINKS_COLORS_DISABLED } from '../config';
 import { useDateContext } from '../context/DateContext';
 import { LinksDataTypes, useLinksDataContext } from '../context/LinksDataProvider';
 
@@ -17,6 +17,7 @@ const useLinks = ({ show, cellsCoord }: { show: boolean[] | null, cellsCoord: an
   // const { deleteLink } = useLinksDataContext();
   // const messageOver = useMessageOverContext();
   // const linkToDelete = useRef<LinksDataTypesWithColor | null>(null);
+
 
   const formatLinks = (links: LinksDataTypes[]) => {
     const formatedLinks: any = [];
@@ -39,13 +40,35 @@ const useLinks = ({ show, cellsCoord }: { show: boolean[] | null, cellsCoord: an
 
     if (!show) return;
 
-    // const filteredLinks = getLinksDataCopy();
+
+
+    const includeColorsToLinks = () => {
+      filteredLinks.forEach((linkData: any, index: number) => {
+        const sortedLinks = linkData.valueLinks.sort((a: any, b: any) => new Date(b.startEffectiveDate).getTime() - new Date((a).startEffectiveDate).getTime());
+        console.log("1001 ==>> sortedLinks", sortedLinks);
+        sortedLinks.forEach((linkData: any, index: number) => {
+          if (!linkData.label) {
+            linkData.color = 'transparent';
+            linkData.borderColor = 'transparent';
+          } else if (ATTRIBUTES_IDS_DISABLED[linkData.attributeId]) {
+            linkData.color = LINKS_COLORS_DISABLED[index % LINKS_COLORS_DISABLED.length];
+            linkData.borderColor = LINKS_BORDERS_COLORS_DISABLED[index % LINKS_BORDERS_COLORS_DISABLED.length];
+          } else {
+            linkData.color = LINKS_COLORS[index % LINKS_COLORS.length];
+            linkData.borderColor = LINKS_BORDERS_COLORS[index % LINKS_BORDERS_COLORS.length];
+          }
+        });
+
+      });
+    }
+
     const filteredLinks = getHoldingsFilteredByPage();
+    includeColorsToLinks();
 
 
     // console.log("1000 ==>> filteredLinks", filteredLinks);
-
     const formatedLinks = formatLinks(filteredLinks);
+
 
     // console.log("1001 ==>> formatedLinks", formatedLinks);
 
@@ -59,34 +82,35 @@ const useLinks = ({ show, cellsCoord }: { show: boolean[] | null, cellsCoord: an
       });
     }
 
-    const includeColorsToLinks = () => {
-      const splitIntoGroups = (data: any[]) => {
-        const groups = data.reduce((acc, linkData) => {
-          const key = `${linkData.holdingIndex}-${linkData.localAttributeIndex}`;
-          if (!acc[key]) acc[key] = [];
-          acc[key].push(linkData as LinksDataTypesWithColor);
-          return acc;
-        }, {} as { [key: string]: LinksDataTypesWithColor[] });
+    // const includeColorsToLinks = () => {
+    //   // const splitIntoGroups = (data: any[]) => {
+    //   //   const groups = data.reduce((acc, linkData) => {
+    //   //     const key = `${linkData.holdingIndex}-${linkData.localAttributeIndex}`;
+    //   //     if (!acc[key]) acc[key] = [];
+    //   //     acc[key].push(linkData as LinksDataTypesWithColor);
+    //   //     return acc;
+    //   //   }, {} as { [key: string]: LinksDataTypesWithColor[] });
 
-        return Object.values(groups);
-      };
+    //   //   return Object.values(groups);
+    //   // };
 
-      const sortedGroups = splitIntoGroups(formatedLinks).map((group: any) =>
-        group.sort((a: any, b: any) => new Date(b.startEffectiveDate).getTime() - new Date((a).startEffectiveDate).getTime())
-      ).flat();
+    //   // const sortedGroups = splitIntoGroups(formatedLinks).map((group: any) =>
+    //   //   group.sort((a: any, b: any) => new Date(b.startEffectiveDate).getTime() - new Date((a).startEffectiveDate).getTime())
+    //   // ).flat();
 
-      // console.log("1002 ==>> sortedGroups", sortedGroups);
+    //   // // console.log("1002 ==>> sortedGroups", sortedGroups);
 
-      sortedGroups.forEach((linkData: any, index: number) => {
-        linkData.color = LINKS_COLORS[index % LINKS_COLORS.length];
-        linkData.borderColor = LINKS_BORDERS_COLORS[index % LINKS_BORDERS_COLORS.length];
-      });
-    };
+    //   // sortedGroups.forEach((linkData: any, index: number) => {
+    //   //   linkData.color = LINKS_COLORS[index % LINKS_COLORS.length];
+    //   //   linkData.borderColor = LINKS_BORDERS_COLORS[index % LINKS_BORDERS_COLORS.length];
+    //   // });
+    // };
 
     replaceToday();
-    includeColorsToLinks();
 
-    // console.log("1003 ==>> formatedLinks", formatedLinks);
+
+    console.log("1003 ==>> formatedLinks", formatedLinks);
+
 
     // const onDeleteClicked = (linkData: LinksDataTypesWithColor, mousePosition: [number, number]) => {
     //   linkToDelete.current = linkData;
@@ -110,7 +134,7 @@ const useLinks = ({ show, cellsCoord }: { show: boolean[] | null, cellsCoord: an
     show.forEach((_, index) => {
       formatedLinks.forEach((linkData: any) => {
         if (linkData.holdingPaginedIndex === index) {
-          // console.log("2001 ==>> wrining linkData", linkData);
+          console.log("2001 ==>> writing linkData", linkData);
           cellsCoord.current[linkData.holdingPaginedIndex][linkData.attributeIndex].drawLinks(linkData);
         }
       })

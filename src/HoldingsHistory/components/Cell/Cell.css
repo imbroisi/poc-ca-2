@@ -18,6 +18,11 @@
 
 .table-cell-label {
   padding-left: 6px;
+  padding-right: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .table-cell-attribute {
