@@ -1,6 +1,5 @@
-import { HOLDINGS_PER_PAGE, ATTRIBUTE_ITEM_HEIGHT, ATTRIBUTES, TOTAL_ATTRIBUTES } from '../../config';
 import MenuHoldings from '../MenuHoldings';
-import MenuHoldingInceptionDate from '../MenuInceptionDate/MenuInceptionDate';
+import MenuHoldingInceptionDate from '../MenuHoldingInceptionDate/MenuIHoldingInceptionDate';
 import './FixedContent.css';
 
 export interface FixedColumnsProps {
@@ -18,6 +17,35 @@ const FixedContent = ({ toggleArrow, fixedColumnRef, handleScroll, show, rotated
       {/* Fixed column header */}
       <div className="fixed-column-header">
         {/* Row # */}
+        <div 
+          style={{
+            height: '30px',
+            width: '100%',
+            borderBottom: '1px solid #ccc',
+            background: '#f3f3f3',
+          }}
+        >
+
+        </div>
+        <div 
+          style={{
+            height: '40px',
+            width: '100%',
+            borderBottom: '1px solid #ccc',
+            background: 'white',
+          }}
+        >
+          
+        </div>
+        <div 
+          style={{
+            height: '30px',
+            width: '100%',
+            background: 'white',
+          }}
+        >
+
+        </div>
         {/* <button onClick={() => setShow(!show)}>Toggle</button> */}
       </div>
 
@@ -39,8 +67,8 @@ const FixedContent = ({ toggleArrow, fixedColumnRef, handleScroll, show, rotated
               <MenuHoldings show={show} toggleArrow={toggleArrow} rotatedArrows={rotatedArrows} />
             </div>
 
-            {/* Right synchronized column with strings per row */}
-            <div style={{ flex: '1 1  auto' }}>
+            {/* Right synchronized inception date column with strings per row */}
+            <div style={{ flex: '1 1 auto' }}>
                 <MenuHoldingInceptionDate show={show} />
             </div>
           </div>

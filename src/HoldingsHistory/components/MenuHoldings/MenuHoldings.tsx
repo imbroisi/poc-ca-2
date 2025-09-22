@@ -1,4 +1,4 @@
-import { HOLDINGS_PER_PAGE, ROW_EXPANDED_HEIGHT } from '../../config';
+import { HOLDINGS_PER_PAGE } from '../../config';
 import './MenuHoldings.css';
 import MenuHoldingName from '../MenuHoldingName';
 import MenuHoldingAttributes from '../MenuHoldingAttributes';
@@ -19,7 +19,8 @@ const MenuHoldings = ({ show, toggleArrow, rotatedArrows }: MenuHoldingsProps) =
           style={{
             height: show[rowIndex] ? '120px' : '0',
             maxHeight: show[rowIndex] ? '120px' : '0',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            // borderTop: (show[rowIndex] && rowIndex === 0) ? '1px solid #ccc' : '',
           }}
         >
           <div className="fixed-column-cell">

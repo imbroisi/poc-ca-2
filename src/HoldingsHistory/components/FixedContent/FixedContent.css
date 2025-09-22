@@ -60,3 +60,10 @@
   margin-left: 8px;
   font-size: 12px;
 }
+
+.fixed-column-header {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  display: block;
+}

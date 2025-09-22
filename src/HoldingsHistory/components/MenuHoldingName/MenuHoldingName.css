@@ -10,6 +10,7 @@
   align-items: center;
   justify-content: left;
   border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
   background-color: #fafafa;
   box-sizing: border-box;
   margin: 0;

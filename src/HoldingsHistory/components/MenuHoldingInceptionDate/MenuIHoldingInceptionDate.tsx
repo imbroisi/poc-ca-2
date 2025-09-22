@@ -1,5 +1,5 @@
-import { HOLDINGS_PER_PAGE, ROW_EXPANDED_HEIGHT } from '../../config';
-import './MenuInceptionDate.css';
+import { HOLDINGS_PER_PAGE } from '../../config';
+import './MenuHoldingInceptionDate.css';
 import MenuHoldingDate from './MenuHoldingDate/MenuHoldingDate';
 import MenuAttributeDate from './MenuAttributeDate/MenuAttributeDate';
 
