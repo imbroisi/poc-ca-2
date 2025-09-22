@@ -70,6 +70,7 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
                 borderColor: MAIN_BORDER_COLOR,
                 borderRight: colIndex === NUMBER_OF_YEARS - 1 ? 'none' : `1px solid ${MAIN_BORDER_COLOR}`,
                 borderBottom: `1px solid ${MAIN_BORDER_COLOR}`,
+                backgroundColor: 'white',
               }}
             >
               {colIndex + 2023}
