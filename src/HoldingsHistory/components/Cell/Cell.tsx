@@ -2,7 +2,6 @@ import { memo, useEffect, useRef, useState } from 'react';
 import './Cell.css';
 import { ATTRIBUTE_ITEM_HEIGHT, MAIN_BORDER_COLOR, NUMBER_OF_YEARS, TOTAL_ATTRIBUTES, YEAR_CELL_WIDTH_PX } from '../../config';
 import { useDateContext } from '../../context/DateContext';
-import { useLinksDataContext } from '../../context/LinksDataProvider';
 import { useAttributeSelection } from '../../context/AttributeSelecionContext';
 
 export interface CellProps {
@@ -14,7 +13,6 @@ export interface CellProps {
 }
 
 const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellProps) => {
-  // const { pageToShow, holdingsPerPage } = useLinksDataContext();
   const [linkDataBulk, setLinkData] = useState<any[]>([]);
   const { convertDateToPositionPx } = useDateContext();
   const { checkedAttributes } = useAttributeSelection();
@@ -30,17 +28,8 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
 
 
   const drawLinks = (data: any) => {
-    // console.log("2500 ++++++==>> drawLinks() data", data);
     setLinkData((prev: any) => [...prev, data]);
   }
-
-  // useEffect(() => {
-  //   // console.log("2501 ==>> pageToShow", pageToShow);
-  //   setLinkData([]);
-  // }, [pageToShow]);
-
-  // console.log("3000 ==>> holdingIdex", holdingIdex);
-  // console.log("3001 ==>> linkDataBulk", linkDataBulk);
 
   const totalAttributesToRender = checkedAttributes.filter((attribute) => attribute).length;
 
@@ -70,9 +59,7 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
       <div
         className="table-cell-attribute-container"
         style={{
-          // height: `${ATTRIBUTE_ITEM_HEIGHT}px`,
           borderColor: MAIN_BORDER_COLOR,
-          // backgroundColor: 'yellow',
           height: totalAttributesToRender > 0 ? '28px' : '0px',
         }} />
 
@@ -80,11 +67,6 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
         if (!checkedAttributes[attributeIndex]) return null;
 
         setCellCoord?.(holdingIdex, attributeIndex, drawLinks);
-
-        // console.log("\n3003 ==>> holdingIndex", holdingIdex);
-        // console.log("3004 ==>> attributeIndex", attributeIndex);
-        // console.log("3005 ==>> linkDataBulk", linkDataBulk);
-
 
         return (
           <div
@@ -94,42 +76,29 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
               height: showMe ? `${ATTRIBUTE_ITEM_HEIGHT}px` : 0,
             }}>
 
-            {linkDataBulk.map((linkData, index) => {
-              // console.log("\n3005 ==>> logic", linkData?.holdingRealIndex === holdingIdex && linkData?.attributeIndex === attributeIndex);
-              // console.log("3006 ==>> linkData", linkData);
-              // console.log("3006 ==>> linkData.color", linkData?.color);
-              // console.log("3007 ==>> linkData?.startEffectiveDate", linkData?.startEffectiveDate);
-
-              // console.log("\n3008 ==>> linkData?.holdingRealIndex", linkData?.holdingRealIndex);
-              // // console.log("3009 ==>> holdingIdex", holdingIdex);
-              // console.log("3010 ==>> linkData?.attributeIndex", linkData?.label);
-              // console.log("3010 ==>> linkData?.attributeIndex", linkData?.attributeIndex);
-              // console.log("3011 ==>> attributeIndex", attributeIndex);
-              // console.log("2502 ==>> logic", linkData?.holdingRealIndex === holdingIdex && linkData?.attributeIndex === attributeIndex);
-              return (
-                <div key={`${linkData?.holdingIndex}-${linkData?.attributeIndex}-${linkData?.startEffectiveDate}-${index}`}>
-                  {linkData?.attributeIndex === attributeIndex && (
-                    <div
-                      className="table-cell-link"
-                      style={{
-                        right: convertDateToPositionPx(linkData?.endEffectiveDate) - 1,
-                        height: ATTRIBUTE_ITEM_HEIGHT - 6,
-                        width: convertDateToPositionPx(linkData?.startEffectiveDate) - convertDateToPositionPx(linkData?.endEffectiveDate),
-                        backgroundColor: linkData?.color,
-                        border: `1px solid ${linkData?.borderColor}`,
-                      }}>
-                      <span className="table-cell-label">
-                        {linkData?.label || ''}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              )
-            })}
+            {linkDataBulk.map((linkData, index) => (
+              <div key={`${linkData?.holdingIndex}-${linkData?.attributeIndex}-${linkData?.startEffectiveDate}-${index}`}>
+                {linkData?.attributeIndex === attributeIndex && (
+                  <div
+                    className="table-cell-link"
+                    style={{
+                      right: convertDateToPositionPx(linkData?.endEffectiveDate) - 1,
+                      height: ATTRIBUTE_ITEM_HEIGHT - 6,
+                      width: convertDateToPositionPx(linkData?.startEffectiveDate) - convertDateToPositionPx(linkData?.endEffectiveDate),
+                      backgroundColor: linkData?.color,
+                      border: `1px solid ${linkData?.borderColor}`,
+                    }}>
+                    <span className="table-cell-label">
+                      {linkData?.label || ''}
+                    </span>
+                  </div>
+                )}
+              </div>
+            )
+            )}
           </div>
         )
       })}
-
     </div>
   );
 });

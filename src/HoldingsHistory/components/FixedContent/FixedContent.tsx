@@ -43,7 +43,7 @@ const FixedContent = ({ toggleArrow, fixedColumnRef, handleScroll, show, rotated
         }}>
           <ReferenceDataHeader columnHeadings={COLUMN_DEFAULT_HEADINGS} />
 
-          <div style={{ height: '30px', backgroundColor: 'white', position: 'sticky', top: '70px', zIndex: 97, borderBottom: `1px solid ${MAIN_BORDER_COLOR}`, boxSizing: 'border-box' }} />
+          <div className="fixed-column-header" style={{ borderBottom: `1px solid ${MAIN_BORDER_COLOR}` }} />
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <div style={{ flex: '0 0 auto'}}>
               <MenuHoldings show={show} toggleArrow={toggleArrow} rotatedArrows={rotatedArrows} />

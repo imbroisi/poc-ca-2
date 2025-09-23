@@ -13,7 +13,6 @@ export interface Attribute {
   parentId: HoldingId;
   name: string;
   inceptionDate: string; // ISO ou yyyy/mm/dd //
-  // isEditable?: // pra indicar qual é editável
 }
 export interface ValueLink {
   attributeId: number;

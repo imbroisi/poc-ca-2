@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react'
-import { ATTRIBUTE_ITEM_HEIGHT, ATTRIBUTES, HOLDINGS_PER_PAGE_DEFAULT, TOTAL_ATTRIBUTES } from '../config';
+import { ATTRIBUTE_ITEM_HEIGHT, HOLDINGS_PER_PAGE_DEFAULT, TOTAL_ATTRIBUTES } from '../config';
 import { useDateContext } from './DateContext';
 import { ValueLink } from '../types/expandTypes';
 
@@ -41,8 +41,6 @@ interface LinksDataProviderProps {
 const LOCAL_STORAGE_HOLDINGS_PAGE_KEY = 'holdings-history-holdings-per-page';
 const holdingsPerPageInitial = parseInt(localStorage.getItem(LOCAL_STORAGE_HOLDINGS_PAGE_KEY) || HOLDINGS_PER_PAGE_DEFAULT.toString());
 
-// console.log("100 ==>> holdingsPerPageInitial", holdingsPerPageInitial);
-
 const LinksDataContext = createContext<LinksDataContextType | undefined>(undefined)
 
 export const LinksDataProvider = ({
@@ -68,26 +66,11 @@ export const LinksDataProvider = ({
 
   }, [linksDataFromApi]);
 
-  // const linksData = linksDataFromApi;
-  // TODO: replace by the real total attributes (maybe from api response)
-  // const TOTAL_ATTRIBUTES = 9;
-
   const getLinksDataCopy = () => {
-    // returns a safe copy of linksData
-    // const linksDataPaginated = linksData.slice((pageToShow - 1) * HOLDINGS_PER_PAGE_DEFAULT, pageToShow * HOLDINGS_PER_PAGE_DEFAULT);
-    // console.log("12 ==>> linksDataPaginated", linksDataPaginated);
-    // return linksDataPaginated.map((linkData) => ({ ...linkData }));
-
     return linksData.map((linkData) => ({ ...linkData }));
-
-
-
   };
 
-  // console.log("1009) ===>>> linksData =", linksData);
-
   const addLink = (lastDayDate: string, firstDayDate: string, attributeIndex: number, portfolioIndex: number) => {
-    // console.log("1008) ===>>> addLink =", lastDayDate, firstDayDate, attributeIndex, portfolioIndex);
     setLinksData((prev) => [
       ...prev,
       {
@@ -129,14 +112,8 @@ export const LinksDataProvider = ({
 
   const getHoldingsFilteredByPage = () => {
     const holdingsPerPageToUse = holdingsPerPage === -1 ? totalHoldings.current : holdingsPerPage;
-    // console.log("100 ==>> pageToShow", pageToShow);
-    // console.log("101 ==>> holdingsPerPage", holdingsPerPage);
     return linksData.slice((pageToShow - 1) * holdingsPerPageToUse, pageToShow * holdingsPerPageToUse);
   }
-
-  // const setPageToShow = (page: number) => {
-  //   setPageToShow(page);
-  // }
 
   const rowsToRender = (TOTAL_ATTRIBUTES + 1) * Math.ceil(HOLDINGS_PER_PAGE_DEFAULT / (TOTAL_ATTRIBUTES + 1));
 

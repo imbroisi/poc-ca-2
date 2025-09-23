@@ -93,7 +93,6 @@ const MainTable = () => {
 
 
   const toggleArrow = (index: number) => {
-    // console.log("==>> toggleArrow", index);
     const newRotatedArrows = [...rotatedArrows];
     newRotatedArrows[index] = !newRotatedArrows[index];
     setRotatedArrows(newRotatedArrows);
@@ -121,7 +120,6 @@ const MainTable = () => {
 
   useEffect(() => {
     if (historyTextRef.current && fixedColumnRef.current) {
-      // console.log("fixedColumnRef.current.clientWidth", fixedColumnRef.current?.clientWidth);
       historyTextRef.current.style.left = `${fixedColumnRef.current.clientWidth + 6}px`;
     }
   }, []);
@@ -129,40 +127,19 @@ const MainTable = () => {
   return (
 
     <>
-      {/* <div style={{
-        fontSize: '11px', fontWeight: 400, display: 'flex', alignItems: 'center', justifyContent: 'left', paddingLeft: '6px',
-        width: '100%', height: '43px', backgroundColor: 'white', position: 'sticky', top: '0px', zIndex: 1000, border: `1px solid ${MAIN_BORDER_COLOR}`, boxSizing: 'border-box', borderBottom: 0
-      }}>
-        Holdings
-      </div> */}
       <div style={{ height: '100%', width: '100%', backgroundColor: 'white' }}>
 
         <div
           className="table-container"
           style={{
-            // Move critical layout styles inline for better scroll performance
-            height: '100%',
-            width: '100%',
-            display: 'flex',
             overflow: 'hidden',
-            boxSizing: 'border-box',
             borderColor: MAIN_BORDER_COLOR,
-            position: 'relative',
           }}>
-          <div ref={historyTextRef} style={{
-            position: 'absolute',
-            zIndex: 1000,
-            top: '10px',
-            fontSize: '11px',
-            backgroundColor: 'transparent',
-            textTransform: 'uppercase',
-            fontWeight: 400,
-            // height: '30px',
-            // width: '100%',
-            // left: '100px',
-          }}>
+          
+          <div ref={historyTextRef} className="history-text">
             History
           </div>
+
           <FixedContent
             toggleArrow={toggleArrow}
             fixedColumnRef={fixedColumnRef as React.RefObject<HTMLDivElement>}

@@ -1,5 +1,5 @@
 import { MenuItem, OutlinedInput, Pagination, Select, SelectChangeEvent } from '@mui/material';
-import { FOOTER_HEIGHT, HOLDINGS_PER_PAGE_DEFAULT, HOLDINGS_PER_PAGE_OPTIONS, MAIN_BORDER_COLOR } from '../../config';
+import { FOOTER_HEIGHT, HOLDINGS_PER_PAGE_OPTIONS, MAIN_BORDER_COLOR } from '../../config';
 import './Footer.css';
 import { useLinksDataContext } from '../../context/LinksDataProvider';
 

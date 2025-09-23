@@ -1,3 +1,42 @@
-.container {
+.holdings-history-settings-menu {
+  width: 248px; 
+  min-width: 248px;
+  max-width: 248px;
+  height: 100%;
+  background-color: white;
+  margin-right: 14px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  font-size: 11px;
+}
 
+.holdings-history-settings-menu-item {
+  height: 42px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding-left: 6px;
+  background-color: white;
+}
+
+.holdings-history-settings-menu-item:hover {
+  background-color: #f0f0f0;
+}
+
+.holdings-history-settings-menu-filters {
+  height: 31px;
+  width: 100%;
+  background-color: #f9f9f9;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding-left: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
 }

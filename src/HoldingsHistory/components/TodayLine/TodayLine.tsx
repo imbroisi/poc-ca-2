@@ -1,13 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { ATTRIBUTE_ITEM_HEIGHT, HEADER_HEIGHT, TODAY_LINE_COLOR, TOTAL_ATTRIBUTES } from '../../config';
+import { HEADER_HEIGHT, TODAY_LINE_COLOR } from '../../config';
 import { useDateContext } from '../../context/DateContext';
 import './TodayLine.css';
 
-export interface TodayLineProps {
-
-}
-
-const TodayLine = (props: TodayLineProps) => {
+const TodayLine = () => {
   const { todayPositionPx } = useDateContext();
   const todayLineRef = useRef<HTMLDivElement>(null);
   const [calculatedHeight, setCalculatedHeight] = useState<string | undefined>();
@@ -26,23 +22,11 @@ const TodayLine = (props: TodayLineProps) => {
           const holdingsHistoryRect = holdingsHistoryElement.getBoundingClientRect();
           const holdingsHistoryBottom = holdingsHistoryRect.bottom;
           
-          // Calculate the distance
           const distance = holdingsHistoryBottom - todayLineTop;
           
-          // console.log('🆔 ID-Based Solution:');
-          // console.log('TodayLine top position:', todayLineTop);
-          // console.log('HoldingsHistory bottom position:', holdingsHistoryBottom);
-          // console.log('Target element ID:', holdingsHistoryElement.id);
-          // console.log('Calculated distance:', distance);
-          // console.log('✅ Using getElementById - clean and reliable!');
-          
-          // Set the calculated height (ensure minimum height)
-          // Add HEADER_HEIGHT to account for the "Holdings" header at the top
           const finalHeight = Math.max(distance - 2 + HEADER_HEIGHT, 100) + 1;
           setCalculatedHeight(`${finalHeight}px`);
         } else {
-          console.warn('HoldingsHistory component not found, using viewport height');
-          // Fallback to viewport calculation
           const viewportHeight = window.innerHeight;
           const distance = viewportHeight - todayLineTop;
           setCalculatedHeight(`${Math.max(distance - 50, 100)}px`);
@@ -52,8 +36,6 @@ const TodayLine = (props: TodayLineProps) => {
 
     // Add a small delay to ensure DOM is fully rendered
     const timeoutId = setTimeout(calculateDistance, 10);
-
-    // Recalculate on window resize
     window.addEventListener('resize', calculateDistance);
 
     return () => {

@@ -20,10 +20,6 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
 
   const setCellCoord = (holdingIndex: number, attributeIndex: number, drawLinks: any) => {
 
-    // console.log("\n3000 ++++++==>> setCellCoord() holdingIndex", holdingIndex);
-    // console.log("3001 ++++++==>> setCellCoord() attributeIndex", attributeIndex);
-    // console.log("3002 ++++++==>> setCellCoord() drawLinks", drawLinks);
-
     if (!cellsCoord.current[holdingIndex]) {
       cellsCoord.current[holdingIndex] = {};
     }
@@ -37,11 +33,11 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
     processLinks();
   }, [processLinks]);
 
-  const totalHoldingsToRender = holdingsPerPage * pageToShow <= totalHoldings 
-    ? holdingsPerPage 
+  const totalHoldingsToRender = holdingsPerPage * pageToShow <= totalHoldings
+    ? holdingsPerPage
     : totalHoldings % holdingsPerPage;
 
-  return (    
+  return (
     <div
       ref={setScrollableRef || scrollableColumnRef}
       onScroll={handleScroll}
@@ -54,11 +50,9 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
         // Performance optimizations for smooth scrolling
         willChange: 'scroll-position',
         WebkitOverflowScrolling: 'touch',
-        // border: 'px solid red',
       }}>
       <div style={{ width: `${NUMBER_OF_YEARS * YEAR_CELL_WIDTH_PX}px` }}>
         <div style={{ height: '30px', backgroundColor: '#f3f3f3', position: 'sticky', top: '0px', zIndex: 99, borderBottom: `1px solid ${MAIN_BORDER_COLOR}`, boxSizing: 'border-box' }}>
-          {/* <div>HISTORY</div> */}
         </div>
         {/* Header row */}
         <div className="scrollable-header">
@@ -66,8 +60,8 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
             <div
               key={colIndex}
               className="header-cell"
-              style={{ 
-                width: `${YEAR_CELL_WIDTH_PX}px`, 
+              style={{
+                width: `${YEAR_CELL_WIDTH_PX}px`,
                 borderColor: MAIN_BORDER_COLOR,
                 borderRight: colIndex === NUMBER_OF_YEARS - 1 ? 'none' : `1px solid ${MAIN_BORDER_COLOR}`,
                 borderBottom: `1px solid ${MAIN_BORDER_COLOR}`,
@@ -79,6 +73,7 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
           ))}
 
           <TodayLine />
+
         </div>
         <div style={{ height: '29px', backgroundColor: 'white', position: 'sticky', top: '70px', zIndex: 97, borderBottom: `1px solid ${MAIN_BORDER_COLOR}` }}>
           {Array.from({ length: NUMBER_OF_YEARS }).map((_, yearIndex) => (
@@ -109,7 +104,6 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
                 // Move critical layout styles inline for better performance
                 position: 'relative',
                 display: 'table-row',
-                // borderTop: '1px solid #ccc',
                 overflow: 'hidden',
                 // Performance optimizations
                 transition: 'height 0.3s ease-in-out',
@@ -122,7 +116,6 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
                 holdingIdex={holdingIdex}
                 setCellCoord={setCellCoord}
               />
-
             </div>
           ))}
         </div>
