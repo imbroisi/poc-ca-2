@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { ATTRIBUTE_ITEM_HEIGHT, ATTRIBUTES, TOTAL_ATTRIBUTES } from '../../config';
 import { useAttributeSelection } from '../../context/AttributeSelecionContext';
 import './MenuHoldingAttributes.css';
@@ -11,7 +11,7 @@ const MenuHoldingAttributes = ({ show }: MenuHoldingAttributesProps) => {
   const { checkedAttributes } = useAttributeSelection();
   const lastCheckedAttributes = useRef<boolean[]>([]);
 
-  const totalAttributesToRender = checkedAttributes.filter((attribute) => attribute).length;
+  const totalAttributesToRender = useMemo(() => checkedAttributes.filter((attribute) => attribute).length, [checkedAttributes]);
 
   const transition = lastCheckedAttributes.current !== checkedAttributes
     ? 'none'
