@@ -2,7 +2,7 @@
   display: table-cell;
   width: 300px;
   box-sizing: border-box;
-  transition: height 0.3s ease-in-out;
+  /* transition: height 0.3s ease-in-out; */
 }
 
 .table-cell-link {

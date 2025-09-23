@@ -21,7 +21,7 @@ const Footer = () => {
   const showPagination = totalHoldings > 0;
 
   return (
-    <div className="holdings-history-footer" style={{ height: FOOTER_HEIGHT, borderColor: MAIN_BORDER_COLOR }}>
+    <div className="holdings-history-footer" style={{ height: FOOTER_HEIGHT, borderColor: MAIN_BORDER_COLOR, backgroundColor: 'white' }}>
       <div>
         {/* TODO: EDIT BUTTON */}
       </div>

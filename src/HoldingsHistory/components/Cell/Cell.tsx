@@ -1,8 +1,9 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import './Cell.css';
 import { ATTRIBUTE_ITEM_HEIGHT, MAIN_BORDER_COLOR, NUMBER_OF_YEARS, TOTAL_ATTRIBUTES, YEAR_CELL_WIDTH_PX } from '../../config';
 import { useDateContext } from '../../context/DateContext';
 import { useLinksDataContext } from '../../context/LinksDataProvider';
+import { useAttributeSelection } from '../../context/AttributeSelecionContext';
 
 export interface CellProps {
   showMe: boolean;
@@ -13,31 +14,43 @@ export interface CellProps {
 }
 
 const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellProps) => {
-  const { pageToShow, holdingsPerPage } = useLinksDataContext();
+  // const { pageToShow, holdingsPerPage } = useLinksDataContext();
   const [linkDataBulk, setLinkData] = useState<any[]>([]);
   const { convertDateToPositionPx } = useDateContext();
+  const { checkedAttributes } = useAttributeSelection();
+  const lastCheckedAttributes = useRef<boolean[]>([]);
+
+  const transition = lastCheckedAttributes.current !== checkedAttributes
+    ? 'none'
+    : 'height 0.3s ease-in-out, opacity 0.3s ease-in-out'
+
+  useEffect(() => {
+    lastCheckedAttributes.current = checkedAttributes;
+  }, [checkedAttributes]);
+
 
   const drawLinks = (data: any) => {
     // console.log("2500 ++++++==>> drawLinks() data", data);
     setLinkData((prev: any) => [...prev, data]);
   }
 
-  useEffect(() => {
-    // console.log("2501 ==>> pageToShow", pageToShow);
-    setLinkData([]);
-  }, [pageToShow]);
+  // useEffect(() => {
+  //   // console.log("2501 ==>> pageToShow", pageToShow);
+  //   setLinkData([]);
+  // }, [pageToShow]);
 
   // console.log("3000 ==>> holdingIdex", holdingIdex);
-  console.log("3001 ==>> linkDataBulk", linkDataBulk);
+  // console.log("3001 ==>> linkDataBulk", linkDataBulk);
 
+  const totalAttributesToRender = checkedAttributes.filter((attribute) => attribute).length;
 
   return (
     <div
       className="table-cell"
       style={{
-        height: showMe ? `${ATTRIBUTE_ITEM_HEIGHT * (TOTAL_ATTRIBUTES + 1) + 1}px` : '0',
+        height: showMe ? `${ATTRIBUTE_ITEM_HEIGHT * (totalAttributesToRender + 1) + 1}px` : '0px',
+        transition,
       }}>
-
 
       {/* Vertical lines for Years separation in attributes area */}
       {Array.from({ length: NUMBER_OF_YEARS }).map((_, yearIndex) => {
@@ -64,6 +77,8 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
         }} />
 
       {Array.from({ length: TOTAL_ATTRIBUTES }).map((_, attributeIndex) => {
+        if (!checkedAttributes[attributeIndex]) return null;
+
         setCellCoord?.(holdingIdex, attributeIndex, drawLinks);
 
         // console.log("\n3003 ==>> holdingIndex", holdingIdex);
@@ -81,8 +96,8 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
 
             {linkDataBulk.map((linkData, index) => {
               // console.log("\n3005 ==>> logic", linkData?.holdingRealIndex === holdingIdex && linkData?.attributeIndex === attributeIndex);
-              console.log("3006 ==>> linkData", linkData);
-              console.log("3006 ==>> linkData.color", linkData?.color);
+              // console.log("3006 ==>> linkData", linkData);
+              // console.log("3006 ==>> linkData.color", linkData?.color);
               // console.log("3007 ==>> linkData?.startEffectiveDate", linkData?.startEffectiveDate);
 
               // console.log("\n3008 ==>> linkData?.holdingRealIndex", linkData?.holdingRealIndex);

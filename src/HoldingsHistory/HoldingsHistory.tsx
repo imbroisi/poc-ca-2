@@ -13,6 +13,8 @@ import { ExpandedHoldingsProvider } from './context/ExpandedHoldingsContext';
 import { HoldingsProvider } from './context/HoldingsContext';
 import Footer from './components/Footer';
 import Header from './components/Header/Header';
+import SettingsMenu from './components/SettingsMenu';
+import { AttributeSelectionProvider } from './context/AttributeSelecionContext';
 
 export interface HoldingsHistoryProps {
 
@@ -35,22 +37,29 @@ const HoldingsHistory = (props: HoldingsHistoryProps) => {
       <ModalProvider>
         <MessageOverProvider>
           <LinksDataProvider linksDataFromApi={linksFromApi.data.holdings}>
+            <AttributeSelectionProvider>
 
-            <div className="holdings-history-container-wrapper">
+            <div style={{ display: 'flex', height: '100%', width: '100%', backgroundColor: 'transparent', boxSizing: 'border-box', overflow: 'hidden' }}>
+              
+              <SettingsMenu />
+
+              <div className="holdings-history-container-wrapper" style={{ flex: 1, minWidth: 0, overflow: 'hidden' }}>
               <div
                 id="holdings-history-container"
                 className="holdings-history-container"
-                style={{ height: `calc(100% - ${FOOTER_HEIGHT + HEADER_HEIGHT}px)` }}
+                style={{ height: `calc(100% - ${FOOTER_HEIGHT + HEADER_HEIGHT}px)`, backgroundColor: 'white' }}
               >
                 <Header />
                 <MainTable />
                 <Footer />
+              </div>
               </div>
             </div>
 
             <MessageOver />
             <GlobalModal />
 
+            </AttributeSelectionProvider>
           </LinksDataProvider>
         </MessageOverProvider>
       </ModalProvider>

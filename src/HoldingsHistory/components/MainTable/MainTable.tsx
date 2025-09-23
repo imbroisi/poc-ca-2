@@ -121,7 +121,7 @@ const MainTable = () => {
 
   useEffect(() => {
     if (historyTextRef.current && fixedColumnRef.current) {
-      console.log("fixedColumnRef.current.clientWidth", fixedColumnRef.current?.clientWidth);
+      // console.log("fixedColumnRef.current.clientWidth", fixedColumnRef.current?.clientWidth);
       historyTextRef.current.style.left = `${fixedColumnRef.current.clientWidth + 6}px`;
     }
   }, []);
@@ -135,7 +135,7 @@ const MainTable = () => {
       }}>
         Holdings
       </div> */}
-      <div style={{ height: '100%', width: '100%' }}>
+      <div style={{ height: '100%', width: '100%', backgroundColor: 'white' }}>
 
         <div
           className="table-container"

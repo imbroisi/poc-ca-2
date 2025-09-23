@@ -19,6 +19,7 @@ function App() {
       // backgroundColor: 'pink',
       // margin: `${MARGIN}px`,
       padding: '50px',
+      // backgroundColor: 'pink',
     }}>
           <HistoryLink />
       </div>

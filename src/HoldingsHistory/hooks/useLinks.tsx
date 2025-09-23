@@ -45,7 +45,7 @@ const useLinks = ({ show, cellsCoord }: { show: boolean[] | null, cellsCoord: an
     const includeColorsToLinks = () => {
       filteredLinks.forEach((linkData: any, index: number) => {
         const sortedLinks = linkData.valueLinks.sort((a: any, b: any) => new Date(b.startEffectiveDate).getTime() - new Date((a).startEffectiveDate).getTime());
-        console.log("1001 ==>> sortedLinks", sortedLinks);
+        // console.log("1001 ==>> sortedLinks", sortedLinks);
         sortedLinks.forEach((linkData: any, index: number) => {
           if (!linkData.label) {
             linkData.color = 'transparent';
@@ -109,7 +109,7 @@ const useLinks = ({ show, cellsCoord }: { show: boolean[] | null, cellsCoord: an
     replaceToday();
 
 
-    console.log("1003 ==>> formatedLinks", formatedLinks);
+    // console.log("1003 ==>> formatedLinks", formatedLinks);
 
 
     // const onDeleteClicked = (linkData: LinksDataTypesWithColor, mousePosition: [number, number]) => {
@@ -134,7 +134,7 @@ const useLinks = ({ show, cellsCoord }: { show: boolean[] | null, cellsCoord: an
     show.forEach((_, index) => {
       formatedLinks.forEach((linkData: any) => {
         if (linkData.holdingPaginedIndex === index) {
-          console.log("2001 ==>> writing linkData", linkData);
+          // console.log("2001 ==>> writing linkData", linkData);
           cellsCoord.current[linkData.holdingPaginedIndex][linkData.attributeIndex].drawLinks(linkData);
         }
       })

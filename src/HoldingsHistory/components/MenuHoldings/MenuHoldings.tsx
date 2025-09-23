@@ -25,7 +25,8 @@ const MenuHoldings = ({ show, toggleArrow, rotatedArrows }: MenuHoldingsProps) =
               height: show === null || show[rowIndex] ? '120px' : '0',
               maxHeight: show === null || show[rowIndex] ? '120px' : '0',
               // IMPORTANT: Do not move to CSS, it is needed as style for better scroll synchronization
-              overflow: 'hidden'
+              overflow: 'hidden',
+              transition: 'height 0.3s ease-in-out',
             }}
           >
             <div className="fixed-column-cell" style={{ borderColor: MAIN_BORDER_COLOR }}>

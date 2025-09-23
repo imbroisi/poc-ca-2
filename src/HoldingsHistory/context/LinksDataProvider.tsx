@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react'
-import { ATTRIBUTE_ITEM_HEIGHT, HOLDINGS_PER_PAGE_DEFAULT, TOTAL_ATTRIBUTES } from '../config';
+import { ATTRIBUTE_ITEM_HEIGHT, ATTRIBUTES, HOLDINGS_PER_PAGE_DEFAULT, TOTAL_ATTRIBUTES } from '../config';
 import { useDateContext } from './DateContext';
 import { ValueLink } from '../types/expandTypes';
 
@@ -60,8 +60,6 @@ export const LinksDataProvider = ({
     d.setUTCDate(d.getUTCDate() - n);
     return d.toISOString().split('T')[0];
   });
-
-  // console.log("9 ==>> linksDataFromApi", linksDataFromApi);
 
   useEffect(() => {
     // TODO: format links data from api response to LinksDataTypes
