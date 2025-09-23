@@ -445,9 +445,9 @@ export const mockHoldings: Holding[] = [
     "inceptionDate": "2025-08-19T03:00:00.000Z",
     "valueLinks": [
       {
-        "attributeId": 3,
+        "attributeId": 9,
         "valueLinkId": 23,
-        "attributeValueId": 3,
+        "attributeValueId": 9,
         "label": "[Education Technology] Learning Innovation Fund",
         "startEffectiveDate": "2025-05-15T03:00:00.000Z",
         "endEffectiveDate": "today"

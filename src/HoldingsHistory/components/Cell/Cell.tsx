@@ -61,7 +61,7 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
               position: 'absolute',
               left: `${yearIndex * YEAR_CELL_WIDTH_PX - 1}px`,
               borderLeft: `1px solid ${MAIN_BORDER_COLOR}`,
-              height: `${ATTRIBUTE_ITEM_HEIGHT * (TOTAL_ATTRIBUTES + 1)}px`,
+              height: showMe && totalAttributesToRender > 0 ? `${ATTRIBUTE_ITEM_HEIGHT * (totalAttributesToRender + 1)}px` : '0px',
             }}>
           </div>
         );
@@ -73,7 +73,7 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
           // height: `${ATTRIBUTE_ITEM_HEIGHT}px`,
           borderColor: MAIN_BORDER_COLOR,
           // backgroundColor: 'yellow',
-          height: '28px',
+          height: totalAttributesToRender > 0 ? '28px' : '0px',
         }} />
 
       {Array.from({ length: TOTAL_ATTRIBUTES }).map((_, attributeIndex) => {

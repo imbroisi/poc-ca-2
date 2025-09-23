@@ -22,8 +22,8 @@ const MenuHoldings = ({ show, toggleArrow, rotatedArrows }: MenuHoldingsProps) =
             key={rowIndex}
             className="fixed-column-row"
             style={{
-              height: show === null || show[rowIndex] ? '120px' : '0',
-              maxHeight: show === null || show[rowIndex] ? '120px' : '0',
+              height: show === null || show[rowIndex] ? '0' : '0',
+              maxHeight: show === null || show[rowIndex] ? '0' : '0',
               // IMPORTANT: Do not move to CSS, it is needed as style for better scroll synchronization
               overflow: 'hidden',
               transition: 'height 0.3s ease-in-out',

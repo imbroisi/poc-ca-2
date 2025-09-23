@@ -54,6 +54,7 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
         // Performance optimizations for smooth scrolling
         willChange: 'scroll-position',
         WebkitOverflowScrolling: 'touch',
+        // border: 'px solid red',
       }}>
       <div style={{ width: `${NUMBER_OF_YEARS * YEAR_CELL_WIDTH_PX}px` }}>
         <div style={{ height: '30px', backgroundColor: '#f3f3f3', position: 'sticky', top: '0px', zIndex: 99, borderBottom: `1px solid ${MAIN_BORDER_COLOR}`, boxSizing: 'border-box' }}>
