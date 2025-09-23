@@ -1,0 +1,14 @@
+.column-heading-container {
+  text-transform: uppercase;
+  max-width: 150px;
+  padding-bottom: 6px;
+  font-size: 11px;
+  color: #333;
+  letter-spacing: 0.6;
+}
+
+.column-separator {
+  height: 100%;
+  background: #cccccc;
+  width: 1px;
+}

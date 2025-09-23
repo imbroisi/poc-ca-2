@@ -75,3 +75,4 @@ export const ROW_EXPANDED_HEIGHT = ATTRIBUTE_ITEM_HEIGHT * (TOTAL_ATTRIBUTES + 1
 
 export const HEADER_HEIGHT = 43;
 export const FOOTER_HEIGHT = 60;
+export const COLUMN_DEFAULT_HEADINGS = [{ heading: 'Fund Name', enabled: true }, {heading: 'Inception Date', enabled: true }];
