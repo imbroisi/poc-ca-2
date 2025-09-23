@@ -1,0 +1,8 @@
+.reference-data-header-container {
+  height: 30px;
+  background-color: #f3f3f3;
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  box-sizing: border-box;
+}
