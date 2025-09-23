@@ -1,6 +1,7 @@
 import { MAIN_BORDER_COLOR } from '../../config';
 import FilterAttributes from '../FilterAttributes';
-import Header from '../Header';
+import filterByImage from '../../mock/filter-by.png';
+import excludeLiquidated from '../../mock/exclude-liquidated.png';
 import './SettingsMenu.css';
 
 export interface SettingsMenuProps {
@@ -50,8 +51,14 @@ const SettingsMenu = (props: SettingsMenuProps) => {
         Filters
       </div>
 
-      <FilterAttributes />
+        <div>
+          <img src={filterByImage} alt="Filter by" />
+        </div>
 
+      <FilterAttributes />
+      <div>
+          <img src={excludeLiquidated} alt="Filter by" />
+        </div>
     </div>
   );
 }
