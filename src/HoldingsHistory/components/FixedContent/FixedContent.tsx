@@ -1,4 +1,4 @@
-import { ATTRIBUTE_ITEM_HEIGHT, ATTRIBUTES, MAIN_BORDER_COLOR, TOTAL_ATTRIBUTES } from '../../config';
+import { MAIN_BORDER_COLOR } from '../../config';
 import MenuHoldings from '../MenuHoldings';
 import MenuHoldingInceptionDate from '../MenuHoldingInceptionDate/MenuIHoldingInceptionDate';
 import './FixedContent.css';
