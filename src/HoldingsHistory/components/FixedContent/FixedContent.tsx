@@ -65,7 +65,9 @@ const FixedContent = ({ toggleArrow, fixedColumnRef, handleScroll, show, rotated
               Fund Name
             </div>
             <div style={{ height: '100%', background: '#ccc', width: 1 }} /> 
-            <div style={{ textTransform: 'uppercase', paddingRight: 12 }}>
+            <div style={{ textTransform: 'uppercase', 
+              paddingRight: 12 
+              }}>
               Inception Date
             </div>
           </div>

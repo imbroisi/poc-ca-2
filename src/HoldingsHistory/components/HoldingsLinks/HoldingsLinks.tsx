@@ -61,9 +61,6 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
         </div>
         {/* Header row */}
         <div className="scrollable-header">
-          <div className='header-cell'>
-
-          </div>
           {Array.from({ length: NUMBER_OF_YEARS }).map((_, colIndex) => (
             <div
               key={colIndex}
