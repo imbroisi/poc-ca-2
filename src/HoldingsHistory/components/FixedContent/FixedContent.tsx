@@ -1,5 +1,6 @@
-import { ATTRIBUTE_ITEM_HEIGHT, ATTRIBUTES, MAIN_BORDER_COLOR, TOTAL_ATTRIBUTES } from '../../config';
+import { MAIN_BORDER_COLOR } from '../../config';
 import MenuHoldings from '../MenuHoldings';
+import MenuHoldingInceptionDate from '../MenuHoldingInceptionDate/MenuIHoldingInceptionDate';
 import './FixedContent.css';
 
 export interface FixedColumnsProps {
@@ -21,6 +22,7 @@ const FixedContent = ({ toggleArrow, fixedColumnRef, handleScroll, show, rotated
         flexDirection: 'column',
         borderColor: MAIN_BORDER_COLOR,
       }}>
+    
       {/* Fixed column scrollable content */}
       <div
         ref={fixedColumnRef}
@@ -42,9 +44,45 @@ const FixedContent = ({ toggleArrow, fixedColumnRef, handleScroll, show, rotated
         }}>
           <div style={{ height: '30px', backgroundColor: '#f3f3f3', position: 'sticky', top: '0px', zIndex: 99, borderBottom: `1px solid ${MAIN_BORDER_COLOR}`, boxSizing: 'border-box' }} />
           {/* Header row placeholder to align with date header */}
-          <div style={{ height: '40px', backgroundColor: 'white', position: 'sticky', top: '30px', zIndex: 98, borderBottom: `1px solid ${MAIN_BORDER_COLOR}`, boxSizing: 'border-box' }} />
+          <div style={{ 
+            height: '40px',
+            backgroundColor: 'white',
+            position: 'sticky',
+            top: '30px',
+            zIndex: 98,
+            borderBottom: `1px solid ${MAIN_BORDER_COLOR}`,
+            boxSizing: 'border-box',
+            width: '100%',
+            maxWidth: 300,
+            background: 'white',
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'flex-end',
+            fontSize: 12,
+            fontWeight: 600,
+            justifyContent: 'space-between' }}>
+            <div style={{ textTransform: 'uppercase', paddingLeft: 12, width: '70%', maxWidth: 150, paddingRight: 10 }}>
+              Fund Name
+            </div>
+            <div style={{ height: '100%', background: '#ccc', width: 1 }} /> 
+            <div style={{ textTransform: 'uppercase', 
+              paddingRight: 12 
+              }}>
+              Inception Date
+            </div>
+          </div>
+
           <div style={{ height: '30px', backgroundColor: 'white', position: 'sticky', top: '70px', zIndex: 97, borderBottom: `1px solid ${MAIN_BORDER_COLOR}`, boxSizing: 'border-box' }} />
-          <MenuHoldings show={show} toggleArrow={toggleArrow} rotatedArrows={rotatedArrows} />
+          <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div style={{ flex: '0 0 auto'}}>
+              <MenuHoldings show={show} toggleArrow={toggleArrow} rotatedArrows={rotatedArrows} />
+            </div>
+            <div style={{ flex: '1 1 auto' }}>
+              <MenuHoldingInceptionDate show={show} />
+            </div>
+          
+          </div>
+
       </div>
     </div>
   );

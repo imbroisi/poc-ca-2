@@ -6,6 +6,8 @@
 }
 
 .fixed-column-header {
+  /* height: 101px; */
+  background-color: #f0f0f0;
   height: 101px;
   background-color: #f3f3f3;
   display: flex;
@@ -28,4 +30,67 @@
 
 .fixed-column-content::-webkit-scrollbar {
   display: none;
+}
+
+/* Ensure fixed-column cells share base look but allow overrides */
+.fixed-column-cell {
+  display: block;
+  /* width: 100%;
+  /* border-bottom: 1px solid #ccc; */
+  /*box-sizing: border-box;*/
+  /* transition: height 0.2s ease-in-out; */
+
+}
+
+.fixed-column-cell-content-inception {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  background-color: #fafafa;
+  border-bottom: 1px solid #ccc;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Stack inception rows vertically within expandable section */
+.expandable-content {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Apply background only to holding rows */
+.holding-cell {
+  /* background-color: #fafafa; */
+}
+
+/* Attribute cells inherit no background to match requirement */
+.attribute-cell {
+  background-color: transparent;
+}
+
+.content {
+  border: none;
+  padding-left: 0;
+  /* border-bottom: 1px solid #ccc; */
+}
+
+.cell-inception {
+  border: none;
+  /* border-top: 1px solid #ccc; */
+}
+
+
+.expandable-content-item {
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+  font-size: 12px;
+}
+
+.fixed-column-header {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  display: block;
 }

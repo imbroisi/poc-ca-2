@@ -3,7 +3,7 @@ import HoldingsLinks from '../HoldingsLinks';
 
 import './MainTable.css';
 import FixedContent from '../FixedContent';
-import { HOLDINGS_PER_PAGE_DEFAULT, MAIN_BORDER_COLOR, TOTAL_ATTRIBUTES } from '../../config';
+import { HOLDINGS_PER_PAGE_DEFAULT, MAIN_BORDER_COLOR } from '../../config';
 import { useLinksDataContext } from '../../context/LinksDataProvider';
 
 const MainTable = () => {

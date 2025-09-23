@@ -74,6 +74,15 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
               }}
             >
               {colIndex + 2023}
+              {/* <div style={{ height: 30 }}>
+
+              </div>
+              <div style={{ height: 38, background: '#fff', width: '100%', display: 'flex', alignItems: 'center' }}>
+                {colIndex + 2023}
+              </div>
+              <div style={{ height: 30 }}>
+
+              </div> */}
             </div>
           ))}
 

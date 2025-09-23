@@ -3,6 +3,9 @@
   font-weight: normal;
   line-height: 1.3;
   padding-left: 22px;
+  box-sizing: border-box;
+  border-right: 1px solid #ccc;
+  padding-right: 22px;
   /* box-sizing: border-box; */
   transition: height 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }

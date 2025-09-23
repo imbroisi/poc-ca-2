@@ -69,6 +69,9 @@ export const HOLDINGS_PER_PAGE_DEFAULT = 10;
 
 export const TOTAL_ATTRIBUTES = Object.keys(ATTRIBUTES).length;
 export const ATTRIBUTE_ITEM_HEIGHT = 27;
+export const HOLDINGS_PER_PAGE = 20;
+// Height of one holding row when expanded: name row + all attribute rows
+export const ROW_EXPANDED_HEIGHT = ATTRIBUTE_ITEM_HEIGHT * (TOTAL_ATTRIBUTES + 1);
 
 export const HEADER_HEIGHT = 43;
 export const FOOTER_HEIGHT = 60;
