@@ -58,6 +58,9 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
       <div style={{ width: `${NUMBER_OF_YEARS * YEAR_CELL_WIDTH_PX}px` }}>
         {/* Header row */}
         <div className="scrollable-header">
+          <div className='header-cell'>
+
+          </div>
           {Array.from({ length: NUMBER_OF_YEARS }).map((_, colIndex) => (
             <div
               key={colIndex}
@@ -69,6 +72,15 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
               }}
             >
               {colIndex + 2023}
+              {/* <div style={{ height: 30 }}>
+
+              </div>
+              <div style={{ height: 38, background: '#fff', width: '100%', display: 'flex', alignItems: 'center' }}>
+                {colIndex + 2023}
+              </div>
+              <div style={{ height: 30 }}>
+
+              </div> */}
             </div>
           ))}
 

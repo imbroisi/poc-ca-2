@@ -127,6 +127,7 @@ const MainTable = () => {
         // Move critical layout styles inline for better scroll performance
         height: '100%',
         width: '100%',
+        marginTop: 80,
         display: 'flex',
         overflow: 'hidden',
         boxSizing: 'border-box',

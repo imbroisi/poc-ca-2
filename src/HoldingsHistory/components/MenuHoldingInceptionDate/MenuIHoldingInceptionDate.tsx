@@ -2,21 +2,26 @@ import { HOLDINGS_PER_PAGE } from '../../config';
 import './MenuHoldingInceptionDate.css';
 import MenuHoldingDate from './MenuHoldingDate/MenuHoldingDate';
 import MenuAttributeDate from './MenuAttributeDate/MenuAttributeDate';
+import { useLinksDataContext } from '../../context/LinksDataProvider';
 
 export interface MenuHoldingInceptionDateProps {
-  show: boolean[];
+  show: boolean[] | null;
 }
 
 const MenuHoldingInceptionDate = ({ show = [] }: MenuHoldingInceptionDateProps) => {
+  const { getHoldingsFilteredByPage } = useLinksDataContext();
+  
+  const holdingsFilteredByPage = getHoldingsFilteredByPage();
+
   return (
     <div className="fixed-column-table">
-      {Array.from({ length: HOLDINGS_PER_PAGE }).map((_, rowIndex) => (
+      {holdingsFilteredByPage?.map((_, rowIndex) => (
         <div
           key={rowIndex}
           className="fixed-column-row"
           style={{
-            height: show[rowIndex] ? '120px' : '0',
-            maxHeight: show[rowIndex] ? '120px' : '0',
+            height: show && show?.length && show[rowIndex] ? '120px' : '0',
+            maxHeight: show && show?.length && show[rowIndex] ? '120px' : '0',
             overflow: 'hidden'
           }}
         >
@@ -28,7 +33,7 @@ const MenuHoldingInceptionDate = ({ show = [] }: MenuHoldingInceptionDateProps) 
 
             <MenuAttributeDate 
               date={'2024-03-10'}
-              show={show[rowIndex]}
+              show={show && show?.length && show[rowIndex] ? show[rowIndex] : null}
             />
 
           </div>

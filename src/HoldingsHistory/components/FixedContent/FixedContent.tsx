@@ -37,19 +37,35 @@ const FixedContent = ({ toggleArrow, fixedColumnRef, handleScroll, show, rotated
         </div>
         <div 
           style={{
-            height: '40px',
+            height: '38px',
             width: '100%',
+            maxWidth: 300,
             borderBottom: '1px solid #ccc',
             background: 'white',
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'flex-end',
+            fontSize: 12,
+            justifyContent: 'space-between',
+            // paddingLeft: 12,
+            // paddingRight: 12,
+            // paddingLeft: 16,
           }}
         >
-          
+          <div style={{ textTransform: 'uppercase', paddingLeft: 12, width: '70%', maxWidth: 150, paddingRight: 10 }}>
+            Fund Name
+          </div>
+          <div style={{ height: '100%', background: '#ccc', width: 1 }} /> 
+          <div style={{ textTransform: 'uppercase', paddingRight: 12 }}>
+            Inception Date
+          </div>
         </div>
         <div 
           style={{
             height: '30px',
             width: '100%',
             background: 'white',
+            borderBottom: '1px solid #ccc',
           }}
         >
 
@@ -57,7 +73,7 @@ const FixedContent = ({ toggleArrow, fixedColumnRef, handleScroll, show, rotated
         {/* <button onClick={() => setShow(!show)}>Toggle</button> */}
       </div>
 
-      <div className="fixed-column-header" style={{ borderBottom: `1px solid ${MAIN_BORDER_COLOR}` }} />
+      {/* <div className="fixed-column-header" style={{ borderBottom: `1px solid ${MAIN_BORDER_COLOR}` }} /> */}
     
       {/* Fixed column scrollable content */}
       <div
