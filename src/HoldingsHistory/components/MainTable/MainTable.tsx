@@ -14,6 +14,7 @@ const MainTable = () => {
   const scrollableColumnRef = useRef<HTMLDivElement>(null);
   const isScrollingToTop = useRef(false);
   const isInitialLoad = useRef(true);
+  const historyTextRef = useRef<HTMLDivElement>(null);
 
   // Set scroll position immediately during render - no loading then scrolling
   const setScrollableRef = useCallback((element: HTMLDivElement | null) => {
@@ -41,30 +42,30 @@ const MainTable = () => {
       isInitialLoad.current = false;
       return;
     }
-    
+
     // Set flag to prevent scroll synchronization interference
     isScrollingToTop.current = true;
-    
+
     // Custom synchronized smooth scroll
     const animateScrollToTop = () => {
       const duration = 300; // Animation duration in ms
       const startTime = performance.now();
-      
+
       // Get initial scroll positions
       const fixedStartScroll = fixedColumnRef.current?.scrollTop || 0;
       const scrollableStartScroll = scrollableColumnRef.current?.scrollTop || 0;
-      
+
       const animate = (currentTime: number) => {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
-        
+
         // Easing function for smooth animation
         const easeOutCubic = 1 - Math.pow(1 - progress, 3);
-        
+
         // Calculate current scroll positions
         const fixedCurrentScroll = fixedStartScroll * (1 - easeOutCubic);
         const scrollableCurrentScroll = scrollableStartScroll * (1 - easeOutCubic);
-        
+
         // Apply synchronized scroll positions
         if (fixedColumnRef.current) {
           fixedColumnRef.current.scrollTop = fixedCurrentScroll;
@@ -72,18 +73,18 @@ const MainTable = () => {
         if (scrollableColumnRef.current) {
           scrollableColumnRef.current.scrollTop = scrollableCurrentScroll;
         }
-        
+
         // Continue animation if not complete
         if (progress < 1) {
           requestAnimationFrame(animate);
         }
       };
-      
+
       requestAnimationFrame(animate);
     };
-    
+
     animateScrollToTop();
-    
+
     // Reset flag after animation completes
     setTimeout(() => {
       isScrollingToTop.current = false;
@@ -107,7 +108,7 @@ const MainTable = () => {
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
     // Skip synchronization during scroll-to-top operation
     if (isScrollingToTop.current) return;
-    
+
     const scrollingElement = event.currentTarget;
     const isFixedColumn = scrollingElement === fixedColumnRef.current;
 
@@ -118,36 +119,67 @@ const MainTable = () => {
     }
   };
 
-
+  useEffect(() => {
+    if (historyTextRef.current && fixedColumnRef.current) {
+      console.log("fixedColumnRef.current.clientWidth", fixedColumnRef.current?.clientWidth);
+      historyTextRef.current.style.left = `${fixedColumnRef.current.clientWidth + 6}px`;
+    }
+  }, []);
 
   return (
-    <div
-      className="table-container"
-      style={{
-        // Move critical layout styles inline for better scroll performance
-        height: '100%',
-        width: '100%',
-        marginTop: 80,
-        display: 'flex',
-        overflow: 'hidden',
-        boxSizing: 'border-box',
-        borderColor: MAIN_BORDER_COLOR,
-      }}>
-      <FixedContent
-        toggleArrow={toggleArrow}
-        fixedColumnRef={fixedColumnRef as React.RefObject<HTMLDivElement>}
-        handleScroll={handleScroll as (event: React.UIEvent<HTMLDivElement>) => void}
-        show={show}
-        rotatedArrows={rotatedArrows}
-      />
 
-      <HoldingsLinks
-        scrollableColumnRef={scrollableColumnRef as React.RefObject<HTMLDivElement>}
-        handleScroll={handleScroll}
-        show={show}
-        setScrollableRef={setScrollableRef}
-      />
-    </div>
+    <>
+      {/* <div style={{
+        fontSize: '11px', fontWeight: 400, display: 'flex', alignItems: 'center', justifyContent: 'left', paddingLeft: '6px',
+        width: '100%', height: '43px', backgroundColor: 'white', position: 'sticky', top: '0px', zIndex: 1000, border: `1px solid ${MAIN_BORDER_COLOR}`, boxSizing: 'border-box', borderBottom: 0
+      }}>
+        Holdings
+      </div> */}
+      <div style={{ height: '100%', width: '100%' }}>
+
+        <div
+          className="table-container"
+          style={{
+            // Move critical layout styles inline for better scroll performance
+            height: '100%',
+            width: '100%',
+            display: 'flex',
+            overflow: 'hidden',
+            boxSizing: 'border-box',
+            borderColor: MAIN_BORDER_COLOR,
+            position: 'relative',
+          }}>
+          <div ref={historyTextRef} style={{
+            position: 'absolute',
+            zIndex: 1000,
+            top: '10px',
+            fontSize: '11px',
+            backgroundColor: 'transparent',
+            textTransform: 'uppercase',
+            fontWeight: 400,
+            // height: '30px',
+            // width: '100%',
+            // left: '100px',
+          }}>
+            History
+          </div>
+          <FixedContent
+            toggleArrow={toggleArrow}
+            fixedColumnRef={fixedColumnRef as React.RefObject<HTMLDivElement>}
+            handleScroll={handleScroll as (event: React.UIEvent<HTMLDivElement>) => void}
+            show={show}
+            rotatedArrows={rotatedArrows}
+          />
+
+          <HoldingsLinks
+            scrollableColumnRef={scrollableColumnRef as React.RefObject<HTMLDivElement>}
+            handleScroll={handleScroll}
+            show={show}
+            setScrollableRef={setScrollableRef}
+          />
+        </div>
+      </div>
+    </>
   );
 };
 

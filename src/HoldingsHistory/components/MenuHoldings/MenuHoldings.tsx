@@ -1,4 +1,4 @@
-import { HOLDINGS_PER_PAGE_DEFAULT, MAIN_BORDER_COLOR } from '../../config';
+import { MAIN_BORDER_COLOR } from '../../config';
 import './MenuHoldings.css';
 import MenuHoldingName from '../MenuHoldingName';
 import MenuHoldingAttributes from '../MenuHoldingAttributes';
@@ -14,8 +14,6 @@ const MenuHoldings = ({ show, toggleArrow, rotatedArrows }: MenuHoldingsProps) =
   const { getHoldingsFilteredByPage } = useLinksDataContext();
   
   const holdingsFilteredByPage = getHoldingsFilteredByPage();
-
-  // console.log("400 ==>> holdingsFilteredByPage", holdingsFilteredByPage);
   
   return (
     <div className="fixed-column-table">

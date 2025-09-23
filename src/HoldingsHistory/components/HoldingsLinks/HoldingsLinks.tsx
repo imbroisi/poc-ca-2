@@ -56,6 +56,9 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
         WebkitOverflowScrolling: 'touch',
       }}>
       <div style={{ width: `${NUMBER_OF_YEARS * YEAR_CELL_WIDTH_PX}px` }}>
+        <div style={{ height: '30px', backgroundColor: '#f3f3f3', position: 'sticky', top: '0px', zIndex: 99, borderBottom: `1px solid ${MAIN_BORDER_COLOR}`, boxSizing: 'border-box' }}>
+          {/* <div>HISTORY</div> */}
+        </div>
         {/* Header row */}
         <div className="scrollable-header">
           <div className='header-cell'>
@@ -68,7 +71,9 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
               style={{ 
                 width: `${YEAR_CELL_WIDTH_PX}px`, 
                 borderColor: MAIN_BORDER_COLOR,
-                borderRight: colIndex === NUMBER_OF_YEARS - 1 ? 'none' : `1px solid ${MAIN_BORDER_COLOR}`
+                borderRight: colIndex === NUMBER_OF_YEARS - 1 ? 'none' : `1px solid ${MAIN_BORDER_COLOR}`,
+                borderBottom: `1px solid ${MAIN_BORDER_COLOR}`,
+                backgroundColor: 'white',
               }}
             >
               {colIndex + 2023}
@@ -85,6 +90,19 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
           ))}
 
           <TodayLine />
+        </div>
+        <div style={{ height: '29px', backgroundColor: 'white', position: 'sticky', top: '70px', zIndex: 97, borderBottom: `1px solid ${MAIN_BORDER_COLOR}` }}>
+          {Array.from({ length: NUMBER_OF_YEARS }).map((_, yearIndex) => (
+            <div
+              key={yearIndex}
+              style={{
+                position: 'absolute',
+                left: `${yearIndex * YEAR_CELL_WIDTH_PX - 1}px`,
+                borderLeft: `1px solid ${MAIN_BORDER_COLOR}`,
+                height: '29px',
+              }}>
+            </div>
+          ))}
         </div>
 
         {/* Table content */}

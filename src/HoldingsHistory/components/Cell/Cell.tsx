@@ -57,8 +57,10 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
       <div
         className="table-cell-attribute-container"
         style={{
-          height: `${ATTRIBUTE_ITEM_HEIGHT}px`,
+          // height: `${ATTRIBUTE_ITEM_HEIGHT}px`,
           borderColor: MAIN_BORDER_COLOR,
+          // backgroundColor: 'yellow',
+          height: '28px',
         }} />
 
       {Array.from({ length: TOTAL_ATTRIBUTES }).map((_, attributeIndex) => {
