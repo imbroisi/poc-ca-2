@@ -3,6 +3,8 @@ import './MenuHoldingInceptionDate.css';
 import MenuHoldingDate from './MenuHoldingDate/MenuHoldingDate';
 import MenuAttributeDate from './MenuAttributeDate/MenuAttributeDate';
 import { useLinksDataContext } from '../../context/LinksDataProvider';
+import { useAttributeSelection } from '../../context/AttributeSelecionContext';
+import { useEffect, useRef } from 'react';
 
 export interface MenuHoldingInceptionDateProps {
   show: boolean[] | null;
@@ -13,6 +15,7 @@ const MenuHoldingInceptionDate = ({ show = [] }: MenuHoldingInceptionDateProps) 
   
   const holdingsFilteredByPage = getHoldingsFilteredByPage();
 
+
   return (
     <div className="fixed-column-table">
       {holdingsFilteredByPage?.map((_, rowIndex) => (
@@ -20,9 +23,11 @@ const MenuHoldingInceptionDate = ({ show = [] }: MenuHoldingInceptionDateProps) 
           key={rowIndex}
           className="fixed-column-row"
           style={{
-            height: show && show?.length && show[rowIndex] ? '120px' : '0',
-            maxHeight: show && show?.length && show[rowIndex] ? '120px' : '0',
-            overflow: 'hidden'
+            height: show === null || show[rowIndex] ? '0' : '0',
+            maxHeight: show === null || show[rowIndex] ? '0' : '0',
+            // IMPORTANT: Do not move to CSS, it is needed as style for better scroll synchronization
+            overflow: 'hidden',
+            transition: 'height 0.3s ease-in-out',
           }}
         >
           <div className="fixed-column-cell">
@@ -33,7 +38,7 @@ const MenuHoldingInceptionDate = ({ show = [] }: MenuHoldingInceptionDateProps) 
 
             <MenuAttributeDate 
               date={'2024-03-10'}
-              show={show && show?.length && show[rowIndex] ? show[rowIndex] : null}
+              show={show === null ? null : show[rowIndex]}
             />
 
           </div>
