@@ -22,10 +22,6 @@ const FixedContent = ({ toggleArrow, fixedColumnRef, handleScroll, show, rotated
         flexDirection: 'column',
         borderColor: MAIN_BORDER_COLOR,
       }}>
-
-
-
-        
     
       {/* Fixed column scrollable content */}
       <div
