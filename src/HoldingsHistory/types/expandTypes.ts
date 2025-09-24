@@ -1,3 +1,4 @@
+// istanbul ignore file
 export type HoldingId = string;
 export type AttributeId = string;
 export type TreeKey = string;
