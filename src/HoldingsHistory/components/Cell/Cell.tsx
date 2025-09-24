@@ -3,6 +3,7 @@ import './Cell.css';
 import { ATTRIBUTE_ITEM_HEIGHT, MAIN_BORDER_COLOR, NUMBER_OF_YEARS, TOTAL_ATTRIBUTES, YEAR_CELL_WIDTH_PX } from '../../config';
 import { useDateContext } from '../../context/DateContext';
 import { useAttributeSelection } from '../../context/AttributeSelecionContext';
+import { useLinksDataContext } from '../../context/LinksDataProvider';
 
 export interface CellProps {
   showMe: boolean;
@@ -16,6 +17,7 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
   const [linkDataBulk, setLinkData] = useState<any[]>([]);
   const { convertDateToPositionPx } = useDateContext();
   const { checkedAttributes } = useAttributeSelection();
+  const { pageToShow } = useLinksDataContext();
   const lastCheckedAttributes = useRef<boolean[]>([]);
 
   const transition = lastCheckedAttributes.current !== checkedAttributes
@@ -25,6 +27,11 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
   useEffect(() => {
     lastCheckedAttributes.current = checkedAttributes;
   }, [checkedAttributes]);
+
+  // Clear links when page changes
+  useEffect(() => {
+    setLinkData([]);
+  }, [pageToShow]);
 
 
   const drawLinks = (data: any) => {
