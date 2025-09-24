@@ -16,6 +16,7 @@ import { AttributeSelectionProvider } from './context/AttributeSelecionContext';
 
 const HoldingsHistory = () => {
   const [linksFromApi, setLinksFromApi] = useState<any | null>(null);
+  const [menuHeight, setMenuHeight] = useState<number | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -27,6 +28,7 @@ const HoldingsHistory = () => {
   if (!linksFromApi) return null;
 
   return (
+    // <div style={{ height: '100%', width: '100%', overflow: 'auto' }}>
     <DateProvider todayDate={linksFromApi.data.today} numberOfYears={NUMBER_OF_YEARS}>
       <ModalProvider>
         <MessageOverProvider>
@@ -35,13 +37,15 @@ const HoldingsHistory = () => {
 
             <div style={{ display: 'flex', height: '100%', width: '100%', backgroundColor: 'transparent', boxSizing: 'border-box', overflow: 'hidden' }}>
               
-              <SettingsMenu />
+              <SettingsMenu  setMenuHeight={setMenuHeight} menuHeight={menuHeight} />
 
               <div className={styles.holdingsHistoryContainerWrapper} style={{ flex: 1, minWidth: 0, overflow: 'hidden' }}>
               <div
                 id="holdings-history-container"
                 className={styles.holdingsHistoryContainer}
-                style={{ height: `calc(100% - ${FOOTER_HEIGHT + HEADER_HEIGHT}px)`, backgroundColor: 'white' }}
+                style={{ height: `calc(100% - ${FOOTER_HEIGHT + HEADER_HEIGHT}px)`, backgroundColor: 'white',
+                minHeight: `calc(${menuHeight}px - ${FOOTER_HEIGHT + HEADER_HEIGHT}px)`,
+              }}
               >
                 <Header />
                 <MainTable />
@@ -58,6 +62,7 @@ const HoldingsHistory = () => {
         </MessageOverProvider>
       </ModalProvider>
     </DateProvider>
+    // </div>
   );
 }
 
