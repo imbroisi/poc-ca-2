@@ -1,5 +1,5 @@
 import { HOLDINGS_PER_PAGE } from '../../config';
-import './MenuHoldingInceptionDate.module.scss';
+import styles from './MenuHoldingInceptionDate.module.scss';
 import MenuHoldingDate from './MenuHoldingDate/MenuHoldingDate';
 import MenuAttributeDate from './MenuAttributeDate/MenuAttributeDate';
 import { useLinksDataContext } from '../../context/LinksDataProvider';
@@ -15,22 +15,24 @@ const MenuHoldingInceptionDate = ({ show = [] }: MenuHoldingInceptionDateProps) 
   
   const holdingsFilteredByPage = getHoldingsFilteredByPage();
 
+  console.log("===>>>> holdingsFilteredByPage:", holdingsFilteredByPage);
+  console.log("===>>>> show:", show);
 
   return (
-    <div className="fixed-column-table">
+    <div className={styles.fixedColumnTable}>
       {holdingsFilteredByPage?.map((_, rowIndex) => (
         <div
           key={rowIndex}
-          className="fixed-column-row"
+          className={styles.fixedColumnRow}
           style={{
-            height: show === null || show[rowIndex] ? '0' : '0',
-            maxHeight: show === null || show[rowIndex] ? '0' : '0',
+            height: show === null || show[rowIndex] ? '220px' : '0',
+            maxHeight: show === null || show[rowIndex] ? '220px' : '0',
             // IMPORTANT: Do not move to CSS, it is needed as style for better scroll synchronization
             overflow: 'hidden',
             transition: 'height 0.3s ease-in-out',
           }}
         >
-          <div className="fixed-column-cell">
+          <div className={styles.fixedColumnCell}>
 
             <MenuHoldingDate
               date={`2024-03-10`}
