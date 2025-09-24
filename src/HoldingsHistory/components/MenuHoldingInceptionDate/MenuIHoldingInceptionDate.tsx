@@ -15,9 +15,6 @@ const MenuHoldingInceptionDate = ({ show = [] }: MenuHoldingInceptionDateProps) 
   
   const holdingsFilteredByPage = getHoldingsFilteredByPage();
 
-  console.log("===>>>> holdingsFilteredByPage:", holdingsFilteredByPage);
-  console.log("===>>>> show:", show);
-
   return (
     <div className={styles.fixedColumnTable}>
       {holdingsFilteredByPage?.map((_, rowIndex) => (
