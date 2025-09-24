@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { HEADER_HEIGHT, TODAY_LINE_COLOR } from '../../config';
 import { useDateContext } from '../../context/DateContext';
-import './TodayLine.css';
+import styles from './TodayLine.module.scss';
 
 const TodayLine = () => {
   const { todayPositionPx } = useDateContext();
@@ -47,21 +47,21 @@ const TodayLine = () => {
   return (
     <div
       ref={todayLineRef}
-      className="today-line-wrapper"
+      className={styles.todayLineWrapper}
       style={{
         visibility: calculatedHeight ? 'visible' : 'hidden',
       }}
     >
       <div
-        className="today-line-container"
+        className={styles.todayLineContainer}
         style={{
           left: todayPositionPx,
           '--today-line-height': calculatedHeight,
           '--today-line-color': TODAY_LINE_COLOR,
         } as React.CSSProperties}
       >
-        <div className="triangle-down" />
-        <div className="triangle-up" />
+        <div className={styles.triangleDown} />
+        <div className={styles.triangleUp} />
       </div>
     </div>
   );

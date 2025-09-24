@@ -1,7 +1,6 @@
 import { useRef, useState, useCallback, useEffect } from 'react';
 import HoldingsLinks from '../HoldingsLinks';
-
-import './MainTable.css';
+import styles from './MainTable.module.scss';
 import FixedContent from '../FixedContent';
 import { HOLDINGS_PER_PAGE_DEFAULT, MAIN_BORDER_COLOR } from '../../config';
 import { useLinksDataContext } from '../../context/LinksDataProvider';
@@ -130,13 +129,13 @@ const MainTable = () => {
       <div style={{ height: '100%', width: '100%', backgroundColor: 'white' }}>
 
         <div
-          className="table-container"
+          className={styles.tableContainer}
           style={{
             overflow: 'hidden',
             borderColor: MAIN_BORDER_COLOR,
           }}>
           
-          <div ref={historyTextRef} className="history-text">
+          <div ref={historyTextRef} className={styles.historyText}>
             History
           </div>
 

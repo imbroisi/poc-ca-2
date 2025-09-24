@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import './MessageOver.css';
+import styles from './MessageOver.module.scss';
 import { disableAllScrolling, enableAllScrolling } from '../../utils/utils';
 import { useMessageOverContext } from '../../context/MessageOverContext';
 
@@ -60,7 +60,7 @@ const MessageOver = (
   return (
     <div
       ref={ref}
-      className="message-over-container"
+      className={styles.messageOverContainer}
       style={{ 
         top: position[1], 
         left: position[0],

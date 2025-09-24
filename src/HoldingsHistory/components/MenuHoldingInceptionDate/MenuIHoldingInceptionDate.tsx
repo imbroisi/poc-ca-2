@@ -1,5 +1,5 @@
 import { HOLDINGS_PER_PAGE } from '../../config';
-import './MenuHoldingInceptionDate.css';
+import './MenuHoldingInceptionDate.module.scss';
 import MenuHoldingDate from './MenuHoldingDate/MenuHoldingDate';
 import MenuAttributeDate from './MenuAttributeDate/MenuAttributeDate';
 import { useLinksDataContext } from '../../context/LinksDataProvider';

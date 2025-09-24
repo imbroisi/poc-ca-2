@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { ATTRIBUTE_ITEM_HEIGHT, MAIN_BORDER_COLOR, NUMBER_OF_YEARS, YEAR_CELL_WIDTH_PX } from '../../config';
 import HoldingYearCell from '../Cell';
 import TodayLine from '../TodayLine';
-import './HoldingsLinks.css';
+import styles from './HoldingsLinks.module.scss';
 import useLinks from '../../hooks/useLinks';
 import { useLinksDataContext } from '../../context/LinksDataProvider';
 
@@ -41,7 +41,7 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
     <div
       ref={setScrollableRef || scrollableColumnRef}
       onScroll={handleScroll}
-      className="scrollable-section"
+      className={styles.scrollableSection}
       style={{
         // Do not move to CSS, as this will cause a delay in vertical scrolling synchronization.
         overflow: 'auto',
@@ -55,11 +55,11 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
         <div style={{ height: '30px', backgroundColor: '#f3f3f3', position: 'sticky', top: '0px', zIndex: 99, borderBottom: `1px solid ${MAIN_BORDER_COLOR}`, boxSizing: 'border-box' }}>
         </div>
         {/* Header row */}
-        <div className="scrollable-header">
+        <div className={styles.scrollableHeader}>
           {Array.from({ length: NUMBER_OF_YEARS }).map((_, colIndex) => (
             <div
               key={colIndex}
-              className="header-cell"
+              className={styles.headerCell}
               style={{
                 width: `${YEAR_CELL_WIDTH_PX}px`,
                 borderColor: MAIN_BORDER_COLOR,
@@ -91,13 +91,13 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
 
         {/* Table content */}
         <div
-          className="table-content"
+          className={styles.tableContent}
           style={{ width: `${NUMBER_OF_YEARS * YEAR_CELL_WIDTH_PX}px`, position: 'relative' }}
         >
           {Array.from({ length: totalHoldingsToRender }).map((_, holdingIdex) => (
             <div
               key={holdingIdex}
-              className="table-row"
+              className={styles.tableRow}
               style={{
                 borderColor: MAIN_BORDER_COLOR,
                 height: `${ATTRIBUTE_ITEM_HEIGHT}px`,

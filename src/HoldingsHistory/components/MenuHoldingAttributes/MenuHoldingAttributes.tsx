@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { ATTRIBUTE_ITEM_HEIGHT, ATTRIBUTES, TOTAL_ATTRIBUTES } from '../../config';
 import { useAttributeSelection } from '../../context/AttributeSelecionContext';
-import './MenuHoldingAttributes.css';
+import styles from './MenuHoldingAttributes.module.scss';
 
 export interface MenuHoldingAttributesProps {
   show: boolean | null;
@@ -22,7 +22,7 @@ const MenuHoldingAttributes = ({ show }: MenuHoldingAttributesProps) => {
   }, [checkedAttributes]);
 
   return (
-    <div className="expandable-content" style={{
+    <div className={styles.expandableContent} style={{
       height: show === null || show ? `${ATTRIBUTE_ITEM_HEIGHT * totalAttributesToRender}px` : '0',
       opacity: show === null || show ? 1 : 0,
       transition,
@@ -33,7 +33,7 @@ const MenuHoldingAttributes = ({ show }: MenuHoldingAttributesProps) => {
         return(
         <div
           key={attribute}
-          className={`expandable-content-item ${ATTRIBUTES[attribute as keyof typeof ATTRIBUTES] === 'enabled' ? 'attribute-enabled' : 'attribute-disabled'}`}
+          className={styles.expandableContentItem}
           style={{ height: `${ATTRIBUTE_ITEM_HEIGHT}px` }}
         >
           {attribute}

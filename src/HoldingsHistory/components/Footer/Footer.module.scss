@@ -1,15 +1,14 @@
-.holdings-history-footer {
+.holdingsHistoryFooter {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* border: 1px solid; */
   box-sizing: border-box;
   width: 100%;
   border: 1px solid;
   border-top: 0;
 }
 
-.holdings-history-footer-pagination {
+.holdingsHistoryFooterPagination {
   margin-right: 20px; 
   padding: 4px;
   border-radius: 4px;
@@ -18,23 +17,23 @@
   justify-content: space-between;
 }
 
-.holdings-history-footer-pagination-select {
-  border: 1px solid ;
+.holdingsHistoryFooterPaginationSelect {
+  border: 1px solid;
   padding: 6px;
   border-radius: 4px;
   margin-left: 40px;
 }
 
-.holdings-history-footer-total-holdings {
+.holdingsHistoryFooterTotalHoldings {
   font-size: 15px;
   margin-bottom: 4px;
+  
+  &Span {
+    font-weight: bold;
+  }
 }
 
-.holdings-history-footer-holdings-per-page {
+.holdingsHistoryFooterHoldingsPerPage {
   font-size: 15px;
-  margin: 0 8px 4px 32px; 
-}
-
-.holdings-history-footer-total-holdings-span {
-  font-weight: bold;
+  margin: 0 8px 4px 32px;
 }

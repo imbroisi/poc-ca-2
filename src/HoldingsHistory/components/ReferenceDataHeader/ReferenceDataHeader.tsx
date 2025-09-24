@@ -1,5 +1,5 @@
 import React from 'react';
-import './ReferenceDataHeader.css';
+import styles from './ReferenceDataHeader.module.scss';
 import { MAIN_BORDER_COLOR } from '../../config';
 import ColumnHeading from '../ColumnHeading';
 
@@ -15,10 +15,10 @@ const ReferenceDataHeader = ({ columnHeadings }: ReferenceDataHeaderProps) => {
 
   return (
     <>
-      <div className="reference-data-header-container" style={{ borderBottom: `1px solid ${MAIN_BORDER_COLOR}`}}
+      <div className={styles.referenceDataHeaderContainer} style={{ borderBottom: `1px solid ${MAIN_BORDER_COLOR}`}}
       />
           {/* Header row */}
-          <div className="reference-data-row" style={{ borderBottom: `1px solid ${MAIN_BORDER_COLOR}`}}>
+          <div className={styles.referenceDataRow} style={{ borderBottom: `1px solid ${MAIN_BORDER_COLOR}`}}>
             {columnHeadings?.map(({ heading, enabled }, index) => (
               <ColumnHeading
                 key={`${heading}-$${index}`}

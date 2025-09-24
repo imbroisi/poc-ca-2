@@ -2,7 +2,7 @@ import { MAIN_BORDER_COLOR } from '../../config';
 import FilterAttributes from '../FilterAttributes';
 import filterByImage from '../../mock/filter-by.png';
 import excludeLiquidated from '../../mock/exclude-liquidated.png';
-import './SettingsMenu.css';
+import styles from './SettingsMenu.module.scss';
 
 export interface SettingsMenuProps {
 
@@ -11,14 +11,14 @@ export interface SettingsMenuProps {
 const SettingsMenu = (props: SettingsMenuProps) => {
   return (
     <div
-      className="holdings-history-settings-menu"
+      className={styles.holdingsHistorySettingsMenu}
       style={{ border: `1px solid ${MAIN_BORDER_COLOR}` }}
     >
-      <div className="holdings-history-settings-menu-item">
+      <div className={styles.holdingsHistorySettingsMenuItem}>
         Settings
       </div>
 
-      <div className="holdings-history-settings-menu-filters">
+      <div className={styles.holdingsHistorySettingsMenuFilters}>
         Filters
       </div>
 

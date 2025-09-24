@@ -1,42 +1,41 @@
-.modal-overlay {
+@import '../../styles/variables';
+
+.modalOverlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
+  @include flex-center;
+  z-index: $z-index-overlay;
 }
 
-.modal-content {
-  background: white;
+.modalContent {
+  background: $color-background-primary;
   padding: 2rem;
-  border-radius: 8px;
+  border-radius: $border-radius-sm * 2;
   position: relative;
   min-width: 300px;
   max-width: 600px;
   overflow: auto;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.close-button {
+.closeButton {
   position: absolute;
-  top: 0.5rem;
-  right: 0.75rem;
+  top: $spacing-md;
+  right: $spacing-lg;
   background: transparent;
   border: none;
-  /* font-size: 1.5rem; */
   cursor: pointer;
 }
 
-.modal-footer {
+.modalFooter {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  margin-top: 1.25rem;
-  gap: 1rem;
+  margin-top: $spacing-xl;
+  gap: $spacing-lg;
 }

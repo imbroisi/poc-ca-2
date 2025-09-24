@@ -1,9 +1,9 @@
 import { HEADER_HEIGHT, MAIN_BORDER_COLOR } from '../../config';
-import './Header.css';
+import styles from './Header.module.scss';
 
 const Header = () => {
   return (
-    <div className="holdings-history-header"
+    <div className={styles.holdingsHistoryHeader}
       style={{
         height: HEADER_HEIGHT,
         borderColor: MAIN_BORDER_COLOR

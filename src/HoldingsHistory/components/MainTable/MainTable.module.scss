@@ -1,4 +1,6 @@
-.table-container {
+@import '../../styles/variables';
+
+.tableContainer {
   height: 100%;
   width: 100%;
   display: flex;
@@ -7,11 +9,11 @@
   position: relative;
 }
 
-.history-text {
+.historyText {
   position: absolute; 
-  z-index: 1000;
-  top: 10px;
-  font-size: 11px;
+  z-index: $z-index-overlay;
+  top: $spacing-lg;
+  font-size: $font-size-small;
   background-color: transparent;
   text-transform: uppercase;
   font-weight: 400;

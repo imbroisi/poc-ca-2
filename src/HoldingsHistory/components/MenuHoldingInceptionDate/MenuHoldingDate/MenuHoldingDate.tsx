@@ -1,15 +1,15 @@
 import React from 'react';
-import './MenuHoldingDate.css';
+import styles from './MenuHoldingDate.module.scss';
 import { ATTRIBUTE_ITEM_HEIGHT } from '../../../config';
 
 function MenuHoldingDate({ date }: { date: string }) {
   return (
     <div
-      className="fixed-column-cell-content-date"
+      className={styles.fixedColumnCellContentDate}
       style={{
         height: `${ATTRIBUTE_ITEM_HEIGHT + 1}px`,
     }}>
-      <span className="menu-holding-name" />
+      <span className={styles.menuHoldingName} />
       {date}
     </div>
   )

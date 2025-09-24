@@ -1,33 +1,15 @@
 import React from 'react';
+import styles from './FixedContentHeader.module.scss';
 
 const FixedContentHeader = () => {
   return (
-    <div className="fixed-column-header">
+    <div className={styles.fixedColumnHeader}>
         {/* Row # Empty */}
-        <div 
-          style={{
-            height: '30px',
-            width: '100%',
-            borderBottom: '1px solid #ccc',
-          }}
-        >
-
+        <div className={`${styles.row} ${styles.firstRow}`}>
         </div>
-        <div 
-          style={{
-            height: '40px',
-            width: '100%',
-            borderBottom: '1px solid #ccc',
-          }}
-        >
-          
+        <div className={`${styles.row} ${styles.secondRow}`}>
         </div>
-        <div 
-          style={{
-            height: '30px',
-            width: '100%'
-          }}
-        >
+        <div className={`${styles.row} ${styles.thirdRow}`}>
 
         </div>
         {/* <button onClick={() => setShow(!show)}>Toggle</button> */}

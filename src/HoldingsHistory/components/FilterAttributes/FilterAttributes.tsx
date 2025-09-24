@@ -1,6 +1,6 @@
 import { ATTRIBUTES } from '../../config';
 import { useAttributeSelection } from '../../context/AttributeSelecionContext';
-import './FilterAttributes.css';
+import styles from './FilterAttributes.module.scss';
 
 const FilterAttributes = () => {
 const { checkedAttributes, setCheckedAttributes } = useAttributeSelection();
@@ -30,7 +30,7 @@ const { checkedAttributes, setCheckedAttributes } = useAttributeSelection();
         <div key={attribute} style={{ marginTop: '4px', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
           
           {/* TODO: replace by AM checkbox component */}
-          <input type="checkbox" checked={!!checkedAttributes[index]} onChange={() => handleCheckboxChange(index)} /> <span style={{ fontSize: '12px', fontWeight: 500, marginLeft: '2px' }}>{attribute}</span>
+          <input type="checkbox" className={styles.checkbox} checked={!!checkedAttributes[index]} onChange={() => handleCheckboxChange(index)} /> <span style={{ fontSize: '12px', fontWeight: 500, marginLeft: '2px' }}>{attribute}</span>
         
         </div>
       ))}

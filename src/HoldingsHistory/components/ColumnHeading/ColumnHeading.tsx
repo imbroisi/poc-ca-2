@@ -1,5 +1,5 @@
 import React from 'react';
-import './ColumnHeading.css';
+import styles from './ColumnHeading.module.scss';
 
 
 interface ColumnHeadingProps {
@@ -16,11 +16,11 @@ const ColumnHeading = ({ heading, isLast = false , enabled }: ColumnHeadingProps
 
   return (
     <>
-      <div className='column-heading-container' style={{ paddingLeft: isLast ? 0 : 12, width: isLast ? 'unset' : '70%', paddingRight: isLast ? 12 : 10 }}>
+      <div className={styles.columnHeadingContainer} style={{ paddingLeft: isLast ? 0 : 12, width: isLast ? 'unset' : '70%', paddingRight: isLast ? 12 : 10 }}>
         {heading}
       </div>
       {!isLast && (
-        <div className='column-separator' />
+        <div className={styles.columnSeparator} />
       )}
     </>
   )

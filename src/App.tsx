@@ -1,4 +1,4 @@
-import './App.css';
+import styles from './App.module.scss';
 import HistoryLink from './HoldingsHistory/HoldingsHistory';
 
 function App() {

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import './MenuAttributeDate.css';
+import styles from './MenuAttributeDate.module.scss';
 import { ATTRIBUTE_ITEM_HEIGHT, ATTRIBUTES } from '../../../config';
 import { useAttributeSelection } from '../../../context/AttributeSelecionContext';
 
@@ -19,7 +19,7 @@ function MenuAttributeDate({ date, show }: { date: string, show: boolean | null 
   }, [checkedAttributes]);
 
   return (
-    <div className="expandable-content-inception" style={{
+    <div className={styles.expandableContentInception} style={{
       height: show === null || show ? `${ATTRIBUTE_ITEM_HEIGHT * totalAttributesToRender}px` : '0',
       opacity: show === null || show ? 1 : 0,
       transition,
@@ -30,7 +30,7 @@ function MenuAttributeDate({ date, show }: { date: string, show: boolean | null 
         return (
             <div
               key={`${attribute}-${date}-${index}`}
-              className={'expandable-content-item-inception attribute-enabled'}
+              className={styles.expandableContentItemInception}
               style={{ height: `${ATTRIBUTE_ITEM_HEIGHT}px` }}
             >
             {date}

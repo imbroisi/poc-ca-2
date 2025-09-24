@@ -1,6 +1,6 @@
 import { MenuItem, OutlinedInput, Pagination, Select, SelectChangeEvent } from '@mui/material';
 import { FOOTER_HEIGHT, HOLDINGS_PER_PAGE_OPTIONS, MAIN_BORDER_COLOR } from '../../config';
-import './Footer.css';
+import styles from './Footer.module.scss';
 import { useLinksDataContext } from '../../context/LinksDataProvider';
 
 export interface FooterProps {
@@ -21,15 +21,15 @@ const Footer = () => {
   const showPagination = totalHoldings > 0;
 
   return (
-    <div className="holdings-history-footer" style={{ height: FOOTER_HEIGHT, borderColor: MAIN_BORDER_COLOR, backgroundColor: 'white' }}>
+    <div className={styles.holdingsHistoryFooter} style={{ height: FOOTER_HEIGHT, borderColor: MAIN_BORDER_COLOR, backgroundColor: 'white' }}>
       <div>
         {/* TODO: EDIT BUTTON */}
       </div>
-      <div className="holdings-history-footer-pagination" style={{ borderColor: MAIN_BORDER_COLOR, visibility: showPagination ? 'visible' : 'hidden' }}>
-        <div className="holdings-history-footer-total-holdings">Total holdings:
-          <span className="holdings-history-footer-total-holdings-span"> {totalHoldings}</span>
+      <div className={styles.holdingsHistoryFooterPagination} style={{ borderColor: MAIN_BORDER_COLOR, visibility: showPagination ? 'visible' : 'hidden' }}>
+        <div className={styles.holdingsHistoryFooterTotalHoldings}>Total holdings:
+          <span className={styles.holdingsHistoryFooterTotalHoldingsSpan}> {totalHoldings}</span>
         </div>
-        <div className='holdings-history-footer-holdings-per-page'>
+        <div className={styles.holdingsHistoryFooterHoldingsPerPage}>
           Holdings per page:
         </div>
         <div>
@@ -53,7 +53,7 @@ const Footer = () => {
 
         </div>
         <div
-          className="holdings-history-footer-pagination-select"
+          className={styles.holdingsHistoryFooterPaginationSelect}
           style={{ borderColor: MAIN_BORDER_COLOR }}
         >
           <Pagination

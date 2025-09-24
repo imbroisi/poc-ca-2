@@ -1,32 +1,31 @@
-.fixed-column-table {
+.fixedColumnTable {
   display: table;
   width: 100%;
 }
 
-.fixed-column-cell {
+.fixedColumnCell {
   display: table-cell;
   border-bottom: 1px solid;
   box-sizing: border-box;
   transition: height 0.3s ease-in-out;
 }
 
-
-.fixed-column-row {
+.fixedColumnRow {
   display: table-row;
   font-size: 12px;
+
+  &,
+  * {
+    font-weight: 400 !important;
+  }
 }
 
-.fixed-column-row,
-.fixed-column-row * {
-  font-weight: 400 !important;
-}
-
-.attribute-enabled {
+.attributeEnabled {
   /* TODO: text/primary */
   color: #333;
 }
 
-.attribute-disabled {
+.attributeDisabled {
   /* TODO: grayscale/light-gray/919191 */
   color: #919191;
 }

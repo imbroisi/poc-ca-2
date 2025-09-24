@@ -29,7 +29,7 @@ jest.mock('../../config', () => ({
 describe('FixedContent', () => {
   const defaultProps: FixedColumnsProps = {
     toggleArrow: jest.fn(),
-    fixedColumnRef: { current: null },
+    fixedColumnRef: { current: null! },
     handleScroll: jest.fn(),
     show: [true, false, true],
     rotatedArrows: [false, true, false],
@@ -122,7 +122,7 @@ describe('FixedContent', () => {
 
   describe('ref handling', () => {
     test('should handle ref correctly', () => {
-      const mockRef = { current: null };
+      const mockRef = { current: null! };
       const props = { ...defaultProps, fixedColumnRef: mockRef };
       
       expect(() => render(<FixedContent {...props} />)).not.toThrow();

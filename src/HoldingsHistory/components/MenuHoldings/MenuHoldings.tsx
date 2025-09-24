@@ -1,5 +1,5 @@
 import { MAIN_BORDER_COLOR } from '../../config';
-import './MenuHoldings.css';
+import styles from './MenuHoldings.module.scss';
 import MenuHoldingName from '../MenuHoldingName';
 import MenuHoldingAttributes from '../MenuHoldingAttributes';
 import { useLinksDataContext } from '../../context/LinksDataProvider';
@@ -16,11 +16,11 @@ const MenuHoldings = ({ show, toggleArrow, rotatedArrows }: MenuHoldingsProps) =
   const holdingsFilteredByPage = getHoldingsFilteredByPage();
   
   return (
-    <div className="fixed-column-table">
+    <div className={styles.fixedColumnTable}>
       {holdingsFilteredByPage.map((link, rowIndex) => (
           <div
             key={rowIndex}
-            className="fixed-column-row"
+            className={styles.fixedColumnRow}
             style={{
               height: show === null || show[rowIndex] ? '0' : '0',
               maxHeight: show === null || show[rowIndex] ? '0' : '0',
@@ -29,7 +29,7 @@ const MenuHoldings = ({ show, toggleArrow, rotatedArrows }: MenuHoldingsProps) =
               transition: 'height 0.3s ease-in-out',
             }}
           >
-            <div className="fixed-column-cell" style={{ borderColor: MAIN_BORDER_COLOR }}>
+            <div className={styles.fixedColumnCell} style={{ borderColor: MAIN_BORDER_COLOR }}>
 
               <MenuHoldingName
                 holdingName={link.holdingName}

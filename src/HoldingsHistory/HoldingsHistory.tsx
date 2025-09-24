@@ -5,7 +5,7 @@ import { LinksDataProvider } from './context/LinksDataProvider';
 import { FOOTER_HEIGHT, HEADER_HEIGHT, NUMBER_OF_YEARS } from './config';
 import MessageOver from './components/GlobalMessageOver';
 import GlobalModal from './components/GlobalModal/GlobalModal';
-import './HoldingsHistory.css';
+import styles from './HoldingsHistory.module.scss';
 import { useEffect, useState } from 'react';
 import { apiGetLinksData } from './apiMock';
 import MainTable from './components/MainTable';
@@ -37,10 +37,10 @@ const HoldingsHistory = () => {
               
               <SettingsMenu />
 
-              <div className="holdings-history-container-wrapper" style={{ flex: 1, minWidth: 0, overflow: 'hidden' }}>
+              <div className={styles.holdingsHistoryContainerWrapper} style={{ flex: 1, minWidth: 0, overflow: 'hidden' }}>
               <div
                 id="holdings-history-container"
-                className="holdings-history-container"
+                className={styles.holdingsHistoryContainer}
                 style={{ height: `calc(100% - ${FOOTER_HEIGHT + HEADER_HEIGHT}px)`, backgroundColor: 'white' }}
               >
                 <Header />

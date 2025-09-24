@@ -1,4 +1,4 @@
-.message-over-container {
+.messageOverContainer {
   position: fixed; /* positioned via inline style in portal */
   background: #fff;
   border: 2px solid #ccc;
@@ -7,6 +7,5 @@
   padding: 8px;
   z-index: 100000; /* ensure above table overlays */
   min-width: 120px;
-  /* font-size: 14px; */
   color: #333;
 }

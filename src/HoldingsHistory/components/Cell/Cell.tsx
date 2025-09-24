@@ -1,5 +1,5 @@
 import { memo, useEffect, useRef, useState } from 'react';
-import './Cell.css';
+import styles from './Cell.module.scss';
 import { ATTRIBUTE_ITEM_HEIGHT, MAIN_BORDER_COLOR, NUMBER_OF_YEARS, TOTAL_ATTRIBUTES, YEAR_CELL_WIDTH_PX } from '../../config';
 import { useDateContext } from '../../context/DateContext';
 import { useAttributeSelection } from '../../context/AttributeSelecionContext';
@@ -42,7 +42,8 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
 
   return (
     <div
-      className="table-cell"
+      data-testid="cell"
+      className={styles.tableCell}
       style={{
         height: showMe ? `${ATTRIBUTE_ITEM_HEIGHT * (totalAttributesToRender + 1) + 1}px` : '0px',
         transition,
@@ -52,6 +53,7 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
       {Array.from({ length: NUMBER_OF_YEARS }).map((_, yearIndex) => {
         return (
           <div
+            data-testid="year-separator"
             key={yearIndex}
             style={{
               position: 'absolute',
@@ -64,7 +66,7 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
       })}
 
       <div
-        className="table-cell-attribute-container"
+        className={styles.tableCellAttributeContainer}
         style={{
           borderColor: MAIN_BORDER_COLOR,
           height: totalAttributesToRender > 0 ? '28px' : '0px',
@@ -78,7 +80,7 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
         return (
           <div
             key={attributeIndex}
-            className="table-cell-attribute"
+            className={styles.tableCellAttribute}
             style={{
               height: showMe ? `${ATTRIBUTE_ITEM_HEIGHT}px` : 0,
             }}>
@@ -87,7 +89,7 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
               <div key={`${linkData?.holdingIndex}-${linkData?.attributeIndex}-${linkData?.startEffectiveDate}-${index}`}>
                 {linkData?.attributeIndex === attributeIndex && (
                   <div
-                    className="table-cell-link"
+                    className={styles.tableCellLink}
                     style={{
                       right: convertDateToPositionPx(linkData?.endEffectiveDate) - 1,
                       height: ATTRIBUTE_ITEM_HEIGHT - 6,
@@ -95,7 +97,7 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
                       backgroundColor: linkData?.color,
                       border: `1px solid ${linkData?.borderColor}`,
                     }}>
-                    <span className="table-cell-label">
+                    <span className={styles.tableCellLinkLabel}>
                       {linkData?.label || ''}
                     </span>
                   </div>

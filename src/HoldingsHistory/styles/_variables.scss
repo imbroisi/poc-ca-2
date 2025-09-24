@@ -1,0 +1,59 @@
+// Colors
+$color-text-primary: #333;
+$color-text-disabled: #919191;
+$color-background-primary: #fff;
+$color-background-secondary: #f3f3f3;
+$color-border: #ccc;
+$color-link: #3cabc9;
+
+// Z-indices
+$z-index-header: 99;
+$z-index-sticky: 98;
+$z-index-content: 97;
+$z-index-overlay: 100000;
+
+// Transitions
+$transition-duration-standard: 0.3s;
+$transition-duration-fast: 0.2s;
+$transition-timing: ease-in-out;
+
+// Typography
+$font-size-small: 11px;
+$font-size-base: 12px;
+$font-size-medium: 14px;
+$font-size-large: 15px;
+
+// Spacing
+$spacing-xs: 4px;
+$spacing-sm: 6px;
+$spacing-md: 8px;
+$spacing-lg: 12px;
+$spacing-xl: 16px;
+$spacing-xxl: 20px;
+
+// Border radius
+$border-radius-sm: 4px;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin table-cell {
+  display: table-cell;
+  border-bottom: 1px solid;
+  box-sizing: border-box;
+}
+
+@mixin table-row {
+  display: table-row;
+  font-size: $font-size-base;
+}

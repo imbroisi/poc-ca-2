@@ -1,7 +1,7 @@
 import { COLUMN_DEFAULT_HEADINGS, MAIN_BORDER_COLOR } from '../../config';
 import MenuHoldings from '../MenuHoldings';
 import MenuHoldingInceptionDate from '../MenuHoldingInceptionDate/MenuIHoldingInceptionDate';
-import './FixedContent.css';
+import styles from './FixedContent.module.scss';
 import ReferenceDataHeader from '../ReferenceDataHeader';
 
 export interface FixedColumnsProps {
@@ -15,7 +15,7 @@ export interface FixedColumnsProps {
 const FixedContent = ({ toggleArrow, fixedColumnRef, handleScroll, show, rotatedArrows }: FixedColumnsProps) => {
   return (
     <div 
-      className="fixed-column"
+      className={styles.fixedColumn}
       style={{
         // Move critical layout styles inline for better performance
         width: '300px',
@@ -28,7 +28,7 @@ const FixedContent = ({ toggleArrow, fixedColumnRef, handleScroll, show, rotated
       <div
         ref={fixedColumnRef}
         onScroll={handleScroll}
-        className="fixed-column-content"
+        className={styles.fixedColumnContent}
         style={{
           // Do not move to CSS, as this will cause a delay in verical scrolling synchronization
           // Critical layout styles moved inline for performance
@@ -43,7 +43,7 @@ const FixedContent = ({ toggleArrow, fixedColumnRef, handleScroll, show, rotated
         }}>
           <ReferenceDataHeader columnHeadings={COLUMN_DEFAULT_HEADINGS} />
 
-          <div className="fixed-column-header" style={{ borderBottom: `1px solid ${MAIN_BORDER_COLOR}` }} />
+          <div className={styles.fixedColumnHeader} style={{ borderBottom: `1px solid ${MAIN_BORDER_COLOR}` }} />
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <div style={{ flex: '0 0 auto'}}>
               <MenuHoldings show={show} toggleArrow={toggleArrow} rotatedArrows={rotatedArrows} />

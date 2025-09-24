@@ -1,0 +1,21 @@
+.fixedColumnHeader {
+  width: 100%;
+  
+  .row {
+    width: 100%;
+    
+    &.firstRow {
+      height: 30px;
+      border-bottom: 1px solid #ccc;
+    }
+    
+    &.secondRow {
+      height: 40px;
+      border-bottom: 1px solid #ccc;
+    }
+    
+    &.thirdRow {
+      height: 30px;
+    }
+  }
+}
