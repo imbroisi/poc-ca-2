@@ -61,14 +61,28 @@ describe("ExpandedHoldingsContext", () => {
   });
 
   it("throws when state hook is used outside provider", () => {
+    // Suppress console errors for this expected error test
+    const originalError = console.error;
+    console.error = jest.fn();
+    
     expect(() => renderHook(() => useExpandedHoldingsState())).toThrow(
       "useExpandedHoldingsState must be used within ExpandedHoldingsProvider"
     );
+    
+    // Restore console.error
+    console.error = originalError;
   });
 
   it("throws when actions hook is used outside provider", () => {
+    // Suppress console errors for this expected error test
+    const originalError = console.error;
+    console.error = jest.fn();
+    
     expect(() => renderHook(() => useExpandedHoldingsActions())).toThrow(
       "useExpandedHoldingsActions must be used within ExpandedHoldingsProvider"
     );
+    
+    // Restore console.error
+    console.error = originalError;
   });
 });

@@ -81,8 +81,15 @@ describe('DateContext', () => {
   });
 
   test('throws when used outside provider', () => {
+    // Suppress console errors for this expected error test
+    const originalError = console.error;
+    console.error = jest.fn();
+    
     expect(() => renderHook(() => useDateContext())).toThrow(
       "useDateContext must be used within a DateProvider"
     );
+    
+    // Restore console.error
+    console.error = originalError;
   });
 });

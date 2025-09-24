@@ -4,6 +4,7 @@ import { LinksDataProvider, useLinksDataContext } from '../LinksDataProvider';
 jest.mock('../../config', () => ({
   ATTRIBUTE_ITEM_HEIGHT: 28,
   HOLDINGS_PER_PAGE_DEFAULT: 20,
+  TOTAL_ATTRIBUTES: 10, // Mock value - represents number of attributes
 }));
 
 jest.mock('../DateContext', () => ({
@@ -77,11 +78,18 @@ describe('LinksDataProvider', () => {
   });
 
   test('throws when used outside provider', () => {
+    // Suppress console errors for this expected error test
+    const originalError = console.error;
+    console.error = jest.fn();
+    
     const Outside = () => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       expect(() => useLinksDataContext()).toThrow('useLinksDataContext must be used within a LinksDataProvider');
       return null;
     };
     render(<Outside />);
+    
+    // Restore console.error
+    console.error = originalError;
   });
 });

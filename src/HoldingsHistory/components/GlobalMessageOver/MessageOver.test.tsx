@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 import MessageOver from './MessageOver';
 
-jest.mock('../../utils', () => ({
+jest.mock('../../utils/utils', () => ({
   disableAllScrolling: jest.fn(),
   enableAllScrolling: jest.fn(),
 }));

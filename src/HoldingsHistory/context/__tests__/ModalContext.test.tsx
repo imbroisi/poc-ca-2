@@ -2,7 +2,7 @@ import { render, screen, act } from '@testing-library/react';
 import React from 'react';
 import { ModalProvider, useModal } from '../ModalContext';
 
-jest.mock('../../utils', () => ({
+jest.mock('../../utils/utils', () => ({
   disableAllScrolling: jest.fn(),
   enableAllScrolling: jest.fn(),
 }));
@@ -62,11 +62,18 @@ describe('ModalContext', () => {
   });
 
   test('throws outside provider', () => {
+    // Suppress console errors for this expected error test
+    const originalError = console.error;
+    console.error = jest.fn();
+    
     const Outside = () => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       expect(() => useModal()).toThrow('useModal must be used within a ModalProvider');
       return null;
     };
     render(<Outside />);
+    
+    // Restore console.error
+    console.error = originalError;
   });
 });
