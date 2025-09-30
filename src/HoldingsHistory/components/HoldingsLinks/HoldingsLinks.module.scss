@@ -36,4 +36,8 @@
   &:first-child {
     border-top: 0;
   }
+  
+  &:last-child {
+    border-bottom: 1px solid;
+  }
 }

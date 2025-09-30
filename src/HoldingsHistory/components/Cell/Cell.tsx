@@ -1,6 +1,6 @@
 import { memo, useEffect, useRef, useState } from 'react';
 import styles from './Cell.module.scss';
-import { ATTRIBUTE_ITEM_HEIGHT, MAIN_BORDER_COLOR, NUMBER_OF_YEARS, TOTAL_ATTRIBUTES, YEAR_CELL_WIDTH_PX } from '../../config';
+import { ATTRIBUTE_ITEM_HEIGHT, MAIN_BORDER_COLOR, TOTAL_ATTRIBUTES } from '../../config';
 import { useDateContext } from '../../context/DateContext';
 import { useAttributeSelection } from '../../context/AttributeSelecionContext';
 import { useLinksDataContext } from '../../context/LinksDataProvider';
@@ -49,21 +49,6 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
         transition,
       }}>
 
-      {/* Vertical lines for Years separation in attributes area */}
-      {Array.from({ length: NUMBER_OF_YEARS }).map((_, yearIndex) => {
-        return (
-          <div
-            data-testid="year-separator"
-            key={yearIndex}
-            style={{
-              position: 'absolute',
-              left: `${yearIndex * YEAR_CELL_WIDTH_PX - 1}px`,
-              borderLeft: `1px solid ${MAIN_BORDER_COLOR}`,
-              height: showMe && totalAttributesToRender > 0 ? `${ATTRIBUTE_ITEM_HEIGHT * (totalAttributesToRender + 1)}px` : '0px',
-            }}>
-          </div>
-        );
-      })}
 
       <div
         className={styles.tableCellAttributeContainer}
@@ -92,10 +77,13 @@ const Cell = memo(({ showMe, label, holdingIdex, colIndex, setCellCoord }: CellP
                     className={styles.tableCellLink}
                     style={{
                       right: convertDateToPositionPx(linkData?.endEffectiveDate) - 1,
-                      height: ATTRIBUTE_ITEM_HEIGHT - 6,
+                      height: showMe ? ATTRIBUTE_ITEM_HEIGHT - 6 : 0,
                       width: convertDateToPositionPx(linkData?.startEffectiveDate) - convertDateToPositionPx(linkData?.endEffectiveDate),
                       backgroundColor: linkData?.color,
                       border: `1px solid ${linkData?.borderColor}`,
+                      opacity: showMe ? 1 : 0,
+                      transition,
+                      overflow: 'hidden',
                     }}>
                     <span className={styles.tableCellLinkLabel}>
                       {linkData?.label || ''}

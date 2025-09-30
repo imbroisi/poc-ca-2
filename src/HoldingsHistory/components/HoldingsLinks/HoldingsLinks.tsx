@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { ATTRIBUTE_ITEM_HEIGHT, MAIN_BORDER_COLOR, NUMBER_OF_YEARS, YEAR_CELL_WIDTH_PX } from '../../config';
 import HoldingYearCell from '../Cell';
 import TodayLine from '../TodayLine';
+import YearSeparatorLines from '../YearSeparatorLines';
 import styles from './HoldingsLinks.module.scss';
 import useLinks from '../../hooks/useLinks';
 import { useLinksDataContext } from '../../context/LinksDataProvider';
@@ -73,20 +74,10 @@ const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableR
           ))}
 
           <TodayLine />
+          <YearSeparatorLines />
 
         </div>
         <div style={{ height: '29px', backgroundColor: 'white', position: 'sticky', top: '70px', zIndex: 97, borderBottom: `1px solid ${MAIN_BORDER_COLOR}` }}>
-          {Array.from({ length: NUMBER_OF_YEARS }).map((_, yearIndex) => (
-            <div
-              key={yearIndex}
-              style={{
-                position: 'absolute',
-                left: `${yearIndex * YEAR_CELL_WIDTH_PX - 1}px`,
-                borderLeft: `1px solid ${MAIN_BORDER_COLOR}`,
-                height: '29px',
-              }}>
-            </div>
-          ))}
         </div>
 
         {/* Table content */}
