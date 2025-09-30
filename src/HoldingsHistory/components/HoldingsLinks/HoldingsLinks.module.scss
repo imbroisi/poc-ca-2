@@ -1,0 +1,43 @@
+.scrollableSection {
+  flex: 1;
+}
+
+.scrollableHeader {
+  display: flex;
+  position: sticky;
+  top: 30px;
+  z-index: 98;
+}
+
+.headerCell {
+  padding: 6px;
+  box-sizing: border-box;
+  display: flex;
+  font-weight: 600;
+  background: #fff;
+  align-items: flex-end;
+  font-size: 11px;
+  border-right: 1px solid;
+  height: 40px;
+}
+
+.tableContent {
+  display: table;
+  border-collapse: collapse;
+}
+
+.tableRow {
+  position: relative;
+  display: table-row;
+  transition: height 0.0.3s ease-in-out;
+  border-top: 1px solid;
+  overflow: hidden;
+  
+  &:first-child {
+    border-top: 0;
+  }
+  
+  &:last-child {
+    border-bottom: 1px solid;
+  }
+}

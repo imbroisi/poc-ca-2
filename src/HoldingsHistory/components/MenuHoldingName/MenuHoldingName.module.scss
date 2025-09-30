@@ -1,0 +1,18 @@
+.menuHoldingName {
+  cursor: pointer;
+  margin-right: 4px;
+  margin-left: 8px;
+  color: #aaaaaa;
+}
+
+.fixedColumnCellContent {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  background-color: #fafafa;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}

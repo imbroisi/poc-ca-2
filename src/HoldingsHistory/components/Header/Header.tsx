@@ -1,32 +1,16 @@
-import { CELL_BORDER_COLOR, CELL_HEIGHT_PX } from '../../config';
-import { useDateContext } from '../../context/DateContext';
-import YearsRow from '../YearsRow';
-import './Header.css';
+import { HEADER_HEIGHT, MAIN_BORDER_COLOR } from '../../config';
+import styles from './Header.module.scss';
 
 const Header = () => {
-  const { numberOfYears } = useDateContext();
-
   return (
-    <thead className="header">
-      <tr>
-        <th colSpan={numberOfYears} className="history-label">
-          History
-        </th>
-      </tr> 
-      <tr>
-        <YearsRow />
-      </tr>
-      <tr>
-        {Array.from({ length: numberOfYears }).map((_, index) => (
-          <th
-            key={index}
-            className="header-cell"
-            style={{ height: CELL_HEIGHT_PX, borderColor: CELL_BORDER_COLOR }}
-          />
-        ))}
-      </tr>
-    </thead>
+    <div className={styles.holdingsHistoryHeader}
+      style={{
+        height: HEADER_HEIGHT,
+        borderColor: MAIN_BORDER_COLOR
+      }}>
+      Holdings
+    </div>
   );
-};
+}
 
 export default Header;

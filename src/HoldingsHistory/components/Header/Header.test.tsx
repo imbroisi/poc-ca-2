@@ -1,51 +1,70 @@
 import { render, screen } from '@testing-library/react';
-import React from 'react';
 import Header from './Header';
 
-jest.mock('../../context/DateContext', () => ({
-  useDateContext: jest.fn(),
+// Mock the config constants
+jest.mock('../../config', () => ({
+  HEADER_HEIGHT: 50,
+  MAIN_BORDER_COLOR: '#c0c0c0',
 }));
-
-jest.mock('../YearsRow', () => ({
-  __esModule: true,
-  default: () => (
-    <th data-testid="mock-years-row">YearsRow</th>
-  ),
-}));
-
-import { useDateContext } from '../../context/DateContext';
 
 describe('Header', () => {
-  const base = {
-    numberOfYears: 4,
-  };
+  describe('rendering', () => {
+    test('should render without crashing', () => {
+      render(<Header />);
+      expect(screen.getByText('Holdings')).toBeInTheDocument();
+    });
 
-  beforeEach(() => {
-    (useDateContext as jest.Mock).mockReturnValue(base);
+    test('should render the "Holdings" text', () => {
+      render(<Header />);
+      expect(screen.getByText('Holdings')).toBeInTheDocument();
+    });
+
+    test('should have the correct CSS class', () => {
+      render(<Header />);
+      expect(document.querySelector('.holdings-history-header')).toBeInTheDocument();
+    });
   });
 
-  const renderWithTable = (ui: React.ReactElement) => {
-    return render(<table>{ui}</table>);
-  };
+  describe('styling', () => {
+    test('should apply correct height from config', () => {
+      render(<Header />);
+      const header = document.querySelector('.holdings-history-header') as HTMLElement;
+      
+      expect(header).toHaveStyle({
+        height: '50px',
+      });
+    });
 
-  test('renders thead and YearsRow', () => {
-    renderWithTable(<Header />);
-
-    // thead exists
-    expect(document.querySelector('thead')).toBeInTheDocument();
-    // YearsRow rendered once
-    expect(screen.getByTestId('mock-years-row')).toBeInTheDocument();
+    test('should apply correct border color from config', () => {
+      render(<Header />);
+      const header = document.querySelector('.holdings-history-header') as HTMLElement;
+      
+      expect(header).toHaveStyle({
+        borderColor: '#c0c0c0',
+      });
+    });
   });
 
-  test('renders correct number of header cells with styles', () => {
-    renderWithTable(<Header />);
+  describe('accessibility', () => {
+    test('should render text content that is accessible', () => {
+      render(<Header />);
+      const headerText = screen.getByText('Holdings');
+      expect(headerText).toBeVisible();
+    });
+  });
 
-    const cells = document.querySelectorAll('th.header-cell');
-    expect(cells).toHaveLength(base.numberOfYears);
+  describe('component structure', () => {
+    test('should render as a single div element', () => {
+      const { container } = render(<Header />);
+      expect(container.children).toHaveLength(1);
+      expect(container.firstChild).toHaveClass('holdings-history-header');
+    });
 
-    cells.forEach(cell => {
-      expect(cell).toHaveStyle({ borderColor: '#ddd' });
-      expect(cell).toHaveStyle({ height: '28px' });
+    test('should contain only text content', () => {
+      render(<Header />);
+      const header = document.querySelector('.holdings-history-header');
+      expect(header).toHaveTextContent('Holdings');
+      expect(header?.children).toHaveLength(0); // No child elements, just text
     });
   });
 });

@@ -1,16 +1,22 @@
-import { useEffect, useState } from 'react';
-import MainTable from './components/MainTable';
 import { DateProvider } from './context/DateContext';
-import { LinksDataProvider } from './context/LinksDataProvider';
-import { apiGetLinksData } from './apiMock';
-import { NUMBER_OF_YEARS } from './config';
 import { ModalProvider } from './context/ModalContext';
-import GlobalModal from './components/GlobalModal/GlobalModal';
 import { MessageOverProvider } from './context/MessageOverContext';
-import MessageOver from './components/GlobalMessageOver/MessageOver';
+import { LinksDataProvider } from './context/LinksDataProvider';
+import { FOOTER_HEIGHT, HEADER_HEIGHT, NUMBER_OF_YEARS } from './config';
+import MessageOver from './components/GlobalMessageOver';
+import GlobalModal from './components/GlobalModal/GlobalModal';
+import styles from './HoldingsHistory.module.scss';
+import { useEffect, useState } from 'react';
+import { apiGetLinksData } from './apiMock';
+import MainTable from './components/MainTable';
+import Footer from './components/Footer';
+import Header from './components/Header/Header';
+import SettingsMenu from './components/SettingsMenu';
+import { AttributeSelectionProvider } from './context/AttributeSelecionContext';
 
 const HoldingsHistory = () => {
   const [linksFromApi, setLinksFromApi] = useState<any | null>(null);
+  const [menuHeight, setMenuHeight] = useState<number | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -22,21 +28,41 @@ const HoldingsHistory = () => {
   if (!linksFromApi) return null;
 
   return (
-      <DateProvider todayDate={linksFromApi.today} numberOfYears={NUMBER_OF_YEARS}>
-        <ModalProvider>
-          <MessageOverProvider>
-            <LinksDataProvider linksDataFromApi={linksFromApi.data}>
+    // <div style={{ height: '100%', width: '100%', overflow: 'auto' }}>
+    <DateProvider todayDate={linksFromApi.data.today} numberOfYears={NUMBER_OF_YEARS}>
+      <ModalProvider>
+        <MessageOverProvider>
+          <LinksDataProvider linksDataFromApi={linksFromApi.data.holdings}>
+            <AttributeSelectionProvider>
 
-              {/* <LeftTable /> */}
-              <MainTable />
+            <div style={{ display: 'flex', height: '100%', width: '100%', backgroundColor: 'transparent', boxSizing: 'border-box', overflow: 'hidden' }}>
+              
+              <SettingsMenu  setMenuHeight={setMenuHeight} menuHeight={menuHeight} />
+
+              <div className={styles.holdingsHistoryContainerWrapper} style={{ flex: 1, minWidth: 0, overflow: 'hidden' }}>
+              <div
+                id="holdings-history-container"
+                className={styles.holdingsHistoryContainer}
+                style={{ height: `calc(100% - ${FOOTER_HEIGHT + HEADER_HEIGHT}px)`, backgroundColor: 'white',
+                minHeight: `calc(${menuHeight}px - ${FOOTER_HEIGHT + HEADER_HEIGHT}px)`,
+              }}
+              >
+                <Header />
+                <MainTable />
+                <Footer />
+              </div>
+              </div>
+            </div>
 
               <MessageOver />
               <GlobalModal />
 
-            </LinksDataProvider>
-          </MessageOverProvider>
-        </ModalProvider>
-      </DateProvider>
+            </AttributeSelectionProvider>
+          </LinksDataProvider>
+        </MessageOverProvider>
+      </ModalProvider>
+    </DateProvider>
+    // </div>
   );
 }
 

@@ -1,0 +1,39 @@
+.holdingsHistoryFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid;
+  border-top: 0;
+}
+
+.holdingsHistoryFooterPagination {
+  margin-right: 20px; 
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.holdingsHistoryFooterPaginationSelect {
+  border: 1px solid;
+  padding: 6px;
+  border-radius: 4px;
+  margin-left: 40px;
+}
+
+.holdingsHistoryFooterTotalHoldings {
+  font-size: 15px;
+  margin-bottom: 4px;
+  
+  &Span {
+    font-weight: bold;
+  }
+}
+
+.holdingsHistoryFooterHoldingsPerPage {
+  font-size: 15px;
+  margin: 0 8px 4px 32px;
+}

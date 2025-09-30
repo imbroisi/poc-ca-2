@@ -1,0 +1,20 @@
+@import '../../styles/variables';
+
+.tableContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  border: 1px solid;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.historyText {
+  position: absolute; 
+  z-index: $z-index-overlay;
+  top: $spacing-lg;
+  font-size: $font-size-small;
+  background-color: transparent;
+  text-transform: uppercase;
+  font-weight: 400;
+}

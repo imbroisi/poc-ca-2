@@ -1,0 +1,118 @@
+import { useEffect, useRef } from 'react';
+import { ATTRIBUTE_ITEM_HEIGHT, MAIN_BORDER_COLOR, NUMBER_OF_YEARS, YEAR_CELL_WIDTH_PX } from '../../config';
+import HoldingYearCell from '../Cell';
+import TodayLine from '../TodayLine';
+import YearSeparatorLines from '../YearSeparatorLines';
+import styles from './HoldingsLinks.module.scss';
+import useLinks from '../../hooks/useLinks';
+import { useLinksDataContext } from '../../context/LinksDataProvider';
+
+export interface ContentProps {
+  scrollableColumnRef: React.RefObject<HTMLDivElement> | null;
+  handleScroll: (event: React.UIEvent<HTMLDivElement>) => void;
+  show: boolean[] | null;
+  setScrollableRef?: (element: HTMLDivElement | null) => void;
+}
+
+const HoldingsLinks = ({ scrollableColumnRef, handleScroll, show, setScrollableRef }: ContentProps) => {
+  const { holdingsPerPage, totalHoldings, pageToShow } = useLinksDataContext();
+  const cellsCoord = useRef<any>({});
+  const processLinks = useLinks({ show, cellsCoord });
+
+  const setCellCoord = (holdingIndex: number, attributeIndex: number, drawLinks: any) => {
+
+    if (!cellsCoord.current[holdingIndex]) {
+      cellsCoord.current[holdingIndex] = {};
+    }
+    if (!cellsCoord.current[holdingIndex][attributeIndex]) {
+      cellsCoord.current[holdingIndex][attributeIndex] = {};
+    }
+    cellsCoord.current[holdingIndex][attributeIndex].drawLinks = drawLinks;
+  }
+
+  useEffect(() => {
+    processLinks();
+  }, [processLinks]);
+
+  const totalHoldingsToRender = holdingsPerPage * pageToShow <= totalHoldings
+    ? holdingsPerPage
+    : totalHoldings % holdingsPerPage;
+
+  return (
+    <div
+      ref={setScrollableRef || scrollableColumnRef}
+      onScroll={handleScroll}
+      className={styles.scrollableSection}
+      style={{
+        // Do not move to CSS, as this will cause a delay in vertical scrolling synchronization.
+        overflow: 'auto',
+        // Critical layout styles moved inline for performance
+        flex: 1,
+        // Performance optimizations for smooth scrolling
+        willChange: 'scroll-position',
+        WebkitOverflowScrolling: 'touch',
+      }}>
+      <div style={{ width: `${NUMBER_OF_YEARS * YEAR_CELL_WIDTH_PX}px` }}>
+        <div style={{ height: '30px', backgroundColor: '#f3f3f3', position: 'sticky', top: '0px', zIndex: 99, borderBottom: `1px solid ${MAIN_BORDER_COLOR}`, boxSizing: 'border-box' }}>
+        </div>
+        {/* Header row */}
+        <div className={styles.scrollableHeader}>
+          {Array.from({ length: NUMBER_OF_YEARS }).map((_, colIndex) => (
+            <div
+              key={colIndex}
+              className={styles.headerCell}
+              style={{
+                width: `${YEAR_CELL_WIDTH_PX}px`,
+                borderColor: MAIN_BORDER_COLOR,
+                borderRight: colIndex === NUMBER_OF_YEARS - 1 ? 'none' : `1px solid ${MAIN_BORDER_COLOR}`,
+                borderBottom: `1px solid ${MAIN_BORDER_COLOR}`,
+                backgroundColor: 'white',
+              }}
+            >
+              {colIndex + 2023}
+            </div>
+          ))}
+
+          <TodayLine />
+          <YearSeparatorLines />
+
+        </div>
+        <div style={{ height: '29px', backgroundColor: 'white', position: 'sticky', top: '70px', zIndex: 97, borderBottom: `1px solid ${MAIN_BORDER_COLOR}` }}>
+        </div>
+
+        {/* Table content */}
+        <div
+          className={styles.tableContent}
+          style={{ width: `${NUMBER_OF_YEARS * YEAR_CELL_WIDTH_PX}px`, position: 'relative' }}
+        >
+          {Array.from({ length: totalHoldingsToRender }).map((_, holdingIdex) => (
+            <div
+              key={holdingIdex}
+              className={styles.tableRow}
+              style={{
+                borderColor: MAIN_BORDER_COLOR,
+                height: `${ATTRIBUTE_ITEM_HEIGHT}px`,
+                // Move critical layout styles inline for better performance
+                position: 'relative',
+                display: 'table-row',
+                overflow: 'hidden',
+                // Performance optimizations
+                transition: 'height 0.3s ease-in-out',
+                willChange: 'height',
+                contain: 'layout style',
+              }}>
+              <HoldingYearCell
+                showMe={show === null || show[holdingIdex]}
+                label={`R${holdingIdex + 2}`}
+                holdingIdex={holdingIdex}
+                setCellCoord={setCellCoord}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default HoldingsLinks;

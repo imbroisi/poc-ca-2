@@ -1,0 +1,31 @@
+.fixedColumnTable {
+  display: table;
+  width: 100%;
+}
+
+.fixedColumnCell {
+  display: table-cell;
+  border-bottom: 1px solid;
+  box-sizing: border-box;
+  transition: height 0.3s ease-in-out;
+}
+
+.fixedColumnRow {
+  display: table-row;
+  font-size: 12px;
+
+  &,
+  * {
+    font-weight: 400 !important;
+  }
+}
+
+.attributeEnabled {
+  /* TODO: text/primary */
+  color: #333;
+}
+
+.attributeDisabled {
+  /* TODO: grayscale/light-gray/919191 */
+  color: #919191;
+}

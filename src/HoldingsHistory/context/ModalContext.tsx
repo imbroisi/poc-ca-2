@@ -1,6 +1,6 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import React, { createContext, useContext, useState } from 'react'
-import { disableAllScrolling, enableAllScrolling } from '../utils';
+import { disableAllScrolling, enableAllScrolling } from '../utils/utils';
 
 type ModalContextType = {
   isOpen: boolean;

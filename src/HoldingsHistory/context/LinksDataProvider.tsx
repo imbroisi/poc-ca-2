@@ -1,6 +1,7 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
-import { CELL_HEIGHT_PX, ROWS_BY_PAGE } from '../config';
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react'
+import { ATTRIBUTE_ITEM_HEIGHT, HOLDINGS_PER_PAGE_DEFAULT, TOTAL_ATTRIBUTES } from '../config';
 import { useDateContext } from './DateContext';
+import { ValueLink } from '../types/expandTypes';
 
 export interface LinksDataTypes {
   id: string;
@@ -8,11 +9,16 @@ export interface LinksDataTypes {
   attributeIndex: number;
   firstDayDate: string;
   lastDayDate: string;
+  attributeId: string;
+  holdingId: string;
+  holdingName: string;
+  clientId: string;
+  inceptionDate: string;
+  valueLinks: ValueLink[];
 }
 
 interface LinksDataContextType {
-  // linksData: LinksDataTypes[];
-  totalAttributes: number;
+  totalHoldings: number;
   isEditMode: boolean;
   setIsEditMode: (_: boolean) => void;
   getLinksDataCopy: () => LinksDataTypes[];
@@ -20,12 +26,20 @@ interface LinksDataContextType {
   cellTopPx: (portfolioIndex: number, attributeIndex: number) => number;
   addLink: (lastDayStr: string, firstDayStr: string, cellIndex: number, cellRowIndex: number) => void;
   deleteLink: (linkData: LinksDataTypes) => void;
+  setHoldingsPerPage: (page: number) => void;
+  pageToShow: number;
+  holdingsPerPage: number;
+  setPageToShow: (page: number) => void;
+  getHoldingsFilteredByPage: () => LinksDataTypes[];
 }
 
 interface LinksDataProviderProps {
   children: React.ReactNode;
   linksDataFromApi: any[];
 }
+
+const LOCAL_STORAGE_HOLDINGS_PAGE_KEY = 'holdings-history-holdings-per-page';
+const holdingsPerPageInitial = parseInt(localStorage.getItem(LOCAL_STORAGE_HOLDINGS_PAGE_KEY) || HOLDINGS_PER_PAGE_DEFAULT.toString());
 
 const LinksDataContext = createContext<LinksDataContextType | undefined>(undefined)
 
@@ -35,7 +49,10 @@ export const LinksDataProvider = ({
 }: LinksDataProviderProps) => {
   const [isEditMode, setIsEditMode] = useState(true);
   const [linksData, setLinksData] = useState<any[]>([]);
+  const [pageToShow, setPageToShow] = useState(1);
+  const [holdingsPerPage, setHoldingsPerPage] = useState(holdingsPerPageInitial);
   const dateCtx = useDateContext();
+  const totalHoldings = useRef(0);
   const getNDaysBefore = dateCtx?.getNDaysBefore ?? ((date: string, n: number) => {
     const d = new Date(date);
     d.setUTCDate(d.getUTCDate() - n);
@@ -45,23 +62,17 @@ export const LinksDataProvider = ({
   useEffect(() => {
     // TODO: format links data from api response to LinksDataTypes
     setLinksData(linksDataFromApi);
+    totalHoldings.current = linksDataFromApi.length;
+
   }, [linksDataFromApi]);
 
-  // const linksData = linksDataFromApi;
-  // TODO: replace by the real total attributes (maybe from api response)
-  const totalAttributes = 7;
-
-  const getLinksDataCopy = () => (
-    // returns a safe copy of linksData
-    linksData.map((linkData) => ({ ...linkData }))
-  );
-
-  // console.log("1009) ===>>> linksData =", linksData);
+  const getLinksDataCopy = () => {
+    return linksData.map((linkData) => ({ ...linkData }));
+  };
 
   const addLink = (lastDayDate: string, firstDayDate: string, attributeIndex: number, portfolioIndex: number) => {
-    // console.log("1008) ===>>> addLink =", lastDayDate, firstDayDate, attributeIndex, portfolioIndex);
     setLinksData((prev) => [
-      ...prev, 
+      ...prev,
       {
         portfolioIndex,
         attributeIndex,
@@ -74,7 +85,7 @@ export const LinksDataProvider = ({
     const linksDataCopy = [...linksData];
 
     // delete linkDataToDelete from linksData
-    const deleteIndex = linksDataCopy.findIndex(link => 
+    const deleteIndex = linksDataCopy.findIndex(link =>
       link.portfolioIndex === linkDataToDelete.portfolioIndex &&
       link.attributeIndex === linkDataToDelete.attributeIndex &&
       link.firstDayDate === linkDataToDelete.firstDayDate
@@ -86,7 +97,7 @@ export const LinksDataProvider = ({
 
     // adjust size of previous link
     const lastDayDateBefore = getNDaysBefore(linkDataToDelete.firstDayDate, 1);
-    const previousLink = linksDataCopy.find(link => 
+    const previousLink = linksDataCopy.find(link =>
       link.portfolioIndex === linkDataToDelete.portfolioIndex &&
       link.attributeIndex === linkDataToDelete.attributeIndex &&
       link.lastDayDate === lastDayDateBefore
@@ -99,16 +110,37 @@ export const LinksDataProvider = ({
     setLinksData(linksDataCopy);
   }
 
-  const rowsToRender = (totalAttributes + 1) * Math.ceil(ROWS_BY_PAGE / (totalAttributes + 1));
+  const getHoldingsFilteredByPage = () => {
+    const holdingsPerPageToUse = holdingsPerPage === -1 ? totalHoldings.current : holdingsPerPage;
+    return linksData.slice((pageToShow - 1) * holdingsPerPageToUse, pageToShow * holdingsPerPageToUse);
+  }
 
-  const cellTopPx = (portfolioIndex: number, attributeIndex: number): number => { return CELL_HEIGHT_PX + 2 + (CELL_HEIGHT_PX + 1) * ((1 + totalAttributes) * portfolioIndex + attributeIndex) };
+  const rowsToRender = (TOTAL_ATTRIBUTES + 1) * Math.ceil(HOLDINGS_PER_PAGE_DEFAULT / (TOTAL_ATTRIBUTES + 1));
+
+  const cellTopPx = (portfolioIndex: number, attributeIndex: number): number => { return ATTRIBUTE_ITEM_HEIGHT + 2 + (ATTRIBUTE_ITEM_HEIGHT + 1) * ((1 + TOTAL_ATTRIBUTES) * portfolioIndex + attributeIndex) };
+
+  const setHoldingsPerPageFn = (page: number) => {
+    setHoldingsPerPage(page);
+
+    localStorage.setItem(LOCAL_STORAGE_HOLDINGS_PAGE_KEY,
+      (page === Infinity ? HOLDINGS_PER_PAGE_DEFAULT : page).toString());
+
+    // Reset to first page when changing holdings per page
+    setPageToShow(1);
+  }
+
 
   return (
     <LinksDataContext.Provider value={{
       cellTopPx,
       getLinksDataCopy,
+      getHoldingsFilteredByPage,
+      holdingsPerPage,
       rowsToRender,
-      totalAttributes,
+      totalHoldings: totalHoldings.current,
+      pageToShow,
+      setPageToShow,
+      setHoldingsPerPage: setHoldingsPerPageFn,
       isEditMode,
       setIsEditMode,
       addLink,

@@ -86,11 +86,18 @@ describe('MessageOverContext', () => {
   });
 
   test('throws when used outside provider', () => {
+    // Suppress console errors for this expected error test
+    const originalError = console.error;
+    console.error = jest.fn();
+    
     const Outside = () => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       expect(() => useMessageOverContext()).toThrow('useModal must be used within a ModalProvider');
       return null;
     };
     render(<Outside />);
+    
+    // Restore console.error
+    console.error = originalError;
   });
 });

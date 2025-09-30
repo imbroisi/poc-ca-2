@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
-import './MessageOver.css';
-import { disableAllScrolling, enableAllScrolling } from '../../utils';
+import styles from './MessageOver.module.scss';
+import { disableAllScrolling, enableAllScrolling } from '../../utils/utils';
 import { useMessageOverContext } from '../../context/MessageOverContext';
 
 const MessageOver = (
@@ -60,11 +60,11 @@ const MessageOver = (
   return (
     <div
       ref={ref}
-      className="message-over-container"
+      className={styles.messageOverContainer}
       style={{ 
         top: position[1], 
         left: position[0],
-        opacity: opacity,
+        opacity,
       }}
       onMouseDown={(e) => {
         e.stopPropagation();

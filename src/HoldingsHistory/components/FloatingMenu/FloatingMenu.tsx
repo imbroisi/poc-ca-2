@@ -3,7 +3,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import DeleteIcon from '@mui/icons-material/Delete';
 import InfoIcon from '@mui/icons-material/Info';
-import './FloatingMenu.css';
+import styles from './FloatingMenu.module.scss';
 
 // TODO
 // import EditIcon from '@mui/icons-material/Edit';
@@ -57,7 +57,7 @@ export default function FloatingMenu({
   };
 
   return (
-    <div className="context-menu-container" onClick={handleFloatingMenu}>
+    <div className={styles.contextMenuContainer} onClick={handleFloatingMenu}>
       {children}
       <Menu
         open={floatingMenu !== null}
@@ -69,9 +69,9 @@ export default function FloatingMenu({
             : undefined
         }
       >
-        <MenuItem className="context-menu-item" onClick={handleInfo}>
-          <InfoIcon className="context-menu-item-icon" />
-          <div className="context-menu-item-text">
+        <MenuItem onClick={handleInfo}>
+          <InfoIcon className={styles.contextMenuItemIcon} />
+          <div className={styles.contextMenuItemText}>
             Info
           </div>
         </MenuItem>
@@ -88,9 +88,9 @@ export default function FloatingMenu({
             Edit start date
           </div>
         </MenuItem> */}
-        <MenuItem className="context-menu-item" onClick={handleDelete}>
-          <DeleteIcon className="context-menu-item-icon" />
-          <div className="context-menu-item-text">
+        <MenuItem onClick={handleDelete}>
+          <DeleteIcon className={styles.contextMenuItemIcon} />
+          <div className={styles.contextMenuItemText}>
             Delete
           </div>
         </MenuItem>
